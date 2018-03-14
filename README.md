@@ -34,6 +34,10 @@ taco taxclass A.txt B.txt \
     --do-this --not-that
 ```
 
+Note that the [argparse](https://docs.python.org/3/library/argparse.html) 
+library is able to handle this case just fine. When a subcommand has 
+no flags, argparse interprets that as meaning the argument is required.
+
 ### All Flags
 
 An alternative method would be to pass flags
@@ -53,6 +57,11 @@ taco --do-taxclass --do-sequence-trimming --do-annotations \
         --nrounds=100
 ```
 
+The [argparse](https://docs.python.org/3/library/argparse.html) 
+library provides a nice way to create a sophisticated command line interface.
+
+The [argcomplete](https://github.com/kislyuk/argcomplete) library
+provides bash completion that integrates with Python and argparse.
 
 ### Helpful Output
 
