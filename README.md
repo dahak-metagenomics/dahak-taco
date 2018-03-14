@@ -2,7 +2,7 @@
 
 taco is a command line interface for dahak workflows. 
 
-Pick your ingredients and dig in!
+taco is experimental and may eventually wrap the Snakemake file contained in [dahak-flot](https://github.com/charlesreid1/dahak-flot)
 
 ```
               _            _                _     
