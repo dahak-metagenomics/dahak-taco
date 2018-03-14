@@ -1,8 +1,6 @@
 # dahak-taco
 
-taco is a command line interface for dahak workflows. 
-
-taco is experimental and may eventually wrap the Snakemake file contained in [dahak-flot](https://github.com/charlesreid1/dahak-flot)
+taco is an experimental command line interface for dahak workflows. It may eventually wrap the Snakemake files contained in [dahak-flot](https://github.com/charlesreid1/dahak-flot).
 
 ```
               _            _                _     
