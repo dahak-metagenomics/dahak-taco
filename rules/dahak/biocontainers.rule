@@ -1,0 +1,35 @@
+include: "biocontainers.settings"
+# 
+# needs, but does not set, 
+# data_dir
+#
+from os.path import join
+
+data_dir = config['data_dir']
+
+# Assemble quay.io URLs for biocontainers
+quayurls = []
+biocontainers = config['biocontainers']
+for k in biocontainers.keys():
+    if(type(biocontainers[k])==type({})):
+        try:
+            qurl  = biocontainers[k]['quayurl']
+            qvers = biocontainers[k]['version']
+            quayurls.append(qurl + ":" + qvers)
+        except KeyError:
+            continue
+
+rule pull_biocontainers:
+    """
+    - Pull the latest version of sourmash, kaiju, and krona
+    - Version numbers are set in biocontainers.settings
+    - To call this rule, ask for the file .pulled_containers
+    """
+    output:
+        touch(join(data_dir,'.pulled_containers'))
+    run:
+        for quayurl in quayurls:
+            shell('''
+            docker pull {quayurl}
+            ''')
+

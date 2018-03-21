@@ -1,0 +1,22 @@
+from snakemake.utils import update_config
+
+config_default = {
+    'biocontainers' : {
+        'sourmash' : {
+            'quayurl' : 'quay.io/biocontainers/sourmash',
+            'version' : '2.0.0a3--py36_0'
+        },
+        'kaiju' : {
+            'quayurl' : 'quay.io/biocontainers/kaiju',
+            'version' : '1.6.1--pl5.22.0_0'
+        },
+        'krona' : {
+            'quayurl' : 'quay.io/biocontainers/krona',
+            'version' : '2.7--pl5.22.0_1'
+        }
+    }
+}
+
+update_config(config_default, config)
+config = config_default
+
