@@ -1,0 +1,9 @@
+from snakemake.utils import update_config
+
+config_default = {
+    'krona_visualization' : {}
+}
+
+update_config(config_default, config)
+config = config_default
+
