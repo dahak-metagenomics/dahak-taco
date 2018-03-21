@@ -1,0 +1,73 @@
+include: "calculate_signatures.settings"
+include: "kaiju.settings"
+
+# this requires the following parameters:
+# base, ntrim
+#
+# TODO:
+# This could also use some generalization...
+
+data_dir = config['data_dir']
+
+kaiju_dmp1 = config['kaiju']['dmp1']
+kaiju_dmp2 = config['kaiju']['dmp2']
+kaiju_fmi  = config['kaiju']['fmi']
+kaiju_tar  = config['kaiju']['tar']
+kaiju_url  = config['kaiju']['url']
+
+unpack_kaiju_input = HTTP.remote(kaiju_url)
+unpack_kaiju_output = [kaiju_dmp, kaiju_dmp2, kaiju_fmi]
+
+rule unpack_kaiju:
+    """
+    Download and unpack the kaiju database.
+    """
+    input:
+        unpack_kaiju_input
+    output:
+        unpack_kaiju_output
+    shell:
+        '''
+        (
+        cd data_dir
+        curl -LO "{kaiju_url}/{kaiju_tar}"
+        tar xzf {kaiju_tar}
+        rm -f {kaiju_tar}
+        )
+        '''
+
+fq_fwd = config['calculate_signatures']['fq_fwd']
+fq_rev = config['calculate_signatures']['fq_rev']
+run_kaiju_input = [kaiju_dmp, kaiju_fmi]
+run_kaiju_input += [fq_fwd, fq_rev]
+run_kaiju_output = config['kaiju']['out']
+
+quayurl = config['kaiju']['quayurl'] + ":" + config['kaiju']['version']
+
+rule run_kaiju:
+    """
+    Run kaiju
+    """
+    input:
+        expand( join(data_dir,"{infile}"), infile = run_kaiju_input)
+    output:
+        expand( join(data_dir,"{outfile}"), outfile = run_kaiju_output)
+    run:
+        fq_fwd_wc = fq_fwd.format(**wildcards)
+        fq_rev_wc = fq_rev.format(**wildcards)
+        run_kaiju_output_wc = run_kaiju_output.format(**wildcards)
+        shell('''
+            docker run \
+                    -v {PWD}/{data_dir}:/data \
+                    {quayurl} \
+                    kaiju \
+                    -x \
+                    -v \
+                    -t /data/{kaiju_dmp} \
+                    -f /data/{kaiju_fmi} \
+                    -i /data/{fq_fwd_wc} \
+                    -j /data/{fq_rev_wc} \
+                    -o /data/{run_kaiju_output_wc} \
+                    -z 4
+        ''')
+

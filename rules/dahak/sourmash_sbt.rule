@@ -1,13 +1,15 @@
 include "sourmash_sbt.settings"
-#
+
 # needs, but does not set, 
 # database, ksize, data_dir
-#
+
 from os.path import join
 from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
 HTTP = HTTPRemoteProvider()
 
+data_dir = config['data_dir']
 sourmash_sbt_tar = config['sourmash']['sbttar']
+
 download_sourmash_sbt_input = HTTP.remote(config['sourmash']['sbturl']+"/" + sourmash_sbt_tar)
 download_sourmash_sbt_output = join(data_dir,sourmash_sbt_tar)
 
@@ -24,9 +26,8 @@ rule download_sourmash_sbts:
         download_sourmash_sbt_output
     shell:
         '''
-        curl -O {input[1]}
+        wget -O {output} {input[1]}
         '''
-
 
 unpack_sourmash_sbt_input = join(data_dir,config['sourmash']['sbttar'])
 unpack_sourmash_sbt_output = join(data_dir,config['sourmash']['sbtunpack'])

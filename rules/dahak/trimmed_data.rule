@@ -1,0 +1,45 @@
+include: "trimmed_data.settings"
+
+# needs, but does not set, 
+# data_dir
+#
+# these files will predetermine 
+# available values of k/etc
+
+import re
+from os.path import join
+from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
+HTTP = HTTPRemoteProvider()
+
+# trimmed data file name and OSF url
+# come from trimmed_data.settings.
+# incorporate OSF CLI here -
+# user should just need project id.
+
+for filename in config['trimmed_data'].keys():
+    trimmed_data_files.append(filename)
+    trimmed_data_urls.append(config['trimmed_data'][filename])
+
+def join_trimmed_data():
+    return expand(join(data_dir,"{trimmed}"), 
+            trimmed = trimmed_data_files)
+
+rule download_trimmed_data:
+    """
+    Download the trimmed data from OSF
+
+    To call this rule, request the files listed in trimmed_data.dat
+    """
+    input:
+        HTTP.remote(expand("{url}", url=list(config['trimmed_data'].values())), keep_local=True)
+    output:
+        join_trimmed_data, 
+        touch(join(data_dir,'.trimmed'))
+    run:
+        for (osf_file,osf_url) in zip(trimmed_data_files,trimmed_data_urls):
+            osf_file = join(data_dir, osf_file)
+            if(not os.path.isfile(osf_file)):
+                shell('''
+                    wget -O {osf_file} {osf_url}
+                ''')
+

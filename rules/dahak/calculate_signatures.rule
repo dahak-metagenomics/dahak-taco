@@ -1,0 +1,66 @@
+include: "calculate_signatures.settings"
+
+# TODO:
+# This could use some generalization.
+# Some of the sourmash parameters
+# should probably come from config 
+# instead of being hard-coded.
+# 
+# Parameterize:
+# - scale (10k in filename hard-coded)
+# - k (21, 31, 51 in filename hard-coded)
+# 
+# ks = [21,31,51]
+# ",".join(ks)
+# "_".join(ks)
+
+data_dir = config['data_dir']
+
+
+
+
+
+
+# Here, we prefix files with data_dir because these are 
+# the files that Snakemake's task graph will look for
+
+sig_inputs  = [join(data_dir, config['calculate_signatures']['fq_fwd']), 
+               join(data_dir, config['calculate_signatures']['fq_rev'])]
+sig_output   = join(data_dir, config['calculate_signatures']['sig_name'])
+merge_output = join(data_dir, config['calculate_signatures']['merge_file'])
+
+quayurl = config['biocontainers']['sourmash']['quayurl']+":"+config['biocontainers']['sourmash']['version']
+
+rule calculate_signatures:
+    """
+    Calculate signatures from trimmed data using sourmash
+    """
+    input:
+        sig_inputs
+    output:
+        sig_output, merge_output
+    run:
+        # Here, we do not prefix files with data_dir 
+        # b/c docker will mount the data dir to /data
+
+        fq_fwd_wc     = config['calculate_signatures']['fq_fwd'].format(**wildcards)
+        fq_rev_wc     = config['calculate_signatures']['fq_rev'].format(**wildcards)
+        sig_name_wc   = config['calculate_signatures']['sig_name'].format(**wildcards)
+        merge_file_wc = config['calculate_signatures']['merge_file'].format(**widcards)
+        kvalues_fname = '_'.join(config['calculate_signatures']['kvalues'])
+        kvalues_cmd   = ','.join(config['calculate_signatures']['kvalues'])
+        scale         = config['calculate_signatures']['scale']
+        shell('''
+            docker run \
+                    -v {PWD}/{data_dir}:/data \
+                    {quayurl} \
+                    sourmash compute \
+                    --merge /data/{merge_file_wc} \
+                    --track-abundance \
+                    --scaled {scale} \
+                    -k {kvalues_cmd} \
+                    /data/{fq_fwd_wc} \
+                    /data/{fq_rev_wc} \
+                    -o /data/{sig_name_wc}
+        ''')
+

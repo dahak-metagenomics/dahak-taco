@@ -1,13 +1,13 @@
 include: "biocontainers.settings"
-# 
+
 # needs, but does not set, 
 # data_dir
-#
+
 from os.path import join
 
 data_dir = config['data_dir']
 
-# Assemble quay.io URLs for biocontainers
+# assemble quay.io URLs for biocontainers
 quayurls = []
 biocontainers = config['biocontainers']
 for k in biocontainers.keys():
