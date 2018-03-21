@@ -1,25 +1,6 @@
 include: "calculate_signatures.settings"
 
-# TODO:
-# This could use some generalization.
-# Some of the sourmash parameters
-# should probably come from config 
-# instead of being hard-coded.
-# 
-# Parameterize:
-# - scale (10k in filename hard-coded)
-# - k (21, 31, 51 in filename hard-coded)
-# 
-# ks = [21,31,51]
-# ",".join(ks)
-# "_".join(ks)
-
 data_dir = config['data_dir']
-
-
-
-
-
 
 # Here, we prefix files with data_dir because these are 
 # the files that Snakemake's task graph will look for
