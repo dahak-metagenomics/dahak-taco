@@ -1,4 +1,4 @@
-include "sourmash_sbt.settings"
+include: "sourmash_sbt.settings"
 
 # needs, but does not set, 
 # database, ksize, data_dir
