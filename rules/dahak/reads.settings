@@ -1,0 +1,12 @@
+from snakemake.utils import update_config
+
+config_default = {
+    'reads' : {
+        'fq_fwd'     : '{base}_1.trim{ntrim}.fq.gz',
+        'fq_rev'     : '{base}_2.trim{ntrim}.fq.gz',
+    }
+}
+
+update_config(config_default, config)
+config = config_default
+

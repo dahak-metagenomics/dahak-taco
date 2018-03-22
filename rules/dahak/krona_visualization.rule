@@ -1,4 +1,5 @@
-include: "krona_viz.settings"
+include: "biocontainers.settings"
+include: "krona_visualization.settings"
 
 # this needs but does not set the following parameters:
 # base, ntrim, data_dir
@@ -10,7 +11,7 @@ visualize_krona_output_name = '{base}.kaiju_output.trim{ntrim}.{suffix}.html'
 visualize_krona_input  = join(data_dir, visualize_krona_input_name)
 visualize_krona_output = join(data_dir, visualize_krona_output_name)
 
-quayurl = config['krona']['quayurl'] + ":" + config['krona']['version']
+quayurl = config['biocontainers']['krona']['quayurl'] + ":" + config['biocontainers']['krona']['version']
 
 rule visualize_krona:
     """

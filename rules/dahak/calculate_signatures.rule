@@ -1,3 +1,4 @@
+include: "reads.settings"
 include: "calculate_signatures.settings"
 
 data_dir = config['data_dir']
@@ -5,8 +6,8 @@ data_dir = config['data_dir']
 # Here, we prefix files with data_dir because these are 
 # the files that Snakemake's task graph will look for
 
-sig_inputs  = [join(data_dir, config['calculate_signatures']['fq_fwd']), 
-               join(data_dir, config['calculate_signatures']['fq_rev'])]
+sig_inputs  = [join(data_dir, config['reads']['fq_fwd']), 
+               join(data_dir, config['reads']['fq_rev'])]
 sig_output   = join(data_dir, config['calculate_signatures']['sig_name'])
 merge_output = join(data_dir, config['calculate_signatures']['merge_file'])
 
@@ -24,8 +25,8 @@ rule calculate_signatures:
         # Here, we do not prefix files with data_dir 
         # b/c docker will mount the data dir to /data
 
-        fq_fwd_wc     = config['calculate_signatures']['fq_fwd'].format(**wildcards)
-        fq_rev_wc     = config['calculate_signatures']['fq_rev'].format(**wildcards)
+        fq_fwd_wc     = config['reads']['fq_fwd'].format(**wildcards)
+        fq_rev_wc     = config['reads']['fq_rev'].format(**wildcards)
         sig_name_wc   = config['calculate_signatures']['sig_name'].format(**wildcards)
         merge_file_wc = config['calculate_signatures']['merge_file'].format(**widcards)
         kvalues_fname = '_'.join(config['calculate_signatures']['kvalues'])

@@ -18,6 +18,8 @@ data_dir = config['data_dir']
 # incorporate OSF CLI here -
 # user should just need project id.
 
+trimmed_data_files=[]
+trimmed_data_urls=[]
 for filename in config['trimmed_data'].keys():
     trimmed_data_files.append( join(data_dir, filename) )
     trimmed_data_urls.append(config['trimmed_data'][filename])

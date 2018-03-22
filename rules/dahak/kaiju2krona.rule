@@ -13,7 +13,7 @@ kaiju_fmi    = config['kaiju']['fmi']
 # name of kaiju output determines name of kaiju2krona input
 run_kaiju_output = config['kaiju']['out']
 
-quayurl = config['kaiju']['quayurl'] + ":" + config['kaiju']['version']
+quayurl = config['biocontainers']['kaiju']['quayurl'] + ":" + config['biocontainers']['kaiju']['version']
 
 
 # ---

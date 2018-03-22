@@ -75,7 +75,6 @@ def main(args):
     print('\ttarget: {}'.format(target))
     print('--------')
 
-    # run!!
     status = snakemake.snakemake(snakefile, 
                                  configfile=paramsfile,
                                  targets=[target], 
@@ -90,6 +89,13 @@ def main(args):
 
 
 if __name__ == '__main__':
+
+    # TODO:
+    # add a list of common rules to the output
+    # mention where to look for full list of rules
+    # add command line option to change options shared by all rules
+    # expain how to change other rules/settings
+
     parser = argparse.ArgumentParser(description='taco: the experimental dahak cli', usage='''taco <workflow> <parameters> [<target>]
 
 taco is an experimental dahak cli that runs dahak workflows.

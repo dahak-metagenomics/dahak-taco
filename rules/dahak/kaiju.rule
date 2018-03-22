@@ -1,4 +1,5 @@
-include: "calculate_signatures.settings"
+include: "reads.settings"
+include: "biocontainers.settings"
 include: "kaiju.settings"
 
 # this needs but does not set the following parameters:
@@ -34,13 +35,13 @@ rule unpack_kaiju:
         rm -f {kaiju_target}
         '''
 
-fq_fwd = join(data_dir, config['calculate_signatures']['fq_fwd'])
-fq_rev = join(data_dir, config['calculate_signatures']['fq_rev'])
+fq_fwd = join(data_dir, config['reads']['fq_fwd'])
+fq_rev = join(data_dir, config['reads']['fq_rev'])
 run_kaiju_input = [kaiju_dmp1, kaiju_dmp2, kaiju_fmi]
 run_kaiju_input += [fq_fwd, fq_rev]
 run_kaiju_output = join(data_dir, config['kaiju']['out'])
 
-quayurl = config['kaiju']['quayurl'] + ":" + config['kaiju']['version']
+quayurl = config['biocontainers']['kaiju']['quayurl'] + ":" + config['biocontainers']['kaiju']['version']
 
 rule run_kaiju:
     """
