@@ -95,3 +95,11 @@ docker pull commands, and does
 not require setting any input or 
 output files. 
 
+Note that you can also put your 
+workflow files in a separate directory,
+e.g., in the `configs/` directory:
+
+```
+$ ./taco configs/test-workflow.json configs/test-params.json
+```
+

@@ -12,17 +12,21 @@ which contains parameter values.
 For example, to run the `pull_biocontainers` rule,
 define the workflow file:
 
+**`test-workflow.json:`**
+
 ```
 {
     "workflow_target" : "pull_biocontainers"
 }
 ```
 
-$adjust any parameters in the parameter JSON file
-(also see `.settings` files in `rules/` subdirectory):
+Adjust any parameters in the parameter JSON file
+(see the `.settings` files in `rules/` subdirectory):
+
+**`test-params.json:`**
 
 ```
-config = {
+{
     'biocontainers' : {
         'sourmash' : {
             'version' : '2.0.0a2--py36_0'
@@ -37,13 +41,7 @@ Then run them via taco:
 ./taco test-workflow test-params
 ```
 
+## Documentation
 
-
-import snakemake
-ModuleNotFoundError: No module named 'snakemake'
-
-
-
-
-
+To get started, see the [docs/](/docs/) directory.
 
