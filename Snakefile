@@ -15,3 +15,4 @@ include: join(SNAKEMAKE_RULES_PATH, "dahak/kaiju.rule")
 include: join(SNAKEMAKE_RULES_PATH, "dahak/kaiju2krona.rule")
 include: join(SNAKEMAKE_RULES_PATH, "dahak/filter_taxa.rule")
 include: join(SNAKEMAKE_RULES_PATH, "dahak/krona_visualization.rule")
+

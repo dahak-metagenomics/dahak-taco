@@ -30,7 +30,13 @@ def main(args):
 
     # Workflow file should be next arg
     workflowfile = None
-    if os.path.exists(args.workflowfile) and not os.path.isdir(args.workflowfile):
+    if(args.workflowfile=='ls'):
+        # This is a hack
+        status = snakemake.snakemake(snakefile, 
+                    list_target_rules=True)
+        return 0
+
+    elif os.path.exists(args.workflowfile) and not os.path.isdir(args.workflowfile):
         workflowfile = args.workflowfile
     else:
         for suffix in ('', '.json'):
@@ -101,6 +107,8 @@ if __name__ == '__main__':
 taco is an experimental dahak cli that runs dahak workflows.
 It uses a user-provided workflow config file and parameter file.
 
+https://charlesreid1.github.io/dahak-taco/
+
 The <workflow> and <parameters> arguments should specify 
 names of JSON files in the current directory, sans ".json" extension.
 
@@ -108,8 +116,16 @@ To get help, run ./taco --help
 
 \r\r''')
 
+    # We provide the user with a "taco ls" command
+    # by making "paramsfile" optional,
+    # and checking if "workflowfile" is "ls".
+    #
+    # This hack is acceptable for this one subcommand,
+    # but if we want to add more subcommands, we should
+    # create multiple parsers like civilized people.
+    #
     parser.add_argument('workflowfile', help="""To specify a workflow, create a JSON file containing the name of the Snakemake rules you wish to run.""")
-    parser.add_argument('paramsfile', help="""Specify parameters using a JSON file, and pass the name of the JSON file.""")
+    parser.add_argument('paramsfile', help="""Specify parameters using a JSON file, and pass the name of the JSON file.""", nargs='*')
     parser.add_argument('-n', '--dry-run', action='store_true')
     args = parser.parse_args()
 
