@@ -20,8 +20,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'dahak-taco'
-copyright = '2018, Charles Reid'
-author = 'Charles Reid'
+copyright = '2018'
+author = ''
 
 # The short X.Y version
 version = ''
@@ -46,10 +46,11 @@ extensions = [
 templates_path = ['_templates']
 
 # The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
-#
-# source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+
+source_parsers = {
+   '.md': 'recommonmark.parser.CommonMarkParser'
+}
+source_suffix = ['.rst','.md']
 
 # The master toctree document.
 master_doc = 'index'
@@ -75,7 +76,8 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+#html_theme = 'alabaster'
+html_theme = 'haiku'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -137,7 +139,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'dahak-taco.tex', 'dahak-taco Documentation',
-     'Charles Reid', 'manual'),
+     '', 'manual'),
 ]
 
 
