@@ -1,6 +1,6 @@
-==================
-dahak-taco
-==================
+=========================
+Introduction: dahak-taco
+=========================
 
 dahak-taco is an experimental 
 command line interface for 
