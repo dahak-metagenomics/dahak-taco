@@ -15,7 +15,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Walkthrough: Taxonomic Classification" href="taxclass.html" />
+    <link rel="next" title="How Taco Works" href="howitworks.html" />
     <link rel="prev" title="dahak-taco documentation" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -32,46 +32,57 @@
           <div class="body" role="main">
             
   <div class="section" id="introduction-dahak-taco">
-<h1>Introduction: dahak-taco<a class="headerlink" href="#introduction-dahak-taco" title="Permalink to this headline">¶</a></h1>
+<span id="introduction-dahak-taco"></span><h1>Introduction: dahak-taco<a class="headerlink" href="#introduction-dahak-taco" title="Permalink to this headline">¶</a></h1>
 <p>dahak-taco is an experimental
 command line interface for
 running dahak workflows.</p>
 <div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<span id="installation"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>dahak-taco is an executable script
 that requires Conda, Snakemake,
 and (optionally) Singularity to run.</p>
 <p>Installation scripts for software needed
-for dahak-taco are in the <cite>scripts/</cite> folder.</p>
+for dahak-taco are in the <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> folder:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls scripts/
+install_pyenv.py
+install_singularity.py
+install_snakemake.py
+</pre></div>
 </div>
-<div class="section" id="command-line-quick-start">
-<h2>Command-Line Quick Start<a class="headerlink" href="#command-line-quick-start" title="Permalink to this headline">¶</a></h2>
-<p>To get started with dahak-taco,
-you will need to provide a workflow
-configuration file and a parameters file.</p>
-<p>The workflow configuration file
-will specify what task to perform
-on which files. The parameters
-file specifies values to use
-for various workflow parameters.</p>
-<p>Both files are JSON files.</p>
+</div>
+<div class="section" id="quick-start">
+<span id="quick-start"></span><h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
+<p>To use dahak-taco, you need two things:</p>
+<ul class="simple">
+<li>Workflow configuration file - specifies the workflow rules
+to run and the names of the target input and output files.</li>
+<li>Workflow parameters file - specifies values for
+workflow parameters. Parmaeters set in this
+parameters file will override parameters set
+in the <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.settings</span></code> files.</li>
+</ul>
+<p>These files are both JSON files.</p>
+<p>The configuration file must specify
+a value for the key <code class="docutils literal notranslate"><span class="pre">workflow_target</span></code>,
+and the value must be a defined
+Snakemake rule.</p>
 <div class="section" id="example-workflow-configuration-file">
-<h3>Example workflow configuration file<a class="headerlink" href="#example-workflow-configuration-file" title="Permalink to this headline">¶</a></h3>
+<span id="example-workflow-configuration-file"></span><h3>Example workflow configuration file<a class="headerlink" href="#example-workflow-configuration-file" title="Permalink to this headline">¶</a></h3>
 <p>Here is a simple example of a workflow
 configuration file that pulls containers
-from a URL (no output filenames involved)::</p>
+from a URL (no output filenames involved):::</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;workflow_target&quot;</span> <span class="p">:</span> <span class="s2">&quot;pull_biocontainers&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>This is stored in <code class="docutils literal notranslate"><span class="pre">my-workflow.son</span></code></p>
+<p>This is stored in <code class="docutils literal notranslate"><span class="pre">test-workflow.json</span></code>.</p>
 </div>
 <div class="section" id="example-parameters-file">
-<h3>Example parameters file<a class="headerlink" href="#example-parameters-file" title="Permalink to this headline">¶</a></h3>
+<span id="example-parameters-file"></span><h3>Example parameters file<a class="headerlink" href="#example-parameters-file" title="Permalink to this headline">¶</a></h3>
 <p>Here is a simple parameters file that adjusts
 the version of one of the containers being
-pulled in the workflow task defined above::</p>
+pulled in the workflow task defined above:::</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;biocontainers&quot;</span> <span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;sourmash&quot;</span> <span class="p">:</span> <span class="s2">&quot;2.0.0a2--py36_0&quot;</span>
@@ -79,22 +90,47 @@ pulled in the workflow task defined above::</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>This is stored in <code class="docutils literal notranslate"><span class="pre">my-params.json</span></code></p>
+<p>(Note that this overrides the default
+sourmash version of <code class="docutils literal notranslate"><span class="pre">2.0.0a3--py36_0</span></code>
+defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/biocontainers.settings</span></code>.</p>
+<p>This is stored in <code class="docutils literal notranslate"><span class="pre">test-params.json</span></code>.</p>
 </div>
-<div class="section" id="performing-a-task">
-<h3>Performing a task<a class="headerlink" href="#performing-a-task" title="Permalink to this headline">¶</a></h3>
-<p>To perform the workflow task using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco my-workflow my-params
+<div class="section" id="run-taco">
+<span id="run-taco"></span><h3>Run taco<a class="headerlink" href="#run-taco" title="Permalink to this headline">¶</a></h3>
+<p>Now that we have our two JSON config files
+in <code class="docutils literal notranslate"><span class="pre">test-workflow.json</span></code> and <code class="docutils literal notranslate"><span class="pre">test-params.json</span></code>,
+we are ready to run the test workflow.</p>
+<p>Start with a dry run using the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">taco</span> <span class="o">-</span><span class="n">n</span> <span class="n">test</span><span class="o">-</span><span class="n">workflow</span> <span class="n">test</span><span class="o">-</span><span class="n">params</span>
 </pre></div>
 </div>
+<p>and the real thing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">taco</span> <span class="n">test</span><span class="o">-</span><span class="n">workflow</span> <span class="n">test</span><span class="o">-</span><span class="n">params</span>
+</pre></div>
 </div>
-<div class="section" id="overriding-parameters">
-<h3>Overriding parameters<a class="headerlink" href="#overriding-parameters" title="Permalink to this headline">¶</a></h3>
-<p>We implement command line arguments
-for the most common parameters,
-but full access requires using
-the parameters JSON file.</p>
+<p>This test workflow performs
+docker pull commands, and does
+not require setting any input or
+output files.</p>
 </div>
+</div>
+<div class="section" id="the-design-of-dahak-taco">
+<span id="the-design-of-dahak-taco"></span><h2>The Design of dahak-taco<a class="headerlink" href="#the-design-of-dahak-taco" title="Permalink to this headline">¶</a></h2>
+<p>The dahak-taco command line utility
+is intended to implement a lightweight
+and simple wrapper around Snakemake tasks.</p>
+<p>We use the settings files to define
+sets of default parameters,
+while also allowing the user
+to override parameter values
+with their own values in
+parameter JSON files.</p>
+<p>The most common options (may/will)
+also have convenience methods
+to set them from the command line,
+but in general these parameters
+will be set in the parameter
+JSON file.</p>
 </div>
 </div>
 
@@ -108,13 +144,13 @@ the parameters JSON file.</p>
   <ul>
 <li><a class="reference internal" href="#">Introduction: dahak-taco</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#command-line-quick-start">Command-Line Quick Start</a><ul>
+<li><a class="reference internal" href="#quick-start">Quick Start</a><ul>
 <li><a class="reference internal" href="#example-workflow-configuration-file">Example workflow configuration file</a></li>
 <li><a class="reference internal" href="#example-parameters-file">Example parameters file</a></li>
-<li><a class="reference internal" href="#performing-a-task">Performing a task</a></li>
-<li><a class="reference internal" href="#overriding-parameters">Overriding parameters</a></li>
+<li><a class="reference internal" href="#run-taco">Run taco</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#the-design-of-dahak-taco">The Design of dahak-taco</a></li>
 </ul>
 </li>
 </ul>
@@ -123,14 +159,14 @@ the parameters JSON file.</p>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="index.html" title="previous chapter">dahak-taco documentation</a></li>
-      <li>Next: <a href="taxclass.html" title="next chapter">Walkthrough: Taxonomic Classification</a></li>
+      <li>Next: <a href="howitworks.html" title="next chapter">How Taco Works</a></li>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/intro.rst.txt"
+      <li><a href="_sources/intro.md.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -158,7 +194,7 @@ the parameters JSON file.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/intro.rst.txt"
+      <a href="_sources/intro.md.txt"
           rel="nofollow">Page source</a>
     </div>
 

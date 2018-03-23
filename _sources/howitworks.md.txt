@@ -1,0 +1,42 @@
+# How Taco Works
+
+A few brief notes on how taco works:
+* Everything in `taco` executable script
+* Lightweight command line wrapper using argparse
+* Calls snakemake using api call
+
+user input:
+* Workflow config json file calls rules defined in `rules/dahak/*.rules`
+* Parameters json file overrides parameters defined in `rules/dahak/*.settings`
+* These two files are the required command line arguments - 
+    the workflow config file name and the parameters file name.
+
+## features not implemented yet
+
+setting variables:
+* For the user's convenience, we want to provide the user a way to 
+    change/set parameter values on the command line. 
+
+* We might provide a command line flag for simpler/common options.
+    This is flat, so you have to hard-code how the command line options
+    map to the particular JSON entry you want it to change.
+
+```
+$ taco --a1=something --b2=other test-workflow test-params
+```
+
+* Or we might do something like accept JSON from stdin,
+    in addition to any other json files specified on the 
+    command line. This could handle arbitrary nested 
+    JSON, which is necessary for most settings.
+ 
+```
+$ cat my_special_settings.json
+{ 'myapp' : { 'special_file_prefix' : 'abcd{kvalue}.out', 'kvalue' : 5 } }
+
+$ cat my_special_settings.json | taco --var-stdin test-workflow test-params
+```
+
+
+
+
