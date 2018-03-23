@@ -10,6 +10,6 @@ dahak-taco documentation
    :maxdepth: 2
    :caption: Contents:
 
-   taco
-   taco2
+   intro
+   taxclass
 
