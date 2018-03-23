@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Taxonomic Classification Walkthrough &#8212; dahak-taco  documentation</title>
+    <title>Snakemake Rules &#8212; dahak-taco  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
@@ -15,8 +15,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Assembly Walkthrough" href="assembly.html" />
-    <link rel="prev" title="Snakemake Rules" href="snakemake.html" />
+    <link rel="next" title="Taxonomic Classification Walkthrough" href="taxclass.html" />
+    <link rel="prev" title="How Taco Works" href="howitworks.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -27,19 +27,27 @@
   <div class="document">
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Snakemake Rules</a><ul>
+<li><a class="reference internal" href="#list-of-rules">List of Rules</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="snakemake.html" title="previous chapter">Snakemake Rules</a></li>
-      <li>Next: <a href="assembly.html" title="next chapter">Assembly Walkthrough</a></li>
+      <li>Previous: <a href="howitworks.html" title="previous chapter">How Taco Works</a></li>
+      <li>Next: <a href="taxclass.html" title="next chapter">Taxonomic Classification Walkthrough</a></li>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/taxclass.md.txt"
+      <li><a href="_sources/snakemake.md.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -61,10 +69,32 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="taxonomic-classification-walkthrough">
-<span id="taxonomic-classification-walkthrough"></span><h1>Taxonomic Classification Walkthrough<a class="headerlink" href="#taxonomic-classification-walkthrough" title="Permalink to this headline">¶</a></h1>
-<p>Covering taxonomic classification.</p>
-<p>See <a class="reference external" href="https://github.com/dahak-metagenomics/dahak/tree/master/workflows/taxonomic_classification">dahak</a>.</p>
+  <div class="section" id="snakemake-rules">
+<span id="snakemake-rules"></span><h1>Snakemake Rules<a class="headerlink" href="#snakemake-rules" title="Permalink to this headline">¶</a></h1>
+<p>This section covers how the Snakemake
+rules are implemented and organized.</p>
+<p>First, we follow the conventions
+set in the <a class="reference external" href="https://github.com/percyfal/snakemake-rules">snakemake-rules</a>
+repository, and groups all rules into
+<code class="docutils literal notranslate"><span class="pre">.rule</span></code> files and all parameters into
+<code class="docutils literal notranslate"><span class="pre">.settings</span></code> files.</p>
+<p>The rules are contained in the
+<code class="docutils literal notranslate"><span class="pre">rules/dahak/</span></code> directory.</p>
+<p>The Snakefile in the main repository
+directory includes each rule file,
+and each rule file includes the necessary
+settings files.</p>
+<div class="section" id="list-of-rules">
+<span id="list-of-rules"></span><h2>List of Rules<a class="headerlink" href="#list-of-rules" title="Permalink to this headline">¶</a></h2>
+<p>Use Snakemake to list all of the
+available rules:</p>
+<p>or, use taco (not implemented):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">taco</span> <span class="n">ls</span>
+</pre></div>
+</div>
+<p>(which just wraps the Snakemake
+command to list all available rules.)</p>
+</div>
 </div>
 
 
@@ -81,7 +111,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/taxclass.md.txt"
+      <a href="_sources/snakemake.md.txt"
           rel="nofollow">Page source</a>
     </div>
 

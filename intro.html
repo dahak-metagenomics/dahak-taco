@@ -93,6 +93,11 @@ install_singularity.py
 install_snakemake.py
 </pre></div>
 </div>
+<p>Once you have these, you can run taco
+directly from the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco &lt;arguments&gt;
+</pre></div>
+</div>
 </div>
 <div class="section" id="quick-start">
 <span id="quick-start"></span><h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
@@ -114,19 +119,20 @@ Snakemake rule.</p>
 <span id="example-workflow-configuration-file"></span><h3>Example workflow configuration file<a class="headerlink" href="#example-workflow-configuration-file" title="Permalink to this headline">¶</a></h3>
 <p>Here is a simple example of a workflow
 configuration file that pulls containers
-from a URL (no output filenames involved):::</p>
+from a URL (no output filenames involved):</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">test-workflow.json</span></code>:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;workflow_target&quot;</span> <span class="p">:</span> <span class="s2">&quot;pull_biocontainers&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>This is stored in <code class="docutils literal notranslate"><span class="pre">test-workflow.json</span></code>.</p>
 </div>
 <div class="section" id="example-parameters-file">
 <span id="example-parameters-file"></span><h3>Example parameters file<a class="headerlink" href="#example-parameters-file" title="Permalink to this headline">¶</a></h3>
 <p>Here is a simple parameters file that adjusts
 the version of one of the containers being
-pulled in the workflow task defined above:::</p>
+pulled in the workflow task defined above:</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">test-params.json</span></code>:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;biocontainers&quot;</span> <span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;sourmash&quot;</span> <span class="p">:</span> <span class="s2">&quot;2.0.0a2--py36_0&quot;</span>
@@ -137,7 +143,6 @@ pulled in the workflow task defined above:::</p>
 <p>(Note that this overrides the default
 sourmash version of <code class="docutils literal notranslate"><span class="pre">2.0.0a3--py36_0</span></code>
 defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/biocontainers.settings</span></code>.</p>
-<p>This is stored in <code class="docutils literal notranslate"><span class="pre">test-params.json</span></code>.</p>
 </div>
 <div class="section" id="run-taco">
 <span id="run-taco"></span><h3>Run taco<a class="headerlink" href="#run-taco" title="Permalink to this headline">¶</a></h3>
@@ -156,6 +161,12 @@ we are ready to run the test workflow.</p>
 docker pull commands, and does
 not require setting any input or
 output files.</p>
+<p>Note that you can also put your
+workflow files in a separate directory,
+e.g., in the <code class="docutils literal notranslate"><span class="pre">configs/</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco configs/test-workflow.json configs/test-params.json
+</pre></div>
+</div>
 </div>
 </div>
 </div>
