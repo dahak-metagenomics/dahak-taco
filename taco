@@ -33,7 +33,7 @@ def main(args):
     if(args.workflowfile=='ls'):
         # This is a hack
         status = snakemake.snakemake(snakefile, 
-                    list_target_rules=True)
+                listrules=True)
         return 0
 
     elif os.path.exists(args.workflowfile) and not os.path.isdir(args.workflowfile):
