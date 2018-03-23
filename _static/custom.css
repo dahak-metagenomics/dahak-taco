@@ -1,3 +1,6 @@
 body {
-    color: #ddd;
+    background-color: #efefef;
+}
+div.body {
+    background-color: #efefef;
 }

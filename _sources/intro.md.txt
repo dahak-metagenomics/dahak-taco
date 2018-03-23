@@ -95,24 +95,3 @@ docker pull commands, and does
 not require setting any input or 
 output files. 
 
-
-## The Design of dahak-taco
-
-The dahak-taco command line utility
-is intended to implement a lightweight
-and simple wrapper around Snakemake tasks.
-
-We use the settings files to define 
-sets of default parameters,
-while also allowing the user 
-to override parameter values
-with their own values in 
-parameter JSON files.
-
-The most common options (may/will)
-also have convenience methods
-to set them from the command line,
-but in general these parameters 
-will be set in the parameter 
-JSON file.
-

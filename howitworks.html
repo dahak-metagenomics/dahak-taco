@@ -31,7 +31,9 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">How Taco Works</a><ul>
-<li><a class="reference internal" href="#features-not-implemented-yet">features not implemented yet</a></li>
+<li><a class="reference internal" href="#the-tao-of-taco">The Tao of Taco</a></li>
+<li><a class="reference internal" href="#user-input">User Input</a></li>
+<li><a class="reference internal" href="#setting-variables-not-implemented">Setting Variables (Not Implemented)</a></li>
 </ul>
 </li>
 </ul>
@@ -71,22 +73,30 @@
             
   <div class="section" id="how-taco-works">
 <span id="how-taco-works"></span><h1>How Taco Works<a class="headerlink" href="#how-taco-works" title="Permalink to this headline">¶</a></h1>
-<p>A few brief notes on how taco works:</p>
+<div class="section" id="the-tao-of-taco">
+<span id="the-tao-of-taco"></span><h2>The Tao of Taco<a class="headerlink" href="#the-tao-of-taco" title="Permalink to this headline">¶</a></h2>
+<p>taco is a lightweight wrapper around Snakemake tasks.
+Kind of like a corn tortilla.</p>
 <ul class="simple">
-<li>Everything in <code class="docutils literal notranslate"><span class="pre">taco</span></code> executable script</li>
-<li>Lightweight command line wrapper using argparse</li>
-<li>Calls snakemake using api call</li>
+<li>All code is located in the <code class="docutils literal notranslate"><span class="pre">taco</span></code> executable script</li>
+<li>It is a short and simple command line interface implemented with argparser</li>
+<li>Snakemake is called via the API. The rule that is called is set by the user.</li>
 </ul>
-<p>user input:</p>
+</div>
+<div class="section" id="user-input">
+<span id="user-input"></span><h2>User Input<a class="headerlink" href="#user-input" title="Permalink to this headline">¶</a></h2>
+<p>User input required to run taco:</p>
 <ul class="simple">
 <li>Workflow config json file calls rules defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.rules</span></code></li>
 <li>Parameters json file overrides parameters defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.settings</span></code></li>
 <li>These two files are the required command line arguments -
 the workflow config file name and the parameters file name.</li>
 </ul>
-<div class="section" id="features-not-implemented-yet">
-<span id="features-not-implemented-yet"></span><h2>features not implemented yet<a class="headerlink" href="#features-not-implemented-yet" title="Permalink to this headline">¶</a></h2>
-<p>setting variables:</p>
+</div>
+<div class="section" id="setting-variables-not-implemented">
+<span id="setting-variables-not-implemented"></span><h2>Setting Variables (Not Implemented)<a class="headerlink" href="#setting-variables-not-implemented" title="Permalink to this headline">¶</a></h2>
+<p>(Not implemented yet.)</p>
+<p>Setting variables:</p>
 <ul class="simple">
 <li>For the user’s convenience, we want to provide the user a way to
 change/set parameter values on the command line.</li>

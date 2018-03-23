@@ -1,19 +1,29 @@
 # How Taco Works
 
-A few brief notes on how taco works:
-* Everything in `taco` executable script
-* Lightweight command line wrapper using argparse
-* Calls snakemake using api call
+## The Tao of Taco
 
-user input:
+taco is a lightweight wrapper around Snakemake tasks.
+Kind of like a corn tortilla.
+
+* All code is located in the `taco` executable script
+* It is a short and simple command line interface implemented with argparser
+* Snakemake is called via the API. The rule that is called is set by the user. 
+
+## User Input
+
+User input required to run taco:
+
 * Workflow config json file calls rules defined in `rules/dahak/*.rules`
 * Parameters json file overrides parameters defined in `rules/dahak/*.settings`
 * These two files are the required command line arguments - 
     the workflow config file name and the parameters file name.
 
-## features not implemented yet
+## Setting Variables (Not Implemented)
 
-setting variables:
+(Not implemented yet.)
+
+Setting variables:
+
 * For the user's convenience, we want to provide the user a way to 
     change/set parameter values on the command line. 
 
@@ -36,7 +46,5 @@ $ cat my_special_settings.json
 
 $ cat my_special_settings.json | taco --var-stdin test-workflow test-params
 ```
-
-
 
 

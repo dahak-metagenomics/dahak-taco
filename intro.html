@@ -38,7 +38,6 @@
 <li><a class="reference internal" href="#run-taco">Run taco</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#the-design-of-dahak-taco">The Design of dahak-taco</a></li>
 </ul>
 </li>
 </ul>
@@ -158,24 +157,6 @@ docker pull commands, and does
 not require setting any input or
 output files.</p>
 </div>
-</div>
-<div class="section" id="the-design-of-dahak-taco">
-<span id="the-design-of-dahak-taco"></span><h2>The Design of dahak-taco<a class="headerlink" href="#the-design-of-dahak-taco" title="Permalink to this headline">¶</a></h2>
-<p>The dahak-taco command line utility
-is intended to implement a lightweight
-and simple wrapper around Snakemake tasks.</p>
-<p>We use the settings files to define
-sets of default parameters,
-while also allowing the user
-to override parameter values
-with their own values in
-parameter JSON files.</p>
-<p>The most common options (may/will)
-also have convenience methods
-to set them from the command line,
-but in general these parameters
-will be set in the parameter
-JSON file.</p>
 </div>
 </div>
 
