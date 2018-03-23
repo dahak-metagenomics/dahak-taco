@@ -93,7 +93,8 @@ html_theme_options = {
     'github_button' : 'true',
     #'analytics_id' : '???',
     'fixed_sidebar' : 'true',
-    'github_banner' : 'true'
+    'github_banner' : 'true',
+    'pre_bg'        : '#fff'
 }
 
 
