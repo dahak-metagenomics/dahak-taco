@@ -20,6 +20,13 @@ install_singularity.py
 install_snakemake.py
 ```
 
+Once you have these, you can run taco
+directly from the command line:
+
+```
+$ ./taco <arguments>
+```
+
 ## Quick Start
 
 To use dahak-taco, you need two things:
@@ -42,7 +49,9 @@ Snakemake rule.
 
 Here is a simple example of a workflow 
 configuration file that pulls containers
-from a URL (no output filenames involved):::
+from a URL (no output filenames involved):
+
+**`test-workflow.json`:**
 
 ```
 {
@@ -50,13 +59,13 @@ from a URL (no output filenames involved):::
 }
 ``` 
 
-This is stored in `test-workflow.json`.
-
 ### Example parameters file
 
 Here is a simple parameters file that adjusts
 the version of one of the containers being
-pulled in the workflow task defined above:::
+pulled in the workflow task defined above:
+
+**`test-params.json`:**
 
 ```
 {
@@ -69,8 +78,6 @@ pulled in the workflow task defined above:::
 (Note that this overrides the default 
 sourmash version of `2.0.0a3--py36_0`
 defined in `rules/dahak/biocontainers.settings`.
-
-This is stored in `test-params.json`.
 
 ### Run taco
 

@@ -29,6 +29,7 @@ skip to the next section.
 
    intro
    howitworks
+   snakemake
 
 Workflows
 ==================

@@ -47,4 +47,3 @@ $ cat my_special_settings.json
 $ cat my_special_settings.json | taco --var-stdin test-workflow test-params
 ```
 
-
