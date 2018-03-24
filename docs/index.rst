@@ -17,7 +17,7 @@ To get started with dahak-taco,
 and run your first workflow task,
 see :doc:`intro`.
 
-To figuure out what taco is doing
+To figure out what taco is doing
 and what it requires, see :doc:`howitworks`.
 
 If you're hungry for more dahak workflows,
