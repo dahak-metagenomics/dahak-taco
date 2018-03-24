@@ -24,13 +24,16 @@ settings files.
 Use Snakemake to list all of the 
 available rules:
 
-
-
-or, use taco (not implemented):
-
 ```
-taco ls
+$ snakemake -l
 ```
 
-(which just wraps the Snakemake
+or, use taco:
+
+```
+$ taco ls
+```
+
+(this  wraps the Snakemake
 command to list all available rules.)
+
