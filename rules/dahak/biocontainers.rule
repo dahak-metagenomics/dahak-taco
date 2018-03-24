@@ -21,9 +21,9 @@ for k in biocontainers.keys():
 
 rule pull_biocontainers:
     """
-    - Pull the latest version of sourmash, kaiju, and krona
-    - Version numbers are set in biocontainers.settings
-    - To call this rule, ask for the file .pulled_containers
+    Pull the latest version of sourmash, kaiju, and krona.
+    Version numbers are set in biocontainers.settings.
+    To call this rule, ask for the file .pulled_containers.
     """
     output:
         touch(join(data_dir,'.pulled_containers'))
