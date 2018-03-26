@@ -1,4 +1,5 @@
 include: "reads.settings"
+include: "biocontainers.settings"
 include: "calculate_signatures.settings"
 
 data_dir = config['data_dir']
@@ -9,7 +10,7 @@ data_dir = config['data_dir']
 sig_inputs  = [join(data_dir, config['reads']['fq_fwd']), 
                join(data_dir, config['reads']['fq_rev'])]
 sig_output   = join(data_dir, config['calculate_signatures']['sig_name'])
-merge_output = join(data_dir, config['calculate_signatures']['merge_file'])
+merge_output = join(data_dir, config['calculate_signatures']['merge_name'])
 
 quayurl = config['biocontainers']['sourmash']['quayurl']+":"+config['biocontainers']['sourmash']['version']
 
@@ -28,7 +29,7 @@ rule calculate_signatures:
         fq_fwd_wc     = config['reads']['fq_fwd'].format(**wildcards)
         fq_rev_wc     = config['reads']['fq_rev'].format(**wildcards)
         sig_name_wc   = config['calculate_signatures']['sig_name'].format(**wildcards)
-        merge_file_wc = config['calculate_signatures']['merge_file'].format(**widcards)
+        merge_name_wc = config['calculate_signatures']['merge_name'].format(**widcards)
         kvalues_fname = '_'.join(config['calculate_signatures']['kvalues'])
         kvalues_cmd   = ','.join(config['calculate_signatures']['kvalues'])
         scale         = config['calculate_signatures']['scale']
@@ -37,7 +38,7 @@ rule calculate_signatures:
                     -v {PWD}/{data_dir}:/data \
                     {quayurl} \
                     sourmash compute \
-                    --merge /data/{merge_file_wc} \
+                    --merge /data/{merge_name_wc} \
                     --track-abundance \
                     --scaled {scale} \
                     -k {kvalues_cmd} \

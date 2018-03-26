@@ -21,9 +21,41 @@ for k in biocontainers.keys():
 
 rule pull_biocontainers:
     """
-    Pull the latest version of sourmash, kaiju, and krona.
-    Version numbers are set in biocontainers.settings.
-    To call this rule, ask for the file .pulled_containers.
+## Rule: pull_biocontainers
+
+Simple workflow configuration file:
+
+```
+$ cat pull-biocontainers-workflow.json
+{
+    'workflow_target' : 'pull_biocontainers'
+}
+```
+
+Run the workflow:
+
+```
+$ ./taco -n pull-biocontainers-workflow # dry run
+
+$ ./taco pull-biocontainers-workflow
+```
+
+Override parameters exmaple:
+
+```
+$ cat pull-biocontainers-params.json
+{
+    'biocontainer' : {
+        'version' : '2.0.0a2--py36_0'
+    }
+}
+
+$ ./taco pull-biocontainers-workflow pull-biocontainers-params
+```
+
+This rule is defined in rules/dahak/biocontainers.rule.
+
+This rule includes biocontainers.settings.
     """
     output:
         touch(join(data_dir,'.pulled_containers'))

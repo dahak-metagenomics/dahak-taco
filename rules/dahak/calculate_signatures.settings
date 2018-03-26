@@ -2,10 +2,10 @@ from snakemake.utils import update_config
 
 config_default = {
     'calculate_signatures' : {
-        'scale'      : 10000,
-        'kvalues'    : [21,31,51],
-        'sig_name'   : '{base}.trim{ntrim}.scaled{scale}.k{kvalues_fname}.sig',
-        'merge_file' : '{base}_merged.trim{ntrim}.scaled{scale}.k{kvalues_fname}.fq.gz'
+        'scale'         : 10000,
+        'kvalues'       : [21,31,51],
+        'sig_name'      : '{base}.trim{ntrim}.scaled{scale}.k{kvalues_fname}.sig',
+        'merge_name'    : '{base}_merged.trim{ntrim}.scaled{scale}.k{kvalues_fname}.fq.gz'
     }
 }
 
