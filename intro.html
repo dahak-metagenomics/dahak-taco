@@ -32,7 +32,7 @@
   <ul>
 <li><a class="reference internal" href="#">Introduction: dahak-taco</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a><ul>
-<li><a class="reference internal" href="#reqruired-software">Reqruired Software</a></li>
+<li><a class="reference internal" href="#required-software">Required Software</a></li>
 <li><a class="reference internal" href="#scripts-for-installing-required-software">Scripts for Installing Required Software</a></li>
 <li><a class="reference internal" href="#where-is-taco">Where Is Taco</a></li>
 </ul>
@@ -42,13 +42,11 @@
 <li><a class="reference internal" href="#example-workflow-configuration-file">Example Workflow Configuration File</a></li>
 <li><a class="reference internal" href="#workflow-parameters-file">Workflow Parameters File</a></li>
 <li><a class="reference internal" href="#example-workflow-parameters-file">Example Workflow Parameters File</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#running">Running</a><ul>
+<li><a class="reference internal" href="#running">Running</a></li>
 <li><a class="reference internal" href="#running-the-example-workflow">Running the Example Workflow</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#what-else-is-available">What Else Is Available</a></li>
+<li><a class="reference internal" href="#other-commands">Other Commands</a></li>
 </ul>
 </li>
 </ul>
@@ -94,8 +92,8 @@ running dahak workflows.</p>
 <div class="section" id="installation">
 <span id="installation"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>dahak-taco is an executable command-line script.</p>
-<div class="section" id="reqruired-software">
-<span id="reqruired-software"></span><h3>Reqruired Software<a class="headerlink" href="#reqruired-software" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="required-software">
+<span id="required-software"></span><h3>Required Software<a class="headerlink" href="#required-software" title="Permalink to this headline">¶</a></h3>
 <p>Requirements:</p>
 <ul class="simple">
 <li>Conda</li>
@@ -207,9 +205,8 @@ pulled in the workflow task defined above:</p>
 sourmash version of <code class="docutils literal notranslate"><span class="pre">2.0.0a3--py36_0</span></code>
 defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/biocontainers.settings</span></code>.</p>
 </div>
-</div>
 <div class="section" id="running">
-<span id="running"></span><h2>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h2>
+<span id="running"></span><h3>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h3>
 <p>To run taco, pass it two arguments on the command line.
 The first argument is the name of the workflow,
 the second argument is the name of the paramters file.</p>
@@ -224,6 +221,7 @@ example above,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">taco</span> <span class="n">configs</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">workflow</span> <span class="n">configs</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">params</span>
 </pre></div>
 </div>
+</div>
 <div class="section" id="running-the-example-workflow">
 <span id="running-the-example-workflow"></span><h3>Running the Example Workflow<a class="headerlink" href="#running-the-example-workflow" title="Permalink to this headline">¶</a></h3>
 <p>Following the example above, we run the example workflow
@@ -235,31 +233,11 @@ and the test workflow parameters file:</p>
 <p>This will run the pull biocontainers rule.</p>
 </div>
 </div>
-<div class="section" id="what-else-is-available">
-<span id="what-else-is-available"></span><h2>What Else Is Available<a class="headerlink" href="#what-else-is-available" title="Permalink to this headline">¶</a></h2>
-<p>To see what rules are possible, run:</p>
+<div class="section" id="other-commands">
+<span id="other-commands"></span><h2>Other Commands<a class="headerlink" href="#other-commands" title="Permalink to this headline">¶</a></h2>
+<p>To see what rules are possible, you can
+use the <code class="docutils literal notranslate"><span class="pre">dahak</span> <span class="pre">ls</span></code> command by running:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ dahak ls
-</pre></div>
-</div>
-<p>Now that we have our two JSON config files
-in <code class="docutils literal notranslate"><span class="pre">test-workflow.json</span></code> and <code class="docutils literal notranslate"><span class="pre">test-params.json</span></code>,
-we are ready to run the test workflow.</p>
-<p>Start with a dry run using the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">taco</span> <span class="o">-</span><span class="n">n</span> <span class="n">test</span><span class="o">-</span><span class="n">workflow</span> <span class="n">test</span><span class="o">-</span><span class="n">params</span>
-</pre></div>
-</div>
-<p>and the real thing:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">taco</span> <span class="n">test</span><span class="o">-</span><span class="n">workflow</span> <span class="n">test</span><span class="o">-</span><span class="n">params</span>
-</pre></div>
-</div>
-<p>This test workflow performs
-docker pull commands, and does
-not require setting any input or
-output files.</p>
-<p>Note that you can also put your
-workflow files in a separate directory,
-e.g., in the <code class="docutils literal notranslate"><span class="pre">configs/</span></code> directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco configs/test-workflow.json configs/test-params.json
 </pre></div>
 </div>
 </div>

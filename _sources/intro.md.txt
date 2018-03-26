@@ -8,7 +8,7 @@ running dahak workflows.
 
 dahak-taco is an executable command-line script.
 
-### Reqruired Software
+### Required Software
 
 Requirements:
 
@@ -136,7 +136,7 @@ pulled in the workflow task defined above:
 sourmash version of `2.0.0a3--py36_0`
 defined in `rules/dahak/biocontainers.settings`.
 
-## Running
+### Running
 
 To run taco, pass it two arguments on the command line.
 The first argument is the name of the workflow,
@@ -170,42 +170,12 @@ and the test workflow parameters file:
 
 This will run the pull biocontainers rule.
 
-## What Else Is Available
+## Other Commands
 
-To see what rules are possible, run:
+To see what rules are possible, you can 
+use the `dahak ls` command by running:
 
 ```
 $ dahak ls
-```
-
-
-
-Now that we have our two JSON config files
-in `test-workflow.json` and `test-params.json`,
-we are ready to run the test workflow.
-
-Start with a dry run using the `-n` flag:
-
-```
-./taco -n test-workflow test-params
-```
-
-and the real thing:
-
-```
-./taco test-workflow test-params
-```
-
-This test workflow performs 
-docker pull commands, and does 
-not require setting any input or 
-output files. 
-
-Note that you can also put your 
-workflow files in a separate directory,
-e.g., in the `configs/` directory:
-
-```
-$ ./taco configs/test-workflow.json configs/test-params.json
 ```
 
