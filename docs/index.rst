@@ -15,10 +15,10 @@ Getting Started
 
 To get started with dahak-taco,
 and run your first workflow task,
-see :doc:`intro`.
+see :doc:`intro/intro`.
 
 To figure out what taco is doing
-and what it requires, see :doc:`howitworks`.
+and what it requires, see :doc:`intro/howitworks`.
 
 If you're hungry for more dahak workflows,
 skip to the next section.
@@ -27,9 +27,9 @@ skip to the next section.
    :maxdepth: 2
    :caption: Contents:
 
-   intro
-   howitworks
-   snakemakerules
+   intro/intro
+   intro/howitworks
+   intro/snakemakerules
 
 Workflows
 ==================
@@ -45,7 +45,7 @@ common dahak workflows:
    :maxdepth: 2
    :caption: Contents:
 
-   taxclass
-   assembly
-   functionalinference
+   workflows/taxclass
+   workflows/assembly
+   workflows/functionalinference
 
