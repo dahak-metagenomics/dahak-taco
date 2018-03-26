@@ -7,7 +7,8 @@ Kind of like a corn tortilla.
 
 * All code is located in the `taco` executable script
 * It is a short and simple command line interface implemented with argparser
-* Snakemake is called via the API. The rule that is called is set by the user. 
+* Snakemake is called via its Python API. 
+* The user specifies which snakemake rule to call, and any parameters to use.
 
 ## User Input
 
@@ -15,8 +16,8 @@ User input required to run taco:
 
 * Workflow config json file calls rules defined in `rules/dahak/*.rules`
 * Parameters json file overrides parameters defined in `rules/dahak/*.settings`
-* These two files are the required command line arguments - 
-    the workflow config file name and the parameters file name.
+
+See [intro](/intro)
 
 ## Setting Variables (Not Implemented)
 
