@@ -146,6 +146,12 @@ in the <code class="docutils literal notranslate"><span class="pre">rules/dahak/
 must specify a key <code class="docutils literal notranslate"><span class="pre">workflow_target</span></code>.</p>
 <p>The value must be a valid Snakemake rule
 defined in one of the rule files at <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.rules</span></code>.</p>
+<p>The form of the workflow configuration file is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;workflow_target&#39;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="n">name</span> <span class="n">of</span> <span class="n">Snakemake</span> <span class="n">rule</span><span class="o">&gt;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="example-workflow-configuration-file">
 <span id="example-workflow-configuration-file"></span><h3>Example Workflow Configuration File<a class="headerlink" href="#example-workflow-configuration-file" title="Permalink to this headline">¶</a></h3>

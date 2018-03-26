@@ -1,6 +1,10 @@
 # Taxonomic Classification Walkthrough
 
-Covering taxonomic classification.
+In this document, we walk through a few 
+rules in the taxonomic workflow
+to illustrate how to run dahak workflows
+using custom rules and custom workflow 
+parameters.
 
 See [dahak - taxonomic classification workflow](https://github.com/dahak-metagenomics/dahak/tree/master/workflows/taxonomic_classification).
 
@@ -13,9 +17,10 @@ To see available rules, run:
 $ taco ls
 ```
 
-Check the relevant `rules/dahak/*.settings` file for 
-settings that need to be changed, and adjust in the 
-parameters file.
+Add the rule you want to run to the workflow configuration file.
+
+Check the relevant `rules/dahak/*.settings` file for any settings
+to change in the workflow parameters file.
 
 ### Pull Biocontainers
 
@@ -37,13 +42,13 @@ $ ./taco pull-biocontainers-workflow
 ```
 
 If we wanted to modify any parameters,
-we could add configuration paramters
-to `pull-biocontainers-params.json`
-that match the parameters for this rule.
-Note that the rule is defined in 
+we could add configuration parameters
+to `pull-biocontainers-params.json`.
+
+Note that the `biocontainers` rule is defined in 
 `rules/dahak/biocontainers.rule`
-and the corresponding default settings
-are defined in `rules/dahak/biocontainers.settings`.
+and the corresponding default parameter
+values are defined in `rules/dahak/biocontainers.settings`.
 
 ```
 $ cat pull-biocontainers-params.json
@@ -62,13 +67,15 @@ and parameter configuration files on the command line
 (include `-n` to do a dry run):
 
 ```
+$ ./taco -n pull-biocontainers-workflow pull-biocontainers-params # Dry run
+
 $ ./taco pull-biocontainers-workflow pull-biocontainers-params
 ```
 
-### download/unpack sourmash SBTs
+### Download and Unpack Sourmash SBTs
 
-Like the above step, this has no inputs or outputs 
-and is not a particularly interesting rule.
+Like the prior step, this step has no
+input or output file names to set.
 
 This step downloads SBTs containing hashes
 from the microbial genomes in the NCBI Databank
@@ -84,14 +91,12 @@ $ ./taco unpack-sbt-workflow
 ```
 
 This calls the `unpack_sourmash_sbts` rule,
-which in turn calls the `download_sourmash_sbts` rule.
+which calls the `download_sourmash_sbts` rule.
+These rules are defined in `rules/dahak/sourmash_sbt.rule`.
 
-### calculate signatures
+### Calculate Signatures: Default Parameters
 
-To run the calculate signatures rule,
-the user can specify the target rule 
-`calculate_signatures` without any parameters
-to use the default values:
+The calculate signatures rule can be run with default values:
 
 ```
 $ cat calc-sigs.json
@@ -102,10 +107,100 @@ $ cat calc-sigs.json
 $ ./taco calc-sigs
 ```
 
-However, this workflow has a number of additional options 
-that users can set.
+### Calculate Signatures: Modified Parameters
 
-(TODO: More on changing parameter values...)
+Two parameter groups affect the `calculate_signatures` rule:
+* rule-specific parameters for `calculate_signatures` 
+    (contained in `rules/dahak/calculate_signatures.settings`)
+* group parameters for `read` pertaining to sequence reads
+    (contained in `rules/dahak/reads.settings`)
+
+
+There are a few different parameter values that affect
+the calculate signatures workflow.
+
+
+
+The first are `calculate_signatures` rule-specific parameters
+contained in `rules/dahak/calculate_signatures.settings`.
+
+
+
+
+
+
+
+To change parameters for this workflow, 
+create a parameters dictionary under the 
+key `calculate_signatures`.
+
+`calculate_signatures` parameters required by the rules:
+* `scale` - value for scale parameter
+* `kvalues` - list of k values to use (integers)
+
+`calculate_signatures` input and output parameter file names:
+* `sig_name` - name of signature .sig files (inputs)
+* `merge_name` - name of final merged file (outputs)
+
+Optional parameter names (part of default but can be overridden):
+* `kvalues_fname` - string used to add k values to file name; can be overridden
+    by overriding signature name and merge name (above) so that they do not include
+    `{kvalues_fname}`. They do include this variable by default.
+
+To ensure inputs uniquely map to outputs, any `{variables}` appearing
+in the signature name (input) should also appear in the merge name (output).
+
+To set these in a `calc-sigs-params.json` file,
+
+```
+{
+    'calculate_signatures' : {
+        'scale' : 100000,
+        ...
+    }
+}
+```
+
+`reads` parameters required/expected by rules:
+* `fq_fwd`
+* `fq_rev`
+
+To set these in a` calc-sigs-params.json` file,
+
+```
+{
+    'calculate_signatures' : { ... },
+    'reads' : {
+        'fq_fwd' : '{base}_1.trim{ntrim}.fq.gz',
+        'fq_rev' : '{base}_2.trim{ntrim}.fq.gz'
+    }
+}
+```
+
+
+
+
+The following convention is recommended:
+
+**signature name:** 
+* include variables `{base} {trim} {scale} {kvalues_fname}`
+
+**merge name:**
+
+Note that both `sig_name` and `merge_file` should contain
+the variables `{base}`, `{ntrim}`, `{scale}`, and `{kvalues_fname}`
+to uniquely link input to output files.
+
+Example:
+
+```
+$ cat calc-sigs-params.json
+{
+    "scale" : 10000,
+    "kvalues" : [21,31,51],
+    "kvalues_fname" : "21_31_51",
+    "sig_name" : "{base}.trim{ntrim}.scaled{scale}.k{kvalues_fname}.sig",
+```
 
 ## Rules
 

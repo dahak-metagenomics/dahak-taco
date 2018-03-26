@@ -68,6 +68,14 @@ must specify a key `workflow_target`.
 The value must be a valid Snakemake rule
 defined in one of the rule files at `rules/dahak/*.rules`.
 
+The form of the workflow configuration file is:
+
+```
+{
+    'workflow_target' : <name of Snakemake rule>
+}
+```
+
 ### Example Workflow Configuration File
 
 Here is a simple example of a workflow 

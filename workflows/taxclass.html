@@ -33,8 +33,9 @@
 <li><a class="reference internal" href="#">Taxonomic Classification Walkthrough</a><ul>
 <li><a class="reference internal" href="#running-taxonomic-classification-workflows">Running Taxonomic Classification Workflows</a><ul>
 <li><a class="reference internal" href="#pull-biocontainers">Pull Biocontainers</a></li>
-<li><a class="reference internal" href="#download-unpack-sourmash-sbts">download/unpack sourmash SBTs</a></li>
-<li><a class="reference internal" href="#calculate-signatures">calculate signatures</a></li>
+<li><a class="reference internal" href="#download-and-unpack-sourmash-sbts">Download and Unpack Sourmash SBTs</a></li>
+<li><a class="reference internal" href="#calculate-signatures-default-parameters">Calculate Signatures: Default Parameters</a></li>
+<li><a class="reference internal" href="#calculate-signatures-modified-parameters">Calculate Signatures: Modified Parameters</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#rules">Rules</a><ul>
@@ -81,7 +82,11 @@
             
   <div class="section" id="taxonomic-classification-walkthrough">
 <span id="taxonomic-classification-walkthrough"></span><h1>Taxonomic Classification Walkthrough<a class="headerlink" href="#taxonomic-classification-walkthrough" title="Permalink to this headline">¶</a></h1>
-<p>Covering taxonomic classification.</p>
+<p>In this document, we walk through a few
+rules in the taxonomic workflow
+to illustrate how to run dahak workflows
+using custom rules and custom workflow
+parameters.</p>
 <p>See <a class="reference external" href="https://github.com/dahak-metagenomics/dahak/tree/master/workflows/taxonomic_classification">dahak - taxonomic classification workflow</a>.</p>
 <div class="section" id="running-taxonomic-classification-workflows">
 <span id="running-taxonomic-classification-workflows"></span><h2>Running Taxonomic Classification Workflows<a class="headerlink" href="#running-taxonomic-classification-workflows" title="Permalink to this headline">¶</a></h2>
@@ -90,9 +95,9 @@ To see available rules, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ taco ls
 </pre></div>
 </div>
-<p>Check the relevant <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.settings</span></code> file for
-settings that need to be changed, and adjust in the
-parameters file.</p>
+<p>Add the rule you want to run to the workflow configuration file.</p>
+<p>Check the relevant <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.settings</span></code> file for any settings
+to change in the workflow parameters file.</p>
 <div class="section" id="pull-biocontainers">
 <span id="pull-biocontainers"></span><h3>Pull Biocontainers<a class="headerlink" href="#pull-biocontainers" title="Permalink to this headline">¶</a></h3>
 <p>Start with a simple example of a single workflow step
@@ -109,13 +114,12 @@ with no input or output files. To run the
 </pre></div>
 </div>
 <p>If we wanted to modify any parameters,
-we could add configuration paramters
-to <code class="docutils literal notranslate"><span class="pre">pull-biocontainers-params.json</span></code>
-that match the parameters for this rule.
-Note that the rule is defined in
+we could add configuration parameters
+to <code class="docutils literal notranslate"><span class="pre">pull-biocontainers-params.json</span></code>.</p>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">biocontainers</span></code> rule is defined in
 <code class="docutils literal notranslate"><span class="pre">rules/dahak/biocontainers.rule</span></code>
-and the corresponding default settings
-are defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/biocontainers.settings</span></code>.</p>
+and the corresponding default parameter
+values are defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/biocontainers.settings</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat pull-biocontainers-params.json
 {
     &#39;biocontainers&#39; : {
@@ -129,14 +133,16 @@ are defined in <code class="docutils literal notranslate"><span class="pre">rule
 <p>Now run the workflow, specifying both the workflow
 and parameter configuration files on the command line
 (include <code class="docutils literal notranslate"><span class="pre">-n</span></code> to do a dry run):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco pull-biocontainers-workflow pull-biocontainers-params
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n pull-biocontainers-workflow pull-biocontainers-params # Dry run
+
+$ ./taco pull-biocontainers-workflow pull-biocontainers-params
 </pre></div>
 </div>
 </div>
-<div class="section" id="download-unpack-sourmash-sbts">
-<span id="download-unpack-sourmash-sbts"></span><h3>download/unpack sourmash SBTs<a class="headerlink" href="#download-unpack-sourmash-sbts" title="Permalink to this headline">¶</a></h3>
-<p>Like the above step, this has no inputs or outputs
-and is not a particularly interesting rule.</p>
+<div class="section" id="download-and-unpack-sourmash-sbts">
+<span id="download-and-unpack-sourmash-sbts"></span><h3>Download and Unpack Sourmash SBTs<a class="headerlink" href="#download-and-unpack-sourmash-sbts" title="Permalink to this headline">¶</a></h3>
+<p>Like the prior step, this step has no
+input or output file names to set.</p>
 <p>This step downloads SBTs containing hashes
 from the microbial genomes in the NCBI Databank
 and RefSeq databases.</p>
@@ -149,14 +155,12 @@ $ ./taco unpack-sbt-workflow
 </pre></div>
 </div>
 <p>This calls the <code class="docutils literal notranslate"><span class="pre">unpack_sourmash_sbts</span></code> rule,
-which in turn calls the <code class="docutils literal notranslate"><span class="pre">download_sourmash_sbts</span></code> rule.</p>
+which calls the <code class="docutils literal notranslate"><span class="pre">download_sourmash_sbts</span></code> rule.
+These rules are defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/sourmash_sbt.rule</span></code>.</p>
 </div>
-<div class="section" id="calculate-signatures">
-<span id="calculate-signatures"></span><h3>calculate signatures<a class="headerlink" href="#calculate-signatures" title="Permalink to this headline">¶</a></h3>
-<p>To run the calculate signatures rule,
-the user can specify the target rule
-<code class="docutils literal notranslate"><span class="pre">calculate_signatures</span></code> without any parameters
-to use the default values:</p>
+<div class="section" id="calculate-signatures-default-parameters">
+<span id="calculate-signatures-default-parameters"></span><h3>Calculate Signatures: Default Parameters<a class="headerlink" href="#calculate-signatures-default-parameters" title="Permalink to this headline">¶</a></h3>
+<p>The calculate signatures rule can be run with default values:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat calc-sigs.json
 {
     &quot;workflow_target&quot; : &quot;calculate_signatures&quot;
@@ -165,9 +169,83 @@ to use the default values:</p>
 $ ./taco calc-sigs
 </pre></div>
 </div>
-<p>However, this workflow has a number of additional options
-that users can set.</p>
-<p>(TODO: More on changing parameter values…)</p>
+</div>
+<div class="section" id="calculate-signatures-modified-parameters">
+<span id="calculate-signatures-modified-parameters"></span><h3>Calculate Signatures: Modified Parameters<a class="headerlink" href="#calculate-signatures-modified-parameters" title="Permalink to this headline">¶</a></h3>
+<p>Two parameter groups affect the <code class="docutils literal notranslate"><span class="pre">calculate_signatures</span></code> rule:</p>
+<ul class="simple">
+<li>rule-specific parameters for <code class="docutils literal notranslate"><span class="pre">calculate_signatures</span></code>
+(contained in <code class="docutils literal notranslate"><span class="pre">rules/dahak/calculate_signatures.settings</span></code>)</li>
+<li>group parameters for <code class="docutils literal notranslate"><span class="pre">read</span></code> pertaining to sequence reads
+(contained in <code class="docutils literal notranslate"><span class="pre">rules/dahak/reads.settings</span></code>)</li>
+</ul>
+<p>There are a few different parameter values that affect
+the calculate signatures workflow.</p>
+<p>The first are <code class="docutils literal notranslate"><span class="pre">calculate_signatures</span></code> rule-specific parameters
+contained in <code class="docutils literal notranslate"><span class="pre">rules/dahak/calculate_signatures.settings</span></code>.</p>
+<p>To change parameters for this workflow,
+create a parameters dictionary under the
+key <code class="docutils literal notranslate"><span class="pre">calculate_signatures</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">calculate_signatures</span></code> parameters required by the rules:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">scale</span></code> - value for scale parameter</li>
+<li><code class="docutils literal notranslate"><span class="pre">kvalues</span></code> - list of k values to use (integers)</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">calculate_signatures</span></code> input and output parameter file names:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">sig_name</span></code> - name of signature .sig files (inputs)</li>
+<li><code class="docutils literal notranslate"><span class="pre">merge_name</span></code> - name of final merged file (outputs)</li>
+</ul>
+<p>Optional parameter names (part of default but can be overridden):</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">kvalues_fname</span></code> - string used to add k values to file name; can be overridden
+by overriding signature name and merge name (above) so that they do not include
+<code class="docutils literal notranslate"><span class="pre">{kvalues_fname}</span></code>. They do include this variable by default.</li>
+</ul>
+<p>To ensure inputs uniquely map to outputs, any <code class="docutils literal notranslate"><span class="pre">{variables}</span></code> appearing
+in the signature name (input) should also appear in the merge name (output).</p>
+<p>To set these in a <code class="docutils literal notranslate"><span class="pre">calc-sigs-params.json</span></code> file,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;calculate_signatures&#39;</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;scale&#39;</span> <span class="p">:</span> <span class="mi">100000</span><span class="p">,</span>
+        <span class="o">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">reads</span></code> parameters required/expected by rules:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">fq_fwd</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">fq_rev</span></code></li>
+</ul>
+<p>To set these in a<code class="docutils literal notranslate"><span class="pre">calc-sigs-params.json</span></code> file,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;calculate_signatures&#39;</span> <span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
+    <span class="s1">&#39;reads&#39;</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;fq_fwd&#39;</span> <span class="p">:</span> <span class="s1">&#39;</span><span class="si">{base}</span><span class="s1">_1.trim</span><span class="si">{ntrim}</span><span class="s1">.fq.gz&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;fq_rev&#39;</span> <span class="p">:</span> <span class="s1">&#39;</span><span class="si">{base}</span><span class="s1">_2.trim</span><span class="si">{ntrim}</span><span class="s1">.fq.gz&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The following convention is recommended:</p>
+<p><strong>signature name:</strong></p>
+<ul class="simple">
+<li>include variables <code class="docutils literal notranslate"><span class="pre">{base}</span> <span class="pre">{trim}</span> <span class="pre">{scale}</span> <span class="pre">{kvalues_fname}</span></code></li>
+</ul>
+<p><strong>merge name:</strong></p>
+<p>Note that both <code class="docutils literal notranslate"><span class="pre">sig_name</span></code> and <code class="docutils literal notranslate"><span class="pre">merge_file</span></code> should contain
+the variables <code class="docutils literal notranslate"><span class="pre">{base}</span></code>, <code class="docutils literal notranslate"><span class="pre">{ntrim}</span></code>, <code class="docutils literal notranslate"><span class="pre">{scale}</span></code>, and <code class="docutils literal notranslate"><span class="pre">{kvalues_fname}</span></code>
+to uniquely link input to output files.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat calc-sigs-params.json
+{
+    &quot;scale&quot; : 10000,
+    &quot;kvalues&quot; : [21,31,51],
+    &quot;kvalues_fname&quot; : &quot;21_31_51&quot;,
+    &quot;sig_name&quot; : &quot;{base}.trim{ntrim}.scaled{scale}.k{kvalues_fname}.sig&quot;,
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="rules">
