@@ -80,7 +80,8 @@ Kind of like a corn tortilla.</p>
 <ul class="simple">
 <li>All code is located in the <code class="docutils literal notranslate"><span class="pre">taco</span></code> executable script</li>
 <li>It is a short and simple command line interface implemented with argparser</li>
-<li>Snakemake is called via the API. The rule that is called is set by the user.</li>
+<li>Snakemake is called via its Python API.</li>
+<li>The user specifies which snakemake rule to call, and any parameters to use.</li>
 </ul>
 </div>
 <div class="section" id="user-input">
@@ -89,9 +90,8 @@ Kind of like a corn tortilla.</p>
 <ul class="simple">
 <li>Workflow config json file calls rules defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.rules</span></code></li>
 <li>Parameters json file overrides parameters defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.settings</span></code></li>
-<li>These two files are the required command line arguments -
-the workflow config file name and the parameters file name.</li>
 </ul>
+<p>See <a class="reference external" href="/intro">intro</a></p>
 </div>
 <div class="section" id="setting-variables-not-implemented">
 <span id="setting-variables-not-implemented"></span><h2>Setting Variables (Not Implemented)<a class="headerlink" href="#setting-variables-not-implemented" title="Permalink to this headline">¶</a></h2>
