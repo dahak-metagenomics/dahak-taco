@@ -14,7 +14,7 @@ Start by selecting which rule from the workflow you want to run.
 To see available rules, run:
 
 ```
-$ taco ls
+$ ./taco ls
 ```
 
 Add the rule you want to run to the workflow configuration file.
@@ -38,6 +38,8 @@ $ cat pull-biocontainers-workflow.json
 Now run the workflow (include `-n` to do a dry run):
 
 ```
+$ ./taco -n pull-biocontainers-workflow # dry run
+
 $ ./taco pull-biocontainers-workflow
 ```
 
@@ -59,7 +61,6 @@ $ cat pull-biocontainers-params.json
         }
     }
 }
-
 ```
 
 Now run the workflow, specifying both the workflow
@@ -67,7 +68,7 @@ and parameter configuration files on the command line
 (include `-n` to do a dry run):
 
 ```
-$ ./taco -n pull-biocontainers-workflow pull-biocontainers-params # Dry run
+$ ./taco -n pull-biocontainers-workflow pull-biocontainers-params # dry run
 
 $ ./taco pull-biocontainers-workflow pull-biocontainers-params
 ```
@@ -87,6 +88,8 @@ $ cat unpack-sbt-workflow.json
     "workflow_target" : "unpack_sourmash_sbts"
 }
 
+$ ./taco -n unpack-sbt-workflow # dry run
+
 $ ./taco unpack-sbt-workflow
 ```
 
@@ -103,6 +106,8 @@ $ cat calc-sigs.json
 {
     "workflow_target" : "calculate_signatures"
 }
+
+$ ./taco -n calc-sigs # dry run
 
 $ ./taco calc-sigs
 ```
@@ -139,7 +144,7 @@ $ cat calc-sigs.json
     "workflow_target" : "calculate_signatures"
 }
 
-$ ./taco -n calc-sigs calc-sigs-params # Dry run
+$ ./taco -n calc-sigs calc-sigs-params # dry run
 
 $ ./taco calc-sigs calc-sigs-params
 ```
@@ -159,7 +164,7 @@ $ cat calc-sigs.json
     "workflow_target" : "calculate_signatures"
 }
 
-$ ./taco -n calc-sigs calc-sigs-params # Dry run
+$ ./taco -n calc-sigs calc-sigs-params # dry run
 
 $ ./taco calc-sigs calc-sigs-params
 ```
@@ -174,6 +179,11 @@ $ cat calc-sigs-params.json
     }
 }
 ```
+
+NOTE: `kvalues_fname` is a variable created when the rule is run,
+and is the result of `"_".join(config['calculate_signatures']['kvalues'])`.
+
+TODO: improve the abstraction.
 
 **Example 4:** Implement all three of the above parameter changes.
 
@@ -195,15 +205,19 @@ $ cat calc-sigs.json
     "workflow_target" : "calculate_signatures"
 }
 
-$ ./taco -n calc-sigs calc-sigs-params # Dry run
+$ ./taco -n calc-sigs calc-sigs-params # dry run
 
 $ ./taco calc-sigs calc-sigs-params
 ```
 
 
+
+
+
+
 ## List of Rules
 
-```
+```text
 pull_biocontainers
     
     - Pull the latest version of sourmash, kaiju, and krona

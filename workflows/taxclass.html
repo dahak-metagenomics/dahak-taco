@@ -87,7 +87,7 @@ parameters.</p>
 <span id="listing-rules"></span><h2>Listing Rules<a class="headerlink" href="#listing-rules" title="Permalink to this headline">¶</a></h2>
 <p>Start by selecting which rule from the workflow you want to run.
 To see available rules, run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ taco ls
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco ls
 </pre></div>
 </div>
 <p>Add the rule you want to run to the workflow configuration file.</p>
@@ -106,7 +106,9 @@ with no input or output files. To run the
 </pre></div>
 </div>
 <p>Now run the workflow (include <code class="docutils literal notranslate"><span class="pre">-n</span></code> to do a dry run):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco pull-biocontainers-workflow
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n pull-biocontainers-workflow # dry run
+
+$ ./taco pull-biocontainers-workflow
 </pre></div>
 </div>
 <p>Note that the <code class="docutils literal notranslate"><span class="pre">biocontainers</span></code> rule is defined in
@@ -129,7 +131,7 @@ to <code class="docutils literal notranslate"><span class="pre">pull-biocontaine
 <p>Now run the workflow, specifying both the workflow
 and parameter configuration files on the command line
 (include <code class="docutils literal notranslate"><span class="pre">-n</span></code> to do a dry run):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n pull-biocontainers-workflow pull-biocontainers-params # Dry run
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n pull-biocontainers-workflow pull-biocontainers-params # dry run
 
 $ ./taco pull-biocontainers-workflow pull-biocontainers-params
 </pre></div>
@@ -147,6 +149,8 @@ and RefSeq databases.</p>
     &quot;workflow_target&quot; : &quot;unpack_sourmash_sbts&quot;
 }
 
+$ ./taco -n unpack-sbt-workflow # dry run
+
 $ ./taco unpack-sbt-workflow
 </pre></div>
 </div>
@@ -161,6 +165,8 @@ These rules are defined in <code class="docutils literal notranslate"><span clas
 {
     &quot;workflow_target&quot; : &quot;calculate_signatures&quot;
 }
+
+$ ./taco -n calc-sigs # dry run
 
 $ ./taco calc-sigs
 </pre></div>
@@ -194,7 +200,7 @@ $ cat calc-sigs.json
     &quot;workflow_target&quot; : &quot;calculate_signatures&quot;
 }
 
-$ ./taco -n calc-sigs calc-sigs-params # Dry run
+$ ./taco -n calc-sigs calc-sigs-params # dry run
 
 $ ./taco calc-sigs calc-sigs-params
 </pre></div>
@@ -212,7 +218,7 @@ $ cat calc-sigs.json
     &quot;workflow_target&quot; : &quot;calculate_signatures&quot;
 }
 
-$ ./taco -n calc-sigs calc-sigs-params # Dry run
+$ ./taco -n calc-sigs calc-sigs-params # dry run
 
 $ ./taco calc-sigs calc-sigs-params
 </pre></div>
@@ -226,6 +232,9 @@ $ ./taco calc-sigs calc-sigs-params
 }
 </pre></div>
 </div>
+<p>NOTE: <code class="docutils literal notranslate"><span class="pre">kvalues_fname</span></code> is a variable created when the rule is run,
+and is the result of <code class="docutils literal notranslate"><span class="pre">&quot;_&quot;.join(config['calculate_signatures']['kvalues'])</span></code>.</p>
+<p>TODO: improve the abstraction.</p>
 <p><strong>Example 4:</strong> Implement all three of the above parameter changes.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat calc-sigs-params.json
 {
@@ -244,7 +253,7 @@ $ cat calc-sigs.json
     &quot;workflow_target&quot; : &quot;calculate_signatures&quot;
 }
 
-$ ./taco -n calc-sigs calc-sigs-params # Dry run
+$ ./taco -n calc-sigs calc-sigs-params # dry run
 
 $ ./taco calc-sigs calc-sigs-params
 </pre></div>
@@ -252,67 +261,67 @@ $ ./taco calc-sigs calc-sigs-params
 </div>
 <div class="section" id="list-of-rules">
 <span id="list-of-rules"></span><h2>List of Rules<a class="headerlink" href="#list-of-rules" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pull_biocontainers</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pull_biocontainers
     
-    <span class="o">-</span> <span class="n">Pull</span> <span class="n">the</span> <span class="n">latest</span> <span class="n">version</span> <span class="n">of</span> <span class="n">sourmash</span><span class="p">,</span> <span class="n">kaiju</span><span class="p">,</span> <span class="ow">and</span> <span class="n">krona</span>
-    <span class="o">-</span> <span class="n">Version</span> <span class="n">numbers</span> <span class="n">are</span> <span class="nb">set</span> <span class="ow">in</span> <span class="n">biocontainers</span><span class="o">.</span><span class="n">settings</span>
-    <span class="o">-</span> <span class="n">To</span> <span class="n">call</span> <span class="n">this</span> <span class="n">rule</span><span class="p">,</span> <span class="n">ask</span> <span class="k">for</span> <span class="n">the</span> <span class="n">file</span> <span class="o">.</span><span class="n">pulled_containers</span>
+    - Pull the latest version of sourmash, kaiju, and krona
+    - Version numbers are set in biocontainers.settings
+    - To call this rule, ask for the file .pulled_containers
     
-<span class="n">download_sourmash_sbts</span>
+download_sourmash_sbts
     
-    <span class="n">Downoad</span> <span class="n">the</span> <span class="n">sourmash</span> <span class="n">SBTs</span> <span class="kn">from</span> <span class="nn">spacegraphcats</span>
+    Downoad the sourmash SBTs from spacegraphcats
 
-    <span class="n">To</span> <span class="n">call</span> <span class="n">this</span> <span class="n">rule</span><span class="p">,</span> <span class="n">request</span> <span class="n">sourmash</span> <span class="n">SBT</span> <span class="n">json</span> <span class="n">file</span> <span class="k">for</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">database</span><span class="o">.</span>
+    To call this rule, request sourmash SBT json file for the specified database.
     
-<span class="n">unpack_sourmash_sbts</span>
+unpack_sourmash_sbts
     
-    <span class="n">Unpack</span> <span class="n">the</span> <span class="n">sourmash</span> <span class="n">SBTs</span>
+    Unpack the sourmash SBTs
     
-<span class="n">calculate_signatures</span>
+calculate_signatures
     
-    <span class="n">Calculate</span> <span class="n">signatures</span> <span class="kn">from</span> <span class="nn">trimmed</span> <span class="n">data</span> <span class="n">using</span> <span class="n">sourmash</span>
+    Calculate signatures from trimmed data using sourmash
     
-<span class="n">download_trimmed_data</span>
+download_trimmed_data
     
-    <span class="n">Download</span> <span class="n">the</span> <span class="n">trimmed</span> <span class="n">data</span> <span class="kn">from</span> <span class="nn">OSF</span>
+    Download the trimmed data from OSF
 
-    <span class="n">To</span> <span class="n">call</span> <span class="n">this</span> <span class="n">rule</span><span class="p">,</span> <span class="n">request</span> <span class="n">the</span> <span class="n">files</span> <span class="n">listed</span> <span class="ow">in</span> <span class="n">trimmed_data</span><span class="o">.</span><span class="n">dat</span>
+    To call this rule, request the files listed in trimmed_data.dat
     
-<span class="n">unpack_kaiju</span>
+unpack_kaiju
     
-    <span class="n">Download</span> <span class="ow">and</span> <span class="n">unpack</span> <span class="n">the</span> <span class="n">kaiju</span> <span class="n">database</span><span class="o">.</span>
+    Download and unpack the kaiju database.
     
-<span class="n">run_kaiju</span>
+run_kaiju
     
-    <span class="n">Run</span> <span class="n">kaiju</span>
+    Run kaiju
     
-<span class="n">kaiju2krona</span>
+kaiju2krona
     
-    <span class="n">Convert</span> <span class="n">kaiju</span> <span class="n">results</span> <span class="n">to</span> <span class="n">krona</span> <span class="n">results</span><span class="p">,</span>
-    <span class="ow">and</span> <span class="n">generate</span> <span class="n">a</span> <span class="n">report</span><span class="o">.</span>
+    Convert kaiju results to krona results,
+    and generate a report.
     
-<span class="n">kaiju2kronasummary</span>
+kaiju2kronasummary
     
-    <span class="n">Convert</span> <span class="n">kaiju</span> <span class="n">results</span> <span class="n">to</span> <span class="n">krona</span> <span class="n">results</span><span class="p">,</span>
-    <span class="ow">and</span> <span class="n">generate</span> <span class="n">a</span> <span class="n">report</span><span class="o">.</span>
+    Convert kaiju results to krona results,
+    and generate a report.
     
-<span class="n">filter_taxa_total</span>
+filter_taxa_total
     
-    <span class="n">Filter</span> <span class="n">out</span> <span class="n">taxa</span> <span class="k">with</span> <span class="n">low</span> <span class="n">abundances</span> <span class="n">by</span> <span class="n">obtaining</span> <span class="n">genera</span> <span class="n">that</span>
-    <span class="n">comprise</span> <span class="n">at</span> <span class="n">least</span> <span class="p">{</span><span class="n">pct</span><span class="p">}</span> <span class="n">percent</span> <span class="n">of</span> <span class="n">the</span> <span class="n">total</span> <span class="n">reads</span>
-    <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="mi">1</span><span class="o">%</span><span class="p">)</span>
+    Filter out taxa with low abundances by obtaining genera that
+    comprise at least {pct} percent of the total reads
+    (default: 1%)
     
-<span class="n">filter_taxa_class</span>
+filter_taxa_class
     
-    <span class="n">For</span> <span class="n">comparison</span><span class="p">,</span> <span class="n">take</span> <span class="n">the</span> <span class="n">genera</span> <span class="n">that</span> <span class="n">comprise</span>
-    <span class="n">at</span> <span class="n">least</span> <span class="p">{</span><span class="n">pct</span><span class="p">}</span> <span class="n">percent</span> <span class="n">of</span> <span class="nb">all</span> <span class="n">of</span> <span class="n">the</span> <span class="n">classified</span> <span class="n">reads</span>
-    <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="mi">1</span><span class="o">%</span><span class="p">)</span>
+    For comparison, take the genera that comprise
+    at least {pct} percent of all of the classified reads
+    (default: 1%)
     
-<span class="n">visualize_krona</span>
+visualize_krona
     
-    <span class="n">Visualize</span> <span class="n">the</span> <span class="n">results</span> <span class="n">of</span> <span class="n">the</span>
-    <span class="n">full</span> <span class="ow">and</span> <span class="n">filtered</span> <span class="n">taxonomic</span>
-    <span class="n">classifications</span> <span class="n">using</span> <span class="n">krona</span><span class="o">.</span>
+    Visualize the results of the
+    full and filtered taxonomic
+    classifications using krona.
 </pre></div>
 </div>
 </div>
