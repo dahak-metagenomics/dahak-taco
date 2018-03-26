@@ -7,10 +7,17 @@ See [dahak - taxonomic classification workflow](https://github.com/dahak-metagen
 ## Running Taxonomic Classification Workflows
 
 Start by selecting which rule from the workflow you want to run.
-Then, check the relevant `.settings` file in the `rules/` directory
-to see what parameters you can adjust.
+To see available rules, run:
 
-### pull biocontainers
+```
+$ taco ls
+```
+
+Check the relevant `rules/dahak/*.settings` file for 
+settings that need to be changed, and adjust in the 
+parameters file.
+
+### Pull Biocontainers
 
 Start with a simple example of a single workflow step
 with no input or output files. To run the

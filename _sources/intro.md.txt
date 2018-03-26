@@ -158,6 +158,12 @@ To run workflows contained in a `configs/` directory, run:
 ./taco configs/test-workflow configs/test-params
 ```
 
+To do a dry run only, add the `-n` or `--dry-run` flag:
+
+```
+./taco -n test-workflow test-params
+```
+
 ### Running the Example Workflow
 
 Following the example above, we run the example workflow
@@ -168,14 +174,22 @@ and the test workflow parameters file:
 ./taco test-workflow test-params
 ```
 
+(Note that a parameters file is optional.)
+
 This will run the pull biocontainers rule.
 
-## Other Commands
+## Listing Snakemake Rules
 
-To see what rules are possible, you can 
-use the `dahak ls` command by running:
+You can also list available snakemake rules
+using the `dahak ls` command:
 
 ```
-$ dahak ls
+$ ./taco ls
+```
+
+This is equivalent to the following snakemake command:
+
+```
+$ snakemake -l
 ```
 

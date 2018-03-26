@@ -46,7 +46,7 @@
 <li><a class="reference internal" href="#running-the-example-workflow">Running the Example Workflow</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#other-commands">Other Commands</a></li>
+<li><a class="reference internal" href="#listing-snakemake-rules">Listing Snakemake Rules</a></li>
 </ul>
 </li>
 </ul>
@@ -221,6 +221,10 @@ example above,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">taco</span> <span class="n">configs</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">workflow</span> <span class="n">configs</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">params</span>
 </pre></div>
 </div>
+<p>To do a dry run only, add the <code class="docutils literal notranslate"><span class="pre">-n</span></code> or <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">taco</span> <span class="o">-</span><span class="n">n</span> <span class="n">test</span><span class="o">-</span><span class="n">workflow</span> <span class="n">test</span><span class="o">-</span><span class="n">params</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="running-the-example-workflow">
 <span id="running-the-example-workflow"></span><h3>Running the Example Workflow<a class="headerlink" href="#running-the-example-workflow" title="Permalink to this headline">¶</a></h3>
@@ -230,14 +234,19 @@ and the test workflow parameters file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">taco</span> <span class="n">test</span><span class="o">-</span><span class="n">workflow</span> <span class="n">test</span><span class="o">-</span><span class="n">params</span>
 </pre></div>
 </div>
+<p>(Note that a parameters file is optional.)</p>
 <p>This will run the pull biocontainers rule.</p>
 </div>
 </div>
-<div class="section" id="other-commands">
-<span id="other-commands"></span><h2>Other Commands<a class="headerlink" href="#other-commands" title="Permalink to this headline">¶</a></h2>
-<p>To see what rules are possible, you can
-use the <code class="docutils literal notranslate"><span class="pre">dahak</span> <span class="pre">ls</span></code> command by running:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ dahak ls
+<div class="section" id="listing-snakemake-rules">
+<span id="listing-snakemake-rules"></span><h2>Listing Snakemake Rules<a class="headerlink" href="#listing-snakemake-rules" title="Permalink to this headline">¶</a></h2>
+<p>You can also list available snakemake rules
+using the <code class="docutils literal notranslate"><span class="pre">dahak</span> <span class="pre">ls</span></code> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco ls
+</pre></div>
+</div>
+<p>This is equivalent to the following snakemake command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ snakemake -l
 </pre></div>
 </div>
 </div>
