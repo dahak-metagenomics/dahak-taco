@@ -1,23 +1,28 @@
 # Taxonomic Classification Walkthrough
 
-Covering taxonomic classification.
+In this document, we walk through a few 
+rules in the taxonomic workflow
+to illustrate how to run dahak workflows
+using custom rules and custom workflow 
+parameters.
 
 See [dahak - taxonomic classification workflow](https://github.com/dahak-metagenomics/dahak/tree/master/workflows/taxonomic_classification).
 
-## Running Taxonomic Classification Workflows
+## Listing Rules
 
 Start by selecting which rule from the workflow you want to run.
 To see available rules, run:
 
 ```
-$ taco ls
+$ ./taco ls
 ```
 
-Check the relevant `rules/dahak/*.settings` file for 
-settings that need to be changed, and adjust in the 
-parameters file.
+Add the rule you want to run to the workflow configuration file.
 
-### Pull Biocontainers
+Check the relevant `rules/dahak/*.settings` file for any settings
+to change in the workflow parameters file.
+
+## Rule: Pull Biocontainers
 
 Start with a simple example of a single workflow step
 with no input or output files. To run the
@@ -33,17 +38,19 @@ $ cat pull-biocontainers-workflow.json
 Now run the workflow (include `-n` to do a dry run):
 
 ```
+$ ./taco -n pull-biocontainers-workflow # dry run
+
 $ ./taco pull-biocontainers-workflow
 ```
 
-If we wanted to modify any parameters,
-we could add configuration paramters
-to `pull-biocontainers-params.json`
-that match the parameters for this rule.
-Note that the rule is defined in 
+Note that the `biocontainers` rule is defined in 
 `rules/dahak/biocontainers.rule`
-and the corresponding default settings
-are defined in `rules/dahak/biocontainers.settings`.
+and the corresponding default parameter
+values are defined in `rules/dahak/biocontainers.settings`.
+
+If we wanted to modify any parameters,
+we could add configuration parameters
+to `pull-biocontainers-params.json`.
 
 ```
 $ cat pull-biocontainers-params.json
@@ -54,7 +61,6 @@ $ cat pull-biocontainers-params.json
         }
     }
 }
-
 ```
 
 Now run the workflow, specifying both the workflow
@@ -62,13 +68,15 @@ and parameter configuration files on the command line
 (include `-n` to do a dry run):
 
 ```
+$ ./taco -n pull-biocontainers-workflow pull-biocontainers-params # dry run
+
 $ ./taco pull-biocontainers-workflow pull-biocontainers-params
 ```
 
-### download/unpack sourmash SBTs
+## Rule: Download and Unpack Sourmash SBTs
 
-Like the above step, this has no inputs or outputs 
-and is not a particularly interesting rule.
+Like the prior step, this step has no
+input or output file names to set.
 
 This step downloads SBTs containing hashes
 from the microbial genomes in the NCBI Databank
@@ -80,18 +88,18 @@ $ cat unpack-sbt-workflow.json
     "workflow_target" : "unpack_sourmash_sbts"
 }
 
+$ ./taco -n unpack-sbt-workflow # dry run
+
 $ ./taco unpack-sbt-workflow
 ```
 
 This calls the `unpack_sourmash_sbts` rule,
-which in turn calls the `download_sourmash_sbts` rule.
+which calls the `download_sourmash_sbts` rule.
+These rules are defined in `rules/dahak/sourmash_sbt.rule`.
 
-### calculate signatures
+## Rule: Calculate Signatures (Default Parameters)
 
-To run the calculate signatures rule,
-the user can specify the target rule 
-`calculate_signatures` without any parameters
-to use the default values:
+The calculate signatures rule can be run with default values:
 
 ```
 $ cat calc-sigs.json
@@ -99,17 +107,106 @@ $ cat calc-sigs.json
     "workflow_target" : "calculate_signatures"
 }
 
+$ ./taco -n calc-sigs # dry run
+
 $ ./taco calc-sigs
 ```
 
-However, this workflow has a number of additional options 
-that users can set.
+## Rule: Calculate Signatures (Modified Parameters)
 
-(TODO: More on changing parameter values...)
+We can modify parameters for the calculate signatures workflow.
 
-## Rules
+If we examine the `calculate_signatures` rule file at 
+`rules/dahak/calculate_signatures.rule` we see that three
+settings files are used:
 
-### List of Rules
+* read settings (group parameters for any task involving reading sequences)
+* calculate signature settings (rule-specific settings for calculating signatures)
+* biocontainer settings (container URLs and versions)
+
+We can override any parameters in those files 
+to change how the `calculate_signatures` workflow
+works.
+
+**Example 1:** Change the name of the forward and reverse read files.
+
+```
+$ cat calc-sigs-params.json
+{
+    "reads" : {
+        "fq_fwd" : "{base}_1.trim{ntrim}.fq.gz",
+        "fq_rev" : "{base}_2.trim{ntrim}.fq.gz"
+    }
+}
+
+$ cat calc-sigs.json
+{
+    "workflow_target" : "calculate_signatures"
+}
+
+$ ./taco -n calc-sigs calc-sigs-params # dry run
+
+$ ./taco calc-sigs calc-sigs-params
+```
+
+**Example 2:** Change the k values used to calculate signatures.
+
+```
+$ cat calc-sigs-params.json
+{
+    "calculate_signatures" : {
+        "kvalues" : [21, 31, 51, 101]
+    }
+}
+
+$ cat calc-sigs.json
+{
+    "workflow_target" : "calculate_signatures"
+}
+
+$ ./taco -n calc-sigs calc-sigs-params # dry run
+
+$ ./taco calc-sigs calc-sigs-params
+```
+
+**Example 3:** Change the sequence and merge file naming schema.
+
+```
+$ cat calc-sigs-params.json
+{
+    "calculate_signatures" : {
+        "sig_name" : "{base}.trim{ntrim}.scaled{scale}.k{kvalues_fname}.sig"
+    }
+}
+```
+
+**Example 4:** Implement all three of the above parameter changes.
+
+```
+$ cat calc-sigs-params.json
+{
+    "reads" : {
+        "fq_fwd" : "{base}_1.trim{ntrim}.fq.gz",
+        "fq_rev" : "{base}_2.trim{ntrim}.fq.gz"
+    },
+    "calculate_signatures" : {
+        "kvalues" : [21, 31, 51, 101],
+        "sig_name" : "{base}.trim{ntrim}.scaled{scale}.k{kvalues_fname}.sig"
+    }
+}
+
+$ cat calc-sigs.json
+{
+    "workflow_target" : "calculate_signatures"
+}
+
+$ ./taco -n calc-sigs calc-sigs-params # dry run
+
+$ ./taco calc-sigs calc-sigs-params
+```
+
+
+## List of Rules
 
 ```
 pull_biocontainers
@@ -175,7 +272,7 @@ visualize_krona
     classifications using krona.
 ```    
 
-### List of Rule Files
+## List of Rule Files
 
 ```
 rules/
