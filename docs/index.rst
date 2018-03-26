@@ -29,7 +29,7 @@ skip to the next section.
 
    intro
    howitworks
-   snakemake
+   snakemakerules
 
 Workflows
 ==================
@@ -48,3 +48,4 @@ common dahak workflows:
    taxclass
    assembly
    functionalinference
+

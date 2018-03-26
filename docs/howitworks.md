@@ -17,7 +17,7 @@ User input required to run taco:
 * Workflow config json file calls rules defined in `rules/dahak/*.rules`
 * Parameters json file overrides parameters defined in `rules/dahak/*.settings`
 
-See [intro](/intro)
+See [Introduction](intro.md) for details and examples.
 
 ## Setting Variables (Not Implemented)
 
