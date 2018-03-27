@@ -23,9 +23,18 @@ Also see [list of rules](#list-of-rules) below.
 
 ## Rule: Pull Biocontainers
 
-Start with a simple example of a single workflow step
-with no input or output files. To run the
-`pull_biocontainers` workflow:
+Let's start with `pull_biocontainers`, a simple example 
+of a single workflow step with no input or output files. 
+
+```text
+pull_biocontainers
+    
+    - Pull the latest version of sourmash, kaiju, and krona
+    - Version numbers are set in biocontainers.settings
+    - To call this rule, ask for the file .pulled_containers
+```    
+
+To run the `pull_biocontainers` workflow:
 
 ```
 $ cat pull-biocontainers-workflow.json
@@ -73,6 +82,18 @@ $ ./taco pull-biocontainers-workflow pull-biocontainers-params
 ```
 
 ## Rule: Download and Unpack Sourmash SBTs
+
+```text
+download_sourmash_sbts
+    
+    Download the sourmash SBTs from spacegraphcats
+
+    To call this rule, request sourmash SBT json file for the specified database.
+    
+unpack_sourmash_sbts
+    
+    Unpack the sourmash SBTs
+```
 
 Like the prior step, this step has no
 input or output file names to set.
@@ -252,12 +273,6 @@ $ ./taco fetch-kaiju fetch-kaiju-params
 ## List of Rules
 
 ```text
-pull_biocontainers
-    
-    - Pull the latest version of sourmash, kaiju, and krona
-    - Version numbers are set in biocontainers.settings
-    - To call this rule, ask for the file .pulled_containers
-    
 download_sourmash_sbts
     
     Downoad the sourmash SBTs from spacegraphcats

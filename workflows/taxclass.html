@@ -9,6 +9,7 @@
     <title>Taxonomic Classification Walkthrough &#8212; dahak-taco  documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap.min.css" type="text/css" />
     <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
@@ -96,9 +97,16 @@ To see available rules, run:</p>
 </div>
 <div class="section" id="rule-pull-biocontainers">
 <span id="rule-pull-biocontainers"></span><h2>Rule: Pull Biocontainers<a class="headerlink" href="#rule-pull-biocontainers" title="Permalink to this headline">¶</a></h2>
-<p>Start with a simple example of a single workflow step
-with no input or output files. To run the
-<code class="docutils literal notranslate"><span class="pre">pull_biocontainers</span></code> workflow:</p>
+<p>Let’s start with <code class="docutils literal notranslate"><span class="pre">pull_biocontainers</span></code>, a simple example
+of a single workflow step with no input or output files.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pull_biocontainers
+    
+    - Pull the latest version of sourmash, kaiju, and krona
+    - Version numbers are set in biocontainers.settings
+    - To call this rule, ask for the file .pulled_containers
+</pre></div>
+</div>
+<p>To run the <code class="docutils literal notranslate"><span class="pre">pull_biocontainers</span></code> workflow:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat pull-biocontainers-workflow.json
 {
     &quot;workflow_target&quot; : &quot;pull_biocontainers&quot;
@@ -139,6 +147,17 @@ $ ./taco pull-biocontainers-workflow pull-biocontainers-params
 </div>
 <div class="section" id="rule-download-and-unpack-sourmash-sbts">
 <span id="rule-download-and-unpack-sourmash-sbts"></span><h2>Rule: Download and Unpack Sourmash SBTs<a class="headerlink" href="#rule-download-and-unpack-sourmash-sbts" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>download_sourmash_sbts
+    
+    Download the sourmash SBTs from spacegraphcats
+
+    To call this rule, request sourmash SBT json file for the specified database.
+    
+unpack_sourmash_sbts
+    
+    Unpack the sourmash SBTs
+</pre></div>
+</div>
 <p>Like the prior step, this step has no
 input or output file names to set.</p>
 <p>This step downloads SBTs containing hashes
@@ -298,13 +317,7 @@ $ ./taco fetch-kaiju fetch-kaiju-params
 </div>
 <div class="section" id="list-of-rules">
 <span id="list-of-rules"></span><h2>List of Rules<a class="headerlink" href="#list-of-rules" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pull_biocontainers
-    
-    - Pull the latest version of sourmash, kaiju, and krona
-    - Version numbers are set in biocontainers.settings
-    - To call this rule, ask for the file .pulled_containers
-    
-download_sourmash_sbts
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>download_sourmash_sbts
     
     Downoad the sourmash SBTs from spacegraphcats
 
