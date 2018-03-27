@@ -31,8 +31,8 @@ skip to the next section.
    intro/howitworks
    intro/snakemakerules
 
-Workflows
-==================
+Workflow Walkthroughs
+=======================
 
 The main purpose of taco is to run 
 dahak workflows by calling Snakemake
