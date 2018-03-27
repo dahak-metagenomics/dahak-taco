@@ -24,7 +24,7 @@ If you're hungry for more dahak workflows,
 skip to the next section.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    intro/intro
@@ -42,7 +42,7 @@ Here are a few walkthroughs of
 common dahak workflows:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    workflows/taxclass
