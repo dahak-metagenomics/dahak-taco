@@ -1,8 +1,5 @@
 include: "biocontainers.settings"
 
-# needs, but does not set, 
-# data_dir
-
 from os.path import join
 
 data_dir = config['data_dir']
@@ -47,8 +44,10 @@ Override parameters example:
 ```
 $ cat pull-biocontainers-params.json
 {
-    'biocontainer' : {
-        'version' : '2.0.0a2--py36_0'
+    'biocontainers' : {
+        'sourmash' : {
+            'version' : '2.0.0a2--py36_0'
+        }
     }
 }
 

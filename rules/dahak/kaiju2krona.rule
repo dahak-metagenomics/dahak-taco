@@ -2,9 +2,6 @@ include: "biocontainers.settings"
 include: "kaiju.settings"
 include: "kaiju2krona.settings"
 
-# needs, but does not set, 
-# data_dir
-
 data_dir = config['data_dir']
 
 kaiju_dmp1   = config['kaiju']['dmp1']
@@ -22,11 +19,16 @@ quayurl = config['biocontainers']['kaiju']['quayurl'] + ":" + config['biocontain
 
 kaiju2krona_input = [join(data_dir,d) for d in [kaiju_dmp1, kaiju_dmp2, run_kaiju_output]]
 
+# One approach is to let the user set this.
+# But here, we just take care of it for them.
 kaiju2krona_output = re.sub('\.out','\.kaiju_out_krona',run_kaiju_output)
 
 rule kaiju2krona:
     """
 ## Rule: Kaiju to Krona 
+
+TODO: use `kaijukrona_output` as an example of the 
+"take care of all the details" approach.
 
 Convert kaiju results to krona results,
 and generate a report.

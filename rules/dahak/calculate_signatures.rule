@@ -4,9 +4,6 @@ include: "calculate_signatures.settings"
 
 data_dir = config['data_dir']
 
-# Here, we prefix files with data_dir because these are 
-# the files that Snakemake's task graph will look for
-
 sig_inputs  = [join(data_dir, config['reads']['fq_fwd']), 
                join(data_dir, config['reads']['fq_rev'])]
 sig_output   = join(data_dir, config['calculate_signatures']['sig_name'])

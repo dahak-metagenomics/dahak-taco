@@ -1,9 +1,6 @@
 include: "kaiju.settings"
 include: "filter_taxa.settings"
 
-# needs, but does not set, 
-# data_dir
-
 data_dir = config['data_dir']
 
 kaiju_dmp1   = config['kaiju']['dmp1']

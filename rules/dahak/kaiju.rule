@@ -2,12 +2,6 @@ include: "reads.settings"
 include: "biocontainers.settings"
 include: "kaiju.settings"
 
-# this needs but does not set the following parameters:
-# base, ntrim, data_dir
-#
-# TODO:
-# This could also use some generalization...
-
 data_dir = config['data_dir']
 
 kaiju_dmp1   = join(data_dir, config['kaiju']['dmp1'])
