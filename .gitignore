@@ -1,3 +1,4 @@
+data/
 docs/_build
 attic
 .snakemake
