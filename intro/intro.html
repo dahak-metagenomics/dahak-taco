@@ -176,9 +176,6 @@ that contains dictionaries of parameters, typically grouped
 by workflow rule, application, or group of applications.</p>
 <p>The form of the workflow parameters JSON file is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;rule 1 name&#39;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">dict</span> <span class="n">of</span> <span class="n">rule</span> <span class="mi">1</span> <span class="n">parameters</span><span class="o">&gt;</span><span class="p">,</span>
-    <span class="s1">&#39;rule 2 name&#39;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">dict</span> <span class="n">of</span> <span class="n">rule</span> <span class="mi">2</span> <span class="n">parameters</span><span class="o">&gt;</span><span class="p">,</span>
-    <span class="o">...</span>
     <span class="s1">&#39;app 1 name&#39;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">dict</span> <span class="n">of</span> <span class="n">app</span> <span class="mi">1</span> <span class="n">parameters</span><span class="o">&gt;</span><span class="p">,</span>
     <span class="s1">&#39;app 2 name&#39;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">dict</span> <span class="n">of</span> <span class="n">app</span> <span class="mi">2</span> <span class="n">parameters</span><span class="o">&gt;</span><span class="p">,</span>
     <span class="o">...</span>
@@ -188,9 +185,9 @@ by workflow rule, application, or group of applications.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Some parameters are named according to the app or rule
-that uses them. Others are used by several rules and
-have a more generic group name.</p>
+<p>Most parameters are listed under the app that uses them.
+Some parameters are common to a large number of tasks,
+so are defined under a group like “reads”.</p>
 </div>
 <div class="section" id="example-workflow-parameters-file">
 <span id="example-workflow-parameters-file"></span><h3>Example Workflow Parameters File<a class="headerlink" href="#example-workflow-parameters-file" title="Permalink to this headline">¶</a></h3>

@@ -36,6 +36,7 @@
 <li><a class="reference internal" href="#rule-download-and-unpack-sourmash-sbts">Rule: Download and Unpack Sourmash SBTs</a></li>
 <li><a class="reference internal" href="#rule-calculate-signatures-default-parameters">Rule: Calculate Signatures (Default Parameters)</a></li>
 <li><a class="reference internal" href="#rule-calculate-signatures-modified-parameters">Rule: Calculate Signatures (Modified Parameters)</a></li>
+<li><a class="reference internal" href="#rule-fetch-kaiju-database">Rule: Fetch Kaiju Database</a></li>
 <li><a class="reference internal" href="#list-of-rules">List of Rules</a></li>
 <li><a class="reference internal" href="#list-of-rule-files">List of Rule Files</a></li>
 </ul>
@@ -91,8 +92,7 @@ To see available rules, run:</p>
 </pre></div>
 </div>
 <p>Add the rule you want to run to the workflow configuration file.</p>
-<p>Check the relevant <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.settings</span></code> file for any settings
-to change in the workflow parameters file.</p>
+<p>Also see <a class="reference external" href="#list-of-rules">list of rules</a> below.</p>
 </div>
 <div class="section" id="rule-pull-biocontainers">
 <span id="rule-pull-biocontainers"></span><h2>Rule: Pull Biocontainers<a class="headerlink" href="#rule-pull-biocontainers" title="Permalink to this headline">¶</a></h2>
@@ -258,6 +258,43 @@ $ ./taco -n calc-sigs calc-sigs-params # dry run
 $ ./taco calc-sigs calc-sigs-params
 </pre></div>
 </div>
+</div>
+<div class="section" id="rule-fetch-kaiju-database">
+<span id="rule-fetch-kaiju-database"></span><h2>Rule: Fetch Kaiju Database<a class="headerlink" href="#rule-fetch-kaiju-database" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">unpack_kaiju</span></code> rule will fetch the kaiju database,
+untar it, and remove the tar file.</p>
+<p>This is a large file and will take approx. 15-30 minutes.</p>
+<p>The name of the database being downloaded, and the URL,
+can be overridden using a parameters file. The default
+value is shown here.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat fetch-kaiju-params.json
+{
+    &#39;kaiju&#39; : {
+        &#39;dmp1&#39; : &#39;nodes.dmp&#39;,
+        &#39;dmp2&#39; : &#39;names.dmp&#39;,
+        &#39;fmi&#39;  : &#39;kaiju_db_nr_euk.fmi&#39;,
+        &#39;tar&#39;  : &#39;kaiju_index_nr_euk.tgz&#39;,
+        &#39;url&#39;  : &#39;http://kaiju.binf.ku.dk/database&#39;,
+        &#39;out&#39;  : &#39;{base}.kaiju_output.trim{ntrim}.out&#39;
+    }
+}
+
+$ cat fetch-kaiju.json
+{
+    &#39;workflow_target&#39; : &#39;unpack_kaiju&#39;
+}
+
+$ ./taco -d fetch-kaiju fetch-kaiju-params # dry run
+
+$ ./taco fetch-kaiju fetch-kaiju-params
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">kaiju.rule</span></code> includes three settings files:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">reads</span></code> group settings</li>
+<li><code class="docutils literal notranslate"><span class="pre">biocintainers</span></code> app settings</li>
+<li><code class="docutils literal notranslate"><span class="pre">kaiju</span></code> app settings</li>
+</ul>
 </div>
 <div class="section" id="list-of-rules">
 <span id="list-of-rules"></span><h2>List of Rules<a class="headerlink" href="#list-of-rules" title="Permalink to this headline">¶</a></h2>
