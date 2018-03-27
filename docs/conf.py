@@ -113,7 +113,6 @@ html_static_path = ['_static']
 #
 # html_sidebars = {}
 
-
 html_context = {
 #   "google_analytics_id" : 'UA-51731094-1',
 #   "disqus_shortname" : 'khmer-docs',
@@ -179,3 +178,7 @@ texinfo_documents = [
 
 
 # -- Extension configuration -------------------------------------------------
+
+def setup(app):
+    app.add_stylesheet('bootstrap.min.css')
+
