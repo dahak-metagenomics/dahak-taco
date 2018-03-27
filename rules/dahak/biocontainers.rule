@@ -21,7 +21,9 @@ for k in biocontainers.keys():
 
 rule pull_biocontainers:
     """
-## Rule: pull_biocontainers
+## Rule: `pull_biocontainers`
+
+Pull the required versions of containers from quay.io.
 
 Simple workflow configuration file:
 
@@ -40,7 +42,7 @@ $ ./taco -n pull-biocontainers-workflow # dry run
 $ ./taco pull-biocontainers-workflow
 ```
 
-Override parameters exmaple:
+Override parameters example:
 
 ```
 $ cat pull-biocontainers-params.json
@@ -53,9 +55,9 @@ $ cat pull-biocontainers-params.json
 $ ./taco pull-biocontainers-workflow pull-biocontainers-params
 ```
 
-This rule is defined in rules/dahak/biocontainers.rule.
+This rule is defined in `rules/dahak/biocontainers.rule`.
 
-This rule includes biocontainers.settings.
+This rule includes `biocontainers.settings`.
     """
     output:
         touch(join(data_dir,'.pulled_containers'))
