@@ -19,14 +19,22 @@ $ ./taco ls
 
 Add the rule you want to run to the workflow configuration file.
 
-Check the relevant `rules/dahak/*.settings` file for any settings
-to change in the workflow parameters file.
+Also see [list of rules](#list-of-rules) below.
 
 ## Rule: Pull Biocontainers
 
-Start with a simple example of a single workflow step
-with no input or output files. To run the
-`pull_biocontainers` workflow:
+Let's start with `pull_biocontainers`, a simple example 
+of a single workflow step with no input or output files. 
+
+```text
+pull_biocontainers
+    
+    - Pull the latest version of sourmash, kaiju, and krona
+    - Version numbers are set in biocontainers.settings
+    - To call this rule, ask for the file .pulled_containers
+```    
+
+To run the `pull_biocontainers` workflow:
 
 ```
 $ cat pull-biocontainers-workflow.json
@@ -74,6 +82,18 @@ $ ./taco pull-biocontainers-workflow pull-biocontainers-params
 ```
 
 ## Rule: Download and Unpack Sourmash SBTs
+
+```text
+download_sourmash_sbts
+    
+    Download the sourmash SBTs from spacegraphcats
+
+    To call this rule, request sourmash SBT json file for the specified database.
+    
+unpack_sourmash_sbts
+    
+    Unpack the sourmash SBTs
+```
 
 Like the prior step, this step has no
 input or output file names to set.
@@ -180,6 +200,11 @@ $ cat calc-sigs-params.json
 }
 ```
 
+NOTE: `kvalues_fname` is a variable created when the rule is run,
+and is the result of `"_".join(config['calculate_signatures']['kvalues'])`.
+
+TODO: improve the abstraction.
+
 **Example 4:** Implement all three of the above parameter changes.
 
 ```
@@ -205,16 +230,49 @@ $ ./taco -n calc-sigs calc-sigs-params # dry run
 $ ./taco calc-sigs calc-sigs-params
 ```
 
+## Rule: Fetch Kaiju Database
+
+The `unpack_kaiju` rule will fetch the kaiju database,
+untar it, and remove the tar file.
+
+This is a large file and will take approx. 15-30 minutes.
+
+The name of the database being downloaded, and the URL, 
+can be overridden using a parameters file. The default
+value is shown here.
+
+```
+$ cat fetch-kaiju-params.json
+{
+    'kaiju' : {
+        'dmp1' : 'nodes.dmp',
+        'dmp2' : 'names.dmp',
+        'fmi'  : 'kaiju_db_nr_euk.fmi',
+        'tar'  : 'kaiju_index_nr_euk.tgz',
+        'url'  : 'http://kaiju.binf.ku.dk/database',
+        'out'  : '{base}.kaiju_output.trim{ntrim}.out'
+    }
+}
+
+$ cat fetch-kaiju.json
+{
+    'workflow_target' : 'unpack_kaiju'
+}
+
+$ ./taco -d fetch-kaiju fetch-kaiju-params # dry run
+
+$ ./taco fetch-kaiju fetch-kaiju-params
+```
+
+`kaiju.rule` includes three settings files:
+
+* `reads` group settings
+* `biocintainers` app settings
+* `kaiju` app settings
 
 ## List of Rules
 
-```
-pull_biocontainers
-    
-    - Pull the latest version of sourmash, kaiju, and krona
-    - Version numbers are set in biocontainers.settings
-    - To call this rule, ask for the file .pulled_containers
-    
+```text
 download_sourmash_sbts
     
     Downoad the sourmash SBTs from spacegraphcats

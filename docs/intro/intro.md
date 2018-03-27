@@ -68,6 +68,14 @@ must specify a key `workflow_target`.
 The value must be a valid Snakemake rule
 defined in one of the rule files at `rules/dahak/*.rules`.
 
+The form of the workflow configuration file is:
+
+```
+{
+    'workflow_target' : <name of Snakemake rule>
+}
+```
+
 ### Example Workflow Configuration File
 
 Here is a simple example of a workflow 
@@ -97,9 +105,6 @@ The form of the workflow parameters JSON file is:
 
 ```
 {
-    'rule 1 name' : <dict of rule 1 parameters>,
-    'rule 2 name' : <dict of rule 2 parameters>,
-    ...
     'app 1 name' : <dict of app 1 parameters>,
     'app 2 name' : <dict of app 2 parameters>,
     ...
@@ -109,9 +114,9 @@ The form of the workflow parameters JSON file is:
 }
 ```
 
-Some parameters are named according to the app or rule 
-that uses them. Others are used by several rules and 
-have a more generic group name.
+Most parameters are listed under the app that uses them.
+Some parameters are common to a large number of tasks,
+so are defined under a group like "reads".
 
 ### Example Workflow Parameters File
 
