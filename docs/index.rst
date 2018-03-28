@@ -10,6 +10,8 @@ dahak-taco documentation
 dahak-taco is an experimental command-line interface
 for running dahak workflows using Snakemake.
 
+(insert icholy/ttygif here.)
+
 Getting Started
 ==================
 
@@ -24,15 +26,15 @@ If you're hungry for more dahak workflows,
 skip to the next section.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    intro/intro
    intro/howitworks
    intro/snakemakerules
 
-Workflows
-==================
+Workflow Walkthroughs
+=======================
 
 The main purpose of taco is to run 
 dahak workflows by calling Snakemake
@@ -42,7 +44,7 @@ Here are a few walkthroughs of
 common dahak workflows:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    workflows/taxclass
