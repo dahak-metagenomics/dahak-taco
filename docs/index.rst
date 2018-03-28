@@ -27,11 +27,10 @@ skip to the next section.
 
 .. toctree::
    :maxdepth: 1
-   :caption: Contents:
+   :caption: Getting Started:
 
    intro/intro
-   intro/howitworks
-   intro/snakemakerules
+   intro/quickstart
 
 Workflow Walkthroughs
 =======================
@@ -45,9 +44,22 @@ common dahak workflows:
 
 .. toctree::
    :maxdepth: 1
-   :caption: Contents:
+   :caption: Workflow Walkthroughs:
 
    workflows/taxclass
    workflows/assembly
    workflows/functionalinference
+
+Under The Hood
+=====================
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Developers Guide:
+
+    dev/howitworks
+    dev/snakemakerules
+
+
+
 
