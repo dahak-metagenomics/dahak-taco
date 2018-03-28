@@ -10,6 +10,8 @@ dahak-taco documentation
 dahak-taco is an experimental command-line interface
 for running dahak workflows using Snakemake.
 
+(insert icholy/ttygif here.)
+
 Getting Started
 ==================
 

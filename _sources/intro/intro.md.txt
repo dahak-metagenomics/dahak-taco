@@ -4,39 +4,58 @@ dahak-taco is an experimental
 command line interface for 
 running dahak workflows.
 
+dahak-taco is hosted in Github
+at [https://github.com/dahak-metagenomics/dahak-taco](https://github.com/dahak-metagenomics/dahak-taco).
+
 ## Installation
 
 dahak-taco is an executable command-line script.
 
-### Required Software
+Create a local clone using git:
 
-Requirements:
+```text
+$ git clone https://github.com/dahak-metagenomics/dahak-taco.git
+```
+
+## How dahak-taco Works
+
+dahak-taco wraps a Snakemake file with a simpler command line interface.
+
+To run dahak-taco, you must have Python and Snakemake installed.
+
+Singularity is not currently required but may be in the future.
+
+## Getting Required Software 
+
+Required software:
 
 * Conda
 * Snakemake
 * Singularity (optional)
 
-### Scripts for Installing Required Software
+**Installing:** Installation scripts for software needed 
+for dahak-taco may be found in the `scripts/` directory
+in the repo:
 
-Installation scripts for software needed 
-for dahak-taco are in the `scripts/` folder:
-
-```
-$ ls scripts/
+```text
+$ ls dahak-taco/scripts/
 install_pyenv.py
 install_singularity.py
 install_snakemake.py
 ```
 
-You can test that your environment is working correctly
-by running your version of python and an 
-`import snakemake` command:
+You must be root to install singularity.
 
-```
-python -c 'import snakemake'
+You may install pyenv and Snakemake as a user only.
+
+**Testing:** To test your environment is working,
+run the following command using your version of Python:
+
+```text
+$ python -c 'import snakemake'
 ```
 
-### Where Is Taco
+## How To Use Taco
 
 The file `taco` contains the command line tool,
 so run it directly:
@@ -45,15 +64,20 @@ so run it directly:
 $ ./taco <arguments>
 ```
 
+This will provide helpful information at the command line. 
+
+Keep reading for a description of what 
+information taco requires to run.
+
 ## Quick Start
 
 dahak-taco requires two inputs from the user:
 
-* Workflow configuration file - specifies the workflow rules
+* **Workflow configuration file:** specifies the workflow rules
     to run and the names of the target input and output files.
     These rules are defined in `rules/dahak/*.rules`.
 
-* Workflow parameters file - specifies values for 
+* **Workflow parameters file:** specifies values for 
     workflow parameters. Parmaeters set in this
     parameters file will override parameters set
     in the `rules/dahak/*.settings` files.
@@ -70,7 +94,7 @@ defined in one of the rule files at `rules/dahak/*.rules`.
 
 The form of the workflow configuration file is:
 
-```
+```text
 {
     'workflow_target' : <name of Snakemake rule>
 }
@@ -84,7 +108,7 @@ from a URL (no output filenames involved):
 
 **`test-workflow.json`:**
 
-```
+```text
 {
     "workflow_target" : "pull_biocontainers"
 }
@@ -103,7 +127,7 @@ by workflow rule, application, or group of applications.
 
 The form of the workflow parameters JSON file is:
 
-```
+```text
 {
     'app 1 name' : <dict of app 1 parameters>,
     'app 2 name' : <dict of app 2 parameters>,
@@ -129,7 +153,7 @@ pulled in the workflow task defined above:
 
 **`test-params.json`:**
 
-```
+```text
 {
     "biocontainers" : {
         "sourmash" : "2.0.0a2--py36_0"
@@ -153,19 +177,19 @@ Both arguments should be the path to a JSON file
 For example, to run the two JSON files in the 
 example above,
 
-```
+```text
 ./taco test-workflow test-params
 ```
 
 To run workflows contained in a `configs/` directory, run:
 
-```
+```text
 ./taco configs/test-workflow configs/test-params
 ```
 
 To do a dry run only, add the `-n` or `--dry-run` flag:
 
-```
+```text
 ./taco -n test-workflow test-params
 ```
 
@@ -188,13 +212,13 @@ This will run the pull biocontainers rule.
 You can also list available snakemake rules
 using the `dahak ls` command:
 
-```
+```text
 $ ./taco ls
 ```
 
 This is equivalent to the following snakemake command:
 
-```
+```text
 $ snakemake -l
 ```
 
