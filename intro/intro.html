@@ -182,11 +182,12 @@ from a URL (no output filenames involved):</p>
 <span id="workflow-parameters-file"></span><h3>Workflow Parameters File<a class="headerlink" href="#workflow-parameters-file" title="Permalink to this headline">¶</a></h3>
 <p>The workflow parameters file contains parameter values
 to control the workflow. These parameter values will override
-parameters set in the settings files at <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.settings</span></code>.</p>
+default parameter values set in the <code class="docutils literal notranslate"><span class="pre">rules/</span></code> directory.</p>
 <p>Parameters are any variables used in the Snakemake rules.
 All Snakemake parameters are contained in a config dictionary
 that contains dictionaries of parameters, typically grouped
 by workflow rule, application, or group of applications.</p>
+<p>All rules are set in <code class="docutils literal notranslate"><span class="pre">*.settings</span></code> files in the <code class="docutils literal notranslate"><span class="pre">rules/</span></code> directory.</p>
 <p>The form of the workflow parameters JSON file is:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
     &#39;app 1 name&#39; : &lt;dict of app 1 parameters&gt;,
@@ -199,16 +200,18 @@ by workflow rule, application, or group of applications.</p>
 </pre></div>
 </div>
 <p>Most parameters are listed under the app that uses them.
-Some parameters are common to a large number of tasks,
-so are defined under a group like “reads”.</p>
+Some parameters are common to several tasks,
+so they are assigned a key with a group name, like “reads”.</p>
 </div>
 <div class="section" id="example-workflow-parameters-file">
 <span id="example-workflow-parameters-file"></span><h3>Example Workflow Parameters File<a class="headerlink" href="#example-workflow-parameters-file" title="Permalink to this headline">¶</a></h3>
-<p>The following parameters file adjusts parameters for
-the biocontainers rule.</p>
-<p>Here is a simple parameters file that adjusts
-the version of one of the containers being
-pulled in the workflow task defined above:</p>
+<p>The following example parameters file adjusts the parameters for
+the rule to update biocontainers.</p>
+<p>This is a simple parameter file overriding a single parameter,
+the version of sourmash being utilized.</p>
+<p>This overrides the default biocontainers setting of
+sourmash version <code class="docutils literal notranslate"><span class="pre">2.0.0a3--py36_0</span></code>, set in
+<code class="docutils literal notranslate"><span class="pre">rules/dahak/biocontainers.settings</span></code>.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">test-params.json</span></code>:</strong></p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
     &quot;biocontainers&quot; : {
@@ -217,9 +220,6 @@ pulled in the workflow task defined above:</p>
 }
 </pre></div>
 </div>
-<p>(Note that this overrides the default
-sourmash version of <code class="docutils literal notranslate"><span class="pre">2.0.0a3--py36_0</span></code>
-defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/biocontainers.settings</span></code>.</p>
 </div>
 <div class="section" id="running">
 <span id="running"></span><h3>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h3>
@@ -228,8 +228,7 @@ The first argument is the name of the workflow,
 the second argument is the name of the paramters file.</p>
 <p>Both arguments should be the path to a JSON file
 (absolute or relative) and exclude the JSON suffix.</p>
-<p>For example, to run the two JSON files in the
-example above,</p>
+<p>For example, to run the two JSON files in the example above,</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco test-workflow test-params
 </pre></div>
 </div>
@@ -247,7 +246,7 @@ example above,</p>
 <p>Following the example above, we run the example workflow
 by specifying the test workflow configuration file
 and the test workflow parameters file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">taco</span> <span class="n">test</span><span class="o">-</span><span class="n">workflow</span> <span class="n">test</span><span class="o">-</span><span class="n">params</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco test-workflow test-params
 </pre></div>
 </div>
 <p>(Note that a parameters file is optional.)</p>
