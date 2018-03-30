@@ -11,7 +11,7 @@ def install_singularity():
         raise Exception("You are not root - this script requires root (apt-get commands).")
     else:
 
-        print("installing singularity...")
+        print("Installing singularity...")
 
         # -----------------------
         # Parameters:

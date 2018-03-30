@@ -1,23 +1,24 @@
 #!/usr/bin/env python3
-import os
+import os, sys
 import getpass
 import tempfile
 import subprocess
 
+"""
+Install Snakemake
 
-def install_pyenv():
+This script runs the necessary commands to install Snakemake.
+"""
+
+FNULL = open(os.devnull, 'w')
+
+def install_snakemake():
     user = getpass.getuser()
     if(user=="root"):
         raise Exception("You are root - you should run this script as a normal user.")
     else:
-        # Install snakemake
-        conda_version = "miniconda3-4.3.30"
 
-        installcmd = ["pyenv","install",conda_version]
-        subprocess.call(installcmd)
-        
-        globalcmd = ["pyenv","global",conda_version]
-        subprocess.call(globalcmd)
+        print("Installing snakemake...")
 
         # ---------------------------
         # Install snakemake
@@ -25,14 +26,25 @@ def install_pyenv():
         pyenvbin = os.environ['HOME']
         condabin = pyenvbin+"/.pyenv/shims/conda"
 
-        subprocess.call([condabin,"update"])
+        print(" - Adding channels:")
 
-        subprocess.call([condabin,"config","--add","channels","r"])
-        subprocess.call([condabin,"config","--add","channels","default"])
-        subprocess.call([condabin,"config","--add","channels","conda-forge"])
-        subprocess.call([condabin,"config","--add","channels","bioconda"])
+        print("     - r")
+        subprocess.call([condabin,"config","--add","channels","r"]          , stdout=FNULL)
 
-        subprocess.call([condabin,"install","--yes","-c","bioconda","snakemake"])
+        print("     - default")
+        subprocess.call([condabin,"config","--add","channels","default"]    , stdout=FNULL)
+
+        print("     - conda-forge")
+        subprocess.call([condabin,"config","--add","channels","conda-forge"], stdout=FNULL)
+
+        print("     - bioconda")
+        subprocess.call([condabin,"config","--add","channels","bioconda"]   , stdout=FNULL)
+
+        #subprocess.call([condabin,"install","--yes","-c","bioconda","snakemake"])
+
+        print(" - Installing snakemake")
+        condacmd = ["conda","install","-y","-c","bioconda","snakemake"]
+        subprocess.call(condacmd, stdout=FNULL)
 
         # ---------------------------
         # Install osf cli client
@@ -40,11 +52,20 @@ def install_pyenv():
         pyenvbin = os.environ['HOME']
         pipbin = pyenvbin+"/.pyenv/shims/pip"
 
-        subprocess.call([pipbin,"install","--upgrade","pip"])
-        subprocess.call([pipbin,"install","--user","osfclient"])
+        print(" - Upgrading pip")
+        subprocess.call([pipbin,"install","--upgrade","pip"]   , stdout=FNULL)
 
+        print(" - Installing OSF CLI client")
+        subprocess.call([pipbin,"install","--user","osfclient"], stdout=FNULL)
+
+
+        print("     ~~*~~ ~~*~~ ~~*~~ SUCCESS! ~~*~~ ~~*~~ ~~*~~\n")
+        print("     Snakemake and the OSF client are now installed.")
+        print("     Test that snakemake is working using the following one-liner:\n")
+        print("         python -c 'import snakemake'")
+        print()
 
 
 if __name__=="__main__":
-    install_pyenv()
+    install_snakemake()
 
