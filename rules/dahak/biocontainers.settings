@@ -15,8 +15,8 @@ config_default = {
             'version' : '2.7--pl5.22.0_1'
         },
         'osf' : {
-            'quayurl' : 'quay.io/centerforopenscience/osf@sha256',
-            'version' : '7b7f23f64a2226bf5f1d61a9b06bc9386623cf5b4a79c63a75c0e49503f9476c'
+            'quayurl' : 'quay.io/centerforopenscience/osf',
+            'version' : 'master'
         }
     }
 }
