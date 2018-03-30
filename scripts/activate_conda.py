@@ -10,6 +10,10 @@ Run the commands to install a version of conda
 that is acceptable to us, using pyenv.
 Make this the global pyenv version.
 Make sure dotfiles always update $PATH.
+
+pyenv istall <version>
+pyenv global <version>
+eval "$(pyenv init -)"
 """
 
 FNULL = open(os.devnull, 'w')
@@ -36,8 +40,8 @@ def install_pyenv():
         pyenvinitcmd = ["pyenv","init","-"]
         pyenvinitproc = subprocess.Popen(pyenvinitcmd, stdout=subprocess.PIPE)
 
-        #evalcmd = ["bash"]
-        #evalproc = subprocess.Popen(evalcmd, stdin=pyenvinitproc.stdout)
+        evalcmd = ["bash"]
+        evalproc = subprocess.Popen(evalcmd, stdin=pyenvinitproc.stdout)
 
         print("Done.\n")
         subprocess.call(["which","python"])
