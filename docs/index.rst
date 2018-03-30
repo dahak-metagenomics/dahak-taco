@@ -35,9 +35,11 @@ skip to the next section.
 Workflow Walkthroughs
 =======================
 
-The main purpose of taco is to run 
-dahak workflows by calling Snakemake
-rules contained in the ``rules`` directory.
+dahak-taco is a lightweight wrapper around Snakemake tasks.
+Kind of like a corn tortilla.
+
+The Snakemake API is called to run rules contained in the 
+``rules`` directory.
 
 Here are a few walkthroughs of 
 common dahak workflows:
@@ -53,13 +55,18 @@ common dahak workflows:
 Under The Hood
 =====================
 
+dahak-taco provides a set of workflows 
+with default parameters that should work
+for many use cases.
+
+However, to extend dahak-taco, or just understand
+what it is doing, take a look at the innards of taco:
+
 .. toctree::
    :maxdepth: 1
-   :caption: Developers Guide:
+   :caption: Under the Hood:
 
-    dev/howitworks
-    dev/snakemakerules
-
-
+    underthehood/howitworks
+    underthehood/snakemakerules
 
 

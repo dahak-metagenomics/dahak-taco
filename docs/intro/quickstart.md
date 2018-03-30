@@ -151,6 +151,10 @@ using the `dahak ls` command:
 $ ./taco ls
 ```
 
+TODO: fix this mess. Use snakemake -l to generate docs, use taco ls 
+to present a cleaned up version of the information.
+Will require grep and cut and etc.
+
 This is equivalent to the following snakemake command:
 
 ```text
