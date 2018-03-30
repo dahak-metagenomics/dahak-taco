@@ -26,6 +26,8 @@ rule filter_taxa_total:
     Filter out taxa with low abundances by obtaining genera that
     comprise at least {pct} percent of the total reads
     (default: 1%)
+
+    See filter_taxa.md
     """
     input:
         filter_taxa_total_input
@@ -60,6 +62,8 @@ rule filter_taxa_class:
     For comparison, take the genera that comprise
     at least {pct} percent of all of the classified reads
     (default: 1%)
+
+    See filter_taxa.md
     """
     input:
         filter_taxa_class_input

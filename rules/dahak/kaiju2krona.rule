@@ -25,60 +25,10 @@ kaiju2krona_output = re.sub('\.out','\.kaiju_out_krona',run_kaiju_output)
 
 rule kaiju2krona:
     """
-## Rule: Kaiju to Krona 
+    Convert kaiju results to krona results,
+    and generate a report.
 
-TODO: use `kaijukrona_output` as an example of the 
-"take care of all the details" approach.
-
-Convert kaiju results to krona results,
-and generate a report.
-
-Simple workflow configuration:
-
-```
-$ cat kaiju2krona.json
-{
-    'workflow_target' : 'kaiju2krona'
-}
-
-Run the workflow:
-
-```
-$ ./taco -d kaiju2krona # dry run
-
-$ ./taco kaiju2krona 
-```
-
-Override parameters examples:
-
-(Note: kaiju2krona does not have any parameters itself,
-but utilizes kaiju parameters.)
-
-```
-$ cat kaiju2krona-params.json
-{
-    'kaiju' : {
-        'dmp1' : 'nodes.dmp',
-        'dmp2' : 'names.dmp',
-        'fmi'  : 'kaiju_db_nr_euk.fmi',
-        'tar'  : 'kaiju_index_nr_euk.tgz',
-        'url'  : 'http://kaiju.binf.ku.dk/database',
-        'out'  : '{base}.kaiju_output.trim{ntrim}.out'
-    },
-    'biocontainers' : {
-        'sourmash' : '2.0.0a2--py36_0'
-    }
-}
-
-$ ./taco -d kaiju2krona kaiju2krona-params # dry run
-
-$ ./taco kaiju2krona kaiju2krona-params
-```
-
-This rule is defined in `rules/dahak/kaiju2krona.rule`.
-
-This rule includes `biocontainers.settings`, `kaiju.settings`, `kaiju2krona.settings`
-```
+    See kaiju2krona.md
     """
     input:
         kaiju2krona_input
@@ -113,6 +63,8 @@ rule kaiju2kronasummary:
     """
     Convert kaiju results to krona results,
     and generate a report.
+
+    See kaiju2krona.md
     """
     input:
         kaiju2kronasummary_input
