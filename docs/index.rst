@@ -19,9 +19,6 @@ To get started with dahak-taco,
 and run your first workflow task,
 see :doc:`intro/intro`.
 
-To figure out what taco is doing
-and what it requires, see :doc:`intro/howitworks`.
-
 If you're hungry for more dahak workflows,
 skip to the next section.
 
@@ -66,7 +63,5 @@ what it is doing, take a look at the innards of taco:
    :maxdepth: 1
    :caption: Under the Hood:
 
-    underthehood/howitworks
-    underthehood/snakemakerules
-
-
+   underthehood/howitworks
+   underthehood/snakemakerules
