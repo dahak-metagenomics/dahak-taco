@@ -19,35 +19,49 @@ To get started with dahak-taco,
 and run your first workflow task,
 see :doc:`intro/intro`.
 
-To figure out what taco is doing
-and what it requires, see :doc:`intro/howitworks`.
-
 If you're hungry for more dahak workflows,
 skip to the next section.
 
 .. toctree::
    :maxdepth: 1
-   :caption: Contents:
+   :caption: Getting Started:
 
    intro/intro
-   intro/howitworks
-   intro/snakemakerules
+   intro/quickstart
 
 Workflow Walkthroughs
 =======================
 
-The main purpose of taco is to run 
-dahak workflows by calling Snakemake
-rules contained in the ``rules`` directory.
+dahak-taco is a lightweight wrapper around Snakemake tasks.
+Kind of like a corn tortilla.
+
+The Snakemake API is called to run rules contained in the 
+``rules`` directory.
 
 Here are a few walkthroughs of 
 common dahak workflows:
 
 .. toctree::
    :maxdepth: 1
-   :caption: Contents:
+   :caption: Workflow Walkthroughs:
 
    workflows/taxclass
    workflows/assembly
    workflows/functionalinference
 
+Under The Hood
+=====================
+
+dahak-taco provides a set of workflows 
+with default parameters that should work
+for many use cases.
+
+However, to extend dahak-taco, or just understand
+what it is doing, take a look at the innards of taco:
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Under the Hood:
+
+   underthehood/howitworks
+   underthehood/snakemakerules

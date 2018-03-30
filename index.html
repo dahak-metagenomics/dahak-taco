@@ -33,6 +33,7 @@
 <li><a class="reference internal" href="#">dahak-taco documentation</a><ul>
 <li><a class="reference internal" href="#getting-started">Getting Started</a></li>
 <li><a class="reference internal" href="#workflow-walkthroughs">Workflow Walkthroughs</a></li>
+<li><a class="reference internal" href="#under-the-hood">Under The Hood</a></li>
 </ul>
 </li>
 </ul>
@@ -79,32 +80,45 @@ for running dahak workflows using Snakemake.</p>
 <p>To get started with dahak-taco,
 and run your first workflow task,
 see <a class="reference internal" href="intro/intro.html"><span class="doc">Introduction: dahak-taco</span></a>.</p>
-<p>To figure out what taco is doing
-and what it requires, see <a class="reference internal" href="intro/howitworks.html"><span class="doc">How Taco Works</span></a>.</p>
 <p>If you’re hungry for more dahak workflows,
 skip to the next section.</p>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">Getting Started:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro/intro.html">Introduction: dahak-taco</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro/howitworks.html">How Taco Works</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro/snakemakerules.html">Snakemake Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/quickstart.html">Quick Start</a></li>
 </ul>
 </div>
 </div>
 <div class="section" id="workflow-walkthroughs">
 <h2>Workflow Walkthroughs<a class="headerlink" href="#workflow-walkthroughs" title="Permalink to this headline">¶</a></h2>
-<p>The main purpose of taco is to run
-dahak workflows by calling Snakemake
-rules contained in the <code class="docutils literal notranslate"><span class="pre">rules</span></code> directory.</p>
+<p>dahak-taco is a lightweight wrapper around Snakemake tasks.
+Kind of like a corn tortilla.</p>
+<p>The Snakemake API is called to run rules contained in the
+<code class="docutils literal notranslate"><span class="pre">rules</span></code> directory.</p>
 <p>Here are a few walkthroughs of
 common dahak workflows:</p>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">Workflow Walkthroughs:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="workflows/taxclass.html">Taxonomic Classification Walkthrough</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflows/assembly.html">Assembly Walkthrough</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflows/functionalinference.html">Functional Inference</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="under-the-hood">
+<h2>Under The Hood<a class="headerlink" href="#under-the-hood" title="Permalink to this headline">¶</a></h2>
+<p>dahak-taco provides a set of workflows
+with default parameters that should work
+for many use cases.</p>
+<p>However, to extend dahak-taco, or just understand
+what it is doing, take a look at the innards of taco:</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Under the Hood:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="underthehood/howitworks.html">How Taco Works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="underthehood/snakemakerules.html">Snakemake Rules</a></li>
 </ul>
 </div>
 </div>

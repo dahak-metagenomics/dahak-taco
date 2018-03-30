@@ -1,0 +1,238 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Quick Start &#8212; dahak-taco  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap.min.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Taxonomic Classification Walkthrough" href="../workflows/taxclass.html" />
+    <link rel="prev" title="Introduction: dahak-taco" href="intro.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Quick Start</a><ul>
+<li><a class="reference internal" href="#workflow-configuration-file">Workflow Configuration File</a></li>
+<li><a class="reference internal" href="#example-workflow-configuration-file">Example Workflow Configuration File</a></li>
+<li><a class="reference internal" href="#workflow-parameters-file">Workflow Parameters File</a></li>
+<li><a class="reference internal" href="#example-workflow-parameters-file">Example Workflow Parameters File</a></li>
+<li><a class="reference internal" href="#running-taco">Running Taco</a></li>
+<li><a class="reference internal" href="#running-the-example-workflow">Running the Example Workflow</a></li>
+<li><a class="reference internal" href="#listing-snakemake-rules">Listing Snakemake Rules</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="intro.html" title="previous chapter">Introduction: dahak-taco</a></li>
+      <li>Next: <a href="../workflows/taxclass.html" title="next chapter">Taxonomic Classification Walkthrough</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/intro/quickstart.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="quick-start">
+<span id="quick-start"></span><h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
+<p>Run the taco command line tool like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco &lt;arguments&gt;
+</pre></div>
+</div>
+<p>dahak-taco requires two inputs from the user:</p>
+<ul class="simple">
+<li><strong>Workflow configuration file:</strong> specifies the workflow rules
+to run and the names of the target input and output files.
+These rules are defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.rules</span></code>.</li>
+<li><strong>Workflow parameters file (optional):</strong> specifies values for
+workflow parameters. Parmaeters set in this
+parameters file will override parameters set
+in the <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.settings</span></code> files.</li>
+</ul>
+<p>These are both JSON files.</p>
+<div class="section" id="workflow-configuration-file">
+<span id="workflow-configuration-file"></span><h2>Workflow Configuration File<a class="headerlink" href="#workflow-configuration-file" title="Permalink to this headline">¶</a></h2>
+<p>The workflow configuration file
+must specify a key <code class="docutils literal notranslate"><span class="pre">workflow_target</span></code>.</p>
+<p>The value must be a valid Snakemake rule
+defined in one of the rule files at <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.rules</span></code>.</p>
+<p>The form of the workflow configuration file is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+    &#39;workflow_target&#39; : &lt;name of Snakemake rule&gt;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-workflow-configuration-file">
+<span id="example-workflow-configuration-file"></span><h2>Example Workflow Configuration File<a class="headerlink" href="#example-workflow-configuration-file" title="Permalink to this headline">¶</a></h2>
+<p>Here is a simple example of a workflow
+configuration file that pulls containers
+from a URL (no output filenames involved):</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">test-workflow.json</span></code>:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+    &quot;workflow_target&quot; : &quot;pull_biocontainers&quot;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="workflow-parameters-file">
+<span id="workflow-parameters-file"></span><h2>Workflow Parameters File<a class="headerlink" href="#workflow-parameters-file" title="Permalink to this headline">¶</a></h2>
+<p>The workflow parameters file contains parameter values
+to control the workflow. These parameter values will override
+default parameter values set in the <code class="docutils literal notranslate"><span class="pre">rules/</span></code> directory.</p>
+<p>Parameters are any variables used in the Snakemake rules.
+All Snakemake parameters are contained in a config dictionary
+that contains dictionaries of parameters, typically grouped
+by workflow rule, application, or group of applications.</p>
+<p>All rules are set in <code class="docutils literal notranslate"><span class="pre">*.settings</span></code> files in the <code class="docutils literal notranslate"><span class="pre">rules/</span></code> directory.</p>
+<p>The form of the workflow parameters JSON file is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+    &#39;app 1 name&#39; : &lt;dict of app 1 parameters&gt;,
+    &#39;app 2 name&#39; : &lt;dict of app 2 parameters&gt;,
+    ...
+    &#39;group 1 name&#39; : &lt;dict of grouped parameters 1&gt;,
+    &#39;group 2 name&#39; : &lt;dict of grouped parameters 2&gt;,
+    ...
+}
+</pre></div>
+</div>
+<p>Most parameters are listed under the app that uses them.
+Some parameters are common to several tasks,
+so they are assigned a key with a group name, like “reads”.</p>
+</div>
+<div class="section" id="example-workflow-parameters-file">
+<span id="example-workflow-parameters-file"></span><h2>Example Workflow Parameters File<a class="headerlink" href="#example-workflow-parameters-file" title="Permalink to this headline">¶</a></h2>
+<p>The following example parameters file adjusts the parameters for
+the rule to update biocontainers.</p>
+<p>This is a simple parameter file overriding a single parameter,
+the version of sourmash being utilized.</p>
+<p>This overrides the default biocontainers setting of
+sourmash version <code class="docutils literal notranslate"><span class="pre">2.0.0a3--py36_0</span></code>, set in
+<code class="docutils literal notranslate"><span class="pre">rules/dahak/biocontainers.settings</span></code>.</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">test-params.json</span></code>:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+    &quot;biocontainers&quot; : {
+        &quot;sourmash&quot; : &quot;2.0.0a2--py36_0&quot;
+    }
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-taco">
+<span id="running-taco"></span><h2>Running Taco<a class="headerlink" href="#running-taco" title="Permalink to this headline">¶</a></h2>
+<p>To run taco, pass it two arguments on the command line.
+The first argument is the name of the workflow,
+the second argument is the name of the paramters file.</p>
+<p>Both arguments should be the path to a JSON file
+(absolute or relative) and exclude the JSON suffix.</p>
+<p>For example, to run the two JSON files in the example above,</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco test-workflow test-params
+</pre></div>
+</div>
+<p>To run workflows contained in a <code class="docutils literal notranslate"><span class="pre">configs/</span></code> directory, run:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco configs/test-workflow configs/test-params
+</pre></div>
+</div>
+<p>To do a dry run only, add the <code class="docutils literal notranslate"><span class="pre">-n</span></code> or <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> flag:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco -n test-workflow test-params
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-the-example-workflow">
+<span id="running-the-example-workflow"></span><h2>Running the Example Workflow<a class="headerlink" href="#running-the-example-workflow" title="Permalink to this headline">¶</a></h2>
+<p>Following the example above, we run the example workflow
+by specifying the test workflow configuration file
+and the test workflow parameters file:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco test-workflow test-params
+</pre></div>
+</div>
+<p>(Note that a parameters file is optional.)</p>
+<p>This will run the pull biocontainers rule.</p>
+</div>
+<div class="section" id="listing-snakemake-rules">
+<span id="listing-snakemake-rules"></span><h2>Listing Snakemake Rules<a class="headerlink" href="#listing-snakemake-rules" title="Permalink to this headline">¶</a></h2>
+<p>You can also list available snakemake rules
+using the <code class="docutils literal notranslate"><span class="pre">dahak</span> <span class="pre">ls</span></code> command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco ls
+</pre></div>
+</div>
+<p>TODO: fix this mess. Use snakemake -l to generate docs, use taco ls
+to present a cleaned up version of the information.
+Will require grep and cut and etc.</p>
+<p>This is equivalent to the following snakemake command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ snakemake -l
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/intro/quickstart.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/charlesreid1/dahak-taco" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

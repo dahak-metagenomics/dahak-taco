@@ -16,7 +16,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="How Taco Works" href="howitworks.html" />
+    <link rel="next" title="Quick Start" href="quickstart.html" />
     <link rel="prev" title="dahak-taco documentation" href="../index.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -33,19 +33,9 @@
   <ul>
 <li><a class="reference internal" href="#">Introduction: dahak-taco</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#how-dahak-taco-works">How dahak-taco Works</a></li>
+<li><a class="reference internal" href="#software-requirements">Software Requirements</a></li>
 <li><a class="reference internal" href="#getting-required-software">Getting Required Software</a></li>
 <li><a class="reference internal" href="#how-to-use-taco">How To Use Taco</a></li>
-<li><a class="reference internal" href="#quick-start">Quick Start</a><ul>
-<li><a class="reference internal" href="#workflow-configuration-file">Workflow Configuration File</a></li>
-<li><a class="reference internal" href="#example-workflow-configuration-file">Example Workflow Configuration File</a></li>
-<li><a class="reference internal" href="#workflow-parameters-file">Workflow Parameters File</a></li>
-<li><a class="reference internal" href="#example-workflow-parameters-file">Example Workflow Parameters File</a></li>
-<li><a class="reference internal" href="#running">Running</a></li>
-<li><a class="reference internal" href="#running-the-example-workflow">Running the Example Workflow</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#listing-snakemake-rules">Listing Snakemake Rules</a></li>
 </ul>
 </li>
 </ul>
@@ -54,7 +44,7 @@
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
       <li>Previous: <a href="../index.html" title="previous chapter">dahak-taco documentation</a></li>
-      <li>Next: <a href="howitworks.html" title="next chapter">How Taco Works</a></li>
+      <li>Next: <a href="quickstart.html" title="next chapter">Quick Start</a></li>
   </ul></li>
 </ul>
 </div>
@@ -98,11 +88,11 @@ at <a class="reference external" href="https://github.com/dahak-metagenomics/dah
 </pre></div>
 </div>
 </div>
-<div class="section" id="how-dahak-taco-works">
-<span id="how-dahak-taco-works"></span><h2>How dahak-taco Works<a class="headerlink" href="#how-dahak-taco-works" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="software-requirements">
+<span id="software-requirements"></span><h2>Software Requirements<a class="headerlink" href="#software-requirements" title="Permalink to this headline">¶</a></h2>
 <p>dahak-taco wraps a Snakemake file with a simpler command line interface.</p>
-<p>To run dahak-taco, you must have Python and Snakemake installed.</p>
-<p>Singularity is not currently required but may be in the future.</p>
+<p>To run dahak-taco, you must have Python 3 and Snakemake installed.</p>
+<p>Singularity is not currently required, but may be in the future.</p>
 </div>
 <div class="section" id="getting-required-software">
 <span id="getting-required-software"></span><h2>Getting Required Software<a class="headerlink" href="#getting-required-software" title="Permalink to this headline">¶</a></h2>
@@ -137,133 +127,9 @@ so run it directly:</p>
 </pre></div>
 </div>
 <p>This will provide helpful information at the command line.</p>
+<p>Next: <a class="reference external" href="quickstart.md">Quick Start</a></p>
 <p>Keep reading for a description of what
 information taco requires to run.</p>
-</div>
-<div class="section" id="quick-start">
-<span id="quick-start"></span><h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
-<p>dahak-taco requires two inputs from the user:</p>
-<ul class="simple">
-<li><strong>Workflow configuration file:</strong> specifies the workflow rules
-to run and the names of the target input and output files.
-These rules are defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.rules</span></code>.</li>
-<li><strong>Workflow parameters file:</strong> specifies values for
-workflow parameters. Parmaeters set in this
-parameters file will override parameters set
-in the <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.settings</span></code> files.</li>
-</ul>
-<p>These are both JSON files.</p>
-<div class="section" id="workflow-configuration-file">
-<span id="workflow-configuration-file"></span><h3>Workflow Configuration File<a class="headerlink" href="#workflow-configuration-file" title="Permalink to this headline">¶</a></h3>
-<p>The workflow configuration file
-must specify a key <code class="docutils literal notranslate"><span class="pre">workflow_target</span></code>.</p>
-<p>The value must be a valid Snakemake rule
-defined in one of the rule files at <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.rules</span></code>.</p>
-<p>The form of the workflow configuration file is:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
-    &#39;workflow_target&#39; : &lt;name of Snakemake rule&gt;
-}
-</pre></div>
-</div>
-</div>
-<div class="section" id="example-workflow-configuration-file">
-<span id="example-workflow-configuration-file"></span><h3>Example Workflow Configuration File<a class="headerlink" href="#example-workflow-configuration-file" title="Permalink to this headline">¶</a></h3>
-<p>Here is a simple example of a workflow
-configuration file that pulls containers
-from a URL (no output filenames involved):</p>
-<p><strong><code class="docutils literal notranslate"><span class="pre">test-workflow.json</span></code>:</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
-    &quot;workflow_target&quot; : &quot;pull_biocontainers&quot;
-}
-</pre></div>
-</div>
-</div>
-<div class="section" id="workflow-parameters-file">
-<span id="workflow-parameters-file"></span><h3>Workflow Parameters File<a class="headerlink" href="#workflow-parameters-file" title="Permalink to this headline">¶</a></h3>
-<p>The workflow parameters file contains parameter values
-to control the workflow. These parameter values will override
-default parameter values set in the <code class="docutils literal notranslate"><span class="pre">rules/</span></code> directory.</p>
-<p>Parameters are any variables used in the Snakemake rules.
-All Snakemake parameters are contained in a config dictionary
-that contains dictionaries of parameters, typically grouped
-by workflow rule, application, or group of applications.</p>
-<p>All rules are set in <code class="docutils literal notranslate"><span class="pre">*.settings</span></code> files in the <code class="docutils literal notranslate"><span class="pre">rules/</span></code> directory.</p>
-<p>The form of the workflow parameters JSON file is:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
-    &#39;app 1 name&#39; : &lt;dict of app 1 parameters&gt;,
-    &#39;app 2 name&#39; : &lt;dict of app 2 parameters&gt;,
-    ...
-    &#39;group 1 name&#39; : &lt;dict of grouped parameters 1&gt;,
-    &#39;group 2 name&#39; : &lt;dict of grouped parameters 2&gt;,
-    ...
-}
-</pre></div>
-</div>
-<p>Most parameters are listed under the app that uses them.
-Some parameters are common to several tasks,
-so they are assigned a key with a group name, like “reads”.</p>
-</div>
-<div class="section" id="example-workflow-parameters-file">
-<span id="example-workflow-parameters-file"></span><h3>Example Workflow Parameters File<a class="headerlink" href="#example-workflow-parameters-file" title="Permalink to this headline">¶</a></h3>
-<p>The following example parameters file adjusts the parameters for
-the rule to update biocontainers.</p>
-<p>This is a simple parameter file overriding a single parameter,
-the version of sourmash being utilized.</p>
-<p>This overrides the default biocontainers setting of
-sourmash version <code class="docutils literal notranslate"><span class="pre">2.0.0a3--py36_0</span></code>, set in
-<code class="docutils literal notranslate"><span class="pre">rules/dahak/biocontainers.settings</span></code>.</p>
-<p><strong><code class="docutils literal notranslate"><span class="pre">test-params.json</span></code>:</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
-    &quot;biocontainers&quot; : {
-        &quot;sourmash&quot; : &quot;2.0.0a2--py36_0&quot;
-    }
-}
-</pre></div>
-</div>
-</div>
-<div class="section" id="running">
-<span id="running"></span><h3>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h3>
-<p>To run taco, pass it two arguments on the command line.
-The first argument is the name of the workflow,
-the second argument is the name of the paramters file.</p>
-<p>Both arguments should be the path to a JSON file
-(absolute or relative) and exclude the JSON suffix.</p>
-<p>For example, to run the two JSON files in the example above,</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco test-workflow test-params
-</pre></div>
-</div>
-<p>To run workflows contained in a <code class="docutils literal notranslate"><span class="pre">configs/</span></code> directory, run:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco configs/test-workflow configs/test-params
-</pre></div>
-</div>
-<p>To do a dry run only, add the <code class="docutils literal notranslate"><span class="pre">-n</span></code> or <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> flag:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco -n test-workflow test-params
-</pre></div>
-</div>
-</div>
-<div class="section" id="running-the-example-workflow">
-<span id="running-the-example-workflow"></span><h3>Running the Example Workflow<a class="headerlink" href="#running-the-example-workflow" title="Permalink to this headline">¶</a></h3>
-<p>Following the example above, we run the example workflow
-by specifying the test workflow configuration file
-and the test workflow parameters file:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco test-workflow test-params
-</pre></div>
-</div>
-<p>(Note that a parameters file is optional.)</p>
-<p>This will run the pull biocontainers rule.</p>
-</div>
-</div>
-<div class="section" id="listing-snakemake-rules">
-<span id="listing-snakemake-rules"></span><h2>Listing Snakemake Rules<a class="headerlink" href="#listing-snakemake-rules" title="Permalink to this headline">¶</a></h2>
-<p>You can also list available snakemake rules
-using the <code class="docutils literal notranslate"><span class="pre">dahak</span> <span class="pre">ls</span></code> command:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco ls
-</pre></div>
-</div>
-<p>This is equivalent to the following snakemake command:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ snakemake -l
-</pre></div>
-</div>
 </div>
 </div>
 
