@@ -17,7 +17,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Assembly Walkthrough" href="assembly.html" />
-    <link rel="prev" title="Snakemake Rules" href="../intro/snakemakerules.html" />
+    <link rel="prev" title="Read Filtering" href="readfilt.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -32,12 +32,6 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Taxonomic Classification Walkthrough</a><ul>
-<li><a class="reference internal" href="#listing-rules">Listing Rules</a></li>
-<li><a class="reference internal" href="#rule-pull-biocontainers">Rule: Pull Biocontainers</a></li>
-<li><a class="reference internal" href="#rule-download-and-unpack-sourmash-sbts">Rule: Download and Unpack Sourmash SBTs</a></li>
-<li><a class="reference internal" href="#rule-calculate-signatures-default-parameters">Rule: Calculate Signatures (Default Parameters)</a></li>
-<li><a class="reference internal" href="#rule-calculate-signatures-modified-parameters">Rule: Calculate Signatures (Modified Parameters)</a></li>
-<li><a class="reference internal" href="#rule-fetch-kaiju-database">Rule: Fetch Kaiju Database</a></li>
 <li><a class="reference internal" href="#list-of-rules">List of Rules</a></li>
 <li><a class="reference internal" href="#list-of-rule-files">List of Rule Files</a></li>
 </ul>
@@ -47,7 +41,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../intro/snakemakerules.html" title="previous chapter">Snakemake Rules</a></li>
+      <li>Previous: <a href="readfilt.html" title="previous chapter">Read Filtering</a></li>
       <li>Next: <a href="assembly.html" title="next chapter">Assembly Walkthrough</a></li>
   </ul></li>
 </ul>
@@ -79,299 +73,107 @@
             
   <div class="section" id="taxonomic-classification-walkthrough">
 <span id="taxonomic-classification-walkthrough"></span><h1>Taxonomic Classification Walkthrough<a class="headerlink" href="#taxonomic-classification-walkthrough" title="Permalink to this headline">¶</a></h1>
-<p>In this document, we walk through a few
-rules in the taxonomic workflow
-to illustrate how to run dahak workflows
-using custom rules and custom workflow
-parameters.</p>
-<p>See <a class="reference external" href="https://github.com/dahak-metagenomics/dahak/tree/master/workflows/taxonomic_classification">dahak - taxonomic classification workflow</a>.</p>
-<div class="section" id="listing-rules">
-<span id="listing-rules"></span><h2>Listing Rules<a class="headerlink" href="#listing-rules" title="Permalink to this headline">¶</a></h2>
-<p>Start by selecting which rule from the workflow you want to run.
-To see available rules, run:</p>
+<p>This walkthrough documents the taxonomic classification workflow.</p>
+<div class="section" id="list-of-rules">
+<span id="list-of-rules"></span><h2>List of Rules<a class="headerlink" href="#list-of-rules" title="Permalink to this headline">¶</a></h2>
+<p>To see available rules, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco ls
 </pre></div>
 </div>
+<p>TODO: implement this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco ls             # list available workflows
+$ ./taco ls readfilt    # list available rules in workflow readfilt
+</pre></div>
+</div>
 <p>Add the rule you want to run to the workflow configuration file.</p>
-<p>Also see <a class="reference external" href="#list-of-rules">list of rules</a> below.</p>
-</div>
-<div class="section" id="rule-pull-biocontainers">
-<span id="rule-pull-biocontainers"></span><h2>Rule: Pull Biocontainers<a class="headerlink" href="#rule-pull-biocontainers" title="Permalink to this headline">¶</a></h2>
-<p>Let’s start with <code class="docutils literal notranslate"><span class="pre">pull_biocontainers</span></code>, a simple example
-of a single workflow step with no input or output files.</p>
+<p>A list of rules is given below.</p>
+<p>Note that the readme files mentioned here
+are located in the same directory as the
+.rule and .settings files used by Snakemake,
+and share a filename with the rule they document.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pull_biocontainers
-    
-    - Pull the latest version of sourmash, kaiju, and krona
-    - Version numbers are set in biocontainers.settings
-    - To call this rule, ask for the file .pulled_containers
-</pre></div>
-</div>
-<p>To run the <code class="docutils literal notranslate"><span class="pre">pull_biocontainers</span></code> workflow:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat pull-biocontainers-workflow.json
-{
-    &quot;workflow_target&quot; : &quot;pull_biocontainers&quot;
-}
-</pre></div>
-</div>
-<p>Now run the workflow (include <code class="docutils literal notranslate"><span class="pre">-n</span></code> to do a dry run):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n pull-biocontainers-workflow # dry run
 
-$ ./taco pull-biocontainers-workflow
-</pre></div>
-</div>
-<p>Note that the <code class="docutils literal notranslate"><span class="pre">biocontainers</span></code> rule is defined in
-<code class="docutils literal notranslate"><span class="pre">rules/dahak/biocontainers.rule</span></code>
-and the corresponding default parameter
-values are defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/biocontainers.settings</span></code>.</p>
-<p>If we wanted to modify any parameters,
-we could add configuration parameters
-to <code class="docutils literal notranslate"><span class="pre">pull-biocontainers-params.json</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat pull-biocontainers-params.json
-{
-    &#39;biocontainers&#39; : {
-        &#39;sourmash&#39; : {
-            &#39;version&#39; : &#39;2.0.0a2--py36_0&#39;
-        }
-    }
-}
-</pre></div>
-</div>
-<p>Now run the workflow, specifying both the workflow
-and parameter configuration files on the command line
-(include <code class="docutils literal notranslate"><span class="pre">-n</span></code> to do a dry run):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n pull-biocontainers-workflow pull-biocontainers-params # dry run
+    Pull the required versions of containers from quay.io.
 
-$ ./taco pull-biocontainers-workflow pull-biocontainers-params
-</pre></div>
-</div>
-</div>
-<div class="section" id="rule-download-and-unpack-sourmash-sbts">
-<span id="rule-download-and-unpack-sourmash-sbts"></span><h2>Rule: Download and Unpack Sourmash SBTs<a class="headerlink" href="#rule-download-and-unpack-sourmash-sbts" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>download_sourmash_sbts
-    
-    Download the sourmash SBTs from spacegraphcats
+    See biocontainers.md
 
-    To call this rule, request sourmash SBT json file for the specified database.
-    
+download_sourmash_sbts
+
+    Download the sourmash SBTs from spacegraphcats.
+
+    See sourmash_sbt.md
+
 unpack_sourmash_sbts
-    
-    Unpack the sourmash SBTs
-</pre></div>
-</div>
-<p>Like the prior step, this step has no
-input or output file names to set.</p>
-<p>This step downloads SBTs containing hashes
-from the microbial genomes in the NCBI Databank
-and RefSeq databases.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat unpack-sbt-workflow.json
-{
-    &quot;workflow_target&quot; : &quot;unpack_sourmash_sbts&quot;
-}
 
-$ ./taco -n unpack-sbt-workflow # dry run
+    Unpack the sourmash SBTs from spacegraphcats.
 
-$ ./taco unpack-sbt-workflow
-</pre></div>
-</div>
-<p>This calls the <code class="docutils literal notranslate"><span class="pre">unpack_sourmash_sbts</span></code> rule,
-which calls the <code class="docutils literal notranslate"><span class="pre">download_sourmash_sbts</span></code> rule.
-These rules are defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/sourmash_sbt.rule</span></code>.</p>
-</div>
-<div class="section" id="rule-calculate-signatures-default-parameters">
-<span id="rule-calculate-signatures-default-parameters"></span><h2>Rule: Calculate Signatures (Default Parameters)<a class="headerlink" href="#rule-calculate-signatures-default-parameters" title="Permalink to this headline">¶</a></h2>
-<p>The calculate signatures rule can be run with default values:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat calc-sigs.json
-{
-    &quot;workflow_target&quot; : &quot;calculate_signatures&quot;
-}
+    See sourmash_sbt.md
 
-$ ./taco -n calc-sigs # dry run
-
-$ ./taco calc-sigs
-</pre></div>
-</div>
-</div>
-<div class="section" id="rule-calculate-signatures-modified-parameters">
-<span id="rule-calculate-signatures-modified-parameters"></span><h2>Rule: Calculate Signatures (Modified Parameters)<a class="headerlink" href="#rule-calculate-signatures-modified-parameters" title="Permalink to this headline">¶</a></h2>
-<p>We can modify parameters for the calculate signatures workflow.</p>
-<p>If we examine the <code class="docutils literal notranslate"><span class="pre">calculate_signatures</span></code> rule file at
-<code class="docutils literal notranslate"><span class="pre">rules/dahak/calculate_signatures.rule</span></code> we see that three
-settings files are used:</p>
-<ul class="simple">
-<li>read settings (group parameters for any task involving reading sequences)</li>
-<li>calculate signature settings (rule-specific settings for calculating signatures)</li>
-<li>biocontainer settings (container URLs and versions)</li>
-</ul>
-<p>We can override any parameters in those files
-to change how the <code class="docutils literal notranslate"><span class="pre">calculate_signatures</span></code> workflow
-works.</p>
-<p><strong>Example 1:</strong> Change the name of the forward and reverse read files.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat calc-sigs-params.json
-{
-    &quot;reads&quot; : {
-        &quot;fq_fwd&quot; : &quot;{base}_1.trim{ntrim}.fq.gz&quot;,
-        &quot;fq_rev&quot; : &quot;{base}_2.trim{ntrim}.fq.gz&quot;
-    }
-}
-
-$ cat calc-sigs.json
-{
-    &quot;workflow_target&quot; : &quot;calculate_signatures&quot;
-}
-
-$ ./taco -n calc-sigs calc-sigs-params # dry run
-
-$ ./taco calc-sigs calc-sigs-params
-</pre></div>
-</div>
-<p><strong>Example 2:</strong> Change the k values used to calculate signatures.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat calc-sigs-params.json
-{
-    &quot;calculate_signatures&quot; : {
-        &quot;kvalues&quot; : [21, 31, 51, 101]
-    }
-}
-
-$ cat calc-sigs.json
-{
-    &quot;workflow_target&quot; : &quot;calculate_signatures&quot;
-}
-
-$ ./taco -n calc-sigs calc-sigs-params # dry run
-
-$ ./taco calc-sigs calc-sigs-params
-</pre></div>
-</div>
-<p><strong>Example 3:</strong> Change the sequence and merge file naming schema.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat calc-sigs-params.json
-{
-    &quot;calculate_signatures&quot; : {
-        &quot;sig_name&quot; : &quot;{base}.trim{ntrim}.scaled{scale}.k{kvalues_fname}.sig&quot;
-    }
-}
-</pre></div>
-</div>
-<p>NOTE: <code class="docutils literal notranslate"><span class="pre">kvalues_fname</span></code> is a variable created when the rule is run,
-and is the result of <code class="docutils literal notranslate"><span class="pre">&quot;_&quot;.join(config['calculate_signatures']['kvalues'])</span></code>.</p>
-<p>TODO: improve the abstraction.</p>
-<p><strong>Example 4:</strong> Implement all three of the above parameter changes.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat calc-sigs-params.json
-{
-    &quot;reads&quot; : {
-        &quot;fq_fwd&quot; : &quot;{base}_1.trim{ntrim}.fq.gz&quot;,
-        &quot;fq_rev&quot; : &quot;{base}_2.trim{ntrim}.fq.gz&quot;
-    },
-    &quot;calculate_signatures&quot; : {
-        &quot;kvalues&quot; : [21, 31, 51, 101],
-        &quot;sig_name&quot; : &quot;{base}.trim{ntrim}.scaled{scale}.k{kvalues_fname}.sig&quot;
-    }
-}
-
-$ cat calc-sigs.json
-{
-    &quot;workflow_target&quot; : &quot;calculate_signatures&quot;
-}
-
-$ ./taco -n calc-sigs calc-sigs-params # dry run
-
-$ ./taco calc-sigs calc-sigs-params
-</pre></div>
-</div>
-</div>
-<div class="section" id="rule-fetch-kaiju-database">
-<span id="rule-fetch-kaiju-database"></span><h2>Rule: Fetch Kaiju Database<a class="headerlink" href="#rule-fetch-kaiju-database" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">unpack_kaiju</span></code> rule will fetch the kaiju database,
-untar it, and remove the tar file.</p>
-<p>This is a large file and will take approx. 15-30 minutes.</p>
-<p>The name of the database being downloaded, and the URL,
-can be overridden using a parameters file. The default
-value is shown here.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat fetch-kaiju-params.json
-{
-    &#39;kaiju&#39; : {
-        &#39;dmp1&#39; : &#39;nodes.dmp&#39;,
-        &#39;dmp2&#39; : &#39;names.dmp&#39;,
-        &#39;fmi&#39;  : &#39;kaiju_db_nr_euk.fmi&#39;,
-        &#39;tar&#39;  : &#39;kaiju_index_nr_euk.tgz&#39;,
-        &#39;url&#39;  : &#39;http://kaiju.binf.ku.dk/database&#39;,
-        &#39;out&#39;  : &#39;{base}.kaiju_output.trim{ntrim}.out&#39;
-    }
-}
-
-$ cat fetch-kaiju.json
-{
-    &#39;workflow_target&#39; : &#39;unpack_kaiju&#39;
-}
-
-$ ./taco -d fetch-kaiju fetch-kaiju-params # dry run
-
-$ ./taco fetch-kaiju fetch-kaiju-params
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">kaiju.rule</span></code> includes three settings files:</p>
-<ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">reads</span></code> group settings</li>
-<li><code class="docutils literal notranslate"><span class="pre">biocintainers</span></code> app settings</li>
-<li><code class="docutils literal notranslate"><span class="pre">kaiju</span></code> app settings</li>
-</ul>
-</div>
-<div class="section" id="list-of-rules">
-<span id="list-of-rules"></span><h2>List of Rules<a class="headerlink" href="#list-of-rules" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>download_sourmash_sbts
-    
-    Downoad the sourmash SBTs from spacegraphcats
-
-    To call this rule, request sourmash SBT json file for the specified database.
-    
-unpack_sourmash_sbts
-    
-    Unpack the sourmash SBTs
-    
 calculate_signatures
-    
-    Calculate signatures from trimmed data using sourmash
-    
-download_trimmed_data
-    
-    Download the trimmed data from OSF
 
-    To call this rule, request the files listed in trimmed_data.dat
-    
+    Calculate signatures from trimmed data using sourmash.
+
+    See calculate_signatures.md
+
+download_trimmed_data
+
+    Download the trimmed data from OSF.
+    The trimmed data parameters
+    consist of a dictionary of
+    `*.fq.gz` files and corresponding URLs.
+
+    See trimmed_data.md
+
 unpack_kaiju
-    
+
     Download and unpack the kaiju database.
-    
+    This is a large file and will take approx. 15-30 minutes.
+
+    See kaiju.md
+
 run_kaiju
-    
-    Run kaiju
-    
+
+    Run kaiju after downloading and unpacking the kaiju database.
+
+    See kaiju.md
+
 kaiju2krona
-    
+
     Convert kaiju results to krona results,
     and generate a report.
-    
+
+    See kaiju2krona.md
+
 kaiju2kronasummary
-    
+
     Convert kaiju results to krona results,
     and generate a report.
-    
+
+    See kaiju2krona.md
+
 filter_taxa_total
-    
+
     Filter out taxa with low abundances by obtaining genera that
     comprise at least {pct} percent of the total reads
     (default: 1%)
-    
+
+    See filter_taxa.md
+
 filter_taxa_class
-    
+
     For comparison, take the genera that comprise
     at least {pct} percent of all of the classified reads
     (default: 1%)
-    
+
+    See filter_taxa.md
+
 visualize_krona
-    
+
     Visualize the results of the
     full and filtered taxonomic
     classifications using krona.
+
+    See krona_visualization.md
 </pre></div>
 </div>
 </div>

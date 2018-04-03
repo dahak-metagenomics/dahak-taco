@@ -66,8 +66,8 @@ $ ./taco <arguments>
 
 This will provide helpful information at the command line. 
 
-Next: [Quick Start](quickstart.md)
-
 Keep reading for a description of what 
 information taco requires to run.
+
+Next: [Quick Start](quickstart.md)
 

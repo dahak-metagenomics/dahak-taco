@@ -45,9 +45,9 @@ common dahak workflows:
    :maxdepth: 1
    :caption: Workflow Walkthroughs:
 
+   workflows/readfilt
    workflows/taxclass
    workflows/assembly
-   workflows/functionalinference
 
 Under The Hood
 =====================
