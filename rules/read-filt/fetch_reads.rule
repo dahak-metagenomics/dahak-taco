@@ -1,0 +1,55 @@
+include: "trimming.settings"
+include: "fetch_reads.settings"
+
+from os.path import join, isfile
+from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
+
+data_dir = config['data_dir']
+
+read_data_files = []
+read_data_urls = []
+for filename in config['reads']['read_files']:
+    read_data_files.append(join(data_dir,filename))
+    read_data_urls.append( config['reads']['read_files'][filename] )
+
+rule download_reads:
+    """
+    Download read data files from OSF.
+
+    See fetch_reads.md
+    """
+    input:
+        HTTP.remote(expand("{url}", url=read_data_urls, keep_local=True)
+    output:
+        read_data_files
+    message: '''--- Downloading Data.'''
+    run:
+        for (osf_file,osf_url) in zip(read_data_files,read_data_urls):
+            if(not isfile(osf_file)):
+                shell('''
+                    wget -O {osf_file} {osf_url}
+                ''')
+
+adapter_files = []
+adapter_urls = []
+for filename in config['reads']['adapter_files']:
+    adapter_files.append(join(data_dir,filename))
+    adapter_urls.append(config['reads']['adapter_files'][filename])
+
+rule download_truseq_adapter:
+    """
+    Download any FASTA read adapaters.
+    Downloads adpaters for the TruSeq2-PE sequencer by default.
+
+    See fetch_reads.md
+    """
+    output: 
+        HTTP.remote(expand("{url}", url=adapter_urls)
+    message: '''--- Downloading adapters.'''
+    run:
+        for (adapfile,adapurl) in zip(adapter_files,adapter_urls):
+            if(not os.path.isfile(adapfile)):
+                shell('''
+                    wget -O {adapfile} {adapurl}
+                ''')
+

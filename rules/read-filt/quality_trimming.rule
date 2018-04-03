@@ -1,0 +1,32 @@
+include: "trimming.settings"
+
+
+
+
+rule quality_trimming:
+    input: 
+        fwd='inputs/data/{sample}_1.fq.gz',
+        rev='inputs/data/{sample}_2.fq.gz',
+        adapters='inputs/adapters/TruSeq2-PE.fa'
+    output:
+        fwd='outputs/trim/{sample}_trim{qual}_1.fq.gz',
+        rev='outputs/trim/{sample}_trim{qual}_2.fq.gz',
+        fwd_se='outputs/trim/{sample}_trim{qual}_1_se',
+        rev_se='outputs/trim/{sample}_trim{qual}_2_se',
+    message: '''--- Quality trimming data at q 2 and 30.'''
+    params:
+        qual='{qual}'    
+    singularity: 'docker://quay.io/biocontainers/trimmomatic:0.36--5'
+    log: 'outputs/trim/trimmomatic_pe_{sample}.log'
+    shell:
+        ''' 
+	trimmomatic PE \
+            {input.fwd} {input.rev} \
+            {output.fwd} {output.fwd_se} \
+            {output.rev} {output.rev_se} \
+            ILLUMINACLIP:{input.adapters}:2:40:15 \
+            LEADING:{params.qual} TRAILING:{params.qual} \
+            SLIDINGWINDOW:4:{params.qual} MINLEN:25 \
+        2> {log}
+        '''
+
