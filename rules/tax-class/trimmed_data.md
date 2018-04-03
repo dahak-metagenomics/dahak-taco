@@ -34,7 +34,7 @@ $ cat get-trimmed-data.json
 
 $ cat get-trimmed-data-params.json
 {
-    'trimmed_data' : {
+    'trimmed_reads' : {
         'filename.trim1.fq.gz' : <url-for-trim1>,
         'filename.trim2.fq.gz' : <url-for-trim2>
     }

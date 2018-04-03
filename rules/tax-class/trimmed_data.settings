@@ -2,7 +2,7 @@ from snakemake.utils import update_config
 
 # Note: don't include http:// or https://
 config_default = {
-    'trimmed_data' : {
+    'trimmed_reads' : {
         'SRR606249_1.trim2.fq.gz':             'osf.io/tzkjr/download',
         'SRR606249_2.trim2.fq.gz':             'osf.io/sd968/download',
         'SRR606249_subset50_1.trim2.fq.gz':    'osf.io/acs5k/download',
