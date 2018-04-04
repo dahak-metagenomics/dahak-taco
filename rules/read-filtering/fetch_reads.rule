@@ -13,7 +13,8 @@ for filename in config['reads']['read_files']:
 
 rule download_reads:
     """
-    Download read data files from OSF.
+    Fetch files from OSF containing reads that will be used 
+    in the read filtering process.
 
     See fetch_reads.md
     """
@@ -37,8 +38,9 @@ for filename in config['reads']['adapter_files']:
 
 rule download_truseq_adapter:
     """
-    Download any FASTA read adapaters.
-    Downloads adpaters for the TruSeq2-PE sequencer by default.
+    Download FASTA read adapaters.
+    This downloads adpaters for 
+    the TruSeq2-PE sequencer by default.
 
     See fetch_reads.md
     """

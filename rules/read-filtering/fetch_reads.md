@@ -1,7 +1,7 @@
 # Rule: `download_reads`
 
-This workflow fetches files containing reads
-that will be used in the read filtering process.
+Fetch files from OSF containing reads that will be used 
+in the read filtering process.
 
 ## Simple workflow configuration
 
@@ -22,16 +22,18 @@ Override parameters example:
 
 ## Details
 
-This rule is defined in `read-filt/fetch_reads.rule`
+This rule is defined in `read_filtering/fetch_reads.rule`
 
-This rule includes `<settings>`
+This rule includes `read_filtering.rule`
 
 
 
 
 # Rule: `download_truseq_adapter`
 
-This workflow fetches the TrueSequence read adapater file.
+Download FASTA read adapaters.
+This downloads adpaters for 
+the TruSeq2-PE sequencer by default.
 
 ## Simple workflow configuration
 
