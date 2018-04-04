@@ -36,7 +36,7 @@ for filename in config['reads']['adapter_files']:
     adapter_files.append(join(data_dir,filename))
     adapter_urls.append(config['reads']['adapter_files'][filename])
 
-rule download_truseq_adapter:
+rule download_read_adapter:
     """
     Download FASTA read adapaters.
     This downloads adpaters for 

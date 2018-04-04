@@ -20,6 +20,11 @@ adapter_file = config['reads']['adapter_file'].keys()[0]
 quality_log = join(data_dir,'trimmomatic_pe_{sample}.log')
 
 rule quality_trimming:
+    """
+    Trim reads from the sequencer by dropping low-quality reads.
+
+    See quality_trimming.md
+    """
     input:
         quality_input,
         adapter_file

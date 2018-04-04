@@ -24,7 +24,9 @@ Override parameters example:
 
 This rule is defined in `read_filtering/pre_post_assessment.rule`
 
-This rule includes `read_filtering.rule`
+
+
+---------
 
 
 
@@ -50,7 +52,5 @@ Override parameters example:
 ```
 ```
 
-This rule is defined in `read_filtering/pre_post_assessment.rule`
-
-This rule includes `read_filtering.rule`
+This rule is defined in `rules/read_filtering/pre_post_assessment.rule`
 

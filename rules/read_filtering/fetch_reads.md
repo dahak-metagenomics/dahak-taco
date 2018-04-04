@@ -22,14 +22,14 @@ Override parameters example:
 
 ## Details
 
-This rule is defined in `read_filtering/fetch_reads.rule`
-
-This rule includes `read_filtering.rule`
+This rule is defined in `rules/read_filtering/fetch_reads.rule`
 
 
 
+--------
 
-# Rule: `download_truseq_adapter`
+
+# Rule: `download_read_adapter`
 
 Download FASTA read adapaters.
 This downloads adpaters for 
@@ -54,8 +54,5 @@ Override parameters example:
 
 ## Details
 
-This rule is defined in `read-filt/fetch_reads.rule`
-
-This rule includes `<settings>`
-
+This rule is defined in `rules/read_filtering/fetch_reads.rule`
 
