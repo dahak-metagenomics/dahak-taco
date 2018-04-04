@@ -2,6 +2,17 @@ from snakemake.utils import update_config
 
 # Note: don't include http:// or https://
 config_default = {
+    'biocontainers' : {
+        'trimmomatic' : {
+            'quayurl' : 'quay.io/biocontainers/trimmomatic',
+            'version' : '0.36--5'
+        },
+        'fastqc' : {
+            'quayurl' : 'quay.io/biocontainers/fastqc',
+            'version' : '0.11.7--pl5.22.0_0'
+        }
+    },
+
     'reads' : {
         'read_files' : {
             'SRR606249_1.fq.gz' :           'https://files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7',
@@ -19,7 +30,7 @@ config_default = {
             'post_trimming_pattern' : '{sample}_trim{qual}_{direction}.fq.gz'
         }
 
-        'adapter_files' : {
+        'adapter_file' : {
             'TruSeq2-PE.fa' : 'http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa'
         }
     }
