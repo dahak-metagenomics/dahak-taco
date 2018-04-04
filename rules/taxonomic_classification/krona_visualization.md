@@ -4,7 +4,7 @@ Visualize the results of the
 full and filtered taxonomic
 classifications using krona.
 
-(TODO: No parameters for krona visualization are implemented at this time.)
+TODO: No parameters for krona visualization are implemented at this time.
 
 ## Simple workflow configuration
 
@@ -44,7 +44,5 @@ $ ./taco krona-viz krona-viz-params
 
 ## Details
 
-This rule is defined in `krona_visualization.rule`
-
-This rule includes `biocontainers.settings`, `krona_visualization.settings`
+This rule is defined in `rules/taxonomic_classification/krona_visualization.rule`
 

@@ -45,7 +45,7 @@ $ ./taco -n get-trimmed-data get-trimmed-data-params
 
 ## Details
 
-This rule is defined in `rules/dahak/trimmed_data.rule`.
+This rule is defined in `rules/taxonomic_classification/trimmed_data.rule`.
 
 This rule includes the files `trimmed_data.settings`.
 

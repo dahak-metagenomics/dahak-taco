@@ -53,11 +53,11 @@ $ ./taco fetch-kaiju fetch-kaiju-params
 
 ## Details
 
-This rule is defined in `rules/dahak/kaiju.rule`.
-
-This rule includes `reads.settings`, `biocontainers.settings`, `kaiju.settings`.
+This rule is defined in `rules/taxonomic_classification/kaiju.rule`.
 
 
+
+------
 
 
 
@@ -104,8 +104,5 @@ $ cat run-kaiju-params.json
 
 ## Details
 
-This rule is defined in `rules/dahak/kaiju.rule`.
-
-This rule includes `reads.settings`, `biocontainers.settings`, `kaiju.settings`.
-
+This rule is defined in `rules/taxonomic_classification/kaiju.rule`.
 

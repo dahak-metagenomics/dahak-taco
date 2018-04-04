@@ -109,7 +109,5 @@ $ ./taco calc-sigs calc-sigs-params
 
 ## Details
 
-This rule is defined in `rules/dahak/calculate_signatures.rule`.
-
-This rule includes `reads.settings`, `biocontainers.settings`, `calculate_signatures.settings`.
+This rule is defined in `rules/taxonomic_classification/calculate_signatures.rule`.
 

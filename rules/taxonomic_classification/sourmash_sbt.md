@@ -9,12 +9,10 @@ rule and should not be called directly.
 
 ## Details
 
-This rule is defined in `rules/dahak/sourmash_sbt.rule`.
-
-This rule includes the files `sourmash_sbt.settings`.
+This rule is defined in `rules/taxonomic_classification/sourmash_sbt.rule`.
 
 
-
+-------
 
 
 # Rule: `unpack_sourmash_sbts`
@@ -45,7 +43,7 @@ $ ./taco download-sbt-workflow
 We can modify parameters for the calculate signatures workflow.
 
 If we examine the `calculate_signatures` rule file at 
-`rules/dahak/calculate_signatures.rule` we see that three
+`rules/taxonomic_classification/calculate_signatures.rule` we see that three
 settings files are used:
 
 * read group settings (group parameters for any task involving reading sequences)
@@ -136,6 +134,5 @@ $ ./taco calc-sigs calc-sigs-params
 
 ## Details
 
-This rule is defined in `rules/dahak/sourmash_sbt.rule`.
+This rule is defined in `rules/taxonomic_classification/sourmash_sbt.rule`.
 
-This rule includes the files `sourmash_sbt.settings`.

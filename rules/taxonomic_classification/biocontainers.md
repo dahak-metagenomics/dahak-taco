@@ -40,7 +40,5 @@ $ ./taco pull-biocontainers-workflow pull-biocontainers-params
 
 ## Details
 
-This rule is defined in `rules/dahak/biocontainers.rule`.
-
-This rule includes `biocontainers.settings`.
+This rule is defined in `rules/taxonomic_classification/biocontainers.rule`.
 

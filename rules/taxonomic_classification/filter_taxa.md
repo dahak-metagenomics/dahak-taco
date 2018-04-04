@@ -27,6 +27,10 @@ This rule is defined in `<file>`
 
 This rule includes `<settings>`
 
+
+---------
+
+
 # Rule: `filter_taxa_class`
 
 For comparison, take the genera that comprise
@@ -52,7 +56,5 @@ Override parameters example:
 
 ## Details
 
-This rule is defined in `<file>`
-
-This rule includes `<settings>`
+This rule is defined in `rules/taxonomic_classification/filter_taxa.rule`.
 

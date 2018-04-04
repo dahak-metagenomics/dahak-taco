@@ -3,8 +3,7 @@
 Convert kaiju results to krona results,
 and generate a report.
 
-TODO: use `kaijukrona_output` as an example of the 
-"take care of all the details" approach.
+TODO: use `kaijukrona_output` as an example of the "take care of all the details" approach.
 
 ## Simple workflow configuration
 
@@ -33,12 +32,10 @@ but utilizes kaiju parameters.)
 
 ## Details
 
-This rule is defined in `kaiju2krona.rule`
-
-This rule includes `biocontainers.settings`, `kaiju.settings`, `kaiju2krona.settings`
+This rule is defined in `rules/taxonomic_classification/kaiju2krona.rule`
 
 
-
+-----
 
 
 # Rule: `kaiju2kronasummary`
@@ -73,7 +70,5 @@ but utilizes kaiju parameters.)
 
 ## Details
 
-This rule is defined in `kaiju2krona.rule`
-
-This rule includes `biocontainers.settings`, `kaiju.settings`, `kaiju2krona.settings`
+This rule is defined in `rules/taxonomic_classification/kaiju2krona.rule`
 
