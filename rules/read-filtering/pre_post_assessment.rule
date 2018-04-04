@@ -1,11 +1,11 @@
-include: "trimming.settings"
+include: "read_filtering.settings"
 
 import re
 from os.path import join, dirname
 
 data_dir = config['data_dir']
 
-quayurl = 'docker://%s:%s'%( config['biocontainers']['fastqc']['quayurl'], config['biocontainers']['fastqc']['version'] )
+quayurl = config['biocontainers']['fastqc']['quayurl'] + ":" + config['biocontainers']['fastqc']['version']
 
 # The substitution pattern could potentially
 # be parameterized, but let's not go overboard
@@ -13,6 +13,12 @@ pre_trimming_input  = join(data_dir, config['reads']['read_patterns']['pre_trimm
 pre_trimming_output = re.sub('.fq.gz', '_fastqc.zip', pre_trimming_input)
 
 rule pre_trimming_quality_assessment:
+    """
+    Perform a pre-trimming quality check 
+    of the reads from the sequencer.
+
+    See pre_post_assessment.md
+    """
     input:
         pre_trimming_input
     output: 
@@ -33,6 +39,12 @@ post_trimming_input  = join(data_dir, config['reads']['read_patterns']['post_tri
 post_trimming_output = re.sub('.fq.gz', '_fastqc.zip', post_trimming_input)
 
 rule post_trimming_quality_assessment:
+    """
+    Perform a post-trimming quality check 
+    of the reads from the sequencer.
+
+    See pre_post_assessment.md
+    """
     input:
         post_trimming_input
     output:
