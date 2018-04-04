@@ -1,0 +1,44 @@
+include: "trimming.settings"
+
+from os.path import join
+
+data_dir = config['data_dir']
+
+fq_fwd = join(data_dir, config['reads']['read_patterns']['pre_trimming_pattern'].format(direction=1))
+fq_rev = join(data_dir, config['reads']['read_patterns']['pre_trimming_pattern'].format(direction=2))
+quality_input = [fq_fwd, fq_rev]
+
+fq_fwd_trimmed = join(data_dir, config['reads']['read_patterns']['pre_trimming_pattern'].format(direction=1))
+fq_rev_trimmed = join(data_dir, config['reads']['read_patterns']['pre_trimming_pattern'].format(direction=2))
+fq_fwd_se = re.sub('\.fq\.gz','_se',fq_fwd_trimmed)
+fq_rev_se = re.sub('\.fq\.gz','_se',fq_rev_trimmed)
+quality_output = [fq_fwd_trimmed, fq_fwd_se,
+                  fq_rev_trimmed, fq_rev_se]
+
+adapter_file = config['reads']['adapter_file'].keys()[0]
+
+quality_log = join(data_dir,'trimmomatic_pe_{sample}.log')
+
+rule quality_trimming:
+    input:
+        quality_input,
+        adapter_file
+    output:
+        quality_output
+    message: 
+        '''--- Quality trimming data at q 2 and 30.'''
+    singularity: 
+        'docker://quay.io/biocontainers/trimmomatic:0.36--5'
+    log: 
+        quality_log
+    run:
+        qual = "{qual}".format(**wildcards)
+        shell('''
+            trimmomatic PE \
+            {quality_input} {quality_output} \
+            ILLUMINACLIP:{adapter_file}:2:40:15 \
+            LEADING:{qual} TRAILING:{qual} \
+            SLIDINGWINDOW:4:{qual} MINLEN:25 \
+            2> {log}
+        ''')
+
