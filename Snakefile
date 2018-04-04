@@ -5,14 +5,14 @@ config = {
     'data_dir': 'data/'
 }
 
-SNAKEMAKE_RULES_PATH = "rules/"
+# See subworkflow documentation:
+# https://snakemake.readthedocs.io/en/stable/snakefiles/modularization.html#snakefiles-sub-workflows
 
-include: join(SNAKEMAKE_RULES_PATH, "dahak/biocontainers.rule")
-include: join(SNAKEMAKE_RULES_PATH, "dahak/sourmash_sbt.rule")
-include: join(SNAKEMAKE_RULES_PATH, "dahak/calculate_signatures.rule")
-include: join(SNAKEMAKE_RULES_PATH, "dahak/trimmed_data.rule")
-include: join(SNAKEMAKE_RULES_PATH, "dahak/kaiju.rule")
-include: join(SNAKEMAKE_RULES_PATH, "dahak/kaiju2krona.rule")
-include: join(SNAKEMAKE_RULES_PATH, "dahak/filter_taxa.rule")
-include: join(SNAKEMAKE_RULES_PATH, "dahak/krona_visualization.rule")
+subworkflow read_filtering:
+    workdir: "."
+    snakefile: "rules/read_filtering/Snakefile"
+
+subworkflow taxonomic_classification:
+    workdir: "."
+    snakefile: "rules/taxonomic_classification/Snakefile"
 
