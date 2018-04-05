@@ -1,4 +1,4 @@
-include: "trimmed_data.settings"
+include: "taxonomic_classification.settings"
 
 import re
 from os.path import join

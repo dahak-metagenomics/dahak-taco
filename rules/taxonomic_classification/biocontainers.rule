@@ -1,12 +1,12 @@
-include: "biocontainers.settings"
+include: "taxonomic_classification.settings"
 
 from os.path import join
 
-data_dir = config['data_dir']
+#data_dir = config['data_dir']
+biocontainers = config['biocontainers']
 
 # assemble quay.io URLs for biocontainers
 quayurls = []
-biocontainers = config['biocontainers']
 for k in biocontainers.keys():
     if(type(biocontainers[k])==type({})):
         try:

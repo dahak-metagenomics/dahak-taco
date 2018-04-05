@@ -1,14 +1,20 @@
-include: "biocontainers.settings"
-include: "krona_visualization.settings"
+include: "taxonomic_classification.settings"
+
+import re
+from os.path import join
 
 data_dir = config['data_dir']
+biocontainers = config['biocontainers']
+taxclass = config['taxonomic_classification']
 
-visualize_krona_input_name  = '{base}.kaiju_output.trim{ntrim}.{suffix}.summary'
-visualize_krona_output_name = '{base}.kaiju_output.trim{ntrim}.{suffix}.html'
+visualize_krona_input_name  = taxclass['visualize_krona']['input_pattern']
+if(visualize_krona_input_name[-8:] is not '.summary'):
+    visualize_krona_input_name += '.summary'
+visualize_krona_output_name = re.sub(visualize_krona_input_name, '.summary','.html')
 visualize_krona_input  = join(data_dir, visualize_krona_input_name)
 visualize_krona_output = join(data_dir, visualize_krona_output_name)
 
-quayurl = config['biocontainers']['krona']['quayurl'] + ":" + config['biocontainers']['krona']['version']
+quayurl = biocontainers['krona']['quayurl'] + ":" + biocontainers['krona']['version']
 
 rule visualize_krona:
     """

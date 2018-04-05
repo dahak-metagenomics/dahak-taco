@@ -1,25 +1,24 @@
-include: "kaiju.settings"
-include: "filter_taxa.settings"
+include: "taxonomic_classification.settings"
 
 data_dir = config['data_dir']
+biocontainers = config['biocontainers']
+taxclass = config['taxonomic_classification']
 
-kaiju_dmp1   = config['kaiju']['dmp1']
-kaiju_dmp2   = config['kaiju']['dmp2']
+kaiju_dmp1   = taxclass['kaiju']['dmp1']
+kaiju_dmp2   = taxclass['kaiju']['dmp2']
 
 # name of kaiju output determines name of kaiju2krona input
-run_kaiju_output = config['kaiju']['out']
+run_kaiju_output = taxclass['kaiju']['out']
 
-quayurl = config['biocontainers']['kaiju']['quayurl'] + ":" + config['biocontainers']['kaiju']['version']
+quayurl = biocontainers['kaiju']['quayurl'] + ":" + biocontainers['kaiju']['version']
 
-pct = config['filter_taxa']['pct_threshold']
+pct = taxclass['filter_taxa']['pct_threshold']
 
-
-# ---
 
 
 filter_taxa_total_input = [join(data_dir,d) for d in [kaiju_dmp1, kaiju_dmp2, run_kaiju_output]]
 filter_taxa_total_suffix = '\.kaiju_out_krona.%dpercenttotal.summary'%(pct)
-filter_taxa_total_output = re.sub('\.out',filter_taxa_total_suffix,config['kaiju']['out'])
+filter_taxa_total_output = re.sub('\.out',filter_taxa_total_suffix,taxclass['kaiju']['out'])
 
 rule filter_taxa_total:
     """

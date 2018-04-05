@@ -69,6 +69,10 @@ config_default = {
             'SRR606249_subset10_2.trim30.fq.gz':   'osf.io/zq4f9/download'
         }
 
+        'visualize_krona' : {
+            # .summary will be replaced with .html
+            'input_summary'  : '{base}.kaiju_output.trim{ntrim}.{suffix}.summary',
+        }
     }
 }
 

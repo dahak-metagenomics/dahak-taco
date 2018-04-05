@@ -1,17 +1,17 @@
-include: "biocontainers.settings"
-include: "kaiju.settings"
-include: "kaiju2krona.settings"
+include: "taxonomic_classification.settings"
 
 data_dir = config['data_dir']
+biocontainers = config['biocontainers']
+taxclass = config['taxonomic_classification']
 
-kaiju_dmp1   = config['kaiju']['dmp1']
-kaiju_dmp2   = config['kaiju']['dmp2']
-kaiju_fmi    = config['kaiju']['fmi']
+kaiju_dmp1   = taxclass['kaiju']['dmp1']
+kaiju_dmp2   = taxclass['kaiju']['dmp2']
+kaiju_fmi    = taxclass['kaiju']['fmi']
 
 # name of kaiju output determines name of kaiju2krona input
-run_kaiju_output = config['kaiju']['out']
+run_kaiju_output = taxclass['kaiju']['out']
 
-quayurl = config['biocontainers']['kaiju']['quayurl'] + ":" + config['biocontainers']['kaiju']['version']
+quayurl = biocontainers['kaiju']['quayurl'] + ":" + biocontainers['kaiju']['version']
 
 
 # ---
@@ -38,11 +38,11 @@ rule kaiju2krona:
         kaiju2krona_in_name_wc = run_kaiju_output.format(**wildcards)
         kaiju2krona_output_name_wc = kaiju2krona_output.format(**wildcards)
         # NOTE:
-        # the -u stat is an attempt to keep kaiju2krona 
-        # from creating output files owned by root (???)
+        # this -u stat can be added to attempt to keep kaiju2krona 
+        # from creating output files owned by root (?!?!)
+        #           -u `stat -c "%u:%g" {PWD}` \
         shell('''
             docker run \
-                    -u `stat -c "%u:%g" {PWD}` \
                     -v {PWD}/{data_dir}:/data \
                     {quayurl} \
                     kaiju2krona \

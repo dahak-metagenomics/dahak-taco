@@ -1,4 +1,4 @@
-include: "sourmash_sbt.settings"
+include: "taxonomic_classification.settings"
 
 from os.path import join
 from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider

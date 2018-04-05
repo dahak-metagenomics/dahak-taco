@@ -1,15 +1,17 @@
-include: "reads.settings"
-include: "biocontainers.settings"
-include: "kaiju.settings"
+include: "taxonomic_classification.settings"
+
+from os.path import join
 
 data_dir = config['data_dir']
+biocontainers = config['biocontainers']
+taxclass = config['taxonomic_classification']
 
-kaiju_dmp1   = join(data_dir, config['kaiju']['dmp1'])
-kaiju_dmp2   = join(data_dir, config['kaiju']['dmp2'])
-kaiju_fmi    = join(data_dir, config['kaiju']['fmi'])
-kaiju_target = join(data_dir, config['kaiju']['tar'])
-kaiju_tar    = config['kaiju']['tar']
-kaiju_url    = config['kaiju']['url']
+kaiju_dmp1   = join(data_dir, taxclass['kaiju']['dmp1'])
+kaiju_dmp2   = join(data_dir, taxclass['kaiju']['dmp2'])
+kaiju_fmi    = join(data_dir, taxclass['kaiju']['fmi'])
+kaiju_target = join(data_dir, taxclass['kaiju']['tar'])
+kaiju_tar    = taxclass['kaiju']['tar']
+kaiju_url    = taxclass['kaiju']['url']
 
 unpack_kaiju_input = HTTP.remote(kaiju_url)
 unpack_kaiju_output = [kaiju_dmp1, kaiju_dmp2, kaiju_fmi]
@@ -32,13 +34,13 @@ rule unpack_kaiju:
         rm -f {kaiju_target}
         '''
 
-fq_fwd = join(data_dir, config['reads']['fq_fwd'])
-fq_rev = join(data_dir, config['reads']['fq_rev'])
+fq_fwd = join(data_dir, taxclass['reads']['fq_fwd'])
+fq_rev = join(data_dir, taxclass['reads']['fq_rev'])
 run_kaiju_input = [kaiju_dmp1, kaiju_dmp2, kaiju_fmi]
 run_kaiju_input += [fq_fwd, fq_rev]
-run_kaiju_output = join(data_dir, config['kaiju']['out'])
+run_kaiju_output = join(data_dir, taxclass['kaiju']['out'])
 
-quayurl = config['biocontainers']['kaiju']['quayurl'] + ":" + config['biocontainers']['kaiju']['version']
+quayurl = biocontainers['kaiju']['quayurl'] + ":" + biocontainers['kaiju']['version']
 
 rule run_kaiju:
     """
