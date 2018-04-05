@@ -33,7 +33,10 @@
 <li><a class="reference internal" href="#">dahak-taco documentation</a><ul>
 <li><a class="reference internal" href="#getting-started">Getting Started</a></li>
 <li><a class="reference internal" href="#workflow-walkthroughs">Workflow Walkthroughs</a></li>
-<li><a class="reference internal" href="#under-the-hood">Under The Hood</a></li>
+<li><a class="reference internal" href="#detailed-workflow-api">Detailed Workflow API</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#for-developers">For Developers</a></li>
 </ul>
 </li>
 </ul>
@@ -107,18 +110,50 @@ common dahak workflows:</p>
 </ul>
 </div>
 </div>
-<div class="section" id="under-the-hood">
-<h2>Under The Hood<a class="headerlink" href="#under-the-hood" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="detailed-workflow-api">
+<h2>Detailed Workflow API<a class="headerlink" href="#detailed-workflow-api" title="Permalink to this headline">¶</a></h2>
+<p>Insert your read filtering workflow description here!</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Read Filtering Workflow API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="read_filtering/fetch_reads.html">Rule: <code class="docutils literal notranslate"><span class="pre">download_reads</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_filtering/fetch_reads.html#rule-download-read-adapter">Rule: <code class="docutils literal notranslate"><span class="pre">download_read_adapter</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_filtering/pre_post_assessment.html">Rule: <code class="docutils literal notranslate"><span class="pre">pre_trimming_quality_assessment</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_filtering/pre_post_assessment.html#rule-post-trimming-quality-assessment">Rule: <code class="docutils literal notranslate"><span class="pre">post_trimming_quality_assessment</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_filtering/quality_trimming.html">Rule: <code class="docutils literal notranslate"><span class="pre">quality_trimming</span></code></a></li>
+</ul>
+</div>
+<p>Insert your taxonomic classification workflow description here!</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Taxonomic Classification Workflow API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="taxonomic_classification/biocontainers.html">Rule: <code class="docutils literal notranslate"><span class="pre">pull_biocontainers</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxonomic_classification/calculate_signatures.html">Rule: <code class="docutils literal notranslate"><span class="pre">calculate_signatures</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxonomic_classification/filter_taxa.html">Rule: <code class="docutils literal notranslate"><span class="pre">filter_taxa_total</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxonomic_classification/filter_taxa.html#rule-filter-taxa-class">Rule: <code class="docutils literal notranslate"><span class="pre">filter_taxa_class</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxonomic_classification/kaiju.html">Rule: <code class="docutils literal notranslate"><span class="pre">unpack_kaiju</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxonomic_classification/kaiju.html#rule-run-kaiju">Rule: <code class="docutils literal notranslate"><span class="pre">run_kaiju</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxonomic_classification/kaiju2krona.html">Rule: <code class="docutils literal notranslate"><span class="pre">kaiju2krona</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxonomic_classification/krona_visualization.html">Rule: <code class="docutils literal notranslate"><span class="pre">rule_name</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxonomic_classification/sourmash_sbt.html">Rule: <code class="docutils literal notranslate"><span class="pre">download_sourmash_sbts</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxonomic_classification/sourmash_sbt.html#rule-unpack-sourmash-sbts">Rule: <code class="docutils literal notranslate"><span class="pre">unpack_sourmash_sbts</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxonomic_classification/trimmed_data.html">Rule: <code class="docutils literal notranslate"><span class="pre">download_trimmed_data</span></code></a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="for-developers">
+<h2>For Developers<a class="headerlink" href="#for-developers" title="Permalink to this headline">¶</a></h2>
 <p>dahak-taco provides a set of workflows
 with default parameters that should work
 for many use cases.</p>
 <p>However, to extend dahak-taco, or just understand
 what it is doing, take a look at the innards of taco:</p>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Under the Hood:</span></p>
+<p class="caption"><span class="caption-text">For Developers:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="underthehood/howitworks.html">How Taco Works</a></li>
-<li class="toctree-l1"><a class="reference internal" href="underthehood/snakemakerules.html">Snakemake Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers/howitworks.html">How Taco Works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers/snakemakerules.html">Snakemake Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers/documentation.html">Documentation</a></li>
 </ul>
 </div>
 </div>

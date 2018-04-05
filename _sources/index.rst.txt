@@ -29,6 +29,7 @@ skip to the next section.
    intro/intro
    intro/quickstart
 
+
 Workflow Walkthroughs
 =======================
 
@@ -49,7 +50,38 @@ common dahak workflows:
    workflows/taxclass
    workflows/assembly
 
-Under The Hood
+
+Detailed Workflow API
+==========================
+
+Insert your read filtering workflow description here!
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Read Filtering Workflow API:
+
+   read_filtering/fetch_reads
+   read_filtering/pre_post_assessment
+   read_filtering/quality_trimming
+
+Insert your taxonomic classification workflow description here!
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Taxonomic Classification Workflow API:
+
+   taxonomic_classification/biocontainers
+   taxonomic_classification/calculate_signatures
+   taxonomic_classification/filter_taxa
+   taxonomic_classification/kaiju
+   taxonomic_classification/kaiju2krona
+   taxonomic_classification/krona_visualization
+   taxonomic_classification/sourmash_sbt
+   taxonomic_classification/trimmed_data
+
+
+
+For Developers
 =====================
 
 dahak-taco provides a set of workflows 
@@ -61,7 +93,9 @@ what it is doing, take a look at the innards of taco:
 
 .. toctree::
    :maxdepth: 1
-   :caption: Under the Hood:
+   :caption: For Developers:
 
-   underthehood/howitworks
-   underthehood/snakemakerules
+   developers/howitworks
+   developers/snakemakerules
+   developers/documentation
+
