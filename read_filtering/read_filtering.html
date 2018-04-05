@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Assembly Walkthrough &#8212; dahak-taco  documentation</title>
+    <title>Workflow: read_filtering &#8212; dahak-taco  documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap.min.css" type="text/css" />
@@ -16,8 +16,8 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Workflow: read_filtering" href="../read_filtering/read_filtering.html" />
-    <link rel="prev" title="Taxonomic Classification Walkthrough" href="taxclass.html" />
+    <link rel="next" title="Rule: download_reads" href="fetch_reads.html" />
+    <link rel="prev" title="Assembly Walkthrough" href="../workflows/assembly.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -32,15 +32,15 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="taxclass.html" title="previous chapter">Taxonomic Classification Walkthrough</a></li>
-      <li>Next: <a href="../read_filtering/read_filtering.html" title="next chapter">Workflow: <code class="docutils literal notranslate"><span class="pre">read_filtering</span></code></a></li>
+      <li>Previous: <a href="../workflows/assembly.html" title="previous chapter">Assembly Walkthrough</a></li>
+      <li>Next: <a href="fetch_reads.html" title="next chapter">Rule: <code class="docutils literal notranslate"><span class="pre">download_reads</span></code></a></li>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/workflows/assembly.md.txt"
+      <li><a href="../_sources/read_filtering/read_filtering.md.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -62,10 +62,16 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="assembly-walkthrough">
-<span id="assembly-walkthrough"></span><h1>Assembly Walkthrough<a class="headerlink" href="#assembly-walkthrough" title="Permalink to this headline">¶</a></h1>
-<p>Covering assembly with spades and megahit.</p>
-<p>See <a class="reference external" href="https://github.com/dahak-metagenomics/dahak/tree/master/workflows/assembly">dahak</a>.</p>
+  <div class="section" id="workflow-read-filtering">
+<span id="workflow-read-filtering"></span><h1>Workflow: <code class="docutils literal notranslate"><span class="pre">read_filtering</span></code><a class="headerlink" href="#workflow-read-filtering" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">read_filtering</span></code> workflow uses
+<code class="docutils literal notranslate"><span class="pre">fastq</span></code> and <code class="docutils literal notranslate"><span class="pre">trimmomatic</span></code> to assess
+the quality of sequencer reads and
+filter out low-quality reads.</p>
+<p>The user has control over the names
+and URLs of sequence data that is
+downloaded, as well as parameters like
+the quality threshold.</p>
 </div>
 
 
@@ -82,7 +88,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/workflows/assembly.md.txt"
+      <a href="../_sources/read_filtering/read_filtering.md.txt"
           rel="nofollow">Page source</a>
     </div>
 
