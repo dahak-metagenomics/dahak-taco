@@ -7,7 +7,7 @@ for running dahak workflows using Snakemake.
 
 (insert icholy/ttygif here.)
 
-To get started with dahak-taco,
+To get started with taco,
 and run your first workflow task,
 see the :ref:`getting-started-label`
 section.
@@ -17,12 +17,12 @@ skip to the :ref:`walkthroughs-label`
 section.
 
 If you are already up and running 
-with dahak-taco and are looking for 
+with taco and are looking for 
 information about the rules and their 
 parameters, check out the 
 :ref:`detailed-api-label` section.
 
-If you are extending dahak-taco by adding new
+If you are extending taco by adding new
 rules, workflows, or documentation, see 
 the :ref:`for-developers-label` section.
 
@@ -32,7 +32,7 @@ the :ref:`for-developers-label` section.
 Getting Started
 ==================
 
-dahak-taco is a command line utility that wraps
+taco is a command line utility that wraps
 Snakemake rules to run complex workflows.
 
 These sections will cover what taco is
@@ -52,7 +52,7 @@ first taco workflow.
 Workflow Walkthroughs
 =======================
 
-dahak-taco is a lightweight wrapper around Snakemake tasks.
+taco is a lightweight wrapper around Snakemake tasks.
 Kind of like a corn tortilla.
 
 The Snakemake rules and parameters are organized 
@@ -112,11 +112,16 @@ each rule.
 For Developers
 =====================
 
-dahak-taco provides a set of workflows 
-with default parameters that should work
-for many use cases.
+The sections below explain how taco works,
+so you know how to modify taco to suit your needs.
 
-However, to extend dahak-taco, or just understand
+There are also sections for adding or modifying
+Snakemake rules, and for adding new workflows.
+
+taco provides a set of workflows with default 
+parameters that should work for many use cases.
+
+However, to extend taco, or just understand
 what it is doing, take a look at the innards of taco:
 
 .. toctree::
@@ -125,5 +130,6 @@ what it is doing, take a look at the innards of taco:
 
    developers/howitworks
    developers/snakemakerules
+   developers/workflows
    developers/documentation
 

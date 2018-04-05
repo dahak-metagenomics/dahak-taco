@@ -78,7 +78,7 @@
 <p>dahak-taco is an experimental command-line interface
 for running dahak workflows using Snakemake.</p>
 <p>(insert icholy/ttygif here.)</p>
-<p>To get started with dahak-taco,
+<p>To get started with taco,
 and run your first workflow task,
 see the <a class="reference internal" href="#getting-started-label"><span class="std std-ref">Getting Started</span></a>
 section.</p>
@@ -86,16 +86,16 @@ section.</p>
 skip to the <a class="reference internal" href="#walkthroughs-label"><span class="std std-ref">Workflow Walkthroughs</span></a>
 section.</p>
 <p>If you are already up and running
-with dahak-taco and are looking for
+with taco and are looking for
 information about the rules and their
 parameters, check out the
 <a class="reference internal" href="#detailed-api-label"><span class="std std-ref">Detailed Workflow API</span></a> section.</p>
-<p>If you are extending dahak-taco by adding new
+<p>If you are extending taco by adding new
 rules, workflows, or documentation, see
 the <a class="reference internal" href="#for-developers-label"><span class="std std-ref">For Developers</span></a> section.</p>
 <div class="section" id="getting-started">
 <span id="getting-started-label"></span><h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>dahak-taco is a command line utility that wraps
+<p>taco is a command line utility that wraps
 Snakemake rules to run complex workflows.</p>
 <p>These sections will cover what taco is
 and get you up and running with your
@@ -110,7 +110,7 @@ first taco workflow.</p>
 </div>
 <div class="section" id="workflow-walkthroughs">
 <span id="walkthroughs-label"></span><h2>Workflow Walkthroughs<a class="headerlink" href="#workflow-walkthroughs" title="Permalink to this headline">¶</a></h2>
-<p>dahak-taco is a lightweight wrapper around Snakemake tasks.
+<p>taco is a lightweight wrapper around Snakemake tasks.
 Kind of like a corn tortilla.</p>
 <p>The Snakemake rules and parameters are organized
 by workflow in the <code class="docutils literal notranslate"><span class="pre">rules/</span></code> directory
@@ -164,16 +164,20 @@ each rule.</p>
 </div>
 <div class="section" id="for-developers">
 <span id="for-developers-label"></span><h2>For Developers<a class="headerlink" href="#for-developers" title="Permalink to this headline">¶</a></h2>
-<p>dahak-taco provides a set of workflows
-with default parameters that should work
-for many use cases.</p>
-<p>However, to extend dahak-taco, or just understand
+<p>The sections below explain how taco works,
+so you know how to modify taco to suit your needs.</p>
+<p>There are also sections for adding or modifying
+Snakemake rules, and for adding new workflows.</p>
+<p>taco provides a set of workflows with default
+parameters that should work for many use cases.</p>
+<p>However, to extend taco, or just understand
 what it is doing, take a look at the innards of taco:</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">For Developers:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="developers/howitworks.html">How Taco Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developers/snakemakerules.html">Snakemake Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers/workflows.html">Adding New Taco Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developers/documentation.html">Documentation</a></li>
 </ul>
 </div>
