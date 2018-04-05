@@ -29,6 +29,7 @@ skip to the next section.
    intro/intro
    intro/quickstart
 
+
 Workflow Walkthroughs
 =======================
 
@@ -49,18 +50,31 @@ common dahak workflows:
    workflows/taxclass
    workflows/assembly
 
-Read Filtering Workflow Details
-=================================
+
+Detailed Workflow API
+==========================
+
+Insert your read filtering workflow description here!
 
 .. toctree::
    :maxdepth: 1
-   :caption: Read Filtering Workflow:
+   :caption: Read Filtering Workflow API:
 
-   ./../rules/read_filtering/fetch_reads
-   ./../rules/read_filtering/pre_post_assessment
-   ./../rules/read_filtering/quality_trimming
+   read_filtering/fetch_reads.md
+   read_filtering/pre_post_assessment.md
+   read_filtering/quality_trimming.md
 
-Under The Hood
+Insert your taxonomic classification workflow description here!
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Read Filtering Workflow API:
+
+   read_filtering/fetch_reads.md
+   read_filtering/pre_post_assessment.md
+   read_filtering/quality_trimming.md
+
+For Developers
 =====================
 
 dahak-taco provides a set of workflows 
@@ -72,7 +86,9 @@ what it is doing, take a look at the innards of taco:
 
 .. toctree::
    :maxdepth: 1
-   :caption: Under the Hood:
+   :caption: For Developers:
 
-   underthehood/howitworks
-   underthehood/snakemakerules
+   developers/howitworks
+   developers/snakemakerules
+   developers/documentation
+

@@ -8,8 +8,8 @@ fq_fwd = join(data_dir, config['reads']['read_patterns']['pre_trimming_pattern']
 fq_rev = join(data_dir, config['reads']['read_patterns']['pre_trimming_pattern'].format(direction=2))
 quality_input = [fq_fwd, fq_rev]
 
-fq_fwd_trimmed = join(data_dir, config['reads']['read_patterns']['pre_trimming_pattern'].format(direction=1))
-fq_rev_trimmed = join(data_dir, config['reads']['read_patterns']['pre_trimming_pattern'].format(direction=2))
+fq_fwd_trimmed = join(data_dir, config['reads']['read_patterns']['post_trimming_pattern'].format(direction=1))
+fq_rev_trimmed = join(data_dir, config['reads']['read_patterns']['post_trimming_pattern'].format(direction=2))
 fq_fwd_se = re.sub('\.fq\.gz','_se',fq_fwd_trimmed)
 fq_rev_se = re.sub('\.fq\.gz','_se',fq_rev_trimmed)
 quality_output = [fq_fwd_trimmed, fq_fwd_se,
@@ -37,13 +37,16 @@ rule quality_trimming:
     log: 
         quality_log
     run:
-        qual = "{qual}".format(**wildcards)
+        qual_wc = "{qual}".format(**wildcards)
+        quality_input_wc = quality_input.format(**wildcards)
+        quality_output_wc = quality_output.format(**wildcards)
+        log_wc = quality_output.format(**wildcards)
         shell('''
             trimmomatic PE \
-            {quality_input} {quality_output} \
+            {quality_input_wc} {quality_output_wc} \
             ILLUMINACLIP:{adapter_file}:2:40:15 \
-            LEADING:{qual} TRAILING:{qual} \
-            SLIDINGWINDOW:4:{qual} MINLEN:25 \
-            2> {log}
+            LEADING:{qual_wc} TRAILING:{qual_wc} \
+            SLIDINGWINDOW:4:{qual_wc} MINLEN:25 \
+            2> {log_wc}
         ''')
 

@@ -13,7 +13,7 @@ config_default = {
         }
     },
 
-    'reads' : {
+    'read_filtering' : {
         'read_files' : {
             'SRR606249_1.fq.gz' :           'https://files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7',
             'SRR606249_2.fq.gz' :           'https://files.osf.io/v1/resources/dm938/providers/osfstorage/59f0fc7fb83f69026076be47',
