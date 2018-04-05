@@ -33,7 +33,9 @@ config_default = {
             'pct_threshold' : 1
         }
 
-        'kaiju2krona' : {},
+        'kaiju2krona' : {
+            'taxonomic_rank' : 'genus'
+        },
 
         'kaiju' : {
             'dmp1' : 'nodes.dmp',

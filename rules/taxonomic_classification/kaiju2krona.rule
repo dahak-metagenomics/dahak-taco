@@ -7,6 +7,7 @@ taxclass = config['taxonomic_classification']
 kaiju_dmp1   = taxclass['kaiju']['dmp1']
 kaiju_dmp2   = taxclass['kaiju']['dmp2']
 kaiju_fmi    = taxclass['kaiju']['fmi']
+tax_rank     = taxclass['kaiju2krona']['taxonomic_rank']
 
 # name of kaiju output determines name of kaiju2krona input
 run_kaiju_output = taxclass['kaiju']['out']
@@ -83,7 +84,7 @@ rule kaiju2kronasummary:
                     -t /data/{kaiju_dmp1} \
                     -n /data/{kaiju_dmp2} \
                     -i /data/{kaiju2kronasummary_in_wc} \
-                    -r genus \
+                    -r {tax_rank} \
                     -o /data/{kaiju2kronasummary_output_wc}
         ''')
 
