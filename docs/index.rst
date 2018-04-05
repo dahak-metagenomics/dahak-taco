@@ -49,6 +49,17 @@ common dahak workflows:
    workflows/taxclass
    workflows/assembly
 
+Read Filtering Workflow Details
+=================================
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Read Filtering Workflow:
+
+   ./../rules/read_filtering/fetch_reads
+   ./../rules/read_filtering/pre_post_assessment
+   ./../rules/read_filtering/quality_trimming
+
 Under The Hood
 =====================
 
