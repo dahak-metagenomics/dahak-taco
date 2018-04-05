@@ -85,7 +85,7 @@ each rule.
 
 .. toctree::
    :maxdepth: 1
-   :caption: *Read Filtering Workflow API:*
+   :caption: Read Filtering Workflow API:
 
    read_filtering/read_filtering
    read_filtering/fetch_reads
@@ -94,7 +94,7 @@ each rule.
 
 .. toctree::
    :maxdepth: 1
-   :caption: *Taxonomic Classification Workflow API:*
+   :caption: Taxonomic Classification Workflow API:
 
    taxonomic_classification/taxonomic_classification
    taxonomic_classification/biocontainers
