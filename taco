@@ -74,7 +74,7 @@ def main(args):
     config = dict()
 
     print('--------')
-    print('details!')
+    print('taco workflow details:')
     print('\tsnakefile: {}'.format(snakefile))
     print('\tconfig: {}'.format(workflowfile))
     print('\tparams: {}'.format(paramsfile))
@@ -96,23 +96,23 @@ def main(args):
 
 if __name__ == '__main__':
 
-    # TODO:
-    # add a list of common rules to the output
-    # mention where to look for full list of rules
-    # add command line option to change options shared by all rules
-    # expain how to change other rules/settings
-
     parser = argparse.ArgumentParser(description='taco: the experimental dahak cli', usage='''taco <workflow> <parameters> [<target>]
 
-taco is an experimental dahak cli that runs dahak workflows.
-It uses a user-provided workflow config file and parameter file.
+taco is an experimental command line interface for running dahak workflows.
 
-https://charlesreid1.github.io/dahak-taco/
+For the full documentation, visit:
 
-The <workflow> and <parameters> arguments should specify 
-names of JSON files in the current directory, sans ".json" extension.
+    https://charlesreid1.github.io/dahak-taco/
 
-To get help, run ./taco --help
+For a quick start, visit:
+
+    https://charlesreid1.github.io/dahak-taco/intro/quickstart.html
+
+Users should provide a <workflow> JSON file and a <parameters> JSON file.
+These should specify a relative path to JSON files (with or without
+the JSON extension).
+
+To get more help, run ./taco --help
 
 \r\r''')
 
@@ -130,3 +130,4 @@ To get help, run ./taco --help
     args = parser.parse_args()
 
 sys.exit(main(args))
+
