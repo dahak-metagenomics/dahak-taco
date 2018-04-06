@@ -32,10 +32,11 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Read Filtering Walkthrough</a><ul>
-<li><a class="reference internal" href="#optional-prepare-yeti-node">(Optional) Prepare “yeti” Node</a><ul>
-<li><a class="reference internal" href="#amazon-machine-image">amazon machine image</a></li>
-<li><a class="reference internal" href="#node-type">node type</a></li>
-<li><a class="reference internal" href="#configuring-instance-details">configuring instance details</a></li>
+<li><a class="reference internal" href="#optional-preparing-worker-node">(Optional) Preparing Worker Node</a><ul>
+<li><a class="reference internal" href="#amazon-machine-image">Amazon Machine Image</a></li>
+<li><a class="reference internal" href="#node-type">Node Type</a></li>
+<li><a class="reference internal" href="#configuring-instance-details">Configuring Instance Details</a></li>
+<li><a class="reference internal" href="#logging-into-instance">Logging Into Instance</a></li>
 </ul>
 </li>
 </ul>
@@ -79,8 +80,8 @@
 <span id="read-filtering-walkthrough"></span><h1>Read Filtering Walkthrough<a class="headerlink" href="#read-filtering-walkthrough" title="Permalink to this headline">¶</a></h1>
 <p>This walkthrough covers a read filtering workflow. Specifically, we will:</p>
 <ul class="simple">
-<li><strong>(Optional)</strong> Prepare a beefy “yeti” node (16 GB RAM, 256 GB HD)
-to run a dahak workflow by installing required software
+<li><strong>(Optional)</strong> Prepare a beefy worker node to run a
+dahak workflow by installing required software
 (dahak-yeti).</li>
 <li>Download raw sequence data from OSF data store (wget).</li>
 <li>Assess the quality of the pre-filtered reads (fastqc)</li>
@@ -90,15 +91,15 @@ to run a dahak workflow by installing required software
 <p>This workflow specifically covers the use of taco.
 See the <a class="reference external" href="https://github.com/dahak-metagenomics/dahak/tree/master/workflows/read_filtering">walkthroughs dir of the dahak repo</a>
 for the original shell-based walkthrough.</p>
-<div class="section" id="optional-prepare-yeti-node">
-<span id="optional-prepare-yeti-node"></span><h2>(Optional) Prepare “yeti” Node<a class="headerlink" href="#optional-prepare-yeti-node" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="optional-preparing-worker-node">
+<span id="optional-preparing-worker-node"></span><h2>(Optional) Preparing Worker Node<a class="headerlink" href="#optional-preparing-worker-node" title="Permalink to this headline">¶</a></h2>
 <p>dahak-taco is intended to be a multi-platform
 tool (HPC or cloud), but for the sake of the walkthrough
 we will briefly cover the setup process using an AWS node.</p>
 <p>Log into the AWS console and select a region
 (<code class="docutils literal notranslate"><span class="pre">us-west-2</span></code> Oregon is good for spot instances).</p>
 <div class="section" id="amazon-machine-image">
-<span id="amazon-machine-image"></span><h3>amazon machine image<a class="headerlink" href="#amazon-machine-image" title="Permalink to this headline">¶</a></h3>
+<span id="amazon-machine-image"></span><h3>Amazon Machine Image<a class="headerlink" href="#amazon-machine-image" title="Permalink to this headline">¶</a></h3>
 <p>Select the stock Ubuntu 16.04 LTS image
 from the list of AMIs.
 This has the AMI ID:</p>
@@ -107,7 +108,7 @@ This has the AMI ID:</p>
 </div>
 </div>
 <div class="section" id="node-type">
-<span id="node-type"></span><h3>node type<a class="headerlink" href="#node-type" title="Permalink to this headline">¶</a></h3>
+<span id="node-type"></span><h3>Node Type<a class="headerlink" href="#node-type" title="Permalink to this headline">¶</a></h3>
 <p>The hardware depends highly on the worfklow
 (more results soon from benchmarking of workflows),
 but for all walkthroughs we utilize one of the following:</p>
@@ -118,7 +119,7 @@ but for all walkthroughs we utilize one of the following:</p>
 <p>Select <code class="docutils literal notranslate"><span class="pre">m5.2xlarge</span></code> for the read filtering walkthrough.</p>
 </div>
 <div class="section" id="configuring-instance-details">
-<span id="configuring-instance-details"></span><h3>configuring instance details<a class="headerlink" href="#configuring-instance-details" title="Permalink to this headline">¶</a></h3>
+<span id="configuring-instance-details"></span><h3>Configuring Instance Details<a class="headerlink" href="#configuring-instance-details" title="Permalink to this headline">¶</a></h3>
 <p>On the configure instance details:</p>
 <ul class="simple">
 <li>Check “Request Spot Instances” box and set your desired price
@@ -132,6 +133,25 @@ of the <a class="reference external" href="https://github.com/dahak-metagenomics
 and paste the contents into the text box.</li>
 </ul>
 <p><img alt="dahak-yeti user data setup screenshot." src="../_images/user-data-screenshot.png" /></p>
+<p>A 256 GB hard disk (EBS, the default) should be sufficient.</p>
+</div>
+<div class="section" id="logging-into-instance">
+<span id="logging-into-instance"></span><h3>Logging Into Instance<a class="headerlink" href="#logging-into-instance" title="Permalink to this headline">¶</a></h3>
+<p>When you create the node it should set up a private key
+to use to SSH into the worker node.</p>
+<p>The init script will add a few minutes to the worker node’s
+startup time. It will run scripts, install files, set configurations,
+and run a lot of magic.</p>
+<p>Once the startup step has completed, you can SSH to the
+worker node, and you will have the following installed:</p>
+<ul class="simple">
+<li>pyenv</li>
+<li>miniconda3-4.30 installed with pyenv</li>
+<li>snakemake installed with conda</li>
+<li>opinionated dotfiles (<code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>, <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code>, <code class="docutils literal notranslate"><span class="pre">.vimrc</span></code>, etc.)</li>
+<li>a colorful pink prompt</li>
+</ul>
+<p><img alt="dahak-yeti promp after user login." src="../_images/yeti-screenshot.png" /></p>
 </div>
 </div>
 </div>

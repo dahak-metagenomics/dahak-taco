@@ -2,8 +2,8 @@
 
 This walkthrough covers a read filtering workflow. Specifically, we will:
 
-* **(Optional)** Prepare a beefy "yeti" node (16 GB RAM, 256 GB HD) 
-    to run a dahak workflow by installing required software 
+* **(Optional)** Prepare a beefy worker node to run a 
+    dahak workflow by installing required software 
     (dahak-yeti).
 
 * Download raw sequence data from OSF data store (wget).
@@ -18,7 +18,7 @@ This workflow specifically covers the use of taco.
 See the [walkthroughs dir of the dahak repo](https://github.com/dahak-metagenomics/dahak/tree/master/workflows/read_filtering)
 for the original shell-based walkthrough.
 
-## (Optional) Prepare "yeti" Node
+## (Optional) Preparing Worker Node
 
 dahak-taco is intended to be a multi-platform
 tool (HPC or cloud), but for the sake of the walkthrough
@@ -27,7 +27,7 @@ we will briefly cover the setup process using an AWS node.
 Log into the AWS console and select a region 
 (`us-west-2` Oregon is good for spot instances).
 
-### amazon machine image
+### Amazon Machine Image
 
 Select the stock Ubuntu 16.04 LTS image 
 from the list of AMIs.
@@ -37,7 +37,7 @@ This has the AMI ID:
 ami-4e79ed36
 ```
 
-### node type
+### Node Type
 
 The hardware depends highly on the worfklow
 (more results soon from benchmarking of workflows),
@@ -48,7 +48,7 @@ but for all walkthroughs we utilize one of the following:
 
 Select `m5.2xlarge` for the read filtering walkthrough.
 
-### configuring instance details
+### Configuring Instance Details
 
 On the configure instance details:
 
@@ -65,6 +65,28 @@ On the configure instance details:
     and paste the contents into the text box.
 
 ![dahak-yeti user data setup screenshot.](user-data-screenshot.png)
+
+A 256 GB hard disk (EBS, the default) should be sufficient.
+
+### Logging Into Instance
+
+When you create the node it should set up a private key
+to use to SSH into the worker node.
+
+The init script will add a few minutes to the worker node's 
+startup time. It will run scripts, install files, set configurations,
+and run a lot of magic.
+
+Once the startup step has completed, you can SSH to the
+worker node, and you will have the following installed:
+
+* pyenv
+* miniconda3-4.30 installed with pyenv
+* snakemake installed with conda
+* opinionated dotfiles (`.bashrc`, `.bash_profile`, `.vimrc`, etc.)
+* a colorful pink prompt
+
+![dahak-yeti promp after user login.](yeti-screenshot.png)
 
 
 
