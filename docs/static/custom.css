@@ -7,3 +7,8 @@ div.body {
 div.toctree-wrapper span.caption-text {
     font-weight: bold;
 }
+div.red_square {
+  border: solid 21px #f0f;
+  width: 30px;
+  height: 30px;
+}
