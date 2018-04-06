@@ -1,4 +1,4 @@
-include: "trimming.settings"
+include: "read_filtering.settings"
 
 from os.path import join
 
