@@ -1,8 +1,6 @@
-include: "taxonomic_classification.settings"
-
 from os.path import join
 
-#data_dir = config['data_dir']
+data_dir = config['data_dir']
 biocontainers = config['biocontainers']
 
 # assemble quay.io URLs for biocontainers
