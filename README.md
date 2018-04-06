@@ -12,9 +12,8 @@ See the [dahak-taco documentation](https://dahak-metagenomics.github.io/dahak-ta
 
 ## Notes
 
-* using subworkflows is an excellent idea in theory, a terrible idea in practice
-* snakemake cannot handle subworkflows properly
-* none of the rules in the subworkflows actually work
+* snakemake subworkflows seem to have some kind of problem
+* not picking up rules defined in subworkflow snakefiles
 * list rules `snakemake -l` shows nothing
 * target files or target rules both fail
 
