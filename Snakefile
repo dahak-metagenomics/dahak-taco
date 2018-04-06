@@ -1,10 +1,5 @@
 from os.path import join
 
-# Set your custom configuration here
-config = {
-    'data_dir': 'data/'
-}
-
 # See subworkflow documentation:
 # https://snakemake.readthedocs.io/en/stable/snakefiles/modularization.html#snakefiles-sub-workflows
 
