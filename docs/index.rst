@@ -1,8 +1,3 @@
-.. dahak-taco documentation master file, created by
-   sphinx-quickstart on Thu Mar 22 16:07:28 2018.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 ==========================
 dahak-taco documentation
 ==========================
@@ -12,15 +7,37 @@ for running dahak workflows using Snakemake.
 
 (insert icholy/ttygif here.)
 
+To get started with taco,
+and run your first workflow task,
+see the :ref:`getting-started-label`
+section.
+
+If you're hungry for more dahak workflows,
+skip to the :ref:`walkthroughs-label` 
+section.
+
+If you are already up and running 
+with taco and are looking for 
+information about the rules and their 
+parameters, check out the 
+:ref:`detailed-api-label` section.
+
+If you are extending taco by adding new
+rules, workflows, or documentation, see 
+the :ref:`for-developers-label` section.
+
+
+.. _getting-started-label:
+
 Getting Started
 ==================
 
-To get started with dahak-taco,
-and run your first workflow task,
-see :doc:`intro/intro`.
+taco is a command line utility that wraps
+Snakemake rules to run complex workflows.
 
-If you're hungry for more dahak workflows,
-skip to the next section.
+These sections will cover what taco is
+and get you up and running with your 
+first taco workflow.
 
 .. toctree::
    :maxdepth: 1
@@ -30,17 +47,20 @@ skip to the next section.
    intro/quickstart
 
 
+.. _walkthroughs-label:
+
 Workflow Walkthroughs
 =======================
 
-dahak-taco is a lightweight wrapper around Snakemake tasks.
+taco is a lightweight wrapper around Snakemake tasks.
 Kind of like a corn tortilla.
 
-The Snakemake API is called to run rules contained in the 
-``rules`` directory.
+The Snakemake rules and parameters are organized 
+by workflow in the ``rules/`` directory 
+of this repository.
 
-Here are a few walkthroughs of 
-common dahak workflows:
+The walkthroughs below show examples
+of how to run each workflow.
 
 .. toctree::
    :maxdepth: 1
@@ -51,37 +71,57 @@ common dahak workflows:
    workflows/assembly
 
 
+
+.. _detailed-api-label:
+
 Detailed Workflow API
 ==========================
 
-Insert your read filtering workflow description here!
+Each workflow takes a set of parameters.
+The pages listed below give information 
+about default parameters for each workflow,
+and show short examples of how to customize
+each rule.
 
 .. toctree::
    :maxdepth: 1
    :caption: Read Filtering Workflow API:
 
-   read_filtering/fetch_reads.md
-   read_filtering/pre_post_assessment.md
-   read_filtering/quality_trimming.md
-
-Insert your taxonomic classification workflow description here!
+   read_filtering/read_filtering
+   read_filtering/fetch_reads
+   read_filtering/pre_post_assessment
+   read_filtering/quality_trimming
 
 .. toctree::
    :maxdepth: 1
-   :caption: Read Filtering Workflow API:
+   :caption: Taxonomic Classification Workflow API:
 
-   read_filtering/fetch_reads.md
-   read_filtering/pre_post_assessment.md
-   read_filtering/quality_trimming.md
+   taxonomic_classification/taxonomic_classification
+   taxonomic_classification/biocontainers
+   taxonomic_classification/calculate_signatures
+   taxonomic_classification/filter_taxa
+   taxonomic_classification/kaiju
+   taxonomic_classification/kaiju2krona
+   taxonomic_classification/krona_visualization
+   taxonomic_classification/sourmash_sbt
+   taxonomic_classification/trimmed_data
+
+
+.. _for-developers-label:
 
 For Developers
 =====================
 
-dahak-taco provides a set of workflows 
-with default parameters that should work
-for many use cases.
+The sections below explain how taco works,
+so you know how to modify taco to suit your needs.
 
-However, to extend dahak-taco, or just understand
+There are also sections for adding or modifying
+Snakemake rules, and for adding new workflows.
+
+taco provides a set of workflows with default 
+parameters that should work for many use cases.
+
+However, to extend taco, or just understand
 what it is doing, take a look at the innards of taco:
 
 .. toctree::
@@ -90,5 +130,6 @@ what it is doing, take a look at the innards of taco:
 
    developers/howitworks
    developers/snakemakerules
+   developers/workflows
    developers/documentation
 
