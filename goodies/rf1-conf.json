@@ -1,0 +1,4 @@
+{
+    'workflow_targets' : ['SRR606249_1.fq.gz',
+                          'SRR606249_2.fq.gz']
+}
