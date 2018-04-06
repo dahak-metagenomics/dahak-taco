@@ -21,12 +21,20 @@ pwd = os.path.abspath(os.path.dirname(__file__))
 
 def main(args):
 
-    # Snakefile needs to be in current directory
-    snakefile = os.path.join(pwd, 'Snakefile')
-    if(not os.path.exists(snakefile)):
-        sys.stderr.write('Error: cannot find Snakefile at {}\n'.format(snakefile))
-        sys.exit(-1)
+    # One Snakefile per workflow
+    ### # Snakefile needs to be in current directory
+    ### snakefile = os.path.join(pwd, 'Snakefile')
+    ### if(not os.path.exists(snakefile)):
+    ###     sys.stderr.write('Error: cannot find Snakefile at {}\n'.format(snakefile))
+    ###     sys.exit(-1)
 
+    # Workflow name will help us pick which Snakefile to use
+    snakefile = None
+    snakepath = os.path.join('rules',args.workflowname,'Snakefile')
+    if(os.path.exists(snakepath) and os.path.isfile(snakepath)):
+        snakefile = snakepath
+    else:
+        raise Exception("Error: no Snakefile found at %s"%(snakepath))
 
     # Workflow file should be next arg
     workflowfile = None
@@ -51,19 +59,21 @@ def main(args):
         sys.exit(-1)
 
     # Next, find the workflow params file
+    # (note: args.paramsfile is the second argument, which sets nargs = *,
+    #  so it is a list, unlike args.workflow file above)
     paramsfile = None
-    if os.path.exists(args.paramsfile) and not os.path.isdir(args.paramsfile):
-        paramsfile = args.paramsfile
+    if os.path.exists(args.paramsfile[0]) and not os.path.isdir(args.paramsfile[0]):
+        paramsfile = args.paramsfile[0]
     else:
         for suffix in ('', '.json'):
-            tryfile = os.path.join(pwd, args.paramsfile + suffix)
+            tryfile = os.path.join(pwd, args.paramsfile[0] + suffix)
             if os.path.exists(tryfile) and not os.path.isdir(tryfile):
                 sys.stderr.write('Found paramsfile at {}\n'.format(tryfile))
                 paramsfile = tryfile
                 break
 
     if not paramsfile:
-        sys.stderr.write('Error: cannot find paramsfile {}\n'.format(args.paramsfile))
+        sys.stderr.write('Error: cannot find paramsfile {}\n'.format(args.paramsfile[0]))
         sys.exit(-1)
 
     with open(workflowfile, 'rt') as fp:
@@ -71,39 +81,50 @@ def main(args):
 
     targets = None
 
-    if 'workflow_target' in workflow_info.keys():
-        # One target
-        targets = workflow_info['workflow_target']
+    # We always ask the user for targets (plural)
+    # and we always take a list of targets (even if 1).
+    # That's just how things are done,
+    # to keep this program simple.
 
-    elif 'workflow_targets' in workflow_info.keys():
-        # Multiple targets
+    if 'workflow_targets' in workflow_info.keys():
+        # should always be a list, even if one item
         targets = workflow_info['workflow_targets']
+        if(type(targets)!=type([])):
+            targets = [targets]
 
     else:
         err = "Error: workflow has no information about targets.\n"
-        err += "Try setting 'workflow_target' or 'workflow_targets'."
+        err += "Try setting 'workflow_targets'."
         raise Exception(err)
 
-    config = dict()
+    config = dict(data_dir='data/')
 
     print('--------')
     print('taco workflow details:')
     print('\tsnakefile: {}'.format(snakefile))
     print('\tconfig: {}'.format(workflowfile))
     print('\tparams: {}'.format(paramsfile))
-    print('\ttarget: {}'.format(target))
+    print('\ttargets: {}'.format(targets))
     print('--------')
 
     status = snakemake.snakemake(snakefile, 
                                  configfile=paramsfile,
-                                 targets=[target], 
+                                 targets=targets, 
                                  printshellcmds=True,
                                  dryrun=args.dry_run, 
                                  config=config)
 
     if status: # translate "success" into shell exit code of 0
         return 0
-    return 1
+    else:
+        print("")
+        print("Error: Failed to call Snakemake API")
+        print("You might have requested an output file or rule that does not exist.")
+        print("Try adding the data directory location as a prefix to your file names.")
+        print("")
+        print("config['data_dir'] = %s"%(config['data_dir']))
+        print("")
+        return 1
 
 
 
@@ -137,7 +158,8 @@ To get more help, run ./taco --help
     # but if we want to add more subcommands, we should
     # create multiple parsers like civilized people.
     #
-    parser.add_argument('workflowfile', help="""To specify a workflow, create a JSON file containing the name of the Snakemake rules you wish to run.""")
+    parser.add_argument('workflowname', help="""Specify the name of a workflow to run.""")
+    parser.add_argument('workflowfile', help="""Specify a workflow using a JSON file, and passing the name of the Snakemake rules or targets.""")
     parser.add_argument('paramsfile', help="""Specify parameters using a JSON file, and pass the name of the JSON file.""", nargs='*')
     parser.add_argument('-n', '--dry-run', action='store_true')
     args = parser.parse_args()
