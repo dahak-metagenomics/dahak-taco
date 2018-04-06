@@ -69,7 +69,20 @@ def main(args):
     with open(workflowfile, 'rt') as fp:
         workflow_info = json.load(fp)
 
-    target = workflow_info['workflow_target']
+    targets = None
+
+    if 'workflow_target' in workflow_info.keys():
+        # One target
+        targets = workflow_info['workflow_target']
+
+    elif 'workflow_targets' in workflow_info.keys():
+        # Multiple targets
+        targets = workflow_info['workflow_targets']
+
+    else:
+        err = "Error: workflow has no information about targets.\n"
+        err += "Try setting 'workflow_target' or 'workflow_targets'."
+        raise Exception(err)
 
     config = dict()
 
