@@ -1,0 +1,70 @@
+# Read Filtering Walkthrough
+
+This walkthrough covers a read filtering workflow. Specifically, we will:
+
+* **(Optional)** Prepare a beefy "yeti" node (16 GB RAM, 256 GB HD) 
+    to run a dahak workflow by installing required software 
+    (dahak-yeti).
+
+* Download raw sequence data from OSF data store (wget).
+
+* Assess the quality of the pre-filtered reads (fastqc)
+
+* Trim and filter the reads based on a quality threshold (trimmomatic)
+
+* Assess the quality of the post-filtered reads (fastqc)
+
+This workflow specifically covers the use of taco.
+See the [walkthroughs dir of the dahak repo](https://github.com/dahak-metagenomics/dahak/tree/master/workflows/read_filtering)
+for the original shell-based walkthrough.
+
+## (Optional) Prepare "yeti" Node
+
+dahak-taco is intended to be a multi-platform
+tool (HPC or cloud), but for the sake of the walkthrough
+we will briefly cover the setup process using an AWS node.
+
+Log into the AWS console and select a region 
+(`us-west-2` Oregon is good for spot instances).
+
+### amazon machine image
+
+Select the stock Ubuntu 16.04 LTS image 
+from the list of AMIs.
+This has the AMI ID:
+
+```
+ami-4e79ed36
+```
+
+### node type
+
+The hardware depends highly on the worfklow
+(more results soon from benchmarking of workflows),
+but for all walkthroughs we utilize one of the following:
+
+* `m5.2xlarge` (8 vCPUs, 32 GB RAM) 
+* `m5.4xlarge` (16 vCPUs, 64 GB RAM)
+
+Select `m5.2xlarge` for the read filtering walkthrough.
+
+### configuring instance details
+
+On the configure instance details:
+
+* Check "Request Spot Instances" box and set your desired price
+    (usually around $0.14 for 2xlarge, $0.28 for 4xlarge)
+
+* Click the Advanced Details bar at the bottom
+
+* Copy the contents
+    of the [user_data](https://github.com/dahak-metagenomics/dahak-yeti/blob/master/cloud_init/user_data) file
+    in the [cloud-init](https://github.com/dahak-metagenomics/dahak-yeti/tree/master/cloud_init) folder 
+    of the [dahak-yeti](https://github.com/dahak-metagenomics/dahak-yeti) repo
+    (this should be a curl-pipe-to-bash one-liner)
+    and paste the contents into the text box.
+
+![dahak-yeti user data setup screenshot.](user-data-screenshot.png)
+
+
+

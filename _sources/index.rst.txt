@@ -66,9 +66,7 @@ of how to run each workflow.
    :maxdepth: 1
    :caption: Workflow Walkthroughs:
 
-   workflows/readfilt
-   workflows/taxclass
-   workflows/assembly
+   walkthrus/readfilt
 
 
 

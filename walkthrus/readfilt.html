@@ -1,0 +1,165 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Read Filtering Walkthrough &#8212; dahak-taco  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap.min.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Workflow: read_filtering" href="../read_filtering/read_filtering.html" />
+    <link rel="prev" title="Quick Start" href="../intro/quickstart.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Read Filtering Walkthrough</a><ul>
+<li><a class="reference internal" href="#optional-prepare-yeti-node">(Optional) Prepare “yeti” Node</a><ul>
+<li><a class="reference internal" href="#amazon-machine-image">amazon machine image</a></li>
+<li><a class="reference internal" href="#node-type">node type</a></li>
+<li><a class="reference internal" href="#configuring-instance-details">configuring instance details</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../intro/quickstart.html" title="previous chapter">Quick Start</a></li>
+      <li>Next: <a href="../read_filtering/read_filtering.html" title="next chapter">Workflow: <code class="docutils literal notranslate"><span class="pre">read_filtering</span></code></a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/walkthrus/readfilt.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="read-filtering-walkthrough">
+<span id="read-filtering-walkthrough"></span><h1>Read Filtering Walkthrough<a class="headerlink" href="#read-filtering-walkthrough" title="Permalink to this headline">¶</a></h1>
+<p>This walkthrough covers a read filtering workflow. Specifically, we will:</p>
+<ul class="simple">
+<li><strong>(Optional)</strong> Prepare a beefy “yeti” node (16 GB RAM, 256 GB HD)
+to run a dahak workflow by installing required software
+(dahak-yeti).</li>
+<li>Download raw sequence data from OSF data store (wget).</li>
+<li>Assess the quality of the pre-filtered reads (fastqc)</li>
+<li>Trim and filter the reads based on a quality threshold (trimmomatic)</li>
+<li>Assess the quality of the post-filtered reads (fastqc)</li>
+</ul>
+<p>This workflow specifically covers the use of taco.
+See the <a class="reference external" href="https://github.com/dahak-metagenomics/dahak/tree/master/workflows/read_filtering">walkthroughs dir of the dahak repo</a>
+for the original shell-based walkthrough.</p>
+<div class="section" id="optional-prepare-yeti-node">
+<span id="optional-prepare-yeti-node"></span><h2>(Optional) Prepare “yeti” Node<a class="headerlink" href="#optional-prepare-yeti-node" title="Permalink to this headline">¶</a></h2>
+<p>dahak-taco is intended to be a multi-platform
+tool (HPC or cloud), but for the sake of the walkthrough
+we will briefly cover the setup process using an AWS node.</p>
+<p>Log into the AWS console and select a region
+(<code class="docutils literal notranslate"><span class="pre">us-west-2</span></code> Oregon is good for spot instances).</p>
+<div class="section" id="amazon-machine-image">
+<span id="amazon-machine-image"></span><h3>amazon machine image<a class="headerlink" href="#amazon-machine-image" title="Permalink to this headline">¶</a></h3>
+<p>Select the stock Ubuntu 16.04 LTS image
+from the list of AMIs.
+This has the AMI ID:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ami</span><span class="o">-</span><span class="mf">4e79</span><span class="n">ed36</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="node-type">
+<span id="node-type"></span><h3>node type<a class="headerlink" href="#node-type" title="Permalink to this headline">¶</a></h3>
+<p>The hardware depends highly on the worfklow
+(more results soon from benchmarking of workflows),
+but for all walkthroughs we utilize one of the following:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">m5.2xlarge</span></code> (8 vCPUs, 32 GB RAM)</li>
+<li><code class="docutils literal notranslate"><span class="pre">m5.4xlarge</span></code> (16 vCPUs, 64 GB RAM)</li>
+</ul>
+<p>Select <code class="docutils literal notranslate"><span class="pre">m5.2xlarge</span></code> for the read filtering walkthrough.</p>
+</div>
+<div class="section" id="configuring-instance-details">
+<span id="configuring-instance-details"></span><h3>configuring instance details<a class="headerlink" href="#configuring-instance-details" title="Permalink to this headline">¶</a></h3>
+<p>On the configure instance details:</p>
+<ul class="simple">
+<li>Check “Request Spot Instances” box and set your desired price
+(usually around $0.14 for 2xlarge, $0.28 for 4xlarge)</li>
+<li>Click the Advanced Details bar at the bottom</li>
+<li>Copy the contents
+of the <a class="reference external" href="https://github.com/dahak-metagenomics/dahak-yeti/blob/master/cloud_init/user_data">user_data</a> file
+in the <a class="reference external" href="https://github.com/dahak-metagenomics/dahak-yeti/tree/master/cloud_init">cloud-init</a> folder
+of the <a class="reference external" href="https://github.com/dahak-metagenomics/dahak-yeti">dahak-yeti</a> repo
+(this should be a curl-pipe-to-bash one-liner)
+and paste the contents into the text box.</li>
+</ul>
+<p><img alt="dahak-yeti user data setup screenshot." src="../_images/user-data-screenshot.png" /></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/walkthrus/readfilt.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/charlesreid1/dahak-taco" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>
