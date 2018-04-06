@@ -53,18 +53,24 @@ Select `m5.2xlarge` for the read filtering walkthrough.
 On the configure instance details:
 
 * Check "Request Spot Instances" box and set your desired price
-    (usually around $0.14 for 2xlarge, $0.28 for 4xlarge)
+    * Typical price for 2xlarge is 14 cents per hour
+    * Typical price for 4xlarge is 28 cents per hour
 
 * Click the Advanced Details bar at the bottom
 
-* Copy the contents
-    of the [user_data](https://github.com/dahak-metagenomics/dahak-yeti/blob/master/cloud_init/user_data) file
-    in the [cloud-init](https://github.com/dahak-metagenomics/dahak-yeti/tree/master/cloud_init) folder 
-    of the [dahak-yeti](https://github.com/dahak-metagenomics/dahak-yeti) repo
-    (this should be a curl-pipe-to-bash one-liner)
-    and paste the contents into the text box.
+* Copy the following into the user data text box:
+
+```
+#!/bin/bash
+bash <( curl https://raw.githubusercontent.com/charlesreid1/dahak-yeti/master/cloud_init/cloud_init.sh )
+```
 
 ![dahak-yeti user data setup screenshot.](user-data-screenshot.png)
+
+* The pipe-to-bash one-liner will run the cloud init script 
+    in the [dahak-yeti](https://github.com/dahak-metagenomics/dahak-yeti) repo
+
+### Volumes
 
 A 256 GB hard disk (EBS, the default) should be sufficient.
 

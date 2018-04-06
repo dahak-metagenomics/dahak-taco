@@ -36,6 +36,7 @@
 <li><a class="reference internal" href="#amazon-machine-image">Amazon Machine Image</a></li>
 <li><a class="reference internal" href="#node-type">Node Type</a></li>
 <li><a class="reference internal" href="#configuring-instance-details">Configuring Instance Details</a></li>
+<li><a class="reference internal" href="#volumes">Volumes</a></li>
 <li><a class="reference internal" href="#logging-into-instance">Logging Into Instance</a></li>
 </ul>
 </li>
@@ -122,17 +123,26 @@ but for all walkthroughs we utilize one of the following:</p>
 <span id="configuring-instance-details"></span><h3>Configuring Instance Details<a class="headerlink" href="#configuring-instance-details" title="Permalink to this headline">¶</a></h3>
 <p>On the configure instance details:</p>
 <ul class="simple">
-<li>Check “Request Spot Instances” box and set your desired price
-(usually around $0.14 for 2xlarge, $0.28 for 4xlarge)</li>
-<li>Click the Advanced Details bar at the bottom</li>
-<li>Copy the contents
-of the <a class="reference external" href="https://github.com/dahak-metagenomics/dahak-yeti/blob/master/cloud_init/user_data">user_data</a> file
-in the <a class="reference external" href="https://github.com/dahak-metagenomics/dahak-yeti/tree/master/cloud_init">cloud-init</a> folder
-of the <a class="reference external" href="https://github.com/dahak-metagenomics/dahak-yeti">dahak-yeti</a> repo
-(this should be a curl-pipe-to-bash one-liner)
-and paste the contents into the text box.</li>
+<li>Check “Request Spot Instances” box and set your desired price<ul>
+<li>Typical price for 2xlarge is 14 cents per hour</li>
+<li>Typical price for 4xlarge is 28 cents per hour</li>
 </ul>
+</li>
+<li>Click the Advanced Details bar at the bottom</li>
+<li>Copy the following into the user data text box:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="n">bash</span> <span class="o">&lt;</span><span class="p">(</span> <span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">charlesreid1</span><span class="o">/</span><span class="n">dahak</span><span class="o">-</span><span class="n">yeti</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">cloud_init</span><span class="o">/</span><span class="n">cloud_init</span><span class="o">.</span><span class="n">sh</span> <span class="p">)</span>
+</pre></div>
+</div>
 <p><img alt="dahak-yeti user data setup screenshot." src="../_images/user-data-screenshot.png" /></p>
+<ul class="simple">
+<li>The pipe-to-bash one-liner will run the cloud init script
+in the <a class="reference external" href="https://github.com/dahak-metagenomics/dahak-yeti">dahak-yeti</a> repo</li>
+</ul>
+</div>
+<div class="section" id="volumes">
+<span id="volumes"></span><h3>Volumes<a class="headerlink" href="#volumes" title="Permalink to this headline">¶</a></h3>
 <p>A 256 GB hard disk (EBS, the default) should be sufficient.</p>
 </div>
 <div class="section" id="logging-into-instance">
