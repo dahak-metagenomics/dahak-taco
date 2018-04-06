@@ -1,4 +1,4 @@
-# Rule: `rule_name`
+# Rule: `visualize_krona`
 
 Visualize the results of the
 full and filtered taxonomic

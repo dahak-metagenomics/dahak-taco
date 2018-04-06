@@ -32,13 +32,22 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Quick Start</a><ul>
-<li><a class="reference internal" href="#workflow-configuration-file">Workflow Configuration File</a></li>
-<li><a class="reference internal" href="#example-workflow-configuration-file">Example Workflow Configuration File</a></li>
-<li><a class="reference internal" href="#workflow-parameters-file">Workflow Parameters File</a></li>
+<li><a class="reference internal" href="#workflow-configuration-file">Workflow Configuration File</a><ul>
+<li><a class="reference internal" href="#example-rule-based-workflow-configuration-file">Example Rule-Based Workflow Configuration File</a></li>
+<li><a class="reference internal" href="#example-file-based-workflow-configuration-file">Example File-Based Workflow Configuration File</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#workflow-parameters-file">Workflow Parameters File</a><ul>
 <li><a class="reference internal" href="#example-workflow-parameters-file">Example Workflow Parameters File</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#running-taco">Running Taco</a></li>
 <li><a class="reference internal" href="#running-the-example-workflow">Running the Example Workflow</a></li>
-<li><a class="reference internal" href="#listing-snakemake-rules">Listing Snakemake Rules</a></li>
+<li><a class="reference internal" href="#listing-available-actions">Listing Available Actions</a><ul>
+<li><a class="reference internal" href="#listing-workflows">Listing Workflows</a></li>
+<li><a class="reference internal" href="#listing-workflow-rules">Listing Workflow Rules</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -88,7 +97,7 @@
 to run and the names of the target input and output files.
 These rules are defined in <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.rules</span></code>.</li>
 <li><strong>Workflow parameters file (optional):</strong> specifies values for
-workflow parameters. Parmaeters set in this
+workflow parameters. Parameters set in this
 parameters file will override parameters set
 in the <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.settings</span></code> files.</li>
 </ul>
@@ -99,18 +108,38 @@ in the <code class="docutils literal notranslate"><span class="pre">rules/dahak/
 must specify a key <code class="docutils literal notranslate"><span class="pre">workflow_target</span></code>.</p>
 <p>The value must be a valid Snakemake rule
 defined in one of the rule files at <code class="docutils literal notranslate"><span class="pre">rules/dahak/*.rules</span></code>.</p>
-<p>The form of the workflow configuration file is:</p>
+<p>The form of the workflow configuration file
+for running rules without file targets is:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
-    &#39;workflow_target&#39; : &lt;name of Snakemake rule&gt;
+    &quot;workflow_target&quot; : &lt;name of Snakemake rule&gt;
 }
 </pre></div>
 </div>
+<p>and the form for using a filename-based target is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+    &quot;workflow_target&quot; : &lt;name of output file target&gt;
+}
+</pre></div>
 </div>
-<div class="section" id="example-workflow-configuration-file">
-<span id="example-workflow-configuration-file"></span><h2>Example Workflow Configuration File<a class="headerlink" href="#example-workflow-configuration-file" title="Permalink to this headline">¶</a></h2>
-<p>Here is a simple example of a workflow
-configuration file that pulls containers
-from a URL (no output filenames involved):</p>
+<p>You can also specify a list of workflow targets.
+For example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+    &quot;workflow_targets&quot; : &lt;list of Snakemake rules&gt;
+}
+</pre></div>
+</div>
+<p>or,</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+    &quot;workflow_targets&quot; : &lt;list of output file targets&gt;
+}
+</pre></div>
+</div>
+<div class="section" id="example-rule-based-workflow-configuration-file">
+<span id="example-rule-based-workflow-configuration-file"></span><h3>Example Rule-Based Workflow Configuration File<a class="headerlink" href="#example-rule-based-workflow-configuration-file" title="Permalink to this headline">¶</a></h3>
+<p>Here is a simple example of a workflow configuration file
+for running a rule that has no file targets (pulling containers).
+This rule specifies the workflow target by specifying the
+rule name:</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">test-workflow.json</span></code>:</strong></p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
     &quot;workflow_target&quot; : &quot;pull_biocontainers&quot;
@@ -118,33 +147,52 @@ from a URL (no output filenames involved):</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="example-file-based-workflow-configuration-file">
+<span id="example-file-based-workflow-configuration-file"></span><h3>Example File-Based Workflow Configuration File<a class="headerlink" href="#example-file-based-workflow-configuration-file" title="Permalink to this headline">¶</a></h3>
+<p>Here is a simple example of a workflow configuration file
+that runs rules based on filename targets:</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">test-workflow.json</span></code>:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+    &quot;workflow_targets&quot; : [&quot;XXXXXX_trim5_1.fq.gz&quot;,
+                          &quot;XXXXXX_trim5_2.fq..gz&quot;]
+}
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="workflow-parameters-file">
 <span id="workflow-parameters-file"></span><h2>Workflow Parameters File<a class="headerlink" href="#workflow-parameters-file" title="Permalink to this headline">¶</a></h2>
-<p>The workflow parameters file contains parameter values
+<p>The workflow parameters control various parameters
+that are used by the programs and containers run
+by the Snakemake rules.</p>
+<p>There is a configuration parameters dictionary
+common to all Snakemake rules</p>
+<p>contains parameter values
 to control the workflow. These parameter values will override
 default parameter values set in the <code class="docutils literal notranslate"><span class="pre">rules/</span></code> directory.</p>
 <p>Parameters are any variables used in the Snakemake rules.
 All Snakemake parameters are contained in a config dictionary
 that contains dictionaries of parameters, typically grouped
 by workflow rule, application, or group of applications.</p>
-<p>All rules are set in <code class="docutils literal notranslate"><span class="pre">*.settings</span></code> files in the <code class="docutils literal notranslate"><span class="pre">rules/</span></code> directory.</p>
-<p>The form of the workflow parameters JSON file is:</p>
+<p>The default values
+All rules are set in <code class="docutils literal notranslate"><span class="pre">*.settings</span></code> files in the <code class="docutils literal notranslate"><span class="pre">rules/</span></code> directory.</p>
+<p>Workflow parameters are
+The form of the workflow parameters JSON file is:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
-    &#39;app 1 name&#39; : &lt;dict of app 1 parameters&gt;,
-    &#39;app 2 name&#39; : &lt;dict of app 2 parameters&gt;,
-    ...
-    &#39;group 1 name&#39; : &lt;dict of grouped parameters 1&gt;,
-    &#39;group 2 name&#39; : &lt;dict of grouped parameters 2&gt;,
-    ...
+    &#39;workflow_name&#39; : {
+        &#39;workflow_step&#39; : {
+            &#39;param_name&#39; : &lt;param-value&gt;,
+            ...
+        }
+    }
 }
 </pre></div>
 </div>
 <p>Most parameters are listed under the app that uses them.
 Some parameters are common to several tasks,
 so they are assigned a key with a group name, like “reads”.</p>
-</div>
 <div class="section" id="example-workflow-parameters-file">
-<span id="example-workflow-parameters-file"></span><h2>Example Workflow Parameters File<a class="headerlink" href="#example-workflow-parameters-file" title="Permalink to this headline">¶</a></h2>
+<span id="example-workflow-parameters-file"></span><h3>Example Workflow Parameters File<a class="headerlink" href="#example-workflow-parameters-file" title="Permalink to this headline">¶</a></h3>
 <p>The following example parameters file adjusts the parameters for
 the rule to update biocontainers.</p>
 <p>This is a simple parameter file overriding a single parameter,
@@ -161,6 +209,7 @@ sourmash version <code class="docutils literal notranslate"><span class="pre">2.
 </pre></div>
 </div>
 </div>
+</div>
 <div class="section" id="running-taco">
 <span id="running-taco"></span><h2>Running Taco<a class="headerlink" href="#running-taco" title="Permalink to this headline">¶</a></h2>
 <p>To run taco, pass it two arguments on the command line.
@@ -169,15 +218,15 @@ the second argument is the name of the paramters file.</p>
 <p>Both arguments should be the path to a JSON file
 (absolute or relative) and exclude the JSON suffix.</p>
 <p>For example, to run the two JSON files in the example above,</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco test-workflow test-params
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco test-workflow test-params
 </pre></div>
 </div>
 <p>To run workflows contained in a <code class="docutils literal notranslate"><span class="pre">configs/</span></code> directory, run:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco configs/test-workflow configs/test-params
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco configs/test-workflow configs/test-params
 </pre></div>
 </div>
 <p>To do a dry run only, add the <code class="docutils literal notranslate"><span class="pre">-n</span></code> or <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> flag:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco -n test-workflow test-params
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco -n test-workflow test-params
 </pre></div>
 </div>
 </div>
@@ -186,25 +235,32 @@ the second argument is the name of the paramters file.</p>
 <p>Following the example above, we run the example workflow
 by specifying the test workflow configuration file
 and the test workflow parameters file:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./taco test-workflow test-params
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco test-workflow test-params
 </pre></div>
 </div>
 <p>(Note that a parameters file is optional.)</p>
 <p>This will run the pull biocontainers rule.</p>
 </div>
-<div class="section" id="listing-snakemake-rules">
-<span id="listing-snakemake-rules"></span><h2>Listing Snakemake Rules<a class="headerlink" href="#listing-snakemake-rules" title="Permalink to this headline">¶</a></h2>
-<p>You can also list available snakemake rules
-using the <code class="docutils literal notranslate"><span class="pre">dahak</span> <span class="pre">ls</span></code> command:</p>
+<div class="section" id="listing-available-actions">
+<span id="listing-available-actions"></span><h2>Listing Available Actions<a class="headerlink" href="#listing-available-actions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="listing-workflows">
+<span id="listing-workflows"></span><h3>Listing Workflows<a class="headerlink" href="#listing-workflows" title="Permalink to this headline">¶</a></h3>
+<p>You can list available taco workflows
+using the <code class="docutils literal notranslate"><span class="pre">taco</span> <span class="pre">ls</span></code> command with no
+additional arguments:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco ls
 </pre></div>
 </div>
-<p>This is equivalent to the following snakemake command:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ snakemake -l
+</div>
+<div class="section" id="listing-workflow-rules">
+<span id="listing-workflow-rules"></span><h3>Listing Workflow Rules<a class="headerlink" href="#listing-workflow-rules" title="Permalink to this headline">¶</a></h3>
+<p>You can list all of the rules available
+for a given workflow by running <code class="docutils literal notranslate"><span class="pre">taco</span> <span class="pre">ls</span> <span class="pre">&lt;workflow-name&gt;</span></code>.
+For example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco 
 </pre></div>
 </div>
-<p>Back: <a class="reference external" href="intro.md">Intro</a></p>
-<p>Up: <a class="reference external" href="index.rst">Index</a></p>
+</div>
 </div>
 </div>
 

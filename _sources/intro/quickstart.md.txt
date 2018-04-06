@@ -13,7 +13,7 @@ dahak-taco requires two inputs from the user:
     These rules are defined in `rules/dahak/*.rules`.
 
 * **Workflow parameters file (optional):** specifies values for 
-    workflow parameters. Parmaeters set in this
+    workflow parameters. Parameters set in this
     parameters file will override parameters set
     in the `rules/dahak/*.settings` files.
 
@@ -27,19 +27,47 @@ must specify a key `workflow_target`.
 The value must be a valid Snakemake rule
 defined in one of the rule files at `rules/dahak/*.rules`.
 
-The form of the workflow configuration file is:
+The form of the workflow configuration file 
+for running rules without file targets is:
 
 ```text
 {
-    'workflow_target' : <name of Snakemake rule>
+    "workflow_target" : <name of Snakemake rule>
 }
 ```
 
-## Example Workflow Configuration File
+and the form for using a filename-based target is:
 
-Here is a simple example of a workflow 
-configuration file that pulls containers
-from a URL (no output filenames involved):
+```text
+{
+    "workflow_target" : <name of output file target>
+}
+```
+
+You can also specify a list of workflow targets.
+For example:
+
+```text
+{
+    "workflow_targets" : <list of Snakemake rules>
+}
+```
+
+or,
+
+
+```text
+{
+    "workflow_targets" : <list of output file targets>
+}
+```
+
+### Example Rule-Based Workflow Configuration File
+
+Here is a simple example of a workflow configuration file
+for running a rule that has no file targets (pulling containers).
+This rule specifies the workflow target by specifying the 
+rule name:
 
 **`test-workflow.json`:**
 
@@ -49,9 +77,33 @@ from a URL (no output filenames involved):
 }
 ``` 
 
+### Example File-Based Workflow Configuration File
+
+Here is a simple example of a workflow configuration file
+that runs rules based on filename targets:
+
+**`test-workflow.json`:**
+
+```text
+{
+    "workflow_targets" : ["XXXXXX_trim5_1.fq.gz",
+                          "XXXXXX_trim5_2.fq..gz"]
+}
+``` 
+
 ## Workflow Parameters File
 
-The workflow parameters file contains parameter values
+The workflow parameters control various parameters
+that are used by the programs and containers run
+by the Snakemake rules.
+
+There is a configuration parameters dictionary 
+common to all Snakemake rules 
+
+
+
+
+contains parameter values
 to control the workflow. These parameter values will override
 default parameter values set in the `rules/` directory.
 
@@ -60,18 +112,20 @@ All Snakemake parameters are contained in a config dictionary
 that contains dictionaries of parameters, typically grouped 
 by workflow rule, application, or group of applications.
 
+The default values 
 All rules are set in `*.settings` files in the `rules/` directory.
 
+Workflow parameters are 
 The form of the workflow parameters JSON file is:
 
 ```text
 {
-    'app 1 name' : <dict of app 1 parameters>,
-    'app 2 name' : <dict of app 2 parameters>,
-    ...
-    'group 1 name' : <dict of grouped parameters 1>,
-    'group 2 name' : <dict of grouped parameters 2>,
-    ...
+    'workflow_name' : {
+        'workflow_step' : {
+            'param_name' : <param-value>,
+            ...
+        }
+    }
 }
 ```
 
@@ -79,7 +133,7 @@ Most parameters are listed under the app that uses them.
 Some parameters are common to several tasks,
 so they are assigned a key with a group name, like "reads".
 
-## Example Workflow Parameters File
+### Example Workflow Parameters File
 
 The following example parameters file adjusts the parameters for 
 the rule to update biocontainers.
@@ -113,19 +167,19 @@ Both arguments should be the path to a JSON file
 For example, to run the two JSON files in the example above,
 
 ```text
-./taco test-workflow test-params
+$ ./taco test-workflow test-params
 ```
 
 To run workflows contained in a `configs/` directory, run:
 
 ```text
-./taco configs/test-workflow configs/test-params
+$ ./taco configs/test-workflow configs/test-params
 ```
 
 To do a dry run only, add the `-n` or `--dry-run` flag:
 
 ```text
-./taco -n test-workflow test-params
+$ ./taco -n test-workflow test-params
 ```
 
 ## Running the Example Workflow
@@ -135,29 +189,31 @@ by specifying the test workflow configuration file
 and the test workflow parameters file:
 
 ```text
-./taco test-workflow test-params
+$ ./taco test-workflow test-params
 ```
 
 (Note that a parameters file is optional.)
 
 This will run the pull biocontainers rule.
 
-## Listing Snakemake Rules
+## Listing Available Actions
 
-You can also list available snakemake rules
-using the `dahak ls` command:
+### Listing Workflows
+
+You can list available taco workflows
+using the `taco ls` command with no 
+additional arguments:
 
 ```text
 $ ./taco ls
 ```
 
-This is equivalent to the following snakemake command:
+### Listing Workflow Rules
+
+You can list all of the rules available 
+for a given workflow by running `taco ls <workflow-name>`.
+For example:
 
 ```text
-$ snakemake -l
-```
-
-Back: [Intro](intro.md)
-
-Up: [Index](index.rst)
+$ ./taco 
 
