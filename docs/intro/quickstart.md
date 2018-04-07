@@ -96,7 +96,7 @@ rule name:
 
 ```text
 {
-    "workflow_target" : "pull_biocontainers"
+    "workflow_targets" : ["pull_biocontainers"]
 }
 ``` 
 
@@ -167,7 +167,9 @@ sourmash version `2.0.0a3--py36_0`, set in
 ```text
 {
     "biocontainers" : {
-        "sourmash" : "2.0.0a2--py36_0"
+        "sourmash" : {
+            "version" : "2.0.0a2--py36_0"
+        }
     }
 }
 ```
