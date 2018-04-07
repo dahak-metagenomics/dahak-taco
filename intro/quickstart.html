@@ -163,7 +163,7 @@ This rule specifies the workflow target by specifying the
 rule name:</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">goodies/test-conf.json</span></code>:</strong></p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
-    &quot;workflow_target&quot; : &quot;pull_biocontainers&quot;
+    &quot;workflow_targets&quot; : [&quot;pull_biocontainers&quot;]
 }
 </pre></div>
 </div>
@@ -221,7 +221,9 @@ sourmash version <code class="docutils literal notranslate"><span class="pre">2.
 <p><strong><code class="docutils literal notranslate"><span class="pre">goodies/test-params.json</span></code>:</strong></p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
     &quot;biocontainers&quot; : {
-        &quot;sourmash&quot; : &quot;2.0.0a2--py36_0&quot;
+        &quot;sourmash&quot; : {
+            &quot;version&quot; : &quot;2.0.0a2--py36_0&quot;
+        }
     }
 }
 </pre></div>

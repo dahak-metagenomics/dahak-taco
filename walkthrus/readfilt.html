@@ -34,6 +34,10 @@
 <li><a class="reference internal" href="#">Read Filtering Walkthrough</a><ul>
 <li><a class="reference internal" href="#setup">Setup</a></li>
 <li><a class="reference internal" href="#clone-the-repo">Clone The Repo</a></li>
+<li><a class="reference internal" href="#start-the-workflow">Start the Workflow</a><ul>
+<li><a class="reference internal" href="#step-1-download-the-data">Step 1: Download the Data</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -107,6 +111,74 @@ $ cd dahak-taco/
 </div>
 <p>As mentioned in <a class="reference external" href="/INSTALLING.md">INSTALLING</a>,
 there is nothing to install for taco itself.</p>
+</div>
+<div class="section" id="start-the-workflow">
+<span id="start-the-workflow"></span><h2>Start the Workflow<a class="headerlink" href="#start-the-workflow" title="Permalink to this headline">¶</a></h2>
+<p>For the read filtering walkthrough we will be downloading
+two <code class="docutils literal notranslate"><span class="pre">*.fq.gz</span></code> files, assessing their quality,
+and trimming them based on the quality of the reads.</p>
+<p>The workflow has four steps:</p>
+<ul class="simple">
+<li>Download the data</li>
+<li>Assess the quality before trimming</li>
+<li>Trim the data</li>
+<li>Assess the quality after trimming</li>
+</ul>
+<p>We will perform each step separatel,
+then all steps together, to illustrate.</p>
+<div class="section" id="step-1-download-the-data">
+<span id="step-1-download-the-data"></span><h3>Step 1: Download the Data<a class="headerlink" href="#step-1-download-the-data" title="Permalink to this headline">¶</a></h3>
+<p>Our three required inputs are:</p>
+<ul class="simple">
+<li>Workflow name (<code class="docutils literal notranslate"><span class="pre">read_filtering</span></code>)</li>
+<li>Workflow configuration file</li>
+<li>Workflow parameters file</li>
+</ul>
+<p>Here is the workflow configuration file we will use.
+The workflow targets it specifies are two files with
+unprocessed sequence reads.</p>
+<p>(These files are the inputs to the rest of the
+read filtering workflow.)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat read_filtering_walkthru_1_config.json
+{
+    &quot;workflow_targets&quot; : [&quot;data/SRR606249_1.fq.gz&quot;,
+                          &quot;data/SRR606249_2.fq.gz&quot;]
+}
+</pre></div>
+</div>
+<p>Next, we have our workflow parameters file.
+This parameters file should define any parameters
+used for the single step we’re executing.
+In our case, we have to tell Snakemake
+where to download the read files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat read_filtering_walkthru_1_params.json
+{
+    &quot;read_filtering&quot; : {
+        &quot;read_files&quot; : {
+            &quot;SRR606249_1.fq.gz&quot; : &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7&quot;,
+            &quot;SRR606249_2.fq.gz&quot; : &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f0fc7fb83f69026076be47&quot;
+        }
+    }
+}
+</pre></div>
+</div>
+<p>Both of these JSON files are contained in the
+<code class="docutils literal notranslate"><span class="pre">goodies/</span></code> directory of the repo.</p>
+<p>To run the workflow that downloads these two
+read files, run taco as follows:</p>
+<p>Dry run first with the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
+    goodies/read_filtering_walkthru_1_config.json \
+    goodies/read_filtering_walkthru_1_params.json
+</pre></div>
+</div>
+<p>Then the real deal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
+    goodies/read_filtering_walkthru_1_config.json \
+    goodies/read_filtering_walkthru_1_params.json
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
