@@ -1,19 +1,13 @@
 # Read Filtering Walkthrough
 
-This walkthrough covers a read filtering workflow. 
+This walkthrough covers a taxonomic classification workflow.
 
 In this document we will:
 
-* Download raw sequence data from OSF data store (wget).
-
-* Assess the quality of the pre-filtered reads (fastqc)
-
-* Trim and filter the reads based on a quality threshold (trimmomatic)
-
-* Assess the quality of the post-filtered reads (fastqc)
+* Do some stuff
 
 This workflow specifically covers the use of taco.
-See the [walkthroughs dir of the dahak repo](https://github.com/dahak-metagenomics/dahak/tree/master/workflows/read_filtering)
+See the [workflows dir of the dahak repo](https://github.com/dahak-metagenomics/dahak/tree/master/workflows/)
 for the original shell-based walkthrough.
 
 ## Setup
@@ -42,6 +36,7 @@ $ cd dahak-taco/
 
 As mentioned in [INSTALLING](/INSTALLING.md),
 there is nothing to install for taco itself.
+
 
 
 
