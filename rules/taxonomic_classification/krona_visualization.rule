@@ -5,7 +5,7 @@ data_dir = config['data_dir']
 biocontainers = config['biocontainers']
 taxclass = config['taxonomic_classification']
 
-visualize_krona_input_name  = taxclass['visualize_krona']['input_pattern']
+visualize_krona_input_name  = taxclass['visualize_krona']['input_summary']
 if(visualize_krona_input_name[-8:] is not '.summary'):
     visualize_krona_input_name += '.summary'
 visualize_krona_output_name = re.sub(visualize_krona_input_name, '.summary','.html')

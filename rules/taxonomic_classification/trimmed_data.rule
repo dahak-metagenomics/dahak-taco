@@ -25,8 +25,8 @@ rule download_trimmed_data:
 
     See trimmed_data.md
     """
-    input:
-        HTTP.remote(expand("{url}", url=trimmed_data_urls, keep_local=True)
+###     input:
+###         HTTP.remote(expand("{url}", url=trimmed_data_urls, keep_local=True)
     output:
         trimmed_data_files,
         touch(join(data_dir,'.trimmed'))

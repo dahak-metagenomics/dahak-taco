@@ -46,6 +46,11 @@ config_default = {
             'out'  : '{base}.kaiju_output.trim{ntrim}.out'
         },
 
+        'reads' : {
+            'fq_fwd'     : '{base}_1.trim{ntrim}.fq.gz',
+            'fq_rev'     : '{base}_2.trim{ntrim}.fq.gz',
+        },
+
         'sourmash' : { 
             'sbturl'  : 's3-us-west-1.amazonaws.com/spacegraphcats.ucdavis.edu',
             'sbttar'  : 'microbe-{databaase}-sbt-k{ksize}-2017.05.09.tar.gz',
