@@ -21,13 +21,6 @@ pwd = os.path.abspath(os.path.dirname(__file__))
 
 def main(args):
 
-    # One Snakefile per workflow
-    ### # Snakefile needs to be in current directory
-    ### snakefile = os.path.join(pwd, 'Snakefile')
-    ### if(not os.path.exists(snakefile)):
-    ###     sys.stderr.write('Error: cannot find Snakefile at {}\n'.format(snakefile))
-    ###     sys.exit(-1)
-
     # Workflow name will help us pick which Snakefile to use
     snakefile = None
     snakepath = os.path.join('rules',args.workflowname,'Snakefile')
@@ -85,7 +78,6 @@ def main(args):
     # and we always take a list of targets (even if 1).
     # That's just how things are done,
     # to keep this program simple.
-
     if 'workflow_targets' in workflow_info.keys():
         # should always be a list, even if one item
         targets = workflow_info['workflow_targets']
@@ -93,8 +85,8 @@ def main(args):
             targets = [targets]
 
     else:
-        err = "Error: workflow has no information about targets.\n"
-        err += "Try setting 'workflow_targets'."
+        err = "Error: workflow configuration has no information about targets.\n"
+        err += "Try setting 'workflow_targets' in configuration."
         raise Exception(err)
 
     config = dict(data_dir='data/')
