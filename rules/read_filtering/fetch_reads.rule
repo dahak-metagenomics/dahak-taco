@@ -1,13 +1,16 @@
 from os.path import join, isfile
 from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
+HTTP = HTTPRemoteProvider()
 
 data_dir = config['data_dir']
+readfilt = config['read_filtering']
 
 read_data_files = []
 read_data_urls = []
-for filename in config['read_filtering']['read_files'].keys():
+for filename in readfilt['read_files'].keys():
     read_data_files.append(join(data_dir,filename))
-    read_data_urls.append( config['read_filtering']['read_files'][filename] )
+    read_data_urls.append( readfilt['read_files'][filename] )
+
 
 rule download_reads:
     """
@@ -17,7 +20,7 @@ rule download_reads:
     See fetch_reads.md
     """
     input:
-        HTTP.remote(expand("{url}", url=read_data_urls, keep_local=True)
+        HTTP.remote(expand("{url}", url=read_data_urls, keep_local=True))
     output:
         read_data_files
     message: '''--- Downloading Data.'''
@@ -28,11 +31,10 @@ rule download_reads:
                     wget -O {osf_file} {osf_url}
                 ''')
 
-adapter_files = []
-adapter_urls = []
-for filename in config['read_filtering']['adapter_files']:
-    adapter_files.append(join(data_dir,filename))
-    adapter_urls.append(config['read_filtering']['adapter_files'][filename])
+
+# There should only be one adapter file
+adapter_file = join(data_dir, list(readfilt['adapter_file'].keys()  )[0])
+adapter_url  = join(data_dir, list(readfilt['adapter_file'].values())[0])
 
 rule download_read_adapter:
     """
@@ -43,12 +45,11 @@ rule download_read_adapter:
     See fetch_reads.md
     """
     output: 
-        HTTP.remote(expand("{url}", url=adapter_urls)
-    message: '''--- Downloading adapters.'''
+        HTTP.remote(expand("{url}", url=adapter_url))
+    message: '''--- Downloading adapter.'''
     run:
-        for (adapfile,adapurl) in zip(adapter_files,adapter_urls):
-            if(not os.path.isfile(adapfile)):
-                shell('''
-                    wget -O {adapfile} {adapurl}
-                ''')
+        if(not os.path.isfile(adapterfile)):
+            shell('''
+                wget -O {adapterfile} {adapterurl}
+            ''')
 

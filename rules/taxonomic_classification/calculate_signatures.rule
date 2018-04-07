@@ -7,7 +7,7 @@ sig_inputs  = [join(data_dir, taxclass['reads']['fq_fwd']),
 sig_output   = join(data_dir, taxclass['calculate_signatures']['sig_name'])
 merge_output = join(data_dir, taxclass['calculate_signatures']['merge_name'])
 
-quayurl = biocontainers['sourmash']['quayurl']+":"+biocontainers['sourmash']['version']
+quayurl = biocontainers['sourmash']['quayurl'] + ":" + biocontainers['sourmash']['version']
 
 rule calculate_signatures:
     """

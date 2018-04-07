@@ -28,7 +28,7 @@ config_default = {
         'read_patterns' : {
             'pre_trimming_pattern'  : '{sample}_{direction}.fq.gz',
             'post_trimming_pattern' : '{sample}_trim{qual}_{direction}.fq.gz'
-        }
+        },
 
         'adapter_file' : {
             'TruSeq2-PE.fa' : 'http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa'
