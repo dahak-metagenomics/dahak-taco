@@ -4,6 +4,7 @@ from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
 HTTP = HTTPRemoteProvider()
 
 data_dir = config['data_dir']
+taxclass = config['taxonomic_classification']
 
 # trimmed data file name and OSF url
 # come from trimmed_data.settings.
@@ -12,9 +13,9 @@ data_dir = config['data_dir']
 
 trimmed_data_files=[]
 trimmed_data_urls=[]
-for filename in config['trimmed_reads'].keys():
+for filename in taxclass['trimmed_reads'].keys():
     trimmed_data_files.append( join(data_dir, filename) )
-    trimmed_data_urls.append(config['trimmed_reads'][filename])
+    trimmed_data_urls.append(taxclass['trimmed_reads'][filename])
 
 rule download_trimmed_data:
     """
