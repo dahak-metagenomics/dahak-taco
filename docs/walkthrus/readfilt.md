@@ -75,7 +75,7 @@ unprocessed sequence reads.
 read filtering workflow.)
 
 ```
-$ cat read_filtering_walkthru_1_config.json
+$ goodies/cat read_filtering_walkthru_1_config.json
 {
     "workflow_targets" : ["data/SRR606249_1.fq.gz",
                           "data/SRR606249_2.fq.gz"]
@@ -89,7 +89,7 @@ In our case, we have to tell Snakemake
 where to download the read files:
 
 ```
-$ cat read_filtering_walkthru_1_params.json
+$ cat goodies/read_filtering_walkthru_1_params.json
 {
     "read_filtering" : {
         "read_files" : {
