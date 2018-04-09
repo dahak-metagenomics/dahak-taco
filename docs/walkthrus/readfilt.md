@@ -59,7 +59,7 @@ The workflow has four steps:
 We will perform each step separatel,
 then all steps together, to illustrate.
 
-### Step 1: Download the Data
+### Step 1: Rule: Download the Data
 
 Our three required inputs are:
 
@@ -97,6 +97,9 @@ $ cat goodies/readfilt1params.json
 {
     "short_description": "Read Filtering Walkthrough 1 Parameters",
     "read_filtering" : {
+        "read_patterns" : {
+            "pre_trimming_pattern"  : "{sample}_{direction}.fq.gz",
+        },
         "read_files" : {
             "SRR606249_1.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7",
             "SRR606249_2.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0fc7fb83f69026076be47",
@@ -114,8 +117,14 @@ $ cat goodies/readfilt1params.json
 Both of these JSON files are contained in the 
 `goodies/` directory of the repo.
 
-To run the workflow that downloads these two
-read files, run taco as follows:
+The `read_patterns` parameter is optional and the
+default value is shown here. This pattern is used
+to create the download wildcard rule, so the files 
+that make up the `read_files` keys must match that 
+pattern or they will not be downloadable.
+
+To run the workflow defined by this workflow,
+config file, and parameters file, run taco as follows:
 
 Dry run first with the `-n` flag:
 
@@ -132,4 +141,61 @@ $ ./taco -n read_filtering \
     goodies/readfilt1config.json \
     goodies/readfilt1params.json
 ```
+
+
+### Step 2: Rule: Pre-Trim Quality Assessment
+
+The second step uses `fastq` to assess the 
+quality of the sequencer reads before any
+trimming occurs.
+
+
+
+Here is the config file for the second step,
+which is the pre-trim quality assessment.
+
+```
+$ cat goodies/readfilt2config.json
+{
+    "short_description": "Read Filtering Walkthrough 2 - Configuration",
+    "workflow_targets" : ["data/SRR606249_1.fq.gz",
+                          "data/SRR606249_2.fq.gz"]
+}
+```
+
+While the second step of the workflow should use a 
+second config file, the parameters file should 
+include all the parameters from the prior step,
+since Snakemake will still be running those workflow
+steps.
+
+Here is the parameters file (parameters given above are 
+excluded for brevity but should still be included in 
+this parameters file):
+
+```
+$ cat goodies/readfilt2params.json
+{
+    "short_description": "Read Filtering Walkthrough 2 - Parameters",
+    "read_filtering" : {
+        "read_patterns" : {
+            ...
+        },
+        "read_files" : {
+            ...
+        }
+    }
+}
+
+
+
+
+### Step 3: Rule: Trim Reads
+
+
+### Step 4: Rule: Post-Trim Quality Assessment
+
+
+
+
 

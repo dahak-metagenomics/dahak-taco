@@ -66,7 +66,7 @@ of how to run each workflow.
    :maxdepth: 1
    :caption: Workflow Walkthroughs:
 
-   walkthrus/setup
+   walkthrus/awssetup
    walkthrus/readfilt
 
 
