@@ -16,7 +16,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Worker Node Setup Walkthrough" href="../walkthrus/setup.html" />
+    <link rel="next" title="Worker Node Setup Walkthrough" href="../walkthrus/awssetup.html" />
     <link rel="prev" title="Introduction: dahak-taco" href="intro.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -59,7 +59,7 @@
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
       <li>Previous: <a href="intro.html" title="previous chapter">Introduction: dahak-taco</a></li>
-      <li>Next: <a href="../walkthrus/setup.html" title="next chapter">Worker Node Setup Walkthrough</a></li>
+      <li>Next: <a href="../walkthrus/awssetup.html" title="next chapter">Worker Node Setup Walkthrough</a></li>
   </ul></li>
 </ul>
 </div>
@@ -197,9 +197,9 @@ will override the default values.</p>
 <p>The workflow configuration controls the starting and ending points.</p>
 <p>The form of the workflow parameters JSON file is:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
-    &#39;workflow_name&#39; : {
-        &#39;application_or_rule_name&#39; : {
-            &#39;param_name&#39; : &lt;param-value&gt;,
+    &#39;&lt;workflow-name&gt;&#39; : {
+        &#39;&lt;rule-name&gt;&#39; : {
+            &#39;&lt;param-name&gt;&#39; : &lt;param-value&gt;,
             ...
         }
     }

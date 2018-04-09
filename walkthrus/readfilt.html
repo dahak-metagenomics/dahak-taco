@@ -17,7 +17,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Workflow: read_filtering" href="../read_filtering/read_filtering.html" />
-    <link rel="prev" title="Worker Node Setup Walkthrough" href="setup.html" />
+    <link rel="prev" title="Worker Node Setup Walkthrough" href="awssetup.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -35,7 +35,8 @@
 <li><a class="reference internal" href="#setup">Setup</a></li>
 <li><a class="reference internal" href="#clone-the-repo">Clone The Repo</a></li>
 <li><a class="reference internal" href="#start-the-workflow">Start the Workflow</a><ul>
-<li><a class="reference internal" href="#step-1-download-the-data">Step 1: Download the Data</a></li>
+<li><a class="reference internal" href="#step-1-rule-download-the-data">Step 1: Rule: Download the Data</a></li>
+<li><a class="reference internal" href="#step-2-rule-pre-trim-quality-assessment">Step 2: Rule: Pre-Trim Quality Assessment</a></li>
 </ul>
 </li>
 </ul>
@@ -45,7 +46,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="setup.html" title="previous chapter">Worker Node Setup Walkthrough</a></li>
+      <li>Previous: <a href="awssetup.html" title="previous chapter">Worker Node Setup Walkthrough</a></li>
       <li>Next: <a href="../read_filtering/read_filtering.html" title="next chapter">Workflow: <code class="docutils literal notranslate"><span class="pre">read_filtering</span></code></a></li>
   </ul></li>
 </ul>
@@ -126,21 +127,22 @@ and trimming them based on the quality of the reads.</p>
 </ul>
 <p>We will perform each step separatel,
 then all steps together, to illustrate.</p>
-<div class="section" id="step-1-download-the-data">
-<span id="step-1-download-the-data"></span><h3>Step 1: Download the Data<a class="headerlink" href="#step-1-download-the-data" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="step-1-rule-download-the-data">
+<span id="step-1-rule-download-the-data"></span><h3>Step 1: Rule: Download the Data<a class="headerlink" href="#step-1-rule-download-the-data" title="Permalink to this headline">¶</a></h3>
 <p>Our three required inputs are:</p>
 <ul class="simple">
 <li>Workflow name (<code class="docutils literal notranslate"><span class="pre">read_filtering</span></code>)</li>
-<li>Workflow configuration file</li>
-<li>Workflow parameters file</li>
+<li>Workflow configuration file (in <code class="docutils literal notranslate"><span class="pre">goodies/readfilt1config.json</span></code>)</li>
+<li>Workflow parameters file (in <code class="docutils literal notranslate"><span class="pre">goodies/readfilt1params.json</span></code>)</li>
 </ul>
 <p>Here is the workflow configuration file we will use.
 The workflow targets it specifies are two files with
 unprocessed sequence reads.</p>
 <p>(These files are the inputs to the rest of the
 read filtering workflow.)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ goodies/cat readfilt1config.json
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt1config.json
 {
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 1 - Configuration&quot;,
     &quot;workflow_targets&quot; : [&quot;data/SRR606249_1.fq.gz&quot;,
                           &quot;data/SRR606249_2.fq.gz&quot;]
 }
@@ -150,13 +152,26 @@ read filtering workflow.)</p>
 This parameters file should define any parameters
 used for the single step we’re executing.
 In our case, we have to tell Snakemake
-where to download the read files:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat goodies/read_filtering_walkthru_1_params.json
+where to download the read files.
+This parameters file defines a long list of files,
+but rules are defined on a file-by-file basis
+so we only downlod the files we need:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt1params.json
 {
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 1 Parameters&quot;,
     &quot;read_filtering&quot; : {
+        &quot;read_patterns&quot; : {
+            &quot;pre_trimming_pattern&quot;  : &quot;{sample}_{direction}.fq.gz&quot;,
+        },
         &quot;read_files&quot; : {
-            &quot;SRR606249_1.fq.gz&quot; : &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7&quot;,
-            &quot;SRR606249_2.fq.gz&quot; : &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f0fc7fb83f69026076be47&quot;
+            &quot;SRR606249_1.fq.gz&quot; :           &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7&quot;,
+            &quot;SRR606249_2.fq.gz&quot; :           &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f0fc7fb83f69026076be47&quot;,
+            &quot;SRR606249_subset10_1.fq.gz&quot; :  &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f10134b83f69026377611b&quot;,
+            &quot;SRR606249_subset10_2.fq.gz&quot; :  &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f101f26c613b026330e53a&quot;,
+            &quot;SRR606249_subset25_1.fq.gz&quot; :  &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f1039a594d900263120c38&quot;,
+            &quot;SRR606249_subset25_2.fq.gz&quot; :  &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f104ed594d90026411f486&quot;,
+            &quot;SRR606249_subset50_1.fq.gz&quot; :  &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f1082d6c613b026430e5cf&quot;,
+            &quot;SRR606249_subset50_2.fq.gz&quot; :  &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f10ac6594d900262123e77&quot;
         }
     }
 }
@@ -164,8 +179,13 @@ where to download the read files:</p>
 </div>
 <p>Both of these JSON files are contained in the
 <code class="docutils literal notranslate"><span class="pre">goodies/</span></code> directory of the repo.</p>
-<p>To run the workflow that downloads these two
-read files, run taco as follows:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">read_patterns</span></code> parameter is optional and the
+default value is shown here. This pattern is used
+to create the download wildcard rule, so the files
+that make up the <code class="docutils literal notranslate"><span class="pre">read_files</span></code> keys must match that
+pattern or they will not be downloadable.</p>
+<p>To run the workflow defined by this workflow,
+config file, and parameters file, run taco as follows:</p>
 <p>Dry run first with the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
     goodies/readfilt1config.json \
@@ -176,6 +196,56 @@ read files, run taco as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
     goodies/readfilt1config.json \
     goodies/readfilt1params.json
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-2-rule-pre-trim-quality-assessment">
+<span id="step-2-rule-pre-trim-quality-assessment"></span><h3>Step 2: Rule: Pre-Trim Quality Assessment<a class="headerlink" href="#step-2-rule-pre-trim-quality-assessment" title="Permalink to this headline">¶</a></h3>
+<p>The second step uses <code class="docutils literal notranslate"><span class="pre">fastq</span></code> to assess the
+quality of the sequencer reads before any
+trimming occurs.</p>
+<p>Here is the config file for the second step,
+which is the pre-trim quality assessment.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt2config.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 2 - Configuration&quot;,
+    &quot;workflow_targets&quot; : [&quot;data/SRR606249_1.fq.gz&quot;,
+                          &quot;data/SRR606249_2.fq.gz&quot;]
+}
+</pre></div>
+</div>
+<p>While the second step of the workflow should use a
+second config file, the parameters file should
+include all the parameters from the prior step,
+since Snakemake will still be running those workflow
+steps.</p>
+<p>Here is the parameters file (parameters given above are
+excluded for brevity but should still be included in
+this parameters file):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt2params.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 2 - Parameters&quot;,
+    &quot;read_filtering&quot; : {
+        &quot;read_patterns&quot; : {
+            ...
+        },
+        &quot;read_files&quot; : {
+            ...
+        }
+    }
+}
+
+
+
+
+### Step 3: Rule: Trim Reads
+
+
+### Step 4: Rule: Post-Trim Quality Assessment
+
+
+
+
 </pre></div>
 </div>
 </div>

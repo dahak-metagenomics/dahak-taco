@@ -59,13 +59,13 @@ The workflow has four steps:
 We will perform each step separatel,
 then all steps together, to illustrate.
 
-### Step 1: Download the Data
+### Step 1: Rule: Download the Data
 
 Our three required inputs are:
 
 * Workflow name (`read_filtering`)
-* Workflow configuration file
-* Workflow parameters file
+* Workflow configuration file (in `goodies/readfilt1config.json`)
+* Workflow parameters file (in `goodies/readfilt1params.json`)
 
 Here is the workflow configuration file we will use.
 The workflow targets it specifies are two files with 
@@ -75,8 +75,9 @@ unprocessed sequence reads.
 read filtering workflow.)
 
 ```
-$ goodies/cat readfilt1config.json
+$ cat goodies/readfilt1config.json
 {
+    "short_description": "Read Filtering Walkthrough 1 - Configuration",
     "workflow_targets" : ["data/SRR606249_1.fq.gz",
                           "data/SRR606249_2.fq.gz"]
 }
@@ -86,15 +87,28 @@ Next, we have our workflow parameters file.
 This parameters file should define any parameters
 used for the single step we're executing.
 In our case, we have to tell Snakemake 
-where to download the read files:
+where to download the read files.
+This parameters file defines a long list of files,
+but rules are defined on a file-by-file basis
+so we only downlod the files we need:
 
 ```
-$ cat goodies/read_filtering_walkthru_1_params.json
+$ cat goodies/readfilt1params.json
 {
+    "short_description": "Read Filtering Walkthrough 1 Parameters",
     "read_filtering" : {
+        "read_patterns" : {
+            "pre_trimming_pattern"  : "{sample}_{direction}.fq.gz",
+        },
         "read_files" : {
-            "SRR606249_1.fq.gz" : "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7",
-            "SRR606249_2.fq.gz" : "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0fc7fb83f69026076be47"
+            "SRR606249_1.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7",
+            "SRR606249_2.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0fc7fb83f69026076be47",
+            "SRR606249_subset10_1.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f10134b83f69026377611b",
+            "SRR606249_subset10_2.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f101f26c613b026330e53a",
+            "SRR606249_subset25_1.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f1039a594d900263120c38",
+            "SRR606249_subset25_2.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f104ed594d90026411f486",
+            "SRR606249_subset50_1.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f1082d6c613b026430e5cf",
+            "SRR606249_subset50_2.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f10ac6594d900262123e77"
         }
     }
 }
@@ -103,8 +117,14 @@ $ cat goodies/read_filtering_walkthru_1_params.json
 Both of these JSON files are contained in the 
 `goodies/` directory of the repo.
 
-To run the workflow that downloads these two
-read files, run taco as follows:
+The `read_patterns` parameter is optional and the
+default value is shown here. This pattern is used
+to create the download wildcard rule, so the files 
+that make up the `read_files` keys must match that 
+pattern or they will not be downloadable.
+
+To run the workflow defined by this workflow,
+config file, and parameters file, run taco as follows:
 
 Dry run first with the `-n` flag:
 
@@ -121,4 +141,61 @@ $ ./taco -n read_filtering \
     goodies/readfilt1config.json \
     goodies/readfilt1params.json
 ```
+
+
+### Step 2: Rule: Pre-Trim Quality Assessment
+
+The second step uses `fastq` to assess the 
+quality of the sequencer reads before any
+trimming occurs.
+
+
+
+Here is the config file for the second step,
+which is the pre-trim quality assessment.
+
+```
+$ cat goodies/readfilt2config.json
+{
+    "short_description": "Read Filtering Walkthrough 2 - Configuration",
+    "workflow_targets" : ["data/SRR606249_1.fq.gz",
+                          "data/SRR606249_2.fq.gz"]
+}
+```
+
+While the second step of the workflow should use a 
+second config file, the parameters file should 
+include all the parameters from the prior step,
+since Snakemake will still be running those workflow
+steps.
+
+Here is the parameters file (parameters given above are 
+excluded for brevity but should still be included in 
+this parameters file):
+
+```
+$ cat goodies/readfilt2params.json
+{
+    "short_description": "Read Filtering Walkthrough 2 - Parameters",
+    "read_filtering" : {
+        "read_patterns" : {
+            ...
+        },
+        "read_files" : {
+            ...
+        }
+    }
+}
+
+
+
+
+### Step 3: Rule: Trim Reads
+
+
+### Step 4: Rule: Post-Trim Quality Assessment
+
+
+
+
 

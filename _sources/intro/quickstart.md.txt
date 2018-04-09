@@ -137,9 +137,9 @@ The form of the workflow parameters JSON file is:
 
 ```text
 {
-    'workflow_name' : {
-        'application_or_rule_name' : {
-            'param_name' : <param-value>,
+    '<workflow-name>' : {
+        '<rule-name>' : {
+            '<param-name>' : <param-value>,
             ...
         }
     }
@@ -226,4 +226,5 @@ For example:
 
 ```text
 $ ./taco 
+```
 
