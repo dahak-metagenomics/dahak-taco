@@ -75,7 +75,7 @@ unprocessed sequence reads.
 read filtering workflow.)
 
 ```
-$ goodies/cat read_filtering_walkthru_1_config.json
+$ goodies/cat readfilt1config.json
 {
     "workflow_targets" : ["data/SRR606249_1.fq.gz",
                           "data/SRR606249_2.fq.gz"]
@@ -110,16 +110,15 @@ Dry run first with the `-n` flag:
 
 ```
 $ ./taco -n read_filtering \
-    goodies/read_filtering_walkthru_1_config.json \
-    goodies/read_filtering_walkthru_1_params.json
+    goodies/readfilt1config.json \
+    goodies/readfilt1params.json
 ```
 
 Then the real deal:
 
 ```
 $ ./taco -n read_filtering \
-    goodies/read_filtering_walkthru_1_config.json \
-    goodies/read_filtering_walkthru_1_params.json
+    goodies/readfilt1config.json \
+    goodies/readfilt1params.json
 ```
-
 
