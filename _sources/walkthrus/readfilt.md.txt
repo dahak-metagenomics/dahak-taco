@@ -149,7 +149,9 @@ The second step uses `fastq` to assess the
 quality of the sequencer reads before any
 trimming occurs.
 
-
+The file suffix for files whose quality has been
+assessed by fastqc is specified in the config file,
+or can be left as the default `_fastqc`.
 
 Here is the config file for the second step,
 which is the pre-trim quality assessment.
@@ -157,27 +159,27 @@ which is the pre-trim quality assessment.
 ```
 $ cat goodies/readfilt2config.json
 {
-    "short_description": "Read Filtering Walkthrough 2 - Configuration",
-    "workflow_targets" : ["data/SRR606249_1.fq.gz",
-                          "data/SRR606249_2.fq.gz"]
+    "short_description": "Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Configuration",
+    "workflow_targets" : ["data/SRR606249_1_fastqc.zip",
+                          "data/SRR606249_2_fastqc.zip"]
 }
 ```
 
 While the second step of the workflow should use a 
 second config file, the parameters file should 
 include all the parameters from the prior step,
-since Snakemake will still be running those workflow
-steps.
+since Snakemake will still be running those workflow steps.
 
-Here is the parameters file (parameters given above are 
-excluded for brevity but should still be included in 
-this parameters file):
+Here is the parameters file:
 
 ```
 $ cat goodies/readfilt2params.json
 {
-    "short_description": "Read Filtering Walkthrough 2 - Parameters",
+    "short_description": "Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Parameters",
     "read_filtering" : {
+        "quality_assessment" : {
+            "fastqc_suffix" : "_fastqc"
+        },
         "read_patterns" : {
             ...
         },
@@ -188,7 +190,24 @@ $ cat goodies/readfilt2params.json
 }
 
 
+To run the workflow defined by this workflow,
+config file, and parameters file, run taco as follows:
 
+Dry run first with the `-n` flag:
+
+```
+$ ./taco -n read_filtering \
+    goodies/readfilt2config.json \
+    goodies/readfilt2params.json
+```
+
+Then the real deal:
+
+```
+$ ./taco read_filtering \
+    goodies/readfilt2config.json \
+    goodies/readfilt2params.json
+```
 
 ### Step 3: Rule: Trim Reads
 

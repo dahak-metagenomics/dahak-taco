@@ -204,28 +204,31 @@ config file, and parameters file, run taco as follows:</p>
 <p>The second step uses <code class="docutils literal notranslate"><span class="pre">fastq</span></code> to assess the
 quality of the sequencer reads before any
 trimming occurs.</p>
+<p>The file suffix for files whose quality has been
+assessed by fastqc is specified in the config file,
+or can be left as the default <code class="docutils literal notranslate"><span class="pre">_fastqc</span></code>.</p>
 <p>Here is the config file for the second step,
 which is the pre-trim quality assessment.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt2config.json
 {
-    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 2 - Configuration&quot;,
-    &quot;workflow_targets&quot; : [&quot;data/SRR606249_1.fq.gz&quot;,
-                          &quot;data/SRR606249_2.fq.gz&quot;]
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Configuration&quot;,
+    &quot;workflow_targets&quot; : [&quot;data/SRR606249_1_fastqc.zip&quot;,
+                          &quot;data/SRR606249_2_fastqc.zip&quot;]
 }
 </pre></div>
 </div>
 <p>While the second step of the workflow should use a
 second config file, the parameters file should
 include all the parameters from the prior step,
-since Snakemake will still be running those workflow
-steps.</p>
-<p>Here is the parameters file (parameters given above are
-excluded for brevity but should still be included in
-this parameters file):</p>
+since Snakemake will still be running those workflow steps.</p>
+<p>Here is the parameters file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt2params.json
 {
-    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 2 - Parameters&quot;,
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Parameters&quot;,
     &quot;read_filtering&quot; : {
+        &quot;quality_assessment&quot; : {
+            &quot;fastqc_suffix&quot; : &quot;_fastqc&quot;
+        },
         &quot;read_patterns&quot; : {
             ...
         },
@@ -236,12 +239,23 @@ this parameters file):</p>
 }
 
 
+To run the workflow defined by this workflow,
+config file, and parameters file, run taco as follows:
+
+Dry run first with the `-n` flag:
+</pre></div>
+</div>
+<p>$ ./taco -n read_filtering goodies/readfilt2config.json goodies/readfilt2params.json</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="n">Then</span> <span class="n">the</span> <span class="n">real</span> <span class="n">deal</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>$ ./taco read_filtering goodies/readfilt2config.json goodies/readfilt2params.json</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="c1">### Step 3: Rule: Trim Reads</span>
 
 
-### Step 3: Rule: Trim Reads
-
-
-### Step 4: Rule: Post-Trim Quality Assessment
+<span class="c1">### Step 4: Rule: Post-Trim Quality Assessment</span>
 
 
 
