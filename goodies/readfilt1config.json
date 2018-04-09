@@ -1,4 +1,5 @@
 {
+    "short_description": "Read Filtering Walkthrough 1 - Configuration",
     "workflow_targets" : ["data/SRR606249_1.fq.gz",
                           "data/SRR606249_2.fq.gz"]
 }
