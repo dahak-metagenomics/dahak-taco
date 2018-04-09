@@ -64,8 +64,8 @@ then all steps together, to illustrate.
 Our three required inputs are:
 
 * Workflow name (`read_filtering`)
-* Workflow configuration file
-* Workflow parameters file
+* Workflow configuration file (in `goodies/readfilt1config.json`)
+* Workflow parameters file (in `goodies/readfilt1params.json`)
 
 Here is the workflow configuration file we will use.
 The workflow targets it specifies are two files with 
@@ -75,7 +75,7 @@ unprocessed sequence reads.
 read filtering workflow.)
 
 ```
-$ goodies/cat readfilt1config.json
+$ cat goodies/readfilt1config.json
 {
     "short_description": "Read Filtering Walkthrough 1 - Configuration",
     "workflow_targets" : ["data/SRR606249_1.fq.gz",
@@ -93,7 +93,7 @@ but rules are defined on a file-by-file basis
 so we only downlod the files we need:
 
 ```
-$ cat goodies/read_filtering_walkthru_1_params.json
+$ cat goodies/readfilt1params.json
 {
     "short_description": "Read Filtering Walkthrough 1 Parameters",
     "read_filtering" : {
