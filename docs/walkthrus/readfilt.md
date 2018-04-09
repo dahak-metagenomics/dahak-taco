@@ -77,6 +77,7 @@ read filtering workflow.)
 ```
 $ goodies/cat readfilt1config.json
 {
+    "short_description": "Read Filtering Walkthrough 1 - Configuration",
     "workflow_targets" : ["data/SRR606249_1.fq.gz",
                           "data/SRR606249_2.fq.gz"]
 }
@@ -86,15 +87,25 @@ Next, we have our workflow parameters file.
 This parameters file should define any parameters
 used for the single step we're executing.
 In our case, we have to tell Snakemake 
-where to download the read files:
+where to download the read files.
+This parameters file defines a long list of files,
+but rules are defined on a file-by-file basis
+so we only downlod the files we need:
 
 ```
 $ cat goodies/read_filtering_walkthru_1_params.json
 {
+    "short_description": "Read Filtering Walkthrough 1 Parameters",
     "read_filtering" : {
         "read_files" : {
-            "SRR606249_1.fq.gz" : "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7",
-            "SRR606249_2.fq.gz" : "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0fc7fb83f69026076be47"
+            "SRR606249_1.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7",
+            "SRR606249_2.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0fc7fb83f69026076be47",
+            "SRR606249_subset10_1.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f10134b83f69026377611b",
+            "SRR606249_subset10_2.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f101f26c613b026330e53a",
+            "SRR606249_subset25_1.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f1039a594d900263120c38",
+            "SRR606249_subset25_2.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f104ed594d90026411f486",
+            "SRR606249_subset50_1.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f1082d6c613b026430e5cf",
+            "SRR606249_subset50_2.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f10ac6594d900262123e77"
         }
     }
 }
