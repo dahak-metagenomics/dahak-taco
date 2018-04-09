@@ -1,3 +1,4 @@
+import re
 from os.path import join, isfile
 from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
 HTTP = HTTPRemoteProvider()
@@ -5,31 +6,50 @@ HTTP = HTTPRemoteProvider()
 data_dir = config['data_dir']
 readfilt = config['read_filtering']
 
-read_data_files = []
-read_data_urls = []
-for filename in readfilt['read_files'].keys():
-    read_data_files.append(join(data_dir,filename))
-    read_data_urls.append( readfilt['read_files'][filename] )
+pre_trimming_pattern = join(data_dir, readfilt['read_patterns']['pre_trimming_pattern'])
 
+def get_osf_url(wildcards):
+    """
+    This doesn't work, because who knows.
+    Snakemake error message:
+
+            InputFunctionException in line 18 of /home/ubuntu/dahak-taco/rules/read_filtering/fetch_reads.rule:
+            KeyError: 'data/SRR606249_2.fq.gz'
+            Wildcards:
+            sample=SRR606249
+            direction=2
+
+    This is not helpful because it points to the rule: line.
+    Maybe mixing wildcards, functions, and HTTP is bad?
+    Just drop the input: directive.
+    """
+    read_data_file = pre_trimming_pattern.format(**wildcards)
+    read_data_url = readfilt['read_files'][read_data_file]
+    return HTTP.remote(read_data_url, keep_local=True)
 
 rule download_reads:
     """
-    Fetch files from OSF containing reads that will be used 
+    Fetch user-requested files from OSF 
+    containing reads that will be used 
     in the read filtering process.
 
+    Note that this should define wildcard-based
+    rules, rather than downloading all files 
+    at once, to keep things flexible and fast.
+
     See fetch_reads.md
+
     """
-    input:
-        HTTP.remote(expand("{url}", url=read_data_urls, keep_local=True))
     output:
-        read_data_files
-    message: '''--- Downloading Data.'''
+        pre_trimming_pattern
     run:
-        for (osf_file,osf_url) in zip(read_data_files,read_data_urls):
-            if(not isfile(osf_file)):
-                shell('''
-                    wget -O {osf_file} {osf_url}
-                ''')
+        # output should be one item, since one rule at a time
+        stripped_output = re.sub(data_dir,'',output[0])
+        read_data_url = readfilt['read_files'][stripped_output]
+        read_data_file = output
+        shell('''
+            wget -O {read_data_file} {read_data_url}
+        ''')
 
 
 # There should only be one adapter file

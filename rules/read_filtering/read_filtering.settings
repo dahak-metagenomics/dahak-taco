@@ -14,6 +14,8 @@ config_default = {
     },
 
     'read_filtering' : {
+
+        # read_files must be defined by user 
         'read_files' : {
             'SRR606249_1.fq.gz' :           'files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7',
             'SRR606249_2.fq.gz' :           'files.osf.io/v1/resources/dm938/providers/osfstorage/59f0fc7fb83f69026076be47',
@@ -25,6 +27,11 @@ config_default = {
             'SRR606249_subset50_2.fq.gz' :  'files.osf.io/v1/resources/dm938/providers/osfstorage/59f10ac6594d900262123e77'
         },
 
+        # Note: files above must match pre-trimming-pattern below
+        # (otherwise, the workflow does not make sense).
+        # In fact, the workflow builds the rules to download 
+        # the read files listed above by using the 
+        # pre_trimming_pattern below.
         'read_patterns' : {
             'pre_trimming_pattern'  : '{sample}_{direction}.fq.gz',
             'post_trimming_pattern' : '{sample}_trim{qual}_{direction}.fq.gz'
