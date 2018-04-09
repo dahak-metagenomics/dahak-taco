@@ -139,7 +139,7 @@ The workflow targets it specifies are two files with
 unprocessed sequence reads.</p>
 <p>(These files are the inputs to the rest of the
 read filtering workflow.)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat read_filtering_walkthru_1_config.json
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ goodies/cat readfilt1config.json
 {
     &quot;workflow_targets&quot; : [&quot;data/SRR606249_1.fq.gz&quot;,
                           &quot;data/SRR606249_2.fq.gz&quot;]
@@ -151,7 +151,7 @@ This parameters file should define any parameters
 used for the single step we’re executing.
 In our case, we have to tell Snakemake
 where to download the read files:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat read_filtering_walkthru_1_params.json
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat goodies/read_filtering_walkthru_1_params.json
 {
     &quot;read_filtering&quot; : {
         &quot;read_files&quot; : {
@@ -168,14 +168,14 @@ where to download the read files:</p>
 read files, run taco as follows:</p>
 <p>Dry run first with the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
-    goodies/read_filtering_walkthru_1_config.json \
-    goodies/read_filtering_walkthru_1_params.json
+    goodies/readfilt1config.json \
+    goodies/readfilt1params.json
 </pre></div>
 </div>
 <p>Then the real deal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
-    goodies/read_filtering_walkthru_1_config.json \
-    goodies/read_filtering_walkthru_1_params.json
+    goodies/readfilt1config.json \
+    goodies/readfilt1params.json
 </pre></div>
 </div>
 </div>
