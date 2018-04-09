@@ -1,4 +1,5 @@
 {
+    "short_description": "Read Filtering Walkthrough 2 - Parameters",
     "read_filtering" : {
         "read_files" : {
             "SRR606249_1.fq.gz" : "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7",
