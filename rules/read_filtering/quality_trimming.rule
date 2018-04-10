@@ -23,6 +23,8 @@ adapter_file = join(data_dir,readfilt['quality_trimming']['adapter_file'])
 
 quality_log = join(data_dir,'trimmomatic_pe_{sample}.log')
 
+pulled_containers_touchfile = join(data_dir,'.pulled_containers')
+
 rule quality_trimming:
     """
     Trim reads from the sequencer by dropping low-quality reads.
@@ -30,7 +32,7 @@ rule quality_trimming:
     See quality_trimming.md
     """
     input:
-        quality_input, adapter_file
+        quality_input, adapter_file, pulled_containers_touchfile
     output:
         quality_output
     message: 
@@ -56,11 +58,11 @@ rule quality_trimming:
                 trimmomatic PE \
                 {quality_input_wcs}                 \
                 {quality_output_wcs}                \
-                ILLUMINACLIP:{adapter_file}:2:40:15   \
+                ILLUMINACLIP:/{adapter_file}:2:40:15   \
                 LEADING:{qual_wc}                   \
                 TRAILING:{qual_wc}                  \
                 SLIDINGWINDOW:4:{qual_wc}           \
                 MINLEN:25                           \
-                2> /{log_wc}
+                2> {log_wc}
         ''')
 

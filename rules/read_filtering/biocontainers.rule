@@ -1,0 +1,30 @@
+from os.path import join
+
+data_dir = config['data_dir']
+biocontainers = config['biocontainers']
+
+# assemble quay.io URLs for biocontainers
+quayurls = []
+for k in biocontainers.keys():
+    if(type(biocontainers[k])==type({})):
+        try:
+            qurl  = biocontainers[k]['quayurl']
+            qvers = biocontainers[k]['version']
+            quayurls.append(qurl + ":" + qvers)
+        except KeyError:
+            continue
+
+rule pull_biocontainers:
+    """
+    Pull the required versions of containers from quay.io.
+
+    See biocontainers.md
+    """
+    output:
+        touch(join(data_dir,'.pulled_containers'))
+    run:
+        for quayurl in quayurls:
+            shell('''
+            docker pull {quayurl}
+            ''')
+
