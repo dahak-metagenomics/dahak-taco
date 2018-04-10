@@ -81,7 +81,7 @@ rule download_read_adapter:
     message: '''--- Downloading adapter.'''
     run:
         # strip data dir from adapter file name
-        stripped_output = re.sub(data-dir,'',output[0])
+        stripped_output = re.sub(data_dir,'',output[0])
 
         # get corresponding url
         adapter_url = readfilt['adapter_files'][stripped_output]

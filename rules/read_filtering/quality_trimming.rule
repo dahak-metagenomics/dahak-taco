@@ -19,7 +19,7 @@ fq_rev_se = re.sub('\.fq\.gz',trim_target_ext,fq_rev_trimmed)
 quality_output = [fq_fwd_trimmed, fq_fwd_se,
                   fq_rev_trimmed, fq_rev_se]
 
-adapter_pattern = join(data_dir, readfilt['read_patterns']['adapter_pattern'])
+adapter_file = join(data_dir,readfilt['quality_trimming']['adapter_file'])
 
 quality_log = join(data_dir,'trimmomatic_pe_{sample}.log')
 
@@ -30,7 +30,7 @@ rule quality_trimming:
     See quality_trimming.md
     """
     input:
-        quality_input
+        quality_input, adapter_file
     output:
         quality_output
     message: 
@@ -41,9 +41,12 @@ rule quality_trimming:
         quality_log
     run:
         qual_wc = "{qual}".format(**wildcards)
-        quality_input_wc = quality_input.format(**wildcards)
-        quality_output_wc = quality_output.format(**wildcards)
-        adapter_wc = adapter_pattern.format(**wildcards)
+        quality_input_wc = [x.format(**wildcards) for x in quality_input]
+        quality_input_wc = ["/%s"%(x) for x in quality_input_wc]
+        quality_input_wcs = " ".join(quality_input_wc)
+        quality_output_wc = [x.format(**wildcards) for x in quality_output]
+        quality_output_wc = ["/%s"%(x) for x in quality_output_wc]
+        quality_output_wcs = " ".join(quality_output_wc)
         log_wc = quality_log.format(**wildcards)
         shell('''
             docker run \
@@ -51,9 +54,9 @@ rule quality_trimming:
                 -it \
                 biocontainers/trimmomatic \
                 trimmomatic PE \
-                /{quality_input_wc}                 \
-                /{quality_output_wc}                \
-                ILLUMINACLIP:{adapter_wc}:2:40:15 \
+                {quality_input_wcs}                 \
+                {quality_output_wcs}                \
+                ILLUMINACLIP:{adapter_file}:2:40:15   \
                 LEADING:{qual_wc}                   \
                 TRAILING:{qual_wc}                  \
                 SLIDINGWINDOW:4:{qual_wc}           \
