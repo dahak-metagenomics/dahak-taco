@@ -56,9 +56,6 @@ The workflow has four steps:
 * Trim the data
 * Assess the quality after trimming
 
-We will perform each step separatel,
-then all steps together, to illustrate.
-
 ### Step 1: Rule: Download the Data
 
 Our three required inputs are:
@@ -181,14 +178,14 @@ $ cat goodies/readfilt2params.json
             "fastqc_suffix" : "_fastqc"
         },
         "read_patterns" : {
-            ...
+            "pre_trimming_pattern"  : "{sample}_{direction}.fq.gz",
         },
         "read_files" : {
             ...
         }
     }
 }
-
+```
 
 To run the workflow defined by this workflow,
 config file, and parameters file, run taco as follows:
@@ -209,12 +206,64 @@ $ ./taco read_filtering \
     goodies/readfilt2params.json
 ```
 
+
+
 ### Step 3: Rule: Trim Reads
+
+Step 3 requires dumping trimmed reads to a new file name.
+We have to change the pre-trimming filename pattern,
+which is too general: `{sample}_{direction}.fq.gz`
+will match nearly every `post_trimming_pattern` we choose.
+
+We should change the pattern parameters to include 
+either a prefix or a suffix:
+
+```
+    "pre_trimming_pattern"  :  "{sample}_{direction}_reads.fq.gz"
+    "post_trimming_pattern"  : "{sample}_{direction}_trim{qual}.fq.gz"
+```
+
+We already covered step 2, which requests the pre-trim quality 
+assessment, but we changed the parameters so Snakemake will 
+be looking for a different file and will re-run the step.
+
+The config file to explicitly re-run steps 1 and 2, 
+and run step 3, is as follows:
+
+```
+$ cat goodies/readfilt3config.json
+{
+    "short_description": "Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Configuration",
+    "workflow_targets" : ["data/SRR606249_1_reads.fq.gz",
+                          "data/SRR606249_2_reads.fq.gz",
+                          "data/SRR606249_1_reads_fastqc.zip",
+                          "data/SRR606249_2_reads_fastqc.zip",
+                          "data/SRR606249_1_trim2.fq.gz",
+                          "data/SRR606249_2_trim2.fq.gz"]
+}
+```
+
+The parameters file contains updated parameters:
+
+```
+```
+
+Dry run first with the `-n` flag:
+
+```
+$ ./taco -n read_filtering \
+    goodies/readfilt3config.json \
+    goodies/readfilt3params.json
+```
+
+Then the real deal:
+
+```
+$ ./taco read_filtering \
+    goodies/readfilt3config.json \
+    goodies/readfilt3params.json
+```
 
 
 ### Step 4: Rule: Post-Trim Quality Assessment
-
-
-
-
 
