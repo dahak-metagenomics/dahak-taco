@@ -1,6 +1,7 @@
 from os.path import join
 
 data_dir = config['data_dir']
+biocontainers = config['biocontainers']
 readfilt = config['read_filtering']
 
 fq_fwd = join(data_dir, readfilt['read_patterns']['pre_trimming_pattern'].format(direction=1,sample='{sample}'))
@@ -24,6 +25,8 @@ adapter_file = join(data_dir,readfilt['quality_trimming']['adapter_file'])
 quality_log = join(data_dir,'trimmomatic_pe_{sample}.log')
 
 pulled_containers_touchfile = join(data_dir,'.pulled_containers')
+
+quayurl = biocontainers['trimmomatic']['quayurl'] + ":" + biocontainers['trimmomatic']['version']
 
 rule quality_trimming:
     """
@@ -54,7 +57,7 @@ rule quality_trimming:
             docker run \
                 -v {PWD}/{data_dir}:/{data_dir} \
                 -it \
-                biocontainers/trimmomatic \
+                {quayurl} \
                 trimmomatic PE \
                 {quality_input_wcs}                 \
                 {quality_output_wcs}                \
