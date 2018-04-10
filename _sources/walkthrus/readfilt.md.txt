@@ -188,7 +188,7 @@ $ cat goodies/readfilt2params.json
         }
     }
 }
-
+```
 
 To run the workflow defined by this workflow,
 config file, and parameters file, run taco as follows:
@@ -213,8 +213,4 @@ $ ./taco read_filtering \
 
 
 ### Step 4: Rule: Post-Trim Quality Assessment
-
-
-
-
 
