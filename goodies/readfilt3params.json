@@ -9,7 +9,8 @@
         },
         "read_patterns" : {
             "pre_trimming_pattern"  : "{sample}_{direction}_reads.fq.gz",
-            "post_trimming_pattern" : "{sample}_{direction}_trim{qual}.fq.gz"
+            "post_trimming_pattern" : "{sample}_{direction}_trim{qual}.fq.gz",
+            "adapter_pattern" :       "{adapter}.fa"
         },
         "read_files" : {
             "SRR606249_1_reads.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7",
@@ -21,7 +22,7 @@
             "SRR606249_subset50_1_reads.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f1082d6c613b026430e5cf",
             "SRR606249_subset50_2_reads.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f10ac6594d900262123e77"
         },
-        "adapter_file" : {
+        "adapter_files" : {
             "TruSeq2-PE.fa" : "http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa"
         }
     }
