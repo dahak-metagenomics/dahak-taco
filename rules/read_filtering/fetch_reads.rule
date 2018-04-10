@@ -6,7 +6,8 @@ HTTP = HTTPRemoteProvider()
 data_dir = config['data_dir']
 readfilt = config['read_filtering']
 
-pre_trimming_pattern = join(data_dir, readfilt['read_patterns']['pre_trimming_pattern'])
+
+# !!!!!!!!!!!!!!!!!!!!!
 
 def get_osf_url(wildcards):
     """
@@ -26,6 +27,12 @@ def get_osf_url(wildcards):
     read_data_file = pre_trimming_pattern.format(**wildcards)
     read_data_url = readfilt['read_files'][read_data_file]
     return HTTP.remote(read_data_url, keep_local=True)
+
+# !!!!!!!!!!!!!!!!!!!!!
+
+
+
+pre_trimming_pattern = join(data_dir, readfilt['read_patterns']['pre_trimming_pattern'])
 
 rule download_reads:
     """
@@ -48,7 +55,7 @@ rule download_reads:
         # strip data dir from output file name
         stripped_output = re.sub(data_dir,'',output[0])
 
-        # get the correspoinding url
+        # get the corresponding url
         read_data_url = readfilt['read_files'][stripped_output]
 
         # include the data dir in the final output file name
@@ -59,9 +66,7 @@ rule download_reads:
         ''')
 
 
-# There should only be one adapter file
-adapter_file = join(data_dir, list(readfilt['adapter_file'].keys()  )[0])
-adapter_url  = join(data_dir, list(readfilt['adapter_file'].values())[0])
+adapter_pattern = join(data_dir, readfilt['read_patterns']['adapter_pattern'])
 
 rule download_read_adapter:
     """
@@ -71,12 +76,21 @@ rule download_read_adapter:
 
     See fetch_reads.md
     """
-    output: 
-        HTTP.remote(expand("{url}", url=adapter_url))
+    output:
+        adapter_pattern
     message: '''--- Downloading adapter.'''
     run:
-        if(not os.path.isfile(adapterfile)):
-            shell('''
-                wget -O {adapterfile} {adapterurl}
-            ''')
+        # strip data dir from adapter file name
+        stripped_output = re.sub(data-dir,'',output[0])
+
+        # get corresponding url
+        adapter_url = readfilt['adapter_files'][stripped_output]
+
+        # include the data dir in the final output name
+        adapter_file = adapter_pattern.format(**wildcards)
+
+        shell('''
+            wget -O {adapter_file} {adapter_url}
+        ''')
+
 
