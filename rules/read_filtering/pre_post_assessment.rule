@@ -12,7 +12,7 @@ quayurl = biocontainers['fastqc']['quayurl'] + ":" + biocontainers['fastqc']['ve
 pre_trimming_input  = join(data_dir, readfilt['read_patterns']['pre_trimming_pattern'])
 target_suffix = readfilt['quality_assessment']['fastqc_suffix']
 target_ext = "%s.zip"%(target_suffix)
-pre_trimming_output = re.sub(".fq.gz",target_ext,pre_trimming_input)
+pre_trimming_output = re.sub('\.fq\.gz',target_ext,pre_trimming_input)
 
 rule pre_trimming_quality_assessment:
     """
@@ -31,9 +31,15 @@ rule pre_trimming_quality_assessment:
     #    quayurl
     threads: 2
     run:
+        # get output file name with wildcards replaced
         pre_trimming_output_wc = pre_trimming_output.format(**wildcards)
+
+        # get input file name with wildcards replaced
         pre_trimming_input_wc = pre_trimming_input.format(**wildcards)
+
+        # get directory for final output
         output_dir = dirname(pre_trimming_output_wc)
+
         if(not isfile(pre_trimming_output_wc)):
             shell('''
                 docker run \
@@ -47,14 +53,16 @@ rule pre_trimming_quality_assessment:
             ''')
 
 post_trimming_input  = join(data_dir, readfilt['read_patterns']['post_trimming_pattern'])
-post_trimming_output = re.sub('.fq.gz', '_fastqc.zip', post_trimming_input)
+target_suffix = readfilt['quality_assessment']['fastqc_suffix']
+target_ext = "%s.zip"%(target_suffix)
+post_trimming_output = re.sub('\.fq\.gz',target_ext,post_trimming_input)
 
 rule post_trimming_quality_assessment:
     """
     Perform a post-trimming quality check 
     of the reads from the sequencer.
 
-    See pre_post_assessment.md
+    See post_post_assessment.md
     """
     input:
         post_trimming_input
@@ -66,9 +74,24 @@ rule post_trimming_quality_assessment:
         quayurl
     threads: 2 
     run:
-        output_dir = dirname(output)
-        if(not isfile(output)):
+        # get output file name with wildcards replaced
+        pre_trimming_output_wc = pre_trimming_output.format(**wildcards)
+
+        # get input file name with wildcards replaced
+        pre_trimming_input_wc = pre_trimming_input.format(**wildcards)
+
+        # get directory for final output
+        output_dir = dirname(pre_trimming_output_wc)
+
+        if(not isfile(output_dir)):
             shell('''
-                fastqc -t {threads} {input} -o {output_dir}
+                docker run \
+                    -v {PWD}/{data_dir}:/{data_dir} \
+                    -it \
+                    biocontainers/fastqc \
+                    fastqc \
+                    -t {threads} \
+                    /{pre_trimming_input_wc} \
+                    -o /{data_dir}
             ''')
 
