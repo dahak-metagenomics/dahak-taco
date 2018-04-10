@@ -89,7 +89,7 @@ This parameters file defines a long list of files,
 but rules are defined on a file-by-file basis
 so we only downlod the files we need:
 
-```
+```text
 $ cat goodies/readfilt1params.json
 {
     "short_description": "Read Filtering Walkthrough 1 Parameters",
@@ -125,7 +125,7 @@ config file, and parameters file, run taco as follows:
 
 Dry run first with the `-n` flag:
 
-```
+```text
 $ ./taco -n read_filtering \
     goodies/readfilt1config.json \
     goodies/readfilt1params.json
@@ -133,7 +133,7 @@ $ ./taco -n read_filtering \
 
 Then the real deal:
 
-```
+```text
 $ ./taco -n read_filtering \
     goodies/readfilt1config.json \
     goodies/readfilt1params.json
@@ -153,7 +153,7 @@ or can be left as the default `_fastqc`.
 Here is the config file for the second step,
 which is the pre-trim quality assessment.
 
-```
+```text
 $ cat goodies/readfilt2config.json
 {
     "short_description": "Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Configuration",
@@ -169,7 +169,7 @@ since Snakemake will still be running those workflow steps.
 
 Here is the parameters file:
 
-```
+```text
 $ cat goodies/readfilt2params.json
 {
     "short_description": "Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Parameters",
@@ -192,7 +192,7 @@ config file, and parameters file, run taco as follows:
 
 Dry run first with the `-n` flag:
 
-```
+```text
 $ ./taco -n read_filtering \
     goodies/readfilt2config.json \
     goodies/readfilt2params.json
@@ -200,7 +200,7 @@ $ ./taco -n read_filtering \
 
 Then the real deal:
 
-```
+```text
 $ ./taco read_filtering \
     goodies/readfilt2config.json \
     goodies/readfilt2params.json
@@ -220,7 +220,7 @@ will match nearly every `post_trimming_pattern` we choose.
 We should change the pattern parameters to include 
 either a prefix or a suffix:
 
-```
+```text
     "pre_trimming_pattern"  :  "{sample}_{direction}_reads.fq.gz"
     "post_trimming_pattern"  : "{sample}_{direction}_trim{qual}.fq.gz"
 ```
@@ -235,7 +235,7 @@ we specify a target filename and a URL for the data.
 The following step 3 config file explicitly specifies
 targets for steps 1 and 2, in addition to step 3:
 
-```
+```text
 $ cat goodies/readfilt3config.json
 {
     "short_description": "Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Configuration",
@@ -253,7 +253,7 @@ The parameters file contains updated parameters
 (most options are not required, but this illustrates
 what controls the user has over file names):
 
-```
+```text
 {
     "short_description": "Read Filtering Walkthrough 3 - Trimming - Parameters",
     "read_filtering" : {
@@ -278,7 +278,7 @@ what controls the user has over file names):
 
 Dry run first with the `-n` flag:
 
-```
+```text
 $ ./taco -n read_filtering \
     goodies/readfilt3config.json \
     goodies/readfilt3params.json
@@ -286,7 +286,7 @@ $ ./taco -n read_filtering \
 
 Then the real deal:
 
-```
+```text
 $ ./taco read_filtering \
     goodies/readfilt3config.json \
     goodies/readfilt3params.json

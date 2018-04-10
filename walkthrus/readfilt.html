@@ -17,7 +17,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Workflow: read_filtering" href="../read_filtering/read_filtering.html" />
-    <link rel="prev" title="Worker Node Setup Walkthrough" href="awssetup.html" />
+    <link rel="prev" title="AWS Worker Node Setup Walkthrough" href="awssetup.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -48,7 +48,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="awssetup.html" title="previous chapter">Worker Node Setup Walkthrough</a></li>
+      <li>Previous: <a href="awssetup.html" title="previous chapter">AWS Worker Node Setup Walkthrough</a></li>
       <li>Next: <a href="../read_filtering/read_filtering.html" title="next chapter">Workflow: <code class="docutils literal notranslate"><span class="pre">read_filtering</span></code></a></li>
   </ul></li>
 </ul>
@@ -156,7 +156,7 @@ where to download the read files.
 This parameters file defines a long list of files,
 but rules are defined on a file-by-file basis
 so we only downlod the files we need:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt1params.json
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt1params.json
 {
     &quot;short_description&quot;: &quot;Read Filtering Walkthrough 1 Parameters&quot;,
     &quot;read_filtering&quot; : {
@@ -187,13 +187,13 @@ pattern or they will not be downloadable.</p>
 <p>To run the workflow defined by this workflow,
 config file, and parameters file, run taco as follows:</p>
 <p>Dry run first with the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
     goodies/readfilt1config.json \
     goodies/readfilt1params.json
 </pre></div>
 </div>
 <p>Then the real deal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
     goodies/readfilt1config.json \
     goodies/readfilt1params.json
 </pre></div>
@@ -209,7 +209,7 @@ assessed by fastqc is specified in the config file,
 or can be left as the default <code class="docutils literal notranslate"><span class="pre">_fastqc</span></code>.</p>
 <p>Here is the config file for the second step,
 which is the pre-trim quality assessment.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt2config.json
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt2config.json
 {
     &quot;short_description&quot;: &quot;Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Configuration&quot;,
     &quot;workflow_targets&quot; : [&quot;data/SRR606249_1_fastqc.zip&quot;,
@@ -222,7 +222,7 @@ second config file, the parameters file should
 include all the parameters from the prior step,
 since Snakemake will still be running those workflow steps.</p>
 <p>Here is the parameters file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt2params.json
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt2params.json
 {
     &quot;short_description&quot;: &quot;Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Parameters&quot;,
     &quot;read_filtering&quot; : {
@@ -242,13 +242,13 @@ since Snakemake will still be running those workflow steps.</p>
 <p>To run the workflow defined by this workflow,
 config file, and parameters file, run taco as follows:</p>
 <p>Dry run first with the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
     goodies/readfilt2config.json \
     goodies/readfilt2params.json
 </pre></div>
 </div>
 <p>Then the real deal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco read_filtering \
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco read_filtering \
     goodies/readfilt2config.json \
     goodies/readfilt2params.json
 </pre></div>
@@ -263,8 +263,8 @@ which is too general: <code class="docutils literal notranslate"><span class="pr
 will match nearly every <code class="docutils literal notranslate"><span class="pre">post_trimming_pattern</span></code> we choose.</p>
 <p>We should change the pattern parameters to include
 either a prefix or a suffix:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="s2">&quot;pre_trimming_pattern&quot;</span>  <span class="p">:</span>  <span class="s2">&quot;</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{direction}</span><span class="s2">_reads.fq.gz&quot;</span>
-    <span class="s2">&quot;post_trimming_pattern&quot;</span>  <span class="p">:</span> <span class="s2">&quot;</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{direction}</span><span class="s2">_trim</span><span class="si">{qual}</span><span class="s2">.fq.gz&quot;</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>    &quot;pre_trimming_pattern&quot;  :  &quot;{sample}_{direction}_reads.fq.gz&quot;
+    &quot;post_trimming_pattern&quot;  : &quot;{sample}_{direction}_trim{qual}.fq.gz&quot;
 </pre></div>
 </div>
 <p>Because we changed the target filenames for steps 1 and 2,
@@ -274,7 +274,7 @@ trimmomatic to use. This works like the read files:
 we specify a target filename and a URL for the data.</p>
 <p>The following step 3 config file explicitly specifies
 targets for steps 1 and 2, in addition to step 3:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt3config.json
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt3config.json
 {
     &quot;short_description&quot;: &quot;Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Configuration&quot;,
     &quot;workflow_targets&quot; : [&quot;data/SRR606249_1_reads.fq.gz&quot;,
@@ -290,36 +290,36 @@ targets for steps 1 and 2, in addition to step 3:</p>
 <p>The parameters file contains updated parameters
 (most options are not required, but this illustrates
 what controls the user has over file names):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;short_description&quot;</span><span class="p">:</span> <span class="s2">&quot;Read Filtering Walkthrough 3 - Trimming - Parameters&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;read_filtering&quot;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;quality_assessment&quot;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;fastqc_suffix&quot;</span> <span class="p">:</span> <span class="s2">&quot;_fastqc&quot;</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;quality_trimming&quot;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;trim_suffix&quot;</span> <span class="p">:</span> <span class="s2">&quot;_se&quot;</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;read_patterns&quot;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;pre_trimming_pattern&quot;</span>  <span class="p">:</span> <span class="s2">&quot;</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{direction}</span><span class="s2">_reads.fq.gz&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;post_trimming_pattern&quot;</span> <span class="p">:</span> <span class="s2">&quot;</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{direction}</span><span class="s2">_trim</span><span class="si">{qual}</span><span class="s2">.fq.gz&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;adapter_pattern&quot;</span> <span class="p">:</span>       <span class="s2">&quot;</span><span class="si">{adapter}</span><span class="s2">.fa&quot;</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;read_files&quot;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="o">...</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;adapter_files&quot;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;TruSeq2-PE.fa&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa&quot;</span>
-        <span class="p">}</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 3 - Trimming - Parameters&quot;,
+    &quot;read_filtering&quot; : {
+        &quot;quality_assessment&quot; : {
+            &quot;fastqc_suffix&quot; : &quot;_fastqc&quot;
+        },
+        &quot;quality_trimming&quot; : {
+            &quot;trim_suffix&quot; : &quot;_se&quot;
+        },
+        &quot;read_patterns&quot; : {
+            &quot;pre_trimming_pattern&quot;  : &quot;{sample}_{direction}_reads.fq.gz&quot;,
+            &quot;post_trimming_pattern&quot; : &quot;{sample}_{direction}_trim{qual}.fq.gz&quot;,
+            &quot;adapter_pattern&quot; :       &quot;{adapter}.fa&quot;
+        },
+        &quot;read_files&quot; : {
+            ...
+        },
+        &quot;adapter_files&quot; : {
+            &quot;TruSeq2-PE.fa&quot; : &quot;http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa&quot;
+        }
 </pre></div>
 </div>
 <p>Dry run first with the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
     goodies/readfilt3config.json \
     goodies/readfilt3params.json
 </pre></div>
 </div>
 <p>Then the real deal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco read_filtering \
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./taco read_filtering \
     goodies/readfilt3config.json \
     goodies/readfilt3params.json
 </pre></div>
