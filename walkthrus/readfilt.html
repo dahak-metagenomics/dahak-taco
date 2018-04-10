@@ -127,8 +127,6 @@ and trimming them based on the quality of the reads.</p>
 <li>Trim the data</li>
 <li>Assess the quality after trimming</li>
 </ul>
-<p>We will perform each step separatel,
-then all steps together, to illustrate.</p>
 <div class="section" id="step-1-rule-download-the-data">
 <span id="step-1-rule-download-the-data"></span><h3>Step 1: Rule: Download the Data<a class="headerlink" href="#step-1-rule-download-the-data" title="Permalink to this headline">¶</a></h3>
 <p>Our three required inputs are:</p>
@@ -232,7 +230,7 @@ since Snakemake will still be running those workflow steps.</p>
             &quot;fastqc_suffix&quot; : &quot;_fastqc&quot;
         },
         &quot;read_patterns&quot; : {
-            ...
+            &quot;pre_trimming_pattern&quot;  : &quot;{sample}_{direction}.fq.gz&quot;,
         },
         &quot;read_files&quot; : {
             ...
@@ -258,6 +256,74 @@ config file, and parameters file, run taco as follows:</p>
 </div>
 <div class="section" id="step-3-rule-trim-reads">
 <span id="step-3-rule-trim-reads"></span><h3>Step 3: Rule: Trim Reads<a class="headerlink" href="#step-3-rule-trim-reads" title="Permalink to this headline">¶</a></h3>
+<p>Step 3 uses trimmomatic to trim the reads based on quality.</p>
+<p>This step requires us to output reads to a new trimmed filename.
+We have to change the pre-trimming filename pattern,
+which is too general: <code class="docutils literal notranslate"><span class="pre">{sample}_{direction}.fq.gz</span></code>
+will match nearly every <code class="docutils literal notranslate"><span class="pre">post_trimming_pattern</span></code> we choose.</p>
+<p>We should change the pattern parameters to include
+either a prefix or a suffix:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="s2">&quot;pre_trimming_pattern&quot;</span>  <span class="p">:</span>  <span class="s2">&quot;</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{direction}</span><span class="s2">_reads.fq.gz&quot;</span>
+    <span class="s2">&quot;post_trimming_pattern&quot;</span>  <span class="p">:</span> <span class="s2">&quot;</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{direction}</span><span class="s2">_trim</span><span class="si">{qual}</span><span class="s2">.fq.gz&quot;</span>
+</pre></div>
+</div>
+<p>Because we changed the target filenames for steps 1 and 2,
+this will cause steps 1 and 2 to re-run.</p>
+<p>This step also requires us to add an adapter file for
+trimmomatic to use. This works like the read files:
+we specify a target filename and a URL for the data.</p>
+<p>The following step 3 config file explicitly specifies
+targets for steps 1 and 2, in addition to step 3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat goodies/readfilt3config.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Configuration&quot;,
+    &quot;workflow_targets&quot; : [&quot;data/SRR606249_1_reads.fq.gz&quot;,
+                          &quot;data/SRR606249_2_reads.fq.gz&quot;,
+                          &quot;data/SRR606249_1_reads_fastqc.zip&quot;,
+                          &quot;data/SRR606249_2_reads_fastqc.zip&quot;,
+                          &quot;data/TruSeq2-PE.fa&quot;,
+                          &quot;data/SRR606249_1_trim2.fq.gz&quot;,
+                          &quot;data/SRR606249_2_trim2.fq.gz&quot;]
+}
+</pre></div>
+</div>
+<p>The parameters file contains updated parameters
+(most options are not required, but this illustrates
+what controls the user has over file names):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;short_description&quot;</span><span class="p">:</span> <span class="s2">&quot;Read Filtering Walkthrough 3 - Trimming - Parameters&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;read_filtering&quot;</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;quality_assessment&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;fastqc_suffix&quot;</span> <span class="p">:</span> <span class="s2">&quot;_fastqc&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;quality_trimming&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;trim_suffix&quot;</span> <span class="p">:</span> <span class="s2">&quot;_se&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;read_patterns&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;pre_trimming_pattern&quot;</span>  <span class="p">:</span> <span class="s2">&quot;</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{direction}</span><span class="s2">_reads.fq.gz&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;post_trimming_pattern&quot;</span> <span class="p">:</span> <span class="s2">&quot;</span><span class="si">{sample}</span><span class="s2">_</span><span class="si">{direction}</span><span class="s2">_trim</span><span class="si">{qual}</span><span class="s2">.fq.gz&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;adapter_pattern&quot;</span> <span class="p">:</span>       <span class="s2">&quot;</span><span class="si">{adapter}</span><span class="s2">.fa&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;read_files&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="o">...</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;adapter_files&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;TruSeq2-PE.fa&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa&quot;</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+<p>Dry run first with the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco -n read_filtering \
+    goodies/readfilt3config.json \
+    goodies/readfilt3params.json
+</pre></div>
+</div>
+<p>Then the real deal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./taco read_filtering \
+    goodies/readfilt3config.json \
+    goodies/readfilt3params.json
+</pre></div>
+</div>
 </div>
 <div class="section" id="step-4-rule-post-trim-quality-assessment">
 <span id="step-4-rule-post-trim-quality-assessment"></span><h3>Step 4: Rule: Post-Trim Quality Assessment<a class="headerlink" href="#step-4-rule-post-trim-quality-assessment" title="Permalink to this headline">¶</a></h3>
