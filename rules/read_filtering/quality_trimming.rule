@@ -19,7 +19,7 @@ fq_rev_se = re.sub('\.fq\.gz',trim_target_ext,fq_rev_trimmed)
 quality_output = [fq_fwd_trimmed, fq_fwd_se,
                   fq_rev_trimmed, fq_rev_se]
 
-adapter_file = list(readfilt['adapter_file'].keys())[0]
+adapter_pattern = join(data_dir, readfilt['read_patterns']['adapter_pattern'])
 
 quality_log = join(data_dir,'trimmomatic_pe_{sample}.log')
 
@@ -30,8 +30,7 @@ rule quality_trimming:
     See quality_trimming.md
     """
     input:
-        quality_input,
-        adapter_file
+        quality_input
     output:
         quality_output
     message: 
@@ -44,6 +43,7 @@ rule quality_trimming:
         qual_wc = "{qual}".format(**wildcards)
         quality_input_wc = quality_input.format(**wildcards)
         quality_output_wc = quality_output.format(**wildcards)
+        adapter_wc = adapter_pattern.format(**wildcards)
         log_wc = quality_log.format(**wildcards)
         shell('''
             docker run \
@@ -53,7 +53,7 @@ rule quality_trimming:
                 trimmomatic PE \
                 /{quality_input_wc}                 \
                 /{quality_output_wc}                \
-                ILLUMINACLIP:{adapter_file}:2:40:15 \
+                ILLUMINACLIP:{adapter_wc}:2:40:15 \
                 LEADING:{qual_wc}                   \
                 TRAILING:{qual_wc}                  \
                 SLIDINGWINDOW:4:{qual_wc}           \
