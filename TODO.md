@@ -1,3 +1,15 @@
+## priorities
+
+* finish walkthru
+* read trim workflow
+
+* clear up ambiguity about data/ prefix.
+* does the user specify it or not? clean this up.
+    * right now:
+    * params, nope.
+    * config and rule targets, yup.
+
+
 ## taco cli
 
 * print a list of common rules (all rules?) with output
@@ -13,6 +25,8 @@
     * should this happen *before* or *within* the rule?
     * validate file existence *within* the rule
     * we want the user to know which rule caused the problem
+
+* Tab completion
 
 ## documentation
 
