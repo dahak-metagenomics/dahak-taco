@@ -10,6 +10,14 @@
     * config and rule targets, yup.
 
 
+## requirements
+
+docker vs singularity
+* we have pull biocontainers rule, for example
+* not strictly necessary, since if the container is not pulled, it gets pulled
+* barring that, we can use `singularity:` directive in Snakefiles
+
+
 ## taco cli
 
 * print a list of common rules (all rules?) with output
@@ -32,4 +40,8 @@
 
 * Mention `data_dir` parameter and "where's my stuff"
 * Mention logs, output, and troubleshooting information
+
+## walkthroughs
+
+
 
