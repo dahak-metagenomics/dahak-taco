@@ -5,7 +5,8 @@
             "fastqc_suffix" : "_fastqc"
         },
         "quality_trimming" : {
-            "trim_suffix" : "_se"
+            "trim_suffix" : "_se",
+            "adapter_file" : "TruSeq2-PE.fa"
         },
         "read_patterns" : {
             "pre_trimming_pattern"  : "{sample}_{direction}_reads.fq.gz",
