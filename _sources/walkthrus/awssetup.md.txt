@@ -1,4 +1,4 @@
-# Worker Node Setup Walkthrough
+# AWS Worker Node Setup Walkthrough
 
 This workflow covers getting set up with 
 worker nodes, if you don't already have a
