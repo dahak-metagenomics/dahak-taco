@@ -44,9 +44,16 @@ rule download_reads:
         pre_trimming_pattern
     run:
         # output should be one item, since one rule at a time
+
+        # strip data dir from output file name
         stripped_output = re.sub(data_dir,'',output[0])
+
+        # get the correspoinding url
         read_data_url = readfilt['read_files'][stripped_output]
+
+        # include the data dir in the final output file name
         read_data_file = output
+
         shell('''
             wget -O {read_data_file} {read_data_url}
         ''')

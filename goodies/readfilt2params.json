@@ -1,8 +1,11 @@
 {
-    "short_description": "Read Filtering Walkthrough 2 - Parameters",
+    "short_description": "Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Parameters",
     "read_filtering" : {
+        "quality_assessment" : {
+            "fastqc_suffix" : "_fastqc"
+        },
         "read_patterns" : {
-            "pre_trimming_pattern"  : "{sample}_{direction}.fq.gz",
+            "pre_trimming_pattern"  : "{sample}_{direction}.fq.gz"
         },
         "read_files" : {
             "SRR606249_1.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7",
@@ -16,4 +19,3 @@
         }
     }
 }
-
