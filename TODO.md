@@ -34,6 +34,8 @@ docker vs singularity
     * validate file existence *within* the rule
     * we want the user to know which rule caused the problem
 
+* pull biocontainers rule - put in a common folder
+
 * Tab completion
 
 ## documentation
