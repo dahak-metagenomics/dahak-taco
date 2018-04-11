@@ -1,0 +1,10 @@
+name: dahak_fastqc
+channels:
+  - r
+  - defaults
+  - conda-forge
+  - bioconda
+dependencies:
+  - fastqc
+  - "conda-forge::openjdk"
+  - "freetype = 2.7"
