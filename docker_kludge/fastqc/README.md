@@ -23,6 +23,12 @@ Build the docker image:
 docker build -t dahak_fastqc .
 ```
 
+or, to use a Dockerfile with a different name, use the `-f` flag:
+
+```
+docker build -t dahak_pyenv -f Dockerfile.pyenv .
+```
+
 Test out the image:
 
 ```
