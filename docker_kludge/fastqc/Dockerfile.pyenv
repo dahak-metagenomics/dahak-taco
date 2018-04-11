@@ -1,12 +1,14 @@
 FROM ubuntu:16.04
-
 MAINTAINER cmreid@ucdavis.edu 
 
-ENV VERSION miniconda3-4.3.30
-ENV PYENV /root/.pyenv/bin/pyenv
-ENV CONDA /root/.pyenv/shims/conda
+RUN apt-get update && apt-get -y install git curl bzip2 perl
 
-RUN apt-get update && apt-get -y install git curl bzip2
+WORKDIR /work
+
+ENV VERSION miniconda3-4.3.30
+ENV PYENV /work/.pyenv/bin/pyenv
+ENV CONDA /work/.pyenv/shims/conda
+
 RUN curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
 RUN ${PYENV} update
@@ -20,48 +22,6 @@ RUN ${CONDA} config --add channels bioconda
 
 RUN ${CONDA} install -c conda-forge openjdk fastqc
 
-ENV PATH "/root/.pyenv/shims:/root/.pyenv/bin:${PATH}"
+ENV PATH "/work/.pyenv/shims:/work/.pyenv/bin:${PATH}"
 
-WORKDIR /home
 
-# ---------------------------------------------
-#
-# COPY environment.yml /home/environment.yml
-# RUN /root/.pyenv/shims/conda env create
-#
-#
-# failing with idiotic problem
-#
-# "environment already exists"
-# then names the environment
-# as miniconda3-4.3.30
-#
-# like, how do i create an environemnt
-#
-# RUN /root/.pyenv/shims/conda env create --file env.yaml -v
-# 
-# name: ngi-rnaseq
-# channels:
-#   - bioconda
-#   - conda-forge
-#   - defaults
-# dependencies:
-#   - openjdk
-#   - fastqc=0.11.7
-# 
-#
-# -------------------
-# ok, try this:
-# 
-# add channels from the command line:
-# conda config --add channels defaults
-# conda config --add channels conda-forge
-# conda config --add channels bioconda
-# 
-# now check ~/.condarc:
-#
-# cat /root/.condarc
-# channels:
-#   - bioconda
-#   - conda-forge
-#   - defaults
