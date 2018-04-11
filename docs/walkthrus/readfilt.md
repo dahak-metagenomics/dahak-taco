@@ -210,7 +210,9 @@ $ ./taco read_filtering \
 
 ### Step 3: Rule: Trim Reads
 
-Step 3 requires dumping trimmed reads to a new file name.
+Step 3 uses trimmomatic to trim the reads based on quality.
+
+This step requires us to output reads to a new trimmed filename.
 We have to change the pre-trimming filename pattern,
 which is too general: `{sample}_{direction}.fq.gz`
 will match nearly every `post_trimming_pattern` we choose.
@@ -223,12 +225,15 @@ either a prefix or a suffix:
     "post_trimming_pattern"  : "{sample}_{direction}_trim{qual}.fq.gz"
 ```
 
-We already covered step 2, which requests the pre-trim quality 
-assessment, but we changed the parameters so Snakemake will 
-be looking for a different file and will re-run the step.
+Because we changed the target filenames for steps 1 and 2,
+this will cause steps 1 and 2 to re-run.
 
-The config file to explicitly re-run steps 1 and 2, 
-and run step 3, is as follows:
+This step also requires us to add an adapter file for 
+trimmomatic to use. This works like the read files: 
+we specify a target filename and a URL for the data.
+
+The following step 3 config file explicitly specifies
+targets for steps 1 and 2, in addition to step 3:
 
 ```
 $ cat goodies/readfilt3config.json
@@ -238,14 +243,37 @@ $ cat goodies/readfilt3config.json
                           "data/SRR606249_2_reads.fq.gz",
                           "data/SRR606249_1_reads_fastqc.zip",
                           "data/SRR606249_2_reads_fastqc.zip",
+                          "data/TruSeq2-PE.fa",
                           "data/SRR606249_1_trim2.fq.gz",
                           "data/SRR606249_2_trim2.fq.gz"]
 }
 ```
 
-The parameters file contains updated parameters:
+The parameters file contains updated parameters
+(most options are not required, but this illustrates
+what controls the user has over file names):
 
 ```
+{
+    "short_description": "Read Filtering Walkthrough 3 - Trimming - Parameters",
+    "read_filtering" : {
+        "quality_assessment" : {
+            "fastqc_suffix" : "_fastqc"
+        },
+        "quality_trimming" : {
+            "trim_suffix" : "_se"
+        },
+        "read_patterns" : {
+            "pre_trimming_pattern"  : "{sample}_{direction}_reads.fq.gz",
+            "post_trimming_pattern" : "{sample}_{direction}_trim{qual}.fq.gz",
+            "adapter_pattern" :       "{adapter}.fa"
+        },
+        "read_files" : {
+            ...
+        },
+        "adapter_files" : {
+            "TruSeq2-PE.fa" : "http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa"
+        }
 ```
 
 Dry run first with the `-n` flag:
