@@ -3,8 +3,14 @@ FROM tzenderman/docker-pyenv:latest
 WORKDIR /work
 
 COPY .python-version /work/.python-version
-COPY requirements.txt /work/requirements.txt
+#COPY requirements.txt /work/requirements.txt
 
-RUN yes | pyenv install $(cat .python-version) && \
-    pip install -r /code/requirements.txt
+RUN yes | pyenv install $(cat .python-version) 
+
+RUN conda config --add channels defaults
+RUN conda config --add channels conda-forge
+RUN conda config --add channels bioconda
+
+RUN conda install -c conda-forge openjdk fastqc
+
 
