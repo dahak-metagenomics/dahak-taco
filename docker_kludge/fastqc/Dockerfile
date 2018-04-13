@@ -1,20 +1,9 @@
-FROM ubuntu:16.04
+FROM continuumio/miniconda
 
-# Set the maintaniner 
-MAINTAINER ptbrooks@ucdavis.edu 
+MAINTAINER cmreid@ucdavis.edu
 
-ENV PACKAGES wget unzip libjbzip2-java libsam-java ttf-dejavu
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends ${PACKAGES} && \
-    apt-get clean 
-
-WORKDIR /home
-
-RUN wget -c http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.7.zip && \
-	unzip fastqc_v0.11.7.zip && \
-	cd FastQC && \
-	chmod +x fastqc && \
-	ln -s /home/FastQC/fastqc /usr/local/bin/fastqc
-
+RUN conda config --add channels defaults \
+    && conda config --add channels conda-forge \
+    && conda config --add channels bioconda \
+    && conda install -y conda-forge::openjdk fastqc=0.11.7
 
