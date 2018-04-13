@@ -1,11 +1,11 @@
 {
     "short_description": "Read Filtering Walkthrough 3 - Trimming - Parameters",
     "read_filtering" : {
-        "quality_assessment" : {
-            "fastqc_suffix" : "_fastqc"
+        "fastqc" : {
+            "suffix" : "_fastqc"
         },
-        "quality_trimming" : {
-            "trim_suffix" : "_se",
+        "trimmomatic" : {
+            "suffix" : "_se",
             "adapter_file" : "TruSeq2-PE.fa"
         },
         "read_patterns" : {

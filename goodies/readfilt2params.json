@@ -1,8 +1,8 @@
 {
     "short_description": "Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Parameters",
     "read_filtering" : {
-        "quality_assessment" : {
-            "fastqc_suffix" : "_fastqc"
+        "fastqc" : {
+            "suffix" : "_fastqc"
         },
         "read_patterns" : {
             "pre_trimming_pattern"  : "{sample}_{direction}.fq.gz"
