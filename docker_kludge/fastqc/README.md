@@ -1,21 +1,6 @@
-# fastqc dockerfile 
+# fastqc Dockerfile
 
-Date: 11 April 2018
-
-Currently using this Dockerfile as a workaround to a problem with
-fonts (of all things). Problem is with true type fonts not being
-found in the container (happens when the report is complete and 
-fastqc is generating its report).
-
-Addressed in [this bioconda issue](https://github.com/bioconda/bioconda-recipes/issues/5026).
-
-Resolved by adding 
-
-```
-sudo apt-get install ttf-dejavu
-```
-
-but [a PR to fix the issue](https://github.com/bioconda/bioconda-recipes/pull/8588) is in progress.
+This dockerfile downloads fastqc from a recent version of miniconda.
 
 Build the docker image:
 
@@ -26,7 +11,7 @@ docker build -t dahak_fastqc .
 or, to use a Dockerfile with a different name, use the `-f` flag:
 
 ```
-docker build -t dahak_pyenv -f Dockerfile.pyenv .
+docker build -t dahak_fastqc -f Dockerfile.custom .
 ```
 
 Test out the image:
