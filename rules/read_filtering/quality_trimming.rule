@@ -26,7 +26,7 @@ quality_log = join(data_dir,'trimmomatic_pe_{sample}.log')
 
 pulled_containers_touchfile = join(data_dir,'.pulled_containers')
 
-quayurl = biocontainers['trimmomatic']['quayurl'] + ":" + biocontainers['trimmomatic']['version']
+trimmo_quayurl = biocontainers['trimmomatic']['quayurl'] + ":" + biocontainers['trimmomatic']['version']
 
 rule quality_trimming:
     """
@@ -41,23 +41,28 @@ rule quality_trimming:
     message: 
         '''--- Quality trimming data at q 2 and 30.'''
     #singularity: 
-    #    'docker://quay.io/biocontainers/trimmomatic:0.36--5'
+    #    {trimmo_quayurl}
     log: 
         quality_log
     run:
         qual_wc = "{qual}".format(**wildcards)
+
         quality_input_wc = [x.format(**wildcards) for x in quality_input]
         quality_input_wc = ["/%s"%(x) for x in quality_input_wc]
         quality_input_wcs = " ".join(quality_input_wc)
+
         quality_output_wc = [x.format(**wildcards) for x in quality_output]
         quality_output_wc = ["/%s"%(x) for x in quality_output_wc]
         quality_output_wcs = " ".join(quality_output_wc)
+
         log_wc = quality_log.format(**wildcards)
+
         shell('''
             docker run \
+                -u $(id -u):$(id -g) \
                 -v {PWD}/{data_dir}:/{data_dir} \
                 -it \
-                {quayurl} \
+                {trimmo_quayurl} \
                 trimmomatic PE \
                 {quality_input_wcs}                 \
                 {quality_output_wcs}                \
