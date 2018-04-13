@@ -1,49 +1,85 @@
 ## priorities
 
-* finish walkthru
-* read trim workflow
+* <s>finish walkthru
+* read trim workflow</s>
 
 * clear up ambiguity about data/ prefix.
-* does the user specify it or not? clean this up.
+* does the user specify it in filenames, or not? clear this up.
     * right now:
-    * params, nope.
-    * config and rule targets, yup.
+    * in the params dictionary, the user does not specify `data/` prefix.
+    * config and rule targets, yes, the user must specify `data/` prefix.
 
+* <s>custom dockerfile/image in place of quay url</s>
 
 ## requirements
 
-docker vs singularity
-* we have pull biocontainers rule, for example
-* not strictly necessary, since if the container is not pulled, it gets pulled
-* barring that, we can use `singularity:` directive in Snakefiles
+docker and singularity
+* singularity directive in Snakefiles
 
 
 ## taco cli
 
-* print a list of common rules (all rules?) with output
-* implement a better ls functionality
-    * `dahak ls` lists workflows
-    * `dahak ls workflow` lists rules
-* Add command line options to change options shared by all workflows/rules
+* improve workflow
+
+getting help:
+
+```
+dahak
+(print short help)
+
+dahak help
+(print long help)
+
+dahak --help
+(print long help)
+```
+
+listing workflows/rules:
+
+```
+dahak ls
+(list available workflows)
+
+dahak ls <workflow>
+(list available rules in workflow)
+```
+
+* Add command line options 
+    * snakemake force flag
+    * snakemake options flags:
+    * change options shared by all workflows/rules
+
+* When the user runs a workflow, dump out a copy of the config dictionary with the log/other
+
 * <s>Explain how to change other rules and settings</s> (see API documentation)
 
 ## rules
 
-* Implement file name and file extension validation (if needed)
-    * should this happen *before* or *within* the rule?
-    * validate file existence *within* the rule
+* Implement file name/extension validation where needed
+    * validation should occur *within* the rule
     * we want the user to know which rule caused the problem
 
-* pull biocontainers rule - put in a common folder
+* Common tasks/rules: common workflow folder? (e.g., pull biocontainers rule)
 
 * Tab completion
 
 ## documentation
 
+Users:
+
 * Mention `data_dir` parameter and "where's my stuff"
 * Mention logs, output, and troubleshooting information
 
-## walkthroughs
+Dev:
 
+* Add new rule
+* Structuring rules
+* docker singularity biocontainers bioconda
+
+## walkthrus
+
+Read filtering walkthru:
+* Gauge detail level - too much? not enough?
+* Still more detail that could be added
 
 
