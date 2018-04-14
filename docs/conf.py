@@ -182,5 +182,5 @@ texinfo_documents = [
 def setup(app):
     app.add_stylesheet('bootstrap.min.css')
     app.add_stylesheet('custom.css')
-    app.add_javascript("highlight.pack.js")
+    # app.add_javascript("highlight.pack.js")
 

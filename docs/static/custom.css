@@ -1,5 +1,6 @@
 body {
     background-color: #efefef;
+    font-size: 14px;
 }
 div.body {
     background-color: #efefef;
@@ -11,4 +12,11 @@ div.red_square {
   border: solid 21px #f0f;
   width: 30px;
   height: 30px;
+}
+pre {
+  background-color: #345;
+  color: #fff;
+}
+h2 {
+  margin-top: 60px;
 }
