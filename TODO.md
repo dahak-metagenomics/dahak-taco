@@ -3,6 +3,8 @@
 * <s>finish walkthru
 * read trim workflow</s>
 
+* add common parser: [link](https://github.com/dcppc/dcppc-bot/pull/4/files#diff-d51593b709dedb0cfd088f88515df1a2R180)
+
 * clear up ambiguity about data/ prefix.
 * does the user specify it in filenames, or not? clear this up.
     * right now:
