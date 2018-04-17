@@ -11,7 +11,7 @@ that is acceptable to us, using pyenv.
 Make this the global pyenv version.
 Make sure dotfiles always update $PATH.
 
-pyenv istall <version>
+pyenv install <version>
 pyenv global <version>
 eval "$(pyenv init -)"
 """
