@@ -7,28 +7,30 @@ data_dir = config['data_dir']
 readfilt = config['read_filtering']
 
 
-# !!!!!!!!!!!!!!!!!!!!!
-
-def get_osf_url(wildcards):
-    """
-    This doesn't work, because who knows.
-    Snakemake error message:
-
-            InputFunctionException in line 18 of /home/ubuntu/dahak-taco/rules/read_filtering/fetch_reads.rule:
-            KeyError: 'data/SRR606249_2.fq.gz'
-            Wildcards:
-            sample=SRR606249
-            direction=2
-
-    This is not helpful because it points to the rule: line.
-    Maybe mixing wildcards, functions, and HTTP is bad?
-    Just drop the input: directive.
-    """
-    read_data_file = pre_trimming_pattern.format(**wildcards)
-    read_data_url = readfilt['read_files'][read_data_file]
-    return HTTP.remote(read_data_url, keep_local=True)
-
-# !!!!!!!!!!!!!!!!!!!!!
+#--x--x--x--x--x--x--x--x--x--x--x--x--x
+## Broken
+#
+#def get_osf_url(wildcards):
+#    """
+#    Who knows why this is failing.
+#    Snakemake error message:
+#
+#            InputFunctionException in line 18 of /home/ubuntu/dahak-taco/rules/read_filtering/fetch_reads.rule:
+#            KeyError: 'data/SRR606249_2.fq.gz'
+#            Wildcards:
+#            sample=SRR606249
+#            direction=2
+#
+#    Not helpful b/c points to the "rule:" line,
+#    indicating nothing about what's wrong.
+#    Maybe mixing wildcards, functions, and HTTP is bad?
+#    Dropped the "input:" directive
+#    """
+#    read_data_file = pre_trimming_pattern.format(**wildcards)
+#    read_data_url = readfilt['read_files'][read_data_file]
+#    return HTTP.remote(read_data_url, keep_local=True)
+#
+#--x--x--x--x--x--x--x--x--x--x--x--x--x
 
 
 
@@ -43,9 +45,6 @@ rule download_reads:
     Note that this should define wildcard-based
     rules, rather than downloading all files 
     at once, to keep things flexible and fast.
-
-    See fetch_reads.md
-
     """
     output:
         pre_trimming_pattern
