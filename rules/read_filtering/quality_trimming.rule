@@ -31,8 +31,6 @@ trimmo_quayurl = biocontainers['trimmomatic']['quayurl'] + ":" + biocontainers['
 rule quality_trimming:
     """
     Trim reads from the sequencer by dropping low-quality reads.
-
-    See quality_trimming.md
     """
     input:
         quality_input, adapter_file, pulled_containers_touchfile

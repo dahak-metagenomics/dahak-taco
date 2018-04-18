@@ -63,8 +63,6 @@ rule pre_trimming_quality_assessment:
     """
     Perform a pre-trimming quality check 
     of the reads from the sequencer.
-
-    See pre_post_assessment.md
     """
     input:
         pre_trimming_input
@@ -111,8 +109,6 @@ rule post_trimming_quality_assessment:
     """
     Perform a post-trimming quality check 
     of the reads from the sequencer.
-
-    See post_post_assessment.md
     """
     input:
         post_trimming_input
