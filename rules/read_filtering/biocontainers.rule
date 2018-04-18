@@ -6,14 +6,13 @@ biocontainers = config['biocontainers']
 # assemble quay.io URLs for biocontainers
 quayurls = []
 for k in biocontainers.keys():
-    if(type(biocontainers[k])==type({})):
-        if(biocontainers[k]['use_local'] is False):
-            try:
-                qurl  = biocontainers[k]['quayurl']
-                qvers = biocontainers[k]['version']
-                quayurls.append(qurl + ":" + qvers)
-            except KeyError:
-                raise Exception("Error: quay.io URL for %s biocontainer could not be determined"%(k))
+    if('use_local' is not in biocontainers.keys() or biocontainers[k]['use_local'] is False):
+        try:
+            qurl  = biocontainers[k]['quayurl']
+            qvers = biocontainers[k]['version']
+            quayurls.append(qurl + ":" + qvers)
+        except KeyError:
+            raise Exception("Error: quay.io URL for %s biocontainer could not be determined"%(k))
 
 rule pull_biocontainers:
     """
