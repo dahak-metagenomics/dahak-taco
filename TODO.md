@@ -7,6 +7,23 @@ uh oh...
 
 
 
+
+* no defaults option - turn off default config when running taco
+
+
+
+
+
+
+taco ls
+
+taco workflow1 --config=goodies/w1config.json --params=goodies/w1params.json
+
+taco --workflow=workflow1 --config=goodies/w1config.json --params=goodies/w1params.json
+
+
+
+
 * clear up ambiguity about data/ prefix.
 * does the user specify it in filenames, or not? clear this up.
     * right now:
