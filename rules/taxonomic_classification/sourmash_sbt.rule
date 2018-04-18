@@ -13,8 +13,6 @@ download_sourmash_sbt_output = join(data_dir,sourmash_sbt_tar)
 rule download_sourmash_sbts:
     """
     Download the sourmash SBTs from spacegraphcats.
-
-    See sourmash_sbt.md
     """
     input: 
         join(data_dir,'.pulled_containers'),
@@ -32,8 +30,6 @@ unpack_sourmash_sbt_output = join(data_dir,taxclass['sourmash']['sbtunpack'])
 rule unpack_sourmash_sbts:
     """
     Unpack the sourmash SBTs from spacegraphcats.
-
-    See sourmash_sbt.md
     """
     input:
         unpack_sourmash_sbt_input

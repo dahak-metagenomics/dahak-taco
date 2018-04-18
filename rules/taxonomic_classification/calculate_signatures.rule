@@ -12,8 +12,6 @@ quayurl = biocontainers['sourmash']['quayurl'] + ":" + biocontainers['sourmash']
 rule calculate_signatures:
     """
     Calculate signatures from trimmed data using sourmash.
-
-    See calculate_signatures.md
     """
     input:
         sig_inputs
@@ -22,6 +20,7 @@ rule calculate_signatures:
     run:
         # Here, we do not prefix files with data_dir 
         # b/c docker will mount the data dir to /data
+        # and prefix filenames with /data
 
         fq_fwd_wc     = taxclass['reads']['fq_fwd'].format(**wildcards)
         fq_rev_wc     = taxclass['reads']['fq_rev'].format(**wildcards)
