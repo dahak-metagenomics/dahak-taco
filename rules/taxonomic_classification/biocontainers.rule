@@ -6,7 +6,9 @@ biocontainers = config['biocontainers']
 # assemble quay.io URLs for biocontainers
 quayurls = []
 for k in biocontainers.keys():
-    if('use_local' is not in biocontainers.keys() or biocontainers[k]['use_local'] is False):
+    if('use_local' in biocontainers[k].keys() and biocontainers[k]['use_local'] is True):
+        print("Using local container for %s"%k)
+    else:
         try:
             qurl  = biocontainers[k]['quayurl']
             qvers = biocontainers[k]['version']
