@@ -1,0 +1,7 @@
+{
+    "short_description": "Taxonomic Classification Walkthrough 1 - Fetching SBTs - Configuration",
+    "workflow_targets" : ["data/microbe-refseq-sbt-k51-2017.05.09.tar.gz",
+                          "data/microbe-refseq-sbt-k31-2017.05.09.tar.gz",
+                          "data/microbe-refseq-sbt-k21-2017.05.09.tar.gz"]
+}
+
