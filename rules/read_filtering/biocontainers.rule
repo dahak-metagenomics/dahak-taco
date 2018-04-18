@@ -17,8 +17,6 @@ for k in biocontainers.keys():
 rule pull_biocontainers:
     """
     Pull the required versions of containers from quay.io.
-
-    See biocontainers.md
     """
     output:
         touch(join(data_dir,'.pulled_containers'))

@@ -72,8 +72,6 @@ rule download_read_adapter:
     Download FASTA read adapaters.
     This downloads adpaters for 
     the TruSeq2-PE sequencer by default.
-
-    See fetch_reads.md
     """
     output:
         adapter_pattern
