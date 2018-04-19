@@ -1,5 +1,5 @@
 {
     "short_description": "Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Configuration",
-    "workflow_targets" : ["data/SRR606249_1_fastqc.zip",
-                          "data/SRR606249_2_fastqc.zip"]
+    "workflow_targets" : ["data/SRR606249_1_reads_fastqc.zip",
+                          "data/SRR606249_2_reads_fastqc.zip"]
 }
