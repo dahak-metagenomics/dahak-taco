@@ -1,23 +1,18 @@
 import os, re
 from os.path import join, dirname
 
-"""
-A horrible last-minute discovery: 
-variables that are just above a rule
-are not evaluated just before that rule.
-
-That means the quayurl variable should not 
-be shared across rule files, or you'll 
-end up with the wrong container URLs.
-
-Resolved by using unique variable names
-in each separate rule file.
-"""
-
 
 data_dir = config['data_dir']
-readfilt = config['read_filtering']
-biocontainers = config['biocontainers']
+
+try:
+    readfilt = config['read_filtering']
+except KeyError:
+    readfilt = {}
+
+try:
+    biocontainers = config['biocontainers']
+except KeyError:
+    biocontainers = {}
 
 PWD = os.getcwd()
 
@@ -35,29 +30,13 @@ pre_trimming_output = re.sub('\.fq\.gz',target_ext,pre_trimming_input)
 # of the docker image to run, and set 
 # use_local to true
 # 
-# The 'quayurl' and 'version' have 
-# default values, so they will always
-# be defined and should not be used to 
-# determine if the user has asked for 
-# the quay image or a local image.
-# 
 # The 'use_local' key should indicate
 # whether to use a local Docker image.
 # If it is true, the 'local' key
 # should indicate the local image to use.
-
+# Those are checked in utilities.py
 app = 'fastqc'
-if(biocontainers[app]['use_local']):
-    if('local' not in biocontainers[app].keys()):
-        err = "Error: local docker image requested, but none specified with 'local' key."
-        err += "\nSpecify the name of a local docker image in config['biocontainers'][app]['local']"
-        raise Exception(err)
-    fastqc_quayurl = biocontainers[app]['local']
-    print(" - Setting biocontainer target to local image %s"%(fastqc_quayurl))
-else:
-    fastqc_quayurl = biocontainers[app]['quayurl'] + ":" + biocontainers[app]['version']
-    print(" - Setting biocontainer target to remote url %s"%(fastqc_quayurl))
-
+fastqc_image = container_image_name(biocontainers, app)
 
 rule pre_trimming_quality_assessment:
     """
@@ -71,11 +50,9 @@ rule pre_trimming_quality_assessment:
     message: 
         '''--- Pre-trim quality check of trimmed data with fastqc.'''
     singularity: 
-        fastqc_quayurl
+        fastqc_image
     threads: 2
     run:
-        ### quayurl = biocontainers['fastqc']['quayurl'] + ":" + biocontainers['fastqc']['version']
-
         # get output file name with wildcards replaced
         pre_trimming_output_wc = pre_trimming_output.format(**wildcards)
 
@@ -91,7 +68,7 @@ rule pre_trimming_quality_assessment:
                 -u "$(id -u):$(id -g)" \
                 -v {PWD}/{data_dir}:/{data_dir} \
                 -it \
-                {fastqc_quayurl} \
+                {fastqc_image} \
                 fastqc \
                 -t {threads} \
                 /{pre_trimming_input_wc} \
@@ -117,11 +94,9 @@ rule post_trimming_quality_assessment:
     message: 
         '''--- Post-trim quality check of trimmed data with fastqc.'''
     singularity: 
-        fastqc_quayurl
+        fastqc_image
     threads: 2 
     run:
-        ### quayurl = biocontainers['fastqc']['quayurl'] + ":" + biocontainers['fastqc']['version']
-
         # get output file name with wildcards replaced
         pre_trimming_output_wc = pre_trimming_output.format(**wildcards)
 
@@ -137,7 +112,7 @@ rule post_trimming_quality_assessment:
                 -u "$(id -u):$(id -g)" \
                 -v {PWD}/{data_dir}:/{data_dir} \
                 -it \
-                {fastqc_quayurl} \
+                {fastqc_image} \
                 fastqc \
                 -t {threads} \
                 /{pre_trimming_input_wc} \

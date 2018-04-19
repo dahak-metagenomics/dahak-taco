@@ -4,7 +4,11 @@ from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
 HTTP = HTTPRemoteProvider()
 
 data_dir = config['data_dir']
-readfilt = config['read_filtering']
+
+try:
+    readfilt = config['read_filtering']
+except KeyError:
+    readfilt = {}
 
 
 #--x--x--x--x--x--x--x--x--x--x--x--x--x
@@ -34,7 +38,13 @@ readfilt = config['read_filtering']
 
 
 
-pre_trimming_pattern = join(data_dir, readfilt['read_patterns']['pre_trimming_pattern'])
+try:
+    pre_trimming_pattern = join(data_dir, readfilt['read_patterns']['pre_trimming_pattern'])
+except KeyError:
+    err = "Error: no pre-trimming pattern present in parameters. "
+    err += "There is no way to determine which read files to download. "
+    err += "Specify a configuration key in config['read_filtering']['read_patterns']['pre_trimming_pattern]."
+    raise Exception(err)
 
 rule download_reads:
     """
@@ -65,7 +75,14 @@ rule download_reads:
         ''')
 
 
-adapter_pattern = join(data_dir, readfilt['read_patterns']['adapter_pattern'])
+try:
+    adapter_pattern = join(data_dir, readfilt['read_patterns']['adapter_pattern'])
+except KeyError:
+    warn = "Warning: no adapter pattern was present in params. "
+    warn += "To set one, specify a configuration key in config['read_filtering']['read_patterns']['adapater_pattern']. "
+    warn += "Skipping the fetch step for the adapter file."
+    print(warn)
+    adapter_pattern = ""
 
 rule download_read_adapter:
     """

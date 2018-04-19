@@ -3,18 +3,13 @@ from os.path import join
 data_dir = config['data_dir']
 biocontainers = config['biocontainers']
 
-# assemble quay.io URLs for biocontainers
+# assemble container image names for containers.
+# these are usually quay.io urls, but in special cases
+# they can be the name of a local docker image.
 quayurls = []
-for k in biocontainers.keys():
-    if('use_local' in biocontainers[k].keys() and biocontainers[k]['use_local'] is True):
-        print("Using local container for %s"%k)
-    else:
-        try:
-            qurl  = biocontainers[k]['quayurl']
-            qvers = biocontainers[k]['version']
-            quayurls.append(qurl + ":" + qvers)
-        except KeyError:
-            raise Exception("Error: quay.io URL for %s biocontainer could not be determined"%(k))
+for app in biocontainers.keys():
+    if container_image_is_external(biocontainers,app):
+        quayurls.append(container_image_name(biocontainers,app))
 
 rule pull_biocontainers:
     """

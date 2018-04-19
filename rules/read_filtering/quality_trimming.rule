@@ -20,13 +20,13 @@ fq_rev_se = re.sub('\.fq\.gz',trim_target_ext,fq_rev_trimmed)
 quality_output = [fq_fwd_trimmed, fq_fwd_se,
                   fq_rev_trimmed, fq_rev_se]
 
-adapter_file = join(data_dir,readfilt['quality_trimming']['adapter_file'])
+adapter_file = join(data_dir,readfilt['trimmomatic']['adapter_file'])
 
 quality_log = join(data_dir,'trimmomatic_pe_{sample}.log')
 
 pulled_containers_touchfile = join(data_dir,'.pulled_containers')
 
-trimmo_quayurl = biocontainers['trimmomatic']['quayurl'] + ":" + biocontainers['trimmomatic']['version']
+trimmo_quayurl = container_image_name(biocontainers,'trimmomatic')
 
 rule quality_trimming:
     """

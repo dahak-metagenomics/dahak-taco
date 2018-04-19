@@ -1,4 +1,3 @@
-
 def container_image_is_external(biocontainers, app):
     """
     Return a boolean: is this container going to be run
