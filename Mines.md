@@ -244,3 +244,9 @@ parameter validation fails, which means,
 we probably need to write a separate tool
 to validate JSON or YAML files.
 
+And thus, Snakemake is forcing us to abandon 
+the best practice of parameter validation.
+
+
+
+
