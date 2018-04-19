@@ -10,9 +10,9 @@
             "SRR606249_subset25_2.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f104ed594d90026411f486",
             "SRR606249_subset50_1.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f1082d6c613b026430e5cf",
             "SRR606249_subset50_2.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f10ac6594d900262123e77"
+        },
+        "read_patterns" : {
+            "pre_trimming_pattern"  : "{sample}_{direction}.fq.gz"
         }
-    },
-    "read_patterns" : {
-        "pre_trimming_pattern"  : "{sample}_{direction}_reads.fq.gz"
     }
 }
