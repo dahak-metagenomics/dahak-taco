@@ -148,11 +148,99 @@ Why snakemake wastes your time:
 * Instead, you get to spend hours "discovering" non-working features yourself
 
 
+--------------------
+
+Even more adventures.
+* If you try and validate parameters,
+    there is no way to tell what rules are going to run
+    because everything is based on files
+* To solve, don't throw an exception when parameters are missing,
+    just make them empty.
+* Reveals another stupid corner case behavior: 
+    if you define a rule to have an output of "", it's okay,
+    but if you define a rule to have an output of None, it fails
+
+And more adventures on the flip side.
+* After a painful ~2 hours of implementing the above,
+    validating every parameter, 
+    raising an exception if not okay,
+    it finally ended up that we were getting exceptions
+    for steps we weren't carrying out, and didn't care about.
+* Then, after another extremely painful ~1 hour
+    fixing all of the above so that the exceptions 
+    were commented out, and if a parameter was not present
+    it would just silently set it to an empty string instead,
+    results in the whole problem being turned around.
+* Now, every rule is empty, but defined, so no rules are useful,
+    so everything succeeds just fine but nothing can get done.
+    And the user still isn't getting the information they need,
+    which is what parameters are missing.
+
+What's the underlying problem?
+* Probably, trying to be too helpful.
+* Just let everything say "okay fine" 
+* If they don't define things correctly,
+    everything will fail with no rule exists for X.
+    Which gets at the whole frustration with Snakemake,
+    which is that the rules are implicit and not explicit.
+    Basically you don't know what's going to work until you know.
+* Don't be so helpful, let the user use the full parameters dictionary.
 
 
+-------------
 
+Yikes. 
 
+This exposes the heart of the problem:
 
+Snakemake's design makes parameter validation impossible.
 
+Here's why:
 
+The user is going to import a workflow Snakefile,
+which is going to contain two sets of statements:
+Python statements, evaluated on the "first pass"
+when the Snakemake API is initialized (this is like
+a striaghtforward import), and then a second time
+when an actual rule is evaluated.
+
+This is very problematic. Here's why:
+
+We are trying to use a generalized approach
+that utilizes parameters for the input/output 
+targets of the rule. That requires us to extract
+parameters from the config dictionary and 
+slice and dice them for the rules.
+
+This extra work must happen outside of the rule,
+because the slicing and dicing gives us all 
+portions of the rule: the input files, the output 
+targets, the singularity container to use,
+the shell command, etc.
+
+But if it happens outside the rule,
+that means we are validating parameters
+for a rule before we even know if we are 
+running that rule.
+
+If we aren't running that rule,
+then when that rule runs its 
+validation check of the parameters ,
+it will fail, but that's okay because
+we aren't running that rule.
+
+But if we are running that rule,
+the validation check failing would be
+very bad, and we would want to inform the 
+user of what changes they need to make.
+
+But there's no way to do that, because
+_the rule and the parameter validation are isolated._
+
+This design is _extremely_ problematic for testing.
+
+It also makes it _very_ difficult to help the user when 
+parameter validation fails, which means,
+we probably need to write a separate tool
+to validate JSON or YAML files.
 
