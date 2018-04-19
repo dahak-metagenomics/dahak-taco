@@ -13,7 +13,7 @@ if(not config['clean']):
             "fastqc" : {
                 "use_local" : False,
                 "quayurl" : "quay.io/biocontainers/fastqc",
-                "version" : "0.11.7--pl5.22.0_0"
+                "version" : "0.11.7--pl5.22.0_2"
             }
         },
     
