@@ -14,6 +14,11 @@ if(not config['clean']):
                 "use_local" : False,
                 "quayurl" : "quay.io/biocontainers/fastqc",
                 "version" : "0.11.7--pl5.22.0_2"
+            },
+            "khmer" : {
+                "use_local" : False,
+                "quayurl" : "quay.io/biocontainers/khmer",
+                "version" : "2.1.2--py35_0"
             }
         },
     
