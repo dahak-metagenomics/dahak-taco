@@ -130,13 +130,13 @@ rule post_trimming_quality_assessment:
     threads: 2 
     run:
         # get output file name with wildcards replaced
-        pre_trimming_output_wc = pre_trimming_output.format(**wildcards)
+        post_trimming_output_wc = post_trimming_output.format(**wildcards)
 
         # get input file name with wildcards replaced
-        pre_trimming_input_wc = pre_trimming_input.format(**wildcards)
+        post_trimming_input_wc = post_trimming_input.format(**wildcards)
 
         # get directory for final output
-        output_dir = dirname(pre_trimming_output_wc)
+        output_dir = dirname(post_trimming_output_wc)
 
         shell('''
             set -x
@@ -147,7 +147,7 @@ rule post_trimming_quality_assessment:
                 {fastqc_image} \
                 fastqc \
                 -t {threads} \
-                /{pre_trimming_input_wc} \
+                /{post_trimming_input_wc} \
                 -o /{data_dir}
         ''')
 
