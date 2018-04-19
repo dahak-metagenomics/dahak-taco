@@ -1,11 +1,21 @@
 {
     "short_description": "Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Parameters",
+    "biocontainers" : {
+        "fastqc" : {
+            "use_local" : false,
+            "quayurl" : "quay.io/biocontainers/fastqc",
+            "version" : "0.11.7--pl5.22.0_2"
+        }
+    },
     "read_filtering" : {
         "fastqc" : {
             "suffix" : "_fastqc"
         },
         "read_patterns" : {
             "pre_trimming_pattern"  : "{sample}_{direction}_reads.fq.gz"
+        },
+        "quality_assessment" : { 
+            "fastqc_suffix" : "_fastqc"
         },
         "read_files" : {
             "SRR606249_1_reads.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7",
