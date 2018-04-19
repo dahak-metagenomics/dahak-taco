@@ -236,6 +236,9 @@ user of what changes they need to make.
 
 But there's no way to do that, because
 _the rule and the parameter validation are isolated._
+This means the only time we can validate parameters 
+is when we are totally in the dark about what 
+we're doing.
 
 This design is _extremely_ problematic for testing.
 
