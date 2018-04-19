@@ -5,5 +5,5 @@ MAINTAINER cmreid@ucdavis.edu
 RUN conda config --add channels defaults \
     && conda config --add channels conda-forge \
     && conda config --add channels bioconda \
-    && conda install -y conda-forge::openjdk fastqc=0.11.7
+    && conda install -y openjdk >8.0.121 fastqc=0.11.7
 
