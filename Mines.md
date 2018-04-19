@@ -2,58 +2,70 @@
 
 ## overview
 
-the problem with snakemake is that it provides the user with
-a very limited vocabulary and a limited subset of Python 
-functionality. 
+this document covers some of the issues with snakemake.
 
-This makes it extremely difficult to "break out" of the 
-rigid structure Snakemake sets up.
+the main problem is that snakemake's vocabulary is only designed
+for mostly-hard-coded filenames and workflows. It provides a 
+rigid structure, limited Python functionality, and a structure
+that is difficult to work around (specifically, it evaluates
+non-rule code first, then evaluates rule code).
 
-Further complicating the many caveats 
-(this feature works, that feature doesn't;
-you can do this, but only if you do that) 
-is the fact that Snakemake is fixated on filenames.
+There are many caveats (this feature works, but only this context;
+you can do this, but only if you do that).
 
-This is a poor choice for a number of reasons. 
-The workflow control happens entirely through filenames,
-which seems crazy.
-
+Snakemake is also filename-centric, which makes 
+generalizing workflows difficult. It seems crazy to 
+make the entire workflow control happen through 
+filenames, and it makes it hard to test.
 
 
 ## details
 
-The way rules are defined, and the fact that
-you cannot define generic rules that perform a task.
+one difference between make and snakemake is that you can't define
+generic rules that perform a set of commands, or rules that call rules.
+It comes back to the fact that Snakemake is filename-centric.
 
 For example, I can't have a rule that calls another rule.
 
-This is some minor league stuff. If Snakemake can't handle
-rules that call other rules, or handle calling rules by name,
-instead of by target file, that makes it a lot less useful 
-than make, and much more difficult to generalize.
+This is some minor league stuff. It also makes Snakemake really hard to 
+test and to generalize.
 
-Snakemake also forces the user to design the workflow
-around long, abstract chains of filenames and workflow steps.
+The workflow is also designed around long and abstract chains of filenames
+that are hard to reason about - especially if you are using some software package
+and don't know what kind of files it is going to generate. 
+
 Again, everything fixates on filenames.
 
+## the `{}` characters
 
-------
+There are many complications with `{}` and parameters and wildcards.
+Sometimes parameters are available by name, sometimes they are only
+available as param.name.
 
-The many, many problems with `{}` and parameters and wildcards
+## configuration
 
-----
+We ran into a problem with setting a default configuration file.
 
-The default config problem:
-* if you misconfigure your configure file,
-* the keys won't match what the program is looking for
-* but if default keys are defined, it will seamlessly pick those up
-* the problem is, you have no idea your original config file did not validate
+if the user misconfigures their config file, e.g., they put something 
+in the wrong level of the hierarchy, snakemake will silently replace
+all the values with the defaults, and the user may not notice it is not
+running their workflow.
 
+On the flip side, if you don't use defaults, there's the problem that
+the program may ask for parameters the user will not use.
+
+The core issue here is that non-Snakemake Python code is evaluated first,
+separately from the rules, then the rules are evaluated. That means that 
+when you are validating parameters, you have no idea what workflow
+the user is running, so it is impossible to validate parameters.
+
+You basically have to hope that the user knows what they're doing,
+and can diagnose any problems.
 
 From `pre_post_assessment.rule`:
 
 ```
-A horrible last-minute discovery: 
+A terrible last-minute discovery: 
 variables that are just above a rule
 are not evaluated just before that rule.
 
@@ -67,8 +79,7 @@ for each container name,
 in each separate rule file.
 ```
 
-
------
+## external functions
 
 Problems with using an external function 
 to get OSF data file URLs.
@@ -89,122 +100,127 @@ However, there was a problem
             direction=2
 ```
 
-This error message is useless because the line it 
-points to, as the line where the error occurs, 
+The error message doesn't hae any useful information.
+The line it points to, the line where the error occurs, 
 is the line where we define the rule, like 
 
 ```
 rule: myrule
 ```
 
-So, basically no information about what's wrong
-other than the name of the rule.
+There is no information about what is wrong, except what rule.
 
 It's likely mixing wildcards, functions, and HTTP 
-is bad, but it's unclear, and yet again it will just
-waste a whole bunch of time to track this down.
-a conditional this-doesn't-wor
+is bad, but it's unclear. Yet another obstacle/slowdown.
 
+## importing does not work
 
-------
+Here is the latest discovery - problems importing functions.
 
-Here is the latest error:
-* you define a function in a file called util.py
-* you import functions from util.py in taco
-* the functions are (hsould be) available to all sub-calling functions
+It is desirable to factor the program so that common functions 
+(such as dealing with biocontainers) are defined once.
+Normally you would have a `utility.py` that would define
+any utility functions, and you would import this from
+`taco` and it would be available to Snakemake.
+
+However, there's a catch: it's only available to non-Snakemake
+Python code. Once you hit the rules, any functions you have 
+imported will disappear, because the rules are essentially living
+in a totally different Snakemake namespace/context.
+
+Steps:
+* define a function in a file called util.py
+* import functions from util.py in taco
+* the functions are (should be) available to all sub-calling functions
 
 are they available?
-* in a few of the rule files, they ARE
-* however, they are not available in all rule files at any time
+* outside of Snakemake rules, they are
+* however, they cannot be used inside snakemake rules
+* other limitations - not clear what's going on - but the functions 
+    are not available in all rule files.
 
-two passes:
-* there seems to be two passes through each rule file happening 
-* the first time through, the function is inherited from taco just fine
-* the second time through, the function is NOT inherited from taco
-* but, honestly, who knows???
+## two passes through rule files
 
-further investigation:
-* when you say "from .utils import func1, func2" in a snakemake file,
-* you do not have access to func1 or func2
-* apparently the problem is, you're living in snakemake namespace
-* the solution is, you "from utils import func1, func2"
-* what the hell? this is not even python-compliant.
+Snakemake takes two passes through each rule file.
 
-not even going to keep wasting my time.
-* the solution is stupid, but it's all we have left.
-* hard-code a copy of every function in every workflow.
-* import every function in every rule file.
-* let someone else sort out this dumpster fire.
+The first time through, it evaluates non-Snakemake Python code.
+The functions imported in taco are passed into the rule files
+just fine.
 
-What does all of this mean?
-* there is NO WAY to have separate snakefiles and workflows import common code
-* this is absurd, how does a program do such a poor job of generalizing
+The second time through the rule files, Snakemake has created 
+a totally new python context, the Snakemake rules are evaluated, 
+and the functions imported in are not available.
 
-Why snakemake wastes your time:
-* You spend hours chasing down problems caused by features that are broken
-* Or, at best, not as straightforward as advertised
-* The documentation leaves out many really, really, really important caveats and details
-* You should have more of these questions answered by the documentation 
-* Instead, you get to spend hours "discovering" non-working features yourself
+## more shenanigans 
 
+The unsavory solution to the unsolvable problem above is to put a duplicate copy
+of utils.py in each folder. But even then, things do not work the way they are supposed to.
 
---------------------
+If importing from `utils.py` in the same directory, Python 3 requires the notation
+`from .utils immport my_function`. However, this syntax does not work in Snakemake.
+Only the Python 2 syntax `from utils import my_function` works. This is using Python 3.
 
-Even more adventures.
-* If you try and validate parameters,
-    there is no way to tell what rules are going to run
-    because everything is based on files
-* To solve, don't throw an exception when parameters are missing,
-    just make them empty.
-* Reveals another stupid corner case behavior: 
-    if you define a rule to have an output of "", it's okay,
-    but if you define a rule to have an output of None, it fails
+What is this, I don't even.
 
-And more adventures on the flip side.
-* After a painful ~2 hours of implementing the above,
-    validating every parameter, 
-    raising an exception if not okay,
-    it finally ended up that we were getting exceptions
-    for steps we weren't carrying out, and didn't care about.
-* Then, after another extremely painful ~1 hour
-    fixing all of the above so that the exceptions 
-    were commented out, and if a parameter was not present
-    it would just silently set it to an empty string instead,
-    results in the whole problem being turned around.
-* Now, every rule is empty, but defined, so no rules are useful,
-    so everything succeeds just fine but nothing can get done.
-    And the user still isn't getting the information they need,
-    which is what parameters are missing.
+## dumpster fire
 
-What's the underlying problem?
-* Probably, trying to be too helpful.
-* Just let everything say "okay fine" 
-* If they don't define things correctly,
-    everything will fail with no rule exists for X.
-    Which gets at the whole frustration with Snakemake,
-    which is that the rules are implicit and not explicit.
-    Basically you don't know what's going to work until you know.
-* Don't be so helpful, let the user use the full parameters dictionary.
+In the end, these problems all revolve around inflexibility and limited vocabulary.
 
+The solutions are inelegant and require duplicating code, isolating pieces of the program,
+making nicely-integrated easy-to-read Snakemake rules impossible.
 
--------------
+The problem of having to validate the workflow parameters without knowing 
+anything about the workflow being run is the death blow to making Snakemake 
+generalize and makes the whole Snakefile logic extremely hairy.
 
-Yikes. 
+This is kind of a dumpster fire.
 
-This exposes the heart of the problem:
+## more weirdness
 
-Snakemake's design makes parameter validation impossible.
+Let's say we don't want to complain if the user doesn't define parameters 
+in the parameter dictionary. Then we just set them equal to empty strings "".
+Okay, fine, except that some of the rules take multiple arguments,
+so the input essentially becomes `["","","",""]` and Snakemake complains
+that rules have duplicate input arguments.
 
-Here's why:
+Setting the input/output files to None instead of empty strings results in 
+exceptions, so that's out.
 
-The user is going to import a workflow Snakefile,
-which is going to contain two sets of statements:
-Python statements, evaluated on the "first pass"
-when the Snakemake API is initialized (this is like
-a striaghtforward import), and then a second time
-when an actual rule is evaluated.
+The fix? More hard-coded kludges to check if any rules taking lists of input 
+or output files consist of only empty strings, and if so, replce them with a 
+single empty string.
 
-This is very problematic. Here's why:
+This is maddening.
+
+## exceptions all the way down
+
+After a painful 2 hours implementing the above, validating each parameter,
+raising an exception if it was not okay, it finally ended up we were throwing
+exceptions for steps we weren't even running.
+
+The solution? We leave the exception-checking in, and expect the user defines
+every single parameter for every single step of this workflow.
+
+Forget about letting the user run one or two steps of the 
+five or six total in the workflow. The user is going to have to run
+all-or-nothing.
+
+If we provide a sensible default set of parameters, this shouldn't be 
+too much of an issue - the user says, use these default parameter values,
+and override a couple of them for the one or two steps I'm actually running.
+
+However, the user still isn't getting the information they need, 
+which is, what parameters can they/do they define?
+
+## stop being so helpful
+
+The underlying difficulty comes from trying to be too helpful/flexible.
+
+As mentioned above, expect the user will define every parameter needed 
+for every step of the workflow, even if they aren't running those steps.
+Help the user out by providing sets of default parameters they can use.
+
+## more notes on generalization difficulties
 
 We are trying to use a generalized approach
 that utilizes parameters for the input/output 
@@ -247,9 +263,7 @@ parameter validation fails, which means,
 we probably need to write a separate tool
 to validate JSON or YAML files.
 
-And thus, Snakemake is forcing us to abandon 
-the best practice of parameter validation.
-
-
-
+We'll have to end up implementing external validation
+of the JSON/YAML input files (again, without any context
+about what rules the user will be running in the workflow.)
 
