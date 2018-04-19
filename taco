@@ -89,7 +89,8 @@ def main(args):
         err += "Try setting 'workflow_targets' in configuration."
         raise Exception(err)
 
-    config = dict(data_dir='data/')
+    config = dict(data_dir='data/',
+                  clean=args.clean)
 
     print('--------')
     print('taco workflow details:')
@@ -154,6 +155,7 @@ To get more help, run ./taco --help
     parser.add_argument('workflowfile', help="""Specify a workflow using a JSON file, and passing the name of the Snakemake rules or targets.""")
     parser.add_argument('paramsfile', help="""Specify parameters using a JSON file, and pass the name of the JSON file.""", nargs='*')
     parser.add_argument('-n', '--dry-run', action='store_true')
+    parser.add_argument('-c', '--clean', action='store_true')
     args = parser.parse_args()
 
 sys.exit(main(args))

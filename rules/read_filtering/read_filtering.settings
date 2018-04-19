@@ -25,7 +25,6 @@ if(not config['clean']):
             "read_patterns" : {
                 "pre_trimming_pattern"  : "{sample}_{direction}_reads.fq.gz",
                 "post_trimming_pattern" : "{sample}_{direction}_trim{qual}.fq.gz",
-                "adapter_pattern"       : "{adapter}.fa"
             },
     
             # read_files must be defined by user 
@@ -50,7 +49,8 @@ if(not config['clean']):
             },
     
             "adapter_file" : {
-                "TruSeq2-PE.fa" : "http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa"
+                "name" : "TruSeq2-PE.fa",
+                "url"  : "http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa"
             }
         }
     }

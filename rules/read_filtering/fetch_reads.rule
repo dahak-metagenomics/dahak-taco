@@ -10,41 +10,14 @@ try:
 except KeyError:
     readfilt = {}
 
-
-#--x--x--x--x--x--x--x--x--x--x--x--x--x
-## Broken
-#
-#def get_osf_url(wildcards):
-#    """
-#    Who knows why this is failing.
-#    Snakemake error message:
-#
-#            InputFunctionException in line 18 of /home/ubuntu/dahak-taco/rules/read_filtering/fetch_reads.rule:
-#            KeyError: 'data/SRR606249_2.fq.gz'
-#            Wildcards:
-#            sample=SRR606249
-#            direction=2
-#
-#    Not helpful b/c points to the "rule:" line,
-#    indicating nothing about what's wrong.
-#    Maybe mixing wildcards, functions, and HTTP is bad?
-#    Dropped the "input:" directive
-#    """
-#    read_data_file = pre_trimming_pattern.format(**wildcards)
-#    read_data_url = readfilt['read_files'][read_data_file]
-#    return HTTP.remote(read_data_url, keep_local=True)
-#
-#--x--x--x--x--x--x--x--x--x--x--x--x--x
-
-
-
 try:
     pre_trimming_pattern = join(data_dir, readfilt['read_patterns']['pre_trimming_pattern'])
 except KeyError:
-    err = "Error: no pre-trimming pattern present in parameters. "
-    err += "There is no way to determine which read files to download. "
+    err = "ERROR:\nNo pre-trimming pattern present in parameters.\n"
+    err += "There is no way to determine which read files to download.\n"
     err += "Specify a configuration key in config['read_filtering']['read_patterns']['pre_trimming_pattern]."
     raise Exception(err)
+
 
 rule download_reads:
     """
@@ -58,6 +31,7 @@ rule download_reads:
     """
     output:
         pre_trimming_pattern
+    message: '''--- Downloading reads.'''
     run:
         # output should be one item, since one rule at a time
 
@@ -75,14 +49,14 @@ rule download_reads:
         ''')
 
 
+
 try:
-    adapter_pattern = join(data_dir, readfilt['read_patterns']['adapter_pattern'])
+    adapter_output = join(data_dir, readfilt['adapter_file']['name'])
 except KeyError:
-    warn = "Warning: no adapter pattern was present in params. "
-    warn += "To set one, specify a configuration key in config['read_filtering']['read_patterns']['adapater_pattern']. "
-    warn += "Skipping the fetch step for the adapter file."
-    print(warn)
-    adapter_pattern = ""
+    err = "ERROR:\nNo read adapter file was found in the parameters.\n"
+    err += "Specify a read adapter file using config['read_filtering']['adapter_file']['name'].\n"
+    raise Exception(err)
+
 
 rule download_read_adapter:
     """
@@ -91,20 +65,16 @@ rule download_read_adapter:
     the TruSeq2-PE sequencer by default.
     """
     output:
-        adapter_pattern
-    message: '''--- Downloading adapter.'''
+        adapter_output
+    message: '''--- Downloading adapter file.'''
     run:
         # strip data dir from adapter file name
         stripped_output = re.sub(data_dir,'',output[0])
 
         # get corresponding url
-        adapter_url = readfilt['adapter_files'][stripped_output]
-
-        # include the data dir in the final output name
-        adapter_file = adapter_pattern.format(**wildcards)
+        adapter_url = readfilt['adapter_file']['url']
 
         shell('''
-            wget -O {adapter_file} {adapter_url}
+            wget -O {adapter_output} {adapter_url}
         ''')
-
 

@@ -67,6 +67,45 @@ for each container name,
 in each separate rule file.
 ```
 
+
+-----
+
+Problems with using an external function 
+to get OSF data file URLs.
+
+This led to another revelantion: Snakemake has no
+debug capabilities. If a rule is failing, you get to
+figure out where in the rule things are going wrong.
+
+This problem was with a broken rule that was using 
+an external function to validate HTTP resources.
+However, there was a problem 
+
+```
+            InputFunctionException in line 18 of /home/ubuntu/dahak-taco/rules/read_filtering/fetch_reads.rule:
+            KeyError: 'data/SRR606249_2.fq.gz'
+            Wildcards:
+            sample=SRR606249
+            direction=2
+```
+
+This error message is useless because the line it 
+points to, as the line where the error occurs, 
+is the line where we define the rule, like 
+
+```
+rule: myrule
+```
+
+So, basically no information about what's wrong
+other than the name of the rule.
+
+It's likely mixing wildcards, functions, and HTTP 
+is bad, but it's unclear, and yet again it will just
+waste a whole bunch of time to track this down.
+a conditional this-doesn't-wor
+
+
 ------
 
 Here is the latest error:
