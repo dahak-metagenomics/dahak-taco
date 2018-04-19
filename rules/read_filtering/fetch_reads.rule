@@ -13,11 +13,11 @@ except KeyError:
 try:
     pre_trimming_pattern = join(data_dir, readfilt['read_patterns']['pre_trimming_pattern'])
 except KeyError:
-    err = "ERROR:\nNo pre-trimming pattern present in parameters.\n"
-    err += "There is no way to determine which read files to download.\n"
-    err += "Specify a configuration key in config['read_filtering']['read_patterns']['pre_trimming_pattern]."
-    raise Exception(err)
-
+    pre_trimming_pattern = ""
+    #err = "ERROR:\nNo pre-trimming pattern present in parameters.\n"
+    #err += "There is no way to determine which read files to download.\n"
+    #err += "Specify a configuration key in config['read_filtering']['read_patterns']['pre_trimming_pattern]."
+    #raise Exception(err)
 
 rule download_reads:
     """
@@ -49,13 +49,13 @@ rule download_reads:
         ''')
 
 
-
 try:
     adapter_output = join(data_dir, readfilt['adapter_file']['name'])
 except KeyError:
-    err = "ERROR:\nNo read adapter file was found in the parameters.\n"
-    err += "Specify a read adapter file using config['read_filtering']['adapter_file']['name'].\n"
-    raise Exception(err)
+    adapter_output = ""
+    #err = "ERROR:\nNo read adapter file was found in the parameters.\n"
+    #err += "Specify a read adapter file using config['read_filtering']['adapter_file']['name'].\n"
+    #raise Exception(err)
 
 
 rule download_read_adapter:
