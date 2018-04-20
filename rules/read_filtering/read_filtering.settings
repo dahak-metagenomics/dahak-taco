@@ -46,11 +46,15 @@ if(not config['clean']):
     
             "quality_assessment" : {
                 # optional, modifiers for the .fq.gz --> .zip --> results workflow
-                "fastqc_suffix": "_fastqc",
+                "fastqc_suffix": "fastqc",
             },
     
             "quality_trimming" : {
-                "trim_suffix" : "_se"
+                "trim_suffix" : "se"
+            },
+
+            "interleaving" : {
+                "interleave_suffix" : "pe"
             },
     
             "adapter_file" : {
