@@ -89,6 +89,7 @@ rule pre_trimming_quality_assessment:
                 -t {threads} \
                 /{pre_trimming_input_wc} \
                 -o /{data_dir}
+            set +x
         ''')
 
 
@@ -149,5 +150,6 @@ rule post_trimming_quality_assessment:
                 -t {threads} \
                 /{post_trimming_input_wc} \
                 -o /{data_dir}
+            set +x
         ''')
 

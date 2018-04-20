@@ -48,8 +48,8 @@ except KeyError:
     #raise Exception(err)
     trim_target_ext = ""
 
-fq_fwd_se = re.sub('\.fq\.gz',trim_target_ext,fq_fwd_trimmed)
-fq_rev_se = re.sub('\.fq\.gz',trim_target_ext,fq_rev_trimmed)
+fq_fwd_se = re.sub('\.fq\.gz',"_%s"%(trim_target_ext),fq_fwd_trimmed)
+fq_rev_se = re.sub('\.fq\.gz',"_%s"%(trim_target_ext),fq_rev_trimmed)
 
 quality_output = [fq_fwd_trimmed, fq_fwd_se,
                   fq_rev_trimmed, fq_rev_se]
@@ -80,7 +80,7 @@ rule quality_trimming:
     output:
         quality_output
     message: 
-        '''--- Quality trimming data at q 2 and 30.'''
+        """--- Quality trimming read data."""
     singularity: 
         {trimmo_image}
     log: 
@@ -88,7 +88,9 @@ rule quality_trimming:
     run:
         qual_wc = "{qual}".format(**wildcards)
 
+        # input includes data/ prefix
         quality_input_wc = [x.format(**wildcards) for x in quality_input]
+        # for docker container, turn prefix data/ into /data/
         quality_input_wc = ["/%s"%(x) for x in quality_input_wc]
         quality_input_wcs = " ".join(quality_input_wc)
 
@@ -99,6 +101,7 @@ rule quality_trimming:
         log_wc = quality_log.format(**wildcards)
 
         shell('''
+            set -x
             docker run \
                 -u $(id -u):$(id -g) \
                 -v {PWD}/{data_dir}:/{data_dir} \
@@ -113,5 +116,6 @@ rule quality_trimming:
                 SLIDINGWINDOW:4:{qual_wc} \
                 MINLEN:25 \
                 2> {log_wc}
+            set +x
         ''')
 
