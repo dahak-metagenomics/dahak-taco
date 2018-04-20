@@ -1,0 +1,8 @@
+{
+    "short_description": "Read Filtering Walkthrough 6 - Interleaving Trimmed Reads - Configuration",
+    "workflow_targets" : ["data/SRR606249_pe_trim2.fq.gz",
+                          "data/SRR606249_pe_trim2.fq.gz",
+                          "data/SRR606249_pe_trim30.fq.gz",
+                          "data/SRR606249_pe_trim30.fq.gz"]
+}
+
