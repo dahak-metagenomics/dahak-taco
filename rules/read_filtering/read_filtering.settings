@@ -52,11 +52,9 @@ if(not config['clean']):
             "quality_trimming" : {
                 "trim_suffix" : "se"
             },
-
             "interleaving" : {
                 "interleave_suffix" : "pe"
             },
-    
             "adapter_file" : {
                 "name" : "TruSeq2-PE.fa",
                 "url"  : "http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa"

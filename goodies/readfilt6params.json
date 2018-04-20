@@ -1,5 +1,5 @@
 {
-    "short_description": "Read Filtering Walkthrough 5 - Quality Filtering - Parameters",
+    "short_description": "Read Filtering Walkthrough 6 - Interleaving Trimmed Reads - Parameters",
     "biocontainers" : {
         "trimmomatic" : {
             "use_local" : false,
@@ -10,22 +10,29 @@
             "use_local" : false,
             "quayurl" : "quay.io/biocontainers/fastqc",
             "version" : "0.11.7--pl5.22.0_2"
+        },
+        "khmer" : {
+            "use_local" : false,
+            "quayurl" : "quay.io/biocontainers/khmer",
+            "version" : "2.1.2--py35_0"
         }
     },
     "read_filtering" : {
+        "fastqc" : {
+            "suffix" : "_fastqc"
+        },
         "read_patterns" : {
             "pre_trimming_pattern"  : "{sample}_{direction}_reads.fq.gz",
             "post_trimming_pattern" : "{sample}_{direction}_trim{qual}.fq.gz"
         },
         "quality_assessment" : { 
-            "fastqc_suffix" : "fastqc"
+            "fastqc_suffix" : "_fastqc"
         },
         "quality_trimming" : {
             "trim_suffix" : "se"
         },
-        "adapter_file" : {
-            "name" : "TruSeq2-PE.fa",
-            "url"  : "http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa"
+        "interleaving" : {
+            "interleave_suffix" : "pe"
         },
         "read_files" : {
             "SRR606249_1_reads.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7",
@@ -36,6 +43,10 @@
             "SRR606249_subset25_2_reads.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f104ed594d90026411f486",
             "SRR606249_subset50_1_reads.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f1082d6c613b026430e5cf",
             "SRR606249_subset50_2_reads.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f10ac6594d900262123e77"
+        },
+        "adapter_file" : {
+            "name" : "TruSeq2-PE.fa",
+            "url"  : "http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa"
         }
     }
 }

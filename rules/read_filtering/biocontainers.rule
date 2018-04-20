@@ -26,6 +26,6 @@ rule pull_biocontainers:
     run:
         for quayurl in quayurls:
             shell('''
-            docker pull {quayurl}
+                docker pull {quayurl}
             ''')
 
