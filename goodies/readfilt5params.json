@@ -1,5 +1,5 @@
 {
-    "short_description": "Read Filtering Walkthrough 4 - Quality Filtering - Parameters",
+    "short_description": "Read Filtering Walkthrough 5 - Quality Filtering - Parameters",
     "biocontainers" : {
         "trimmomatic" : {
             "use_local" : false,
