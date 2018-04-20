@@ -115,7 +115,7 @@ is bad, but it's unclear. Yet another obstacle/slowdown.
 
 ## importing does not work
 
-Here is the latest discovery - problems importing functions.
+More problems around importing functions.
 
 It is desirable to factor the program so that common functions 
 (such as dealing with biocontainers) are defined once.
@@ -154,15 +154,13 @@ and the functions imported in are not available.
 ## more shenanigans 
 
 The unsavory solution to the unsolvable problem above is to put a duplicate copy
-of utils.py in each folder. But even then, things do not work the way they are supposed to.
+of utils.py in each folder. 
 
-If importing from `utils.py` in the same directory, Python 3 requires the notation
-`from .utils immport my_function`. However, this syntax does not work in Snakemake.
-Only the Python 2 syntax `from utils import my_function` works. This is using Python 3.
+Forced to use Python 2 syntax `from utils import my_function` 
 
-What is this, I don't even.
+This syntax still works in Python 3
 
-## dumpster fire
+## core problem
 
 In the end, these problems all revolve around inflexibility and limited vocabulary.
 
@@ -172,8 +170,6 @@ making nicely-integrated easy-to-read Snakemake rules impossible.
 The problem of having to validate the workflow parameters without knowing 
 anything about the workflow being run is the death blow to making Snakemake 
 generalize and makes the whole Snakefile logic extremely hairy.
-
-This is kind of a dumpster fire.
 
 ## more weirdness
 
