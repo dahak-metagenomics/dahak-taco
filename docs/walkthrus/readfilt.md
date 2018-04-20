@@ -12,7 +12,10 @@ In this document we will:
 
 * Assess the quality of the post-filtered reads (fastqc)
 
-This workflow specifically covers the use of taco.
+* Interleave post-filtered reads (khmer) 
+
+This workflow covers the use of taco to run the workflow.
+
 See the [walkthroughs dir of the dahak repo](https://github.com/dahak-metagenomics/dahak/tree/master/workflows/read_filtering)
 for the original shell-based walkthrough.
 
@@ -95,11 +98,8 @@ so we only downlod the files we need:
 ```text
 $ cat goodies/readfilt1params.json
 {
-    "short_description": "Read Filtering Walkthrough 1 Parameters",
+    "short_description": "Read Filtering Walkthrough 1 - Fetching Reads - Parameters",
     "read_filtering" : {
-        "read_patterns" : {
-            "pre_trimming_pattern"  : "{sample}_{direction}.fq.gz",
-        },
         "read_files" : {
             "SRR606249_1.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7",
             "SRR606249_2.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0fc7fb83f69026076be47",
@@ -109,6 +109,9 @@ $ cat goodies/readfilt1params.json
             "SRR606249_subset25_2.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f104ed594d90026411f486",
             "SRR606249_subset50_1.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f1082d6c613b026430e5cf",
             "SRR606249_subset50_2.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f10ac6594d900262123e77"
+        },
+        "read_patterns" : {
+            "pre_trimming_pattern"  : "{sample}_{direction}.fq.gz"
         }
     }
 }
@@ -161,9 +164,9 @@ which is the pre-trim quality assessment.
 ```text
 $ cat goodies/readfilt2config.json
 {
-    "short_description": "Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Configuration",
-    "workflow_targets" : ["data/SRR606249_1_fastqc.zip",
-                          "data/SRR606249_2_fastqc.zip"]
+    "short_description": "Read Filtering Walkthrough 1 - Fetching Reads - Configuration",
+    "workflow_targets" : ["data/SRR606249_1.fq.gz",
+                          "data/SRR606249_2.fq.gz"]
 }
 ```
 
@@ -178,12 +181,19 @@ Here is the parameters file:
 $ cat goodies/readfilt2params.json
 {
     "short_description": "Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Parameters",
-    "read_filtering" : {
+    "biocontainers" : {
         "fastqc" : {
-            "suffix" : "_fastqc"
-        },
+            "use_local" : false,
+            "quayurl" : "quay.io/biocontainers/fastqc",
+            "version" : "0.11.7--pl5.22.0_2"
+        }
+    },
+    "read_filtering" : {
         "read_patterns" : {
-            "pre_trimming_pattern"  : "{sample}_{direction}.fq.gz",
+            "pre_trimming_pattern"  : "{sample}_{direction}_reads.fq.gz"
+        },
+        "quality_assessment" : { 
+            "fastqc_suffix" : "fastqc"
         },
         "read_files" : {
             ...
@@ -247,7 +257,8 @@ targets for steps 1 and 2, in addition to step 3:
 $ cat goodies/readfilt3config.json
 {
     "short_description": "Read Filtering Walkthrough 3 - Trimming - Configuration",
-    "workflow_targets" : ["data/SRR606249_1_reads.fq.gz",
+    "workflow_targets":  ["data/TruSeq2-PE.fa",
+                          "data/SRR606249_1_reads.fq.gz",
                           "data/SRR606249_2_reads.fq.gz",
                           "data/SRR606249_1_reads_fastqc.zip",
                           "data/SRR606249_2_reads_fastqc.zip",
@@ -264,31 +275,35 @@ what controls the user has over file names):
 $ cat goodies/readfilt3params.json
 {
     "short_description": "Read Filtering Walkthrough 3 - Trimming - Parameters",
-    "read_filtering" : {
-        "fastqc" : {
-            "suffix" : "_fastqc"
-        },
+    "biocontainers" : {
         "trimmomatic" : {
-            "suffix" : "_se",
-            "adapter_file" : "TruSeq2-PE.fa"
+            "use_local" : false,
+            "quayurl" : "quay.io/biocontainers/trimmomatic",
+            "version" : "0.36--5"
         },
+        "fastqc" : {
+            "use_local" : false,
+            "quayurl" : "quay.io/biocontainers/fastqc",
+            "version" : "0.11.7--pl5.22.0_2"
+        }
+    },
+    "read_filtering" : {
         "read_patterns" : {
             "pre_trimming_pattern"  : "{sample}_{direction}_reads.fq.gz",
-            "post_trimming_pattern" : "{sample}_{direction}_trim{qual}.fq.gz",
-            "adapter_pattern" :       "{adapter}.fa"
+            "post_trimming_pattern" : "{sample}_{direction}_trim{qual}.fq.gz"
+        },
+        "quality_assessment" : { 
+            "fastqc_suffix" : "fastqc"
+        },
+        "quality_trimming" : {
+            "trim_suffix" : "se"
+        },
+        "adapter_file" : {
+            "name" : "TruSeq2-PE.fa",
+            "url"  : "http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa"
         },
         "read_files" : {
-            "SRR606249_1_reads.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7",
-            "SRR606249_2_reads.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0fc7fb83f69026076be47",
-            "SRR606249_subset10_1_reads.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f10134b83f69026377611b",
-            "SRR606249_subset10_2_reads.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f101f26c613b026330e53a",
-            "SRR606249_subset25_1_reads.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f1039a594d900263120c38",
-            "SRR606249_subset25_2_reads.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f104ed594d90026411f486",
-            "SRR606249_subset50_1_reads.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f1082d6c613b026430e5cf",
-            "SRR606249_subset50_2_reads.fq.gz" :  "files.osf.io/v1/resources/dm938/providers/osfstorage/59f10ac6594d900262123e77"
-        },
-        "adapter_files" : {
-            "TruSeq2-PE.fa" : "http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa"
+            ...
         }
     }
 }
@@ -358,8 +373,13 @@ $ cat readfilt3params_localdocker.json
 {
     "short_description": "Read Filtering Walkthrough 3 Modified - Trimming - Parameters",
     "biocontainers" : {
+        "trimmomatic" : {
+            "use_local" : false,
+            "quayurl" : "quay.io/biocontainers/trimmomatic",
+            "version" : "0.36--5"
+        },
         "fastqc" : {
-            "local" : "dahak_conda",
+            "local" : "dahak_fastqc",
             "use_local" : true
         }
     },
@@ -372,16 +392,188 @@ $ cat readfilt3params_localdocker.json
 And here is the command to run the workflow:
 
 ```text
+
+$ # Dry run
+
+$ ./taco -n read_filtering \
+    goodies/readfilt3config.json \
+    goodies/readfilt3params_localdocker.json
+
+$ # Real thing:
+
 $ ./taco -n read_filtering \
     goodies/readfilt3config.json \
     goodies/readfilt3params_localdocker.json
 ```
 
 
-### Step 4: Rule: Post-Trim Quality Assessment
+### Steps 4 and 5: Rule: Post-Trim Quality Assessment
+
+In steps 4 and 5 we request the output file from the quality 
+assessment pipeline. 
+
+In step 4, the first quality trimming, we'll use a quality value of 2.
+
+In step 5, the second quality trimming, we'll use a quality value of 30.
+
+The config file requests trimmed reads with a quality value of 2,
+done using trimmomatic, and a fastqc quality-assessed output 
+file (fastqc.zip files).
+
+```text
+$ cat goodies/readfilt4config.json
+{
+    "short_description": "Read Filtering Walkthrough 4 - Quality Filtering at 2 - Configuration",
+    "workflow_targets" : ["data/SRR606249_1_trim2.fq.gz",
+                          "data/SRR606249_2_trim2.fq.gz",
+                          "data/SRR606249_1_trim2_fastqc.zip",
+                          "data/SRR606249_2_trim2_fastqc.zip"]
+}
+
+
+$ cat goodies/readfilt5config.json
+{
+    "short_description": "Read Filtering Walkthrough 5 - Quality Filtering at 30 - Configuration",
+    "workflow_targets" : ["data/SRR606249_1_trim30.fq.gz",
+                          "data/SRR606249_2_trim30.fq.gz",
+                          "data/SRR606249_1_trim30_fastqc.zip",
+                          "data/SRR606249_2_trim30_fastqc.zip"]
+}
+```
+
+Next, the parameters file requires the user to 
+specify a few additional parameters 
+
+```text
+$ cat goodies/readfilt4params.json
+{
+    "short_description": "Read Filtering Walkthrough 4 - Quality Filtering - Parameters",
+    "biocontainers" : {
+        ...
+    },
+    "read_filtering" : {
+        "read_patterns" : {
+            "pre_trimming_pattern"  : "{sample}_{direction}_reads.fq.gz",
+            "post_trimming_pattern" : "{sample}_{direction}_trim{qual}.fq.gz"
+        },
+        "quality_assessment" : { 
+            "fastqc_suffix" : "fastqc"
+        },
+        "quality_trimming" : {
+            "trim_suffix" : "se"
+        },
+        "adapter_file" : {
+            "name" : "TruSeq2-PE.fa",
+            "url"  : "http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa"
+        },
+        "read_files" : {
+            ...
+        }
+    }
+}
+```
+
+Note that the parameters file for steps 4 and 5 will look identical, 
+since both run the same workflow and the only change is in the quality
+value (which is only specified by the filename).
+
+Now execute the commands that will run the workflow:
+
+```text
+
+$ # Dry run
+
+$ ./taco -n read_filtering \
+    goodies/readfilt4config.json \
+    goodies/readfilt4params.json
+
+$ ./taco -n read_filtering \
+    goodies/readfilt5config.json \
+    goodies/readfilt5params.json
 
 
 
+$ # Real thing:
+
+$ ./taco -n read_filtering \
+    goodies/readfilt4config.json \
+    goodies/readfilt4params.json
+
+$ ./taco -n read_filtering \
+    goodies/readfilt5config.json \
+    goodies/readfilt5params.json
+```
+
+### Step 6: Interleaving Trimmed Reads 
+
+The last step is to use khmer to interleave
+trimmed reads after running trimmomatic and
+the `quality_trimming` rule.
+
+The interleaving step takes two input files,
+the trimmed reads we want to use, 
+requires one additional parameter,
+which is the filename suffix we want 
+paired-end reads to have 
+(for example, `pe`).
+
+The config file uses this when specifying the target file:
+
+```text
+$ cat goodies/readfilt6config.json
+{
+    "short_description": "Read Filtering Walkthrough 6 - Interleaving Trimmed Reads - Configuration",
+    "workflow_targets" : ["data/SRR606249_pe_trim2.fq.gz",
+                          "data/SRR606249_pe_trim2.fq.gz",
+                          "data/SRR606249_pe_trim30.fq.gz",
+                          "data/SRR606249_pe_trim30.fq.gz"]
+}
+```
+
+and the params file:
+
+```text
+$ cat goodies/readfilt6params.json
+{
+    "short_description": "Read Filtering Walkthrough 6 - Interleaving Trimmed Reads - Parameters",
+    "biocontainers" : {
+        "trimmomatic" : {
+            ...
+        },
+        "fastqc" : {
+            ...
+        },
+        "khmer" : {
+            "use_local" : false,
+            "quayurl" : "quay.io/biocontainers/khmer",
+            "version" : "2.1.2--py35_0"
+        }
+    },
+    "read_filtering" : {
+        ...
+        "interleaving" : {
+            "interleave_suffix" : "pe"
+        },
+        ...
+    }
+}
+```
+
+```text
+$ # Dry run
+
+$ ./taco -n read_filtering \
+    goodies/readfilt6config.json \
+    goodies/readfilt6params.json
+
+
+
+$ # Real thing:
+
+$ ./taco -n read_filtering \
+    goodies/readfilt6config.json \
+    goodies/readfilt6params.json
+```
 
 
 
