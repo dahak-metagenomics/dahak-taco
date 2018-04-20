@@ -23,7 +23,7 @@
             "fastqc_suffix" : "_fastqc"
         },
         "quality_trimming" : {
-            "trim_suffix" : "_se"
+            "trim_suffix" : "se"
         },
         "read_files" : {
             "SRR606249_1_reads.fq.gz" :           "files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7",
