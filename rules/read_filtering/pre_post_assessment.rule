@@ -111,7 +111,7 @@ except KeyError:
     #raise Exception(err)
     target_suffix = ""
 
-target_ext = "%s.zip"%(target_suffix)
+target_ext = "_%s.zip"%(target_suffix)
 post_trimming_output = re.sub('\.fq\.gz',target_ext,post_trimming_input)
 
 
