@@ -32,27 +32,30 @@ The form is:
 $ ./taco <workflow-name> <workflow-config-file> <workflow-params-file>
 ```
 
+Check the [`goodies/`](https://github.com/dahak-metagenomics/dahak-taco/tree/master/goodies) 
+directory for examples.
+
 ## Workflow Name
 
-Each workflow is divided into separate Snakefiles. 
-(Note: this may change in the future if Snakemake
- subworkflows are implemented.) The user must specify
-the name of a workflow directory under `rules/`,
-and Snakemake will use the Snakefile in that directory.
+Each workflow is defined by a Snakefile that includes
+a set of rules for each step of the workflow
+and a dictionary of parameter values. 
 
-To specify which Snakefile to run, the user should specify
-the name of the workfow as the first argument 
-on the command line.
+Each workflow is in its own directory in the 
+[`rules/`](https://github.com/dahak-metagenomics/dahak-taco/tree/master/rules)
+directory of this repository and must have 
+a Snakefile.
 
-For example, the `read_filtering` workflow is
-defind by a `Snakefile` and `.rule` files in 
-`rules/read_filtering/*.rule`. To run rules
-from this workflow, specify `read_filtering` as 
-the first argument to taco:
+The user should specify the workflow name as the first
+verb on the command line. For example:
 
 ```
 $ taco read_filtering <workflow-config-file> <workflow-params-file>
 ```
+
+will load the Snakefile in `rules/read_filtering/` 
+and will make avaiable all read filtering rules.
+
 
 ## Workflow Configuration File
 
@@ -167,8 +170,10 @@ sourmash version `2.0.0a3--py36_0`, set in
 ```text
 {
     "biocontainers" : {
-        "sourmash" : {
-            "version" : "2.0.0a2--py36_0"
+        "trimmomatic" : {
+            "use_local" : false,
+            "quayurl" : "quay.io/biocontainers/trimmomatic",
+            "version" : "0.36--5"
         }
     }
 }
@@ -185,7 +190,7 @@ To run taco, pass it three arguments on the command line:
 Both arguments should be the path to a JSON file
 (absolute or relative) and exclude the JSON suffix.
 
-### Running the Eample
+### Running an Example
 
 To run the two JSON files in the example above,
 which are contained in the `goodies/` directory 
@@ -204,7 +209,7 @@ To do a dry run only, add the `-n` or `--dry-run` flag:
 $ ./taco -n taxonomic_classification goodies/test-conf goodies/test-params
 ```
 
-This will run the pull biocontainers rule.
+This will run the `pull_biocontainers` rule.
 
 ## Listing Available Actions
 
@@ -220,11 +225,13 @@ $ ./taco ls
 
 ### Listing Workflow Rules
 
+(Not available)
+
 You can list all of the rules available 
 for a given workflow by running `taco ls <workflow-name>`.
 For example:
 
 ```text
-$ ./taco 
+$ ./taco ls read_filtering
 ```
 
