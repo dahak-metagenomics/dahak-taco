@@ -154,8 +154,8 @@ To get more help, run ./taco --help
     parser.add_argument('workflowname', help="""Specify the name of a workflow to run.""")
     parser.add_argument('workflowfile', help="""Specify a workflow using a JSON file, and passing the name of the Snakemake rules or targets.""")
     parser.add_argument('paramsfile', help="""Specify parameters using a JSON file, and pass the name of the JSON file.""", nargs='*')
-    parser.add_argument('-n', '--dry-run', action='store_true')
-    parser.add_argument('-c', '--clean', action='store_true')
+    parser.add_argument('-n', '--dry-run', action='store_true', help="""Do a dry run with Snakemake: assemble but do not run the task graph.""")
+    parser.add_argument('-c', '--clean', action='store_true', help="""Use a clean Snakemake parameters dictionary. Used for testing and debugging.""")
     args = parser.parse_args()
 
 sys.exit(main(args))
