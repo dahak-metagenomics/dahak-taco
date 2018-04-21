@@ -6,43 +6,43 @@ We follow the conventions set in the [snakemake-rules](https://github.com/percyf
 repository, and groups all rules into `.rule` files and all parameters into
 `.settings` files.
 
+## Workflows 
+
+The workflows define a set of tasks.
+Each workflow is a sub-directory in the `rules/` 
+directory.
+
 ## Rule Files
 
-Rule files are, unsurprisingly, 
-contained in the `rules/` directory,
-in `.rule` files. 
+Rule files define how steps in the workflow proceed.
+They preprocess configuration variables.
+Rules are defined in `.rule` files
+in the workflow directory.
 
-To list all rules, use the `taco ls` command:
+## Default Parameter Files
 
-```
-$ ./taco ls
-```
+The default parameter dictionary is contained
+in a `.settings` file in the workflow directory.
+These will _NOT_ overwrite any parameters
+that have already been set by the user in their
+JSON parameter file.
 
-TODO: fix this mess. Use snakemake -l to generate docs, use taco ls 
-to present a cleaned up version of the information.
-Will require grep and cut and etc.
+## Validation of Parameters
 
-## Parameter Files
+Because we don't know what workflow is being run
+when we process the parameters, we can't do much
+parameter validation.
 
-Parameter files live in the same location and share the same name
-as their corresponding rule files, but have a `.settings` suffix.
-
-These files have a default set of configuration parameters defined.
-They read the configuration parameter set after the Snakefile 
-has been initialized (and the user has set configuration parameters).
-
-The `.settings` files _only_ set configuration parameter values 
-if a value has not yet been assigned to that parameter.
+Currently, we do not throw an exception 
+when a parameter is undefined by the user,
+we either silently use the default value 
+(default behavior) or we silently set to 
+an empty string (using `--clean` or `-c`
+flag).
 
 ## Documentation of Snakemake Rules
 
-Due to the dependency chain and the 
-sharing of parameter sets, it is 
-difficult to automate documentation of 
-Snakemake rules. 
-
-
-To compromise, Snakemake rules are documented
+Snakemake rules are documented
 in the docstring of the Snakemake rule. 
 For example:
 
@@ -57,58 +57,4 @@ rule do_stuff:
 
     ...
 ```
-
-However, we can take this a step further 
-and write the docstrings directly in Markdown,
-allowing us to atuomate documentation generation 
-in Markdown (and handed off to Sphinx).
-
-For example:
-
-```
-rule do_stuff:
-    """
-## Snakemake Rule: `do_stuff`
-
-Short Description: The `do_stuff` rule does stuff.
-
-Long Description: The `do_stuff` rule calls the thing
-that does the other thing that pulls the widget that
-pushes the button that runs the thing that does the thing.
-
-To run this rule with default parameter values:
-
-(&c.)
-
-To run this rule with customized input/output file names:
-
-(&c.)
-    """
-
-    ...
-```
-
-This is the most convenient place to define this information.
-Furthermore, when we run the Snakemake command to list all 
-rules, it will print this documentation along with the rules:
-
-```
-$ snakemake -l
-```
-
-(This currently requires a bit of cleanup, working on a 
-sed/awk one-liner.)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
