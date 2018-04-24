@@ -1,10 +1,12 @@
-site_name: your-cool-site
+site_name: dahak-taco
 site_url: https://dahak-metagenomics.github.io/dahak-taco
-repo_name: dahak-metagenomics/dahak-taco
+repo_name: dahak-taco
 repo_url: https://github.com/dahak-metagenomics/dahak-taco
 edit_uri: ""
 
-# change diirectory names here
+copyright: 'Copyright &copy; 2018 <a href="http://ivory.idyll.org/lab/">Lab for Data Intensive Biology</a> at UC Davis'
+
+# change directory names here
 docs_dir: docs
 site_dir: site
 
@@ -21,7 +23,7 @@ theme:
   
   # fun logos! see https://material.io/icons/
   logo:
-    icon: 'dns'
+    icon: 'group_work'
 
   font:
     text: 'Roboto'
@@ -34,18 +36,16 @@ extra_css:
 # give a title for each page
 pages:
   - 'Index' : 'index.md'
-  - Introduction:
-    - 'Overview of Taco' : 'intro/Intro.md'
-    - 'Installing Taco': 'intro/Installing.md'
-    - 'Quickstart' : 'intro/Quickstart.md'
-  - Walkthroughs:
-    - 'AWS Setup' : 'walkthrus/AWS_Setup.md'
-    - 'Read Filtering Walkthrough' : 'walkthrus/ReadFiltWalkthru.md'
-  - API:
-    - 'Read Filtering Workflow Parameters' : 'ReadFiltering.md'
-  - For Developers:
-    - 'How It Works' : 'dev/HowItWorks.md'
-    - 'Snakemake Rules' : 'dev/SnakemakeRules.md'
-    - 'Workflows' : 'dev/Workflows.md'
-    - 'Documentation' : 'dev/Docs.md'
+  - 'Installation and Usage' : 'InstallationUsage.md'
+  - 'Quickstart' : 'Quickstart.md'
+  - 'AWS Setup for Walkthroughs' : 'SetupAWS.md'
+  - 'Snakemake Rules' : 'SnakemakeRules.md'
+  - 'Creating Workflows' : 'Workflows.md'
 
+# Extensions
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
