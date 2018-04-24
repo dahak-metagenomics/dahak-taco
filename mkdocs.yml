@@ -35,9 +35,10 @@ pages:
   - 'Index' : 'index.md'
   - Introduction:
     - 'Overview of Taco' : 'intro/Intro.md'
+    - 'Installing Taco': 'intro/Installing.md'
     - 'Quickstart' : 'intro/Quickstart.md'
   - Walkthroughs:
-    - 'AWS Setup' : 'walkthrus/AWSSetup.md'
+    - 'AWS Setup' : 'walkthrus/AWS_Setup.md'
     - 'Read Filtering Walkthrough' : 'walkthrus/ReadFiltWalkthru.md'
   - API:
     - 'Read Filtering Workflow Parameters' : 'ReadFiltering.md'
@@ -45,5 +46,5 @@ pages:
     - 'How It Works' : 'dev/HowItWorks.md'
     - 'Snakemake Rules' : 'dev/SnakemakeRules.md'
     - 'Workflows' : 'dev/Workflows.md'
-    - 'Documentation' : 'dev/Documentation.md'
+    - 'Documentation' : 'dev/Docs.md'
 
