@@ -8,6 +8,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 # [Unreleased Changes]
 
+# [0.3] - 2018-04-24
+
 ### Added 
 
 ### Changed
@@ -17,17 +19,18 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
     The taco utility is a wrapper that's imported and run from the
     Python package namespace; it uses local folders and files
     to determine what workflow to run.
+
 - This structure becomes more logical when we think about the
     alternative: bundling Snakefiles, storing them in memory,
     dumping the contents of each varible to a temporary file 
     structure, running Snakemake from the temporary file struture,
     moving data files, DEAR GOD PLEASE DONT MAKE ME DO THIS.
 
-### Deprecated
-
 ### Removed
 
 - Standalone taco script
+- Docker files (moved to workflow repositories)
+- Rule files (moved to workflow repositories)
 
 ### Fixed
 
