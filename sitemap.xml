@@ -10,79 +10,43 @@
     
 
     
-        
     <url>
-     <loc>https://dahak-metagenomics.github.io/dahak-taco/intro/Intro/</loc>
+     <loc>https://dahak-metagenomics.github.io/dahak-taco/InstallationUsage/</loc>
      <lastmod>2018-04-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
-    <url>
-     <loc>https://dahak-metagenomics.github.io/dahak-taco/intro/Installing/</loc>
-     <lastmod>2018-04-24</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://dahak-metagenomics.github.io/dahak-taco/intro/Quickstart/</loc>
-     <lastmod>2018-04-24</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
     
 
     
-        
     <url>
-     <loc>https://dahak-metagenomics.github.io/dahak-taco/walkthrus/AWS_Setup/</loc>
+     <loc>https://dahak-metagenomics.github.io/dahak-taco/Quickstart/</loc>
      <lastmod>2018-04-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
-    <url>
-     <loc>https://dahak-metagenomics.github.io/dahak-taco/walkthrus/ReadFiltWalkthru/</loc>
-     <lastmod>2018-04-24</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
     
 
     
-        
     <url>
-     <loc>https://dahak-metagenomics.github.io/dahak-taco/ReadFiltering/</loc>
+     <loc>https://dahak-metagenomics.github.io/dahak-taco/SetupAWS/</loc>
      <lastmod>2018-04-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     
 
     
-        
     <url>
-     <loc>https://dahak-metagenomics.github.io/dahak-taco/dev/HowItWorks/</loc>
+     <loc>https://dahak-metagenomics.github.io/dahak-taco/SnakemakeRules/</loc>
      <lastmod>2018-04-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
+    
+
+    
     <url>
-     <loc>https://dahak-metagenomics.github.io/dahak-taco/dev/SnakemakeRules/</loc>
+     <loc>https://dahak-metagenomics.github.io/dahak-taco/Workflows/</loc>
      <lastmod>2018-04-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
-    <url>
-     <loc>https://dahak-metagenomics.github.io/dahak-taco/dev/Workflows/</loc>
-     <lastmod>2018-04-24</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://dahak-metagenomics.github.io/dahak-taco/dev/Docs/</loc>
-     <lastmod>2018-04-24</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
     
 
 </urlset>
