@@ -1,0 +1,1260 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+        <link rel="canonical" href="https://dahak-metagenomics.github.io/dahak-taco/walkthrus/ReadFiltWalkthru/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../">
+      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.2">
+    
+    
+      
+        <title>Read Filtering Walkthrough - your-cool-site</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.8d40d89b.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+      <link rel="stylesheet" href="../../css/custom.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="orange" data-md-color-accent="orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#read-filtering-walkthrough" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://dahak-metagenomics.github.io/dahak-taco" title="your-cool-site" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">dns</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                your-cool-site
+              </span>
+              <span class="md-header-nav__topic">
+                Read Filtering Walkthrough
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/dahak-metagenomics/dahak-taco/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      dahak-metagenomics/dahak-taco
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon">dns</i>
+      
+    </span>
+    your-cool-site
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/dahak-metagenomics/dahak-taco/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      dahak-metagenomics/dahak-taco
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Introduction
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Introduction
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../intro/Intro/" title="Overview of Taco" class="md-nav__link">
+      Overview of Taco
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../intro/Installing/" title="Installing Taco" class="md-nav__link">
+      Installing Taco
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../intro/Quickstart/" title="Quickstart" class="md-nav__link">
+      Quickstart
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Walkthroughs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Walkthroughs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../AWS_Setup/" title="AWS Setup" class="md-nav__link">
+      AWS Setup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Read Filtering Walkthrough
+      </label>
+    
+    <a href="./" title="Read Filtering Walkthrough" class="md-nav__link md-nav__link--active">
+      Read Filtering Walkthrough
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup" title="Setup" class="md-nav__link">
+    Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clone-the-repo" title="Clone The Repo" class="md-nav__link">
+    Clone The Repo
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-the-workflow" title="Start the Workflow" class="md-nav__link">
+    Start the Workflow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-download-data" title="Part 1: Download Data" class="md-nav__link">
+    Part 1: Download Data
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-2-perform-pre-trim-quality-assessment" title="Part 2: Perform Pre-Trim Quality Assessment" class="md-nav__link">
+    Part 2: Perform Pre-Trim Quality Assessment
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-trim-reads" title="Part 3: Trim Reads" class="md-nav__link">
+    Part 3: Trim Reads
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-modified-trim-reads-with-custom-docker-container" title="Part 3 (Modified): Trim Reads with Custom Docker Container" class="md-nav__link">
+    Part 3 (Modified): Trim Reads with Custom Docker Container
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#steps-4-and-5-rule-post-trim-quality-assessment" title="Steps 4 and 5: Rule: Post-Trim Quality Assessment" class="md-nav__link">
+    Steps 4 and 5: Rule: Post-Trim Quality Assessment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-interleaving-trimmed-reads" title="Step 6: Interleaving Trimmed Reads" class="md-nav__link">
+    Step 6: Interleaving Trimmed Reads
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ReadFiltering/" title="Read Filtering Workflow Parameters" class="md-nav__link">
+      Read Filtering Workflow Parameters
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      For Developers
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        For Developers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../dev/HowItWorks/" title="How It Works" class="md-nav__link">
+      How It Works
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../dev/SnakemakeRules/" title="Snakemake Rules" class="md-nav__link">
+      Snakemake Rules
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../dev/Workflows/" title="Workflows" class="md-nav__link">
+      Workflows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../dev/Docs/" title="Documentation" class="md-nav__link">
+      Documentation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup" title="Setup" class="md-nav__link">
+    Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clone-the-repo" title="Clone The Repo" class="md-nav__link">
+    Clone The Repo
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-the-workflow" title="Start the Workflow" class="md-nav__link">
+    Start the Workflow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-download-data" title="Part 1: Download Data" class="md-nav__link">
+    Part 1: Download Data
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-2-perform-pre-trim-quality-assessment" title="Part 2: Perform Pre-Trim Quality Assessment" class="md-nav__link">
+    Part 2: Perform Pre-Trim Quality Assessment
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-trim-reads" title="Part 3: Trim Reads" class="md-nav__link">
+    Part 3: Trim Reads
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-modified-trim-reads-with-custom-docker-container" title="Part 3 (Modified): Trim Reads with Custom Docker Container" class="md-nav__link">
+    Part 3 (Modified): Trim Reads with Custom Docker Container
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#steps-4-and-5-rule-post-trim-quality-assessment" title="Steps 4 and 5: Rule: Post-Trim Quality Assessment" class="md-nav__link">
+    Steps 4 and 5: Rule: Post-Trim Quality Assessment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-interleaving-trimmed-reads" title="Step 6: Interleaving Trimmed Reads" class="md-nav__link">
+    Step 6: Interleaving Trimmed Reads
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/dahak-metagenomics/dahak-taco/edit/master/docs/walkthrus/ReadFiltWalkthru.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="read-filtering-walkthrough">Read Filtering Walkthrough</h1>
+<p>This walkthrough covers a read filtering workflow. </p>
+<p>In this document we will:</p>
+<ul>
+<li>
+<p>Download raw sequence data from OSF data store (wget).</p>
+</li>
+<li>
+<p>Assess the quality of the pre-filtered reads (fastqc)</p>
+</li>
+<li>
+<p>Trim and filter the reads based on a quality threshold (trimmomatic)</p>
+</li>
+<li>
+<p>Assess the quality of the post-filtered reads (fastqc)</p>
+</li>
+<li>
+<p>Interleave post-filtered reads (khmer) </p>
+</li>
+</ul>
+<p>This workflow covers the use of taco to run the workflow.</p>
+<p>See the <a href="https://github.com/dahak-metagenomics/dahak/tree/master/workflows/read_filtering">walkthroughs dir of the dahak repo</a>
+for the original shell-based walkthrough.</p>
+<h2 id="setup">Setup</h2>
+<p>This node assumes you have the following software:</p>
+<ul>
+<li>Python</li>
+<li>Conda</li>
+<li>Snakemake</li>
+<li>Singularity</li>
+</ul>
+<p>See <a href="../../intro/Installing/">Installing</a> for more info.</p>
+<p>If you do not have an environment set up, the 
+<a href="../AWS_Setup/">Worker Node Setup Walkthrough</a>
+covers setting up a worker node on AWS.</p>
+<h2 id="clone-the-repo">Clone The Repo</h2>
+<p>Start by cloning a copy of dahak-taco:</p>
+<pre><code>$ git clone https://github.com/dahak-metagenomics/dahak-taco.git
+$ cd dahak-taco/
+</code></pre>
+
+<p>As mentioned in <a href="../../intro/Installing/">Installing</a>,
+there is nothing to install for taco itself.</p>
+<h2 id="start-the-workflow">Start the Workflow</h2>
+<p>For the read filtering walkthrough we will be downloading
+two <code>*.fq.gz</code> files, assessing their quality,
+and trimming them based on the quality of the reads.</p>
+<p>The workflow has four steps:</p>
+<ul>
+<li>Download the data</li>
+<li>Assess the quality before trimming</li>
+<li>Trim the data</li>
+<li>Assess the quality after trimming</li>
+</ul>
+<h2 id="part-1-download-data">Part 1: Download Data</h2>
+<p>In Part 1 we'll specify a filename as a target
+to download read data.</p>
+<p>Our three required inputs are:</p>
+<ul>
+<li>Workflow name (<code>read_filtering</code>)</li>
+<li>Workflow configuration file (in <code>goodies/readfilt1config.json</code>)</li>
+<li>Workflow parameters file (in <code>goodies/readfilt1params.json</code>)</li>
+</ul>
+<p>Here is the workflow configuration file we will use.
+The workflow targets it specifies are two files with 
+unprocessed sequence reads.</p>
+<p>(These files are the inputs to the rest of the 
+read filtering workflow.)</p>
+<pre><code>$ cat goodies/readfilt1config.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 1 - Configuration&quot;,
+    &quot;workflow_targets&quot; : [&quot;data/SRR606249_1.fq.gz&quot;,
+                          &quot;data/SRR606249_2.fq.gz&quot;]
+}
+</code></pre>
+
+<p>Next, we have our workflow parameters file.
+This parameters file should define any parameters
+used for the single step we're executing.
+In our case, we have to tell Snakemake 
+where to download the read files.
+This parameters file defines a long list of files,
+but rules are defined on a file-by-file basis
+so we only downlod the files we need:</p>
+<pre><code class="text">$ cat goodies/readfilt1params.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 1 - Fetching Reads - Parameters&quot;,
+    &quot;read_filtering&quot; : {
+        &quot;read_files&quot; : {
+            &quot;SRR606249_1.fq.gz&quot; :           &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f0f9156c613b026430dbc7&quot;,
+            &quot;SRR606249_2.fq.gz&quot; :           &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f0fc7fb83f69026076be47&quot;,
+            &quot;SRR606249_subset10_1.fq.gz&quot; :  &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f10134b83f69026377611b&quot;,
+            &quot;SRR606249_subset10_2.fq.gz&quot; :  &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f101f26c613b026330e53a&quot;,
+            &quot;SRR606249_subset25_1.fq.gz&quot; :  &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f1039a594d900263120c38&quot;,
+            &quot;SRR606249_subset25_2.fq.gz&quot; :  &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f104ed594d90026411f486&quot;,
+            &quot;SRR606249_subset50_1.fq.gz&quot; :  &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f1082d6c613b026430e5cf&quot;,
+            &quot;SRR606249_subset50_2.fq.gz&quot; :  &quot;files.osf.io/v1/resources/dm938/providers/osfstorage/59f10ac6594d900262123e77&quot;
+        },
+        &quot;read_patterns&quot; : {
+            &quot;pre_trimming_pattern&quot;  : &quot;{sample}_{direction}.fq.gz&quot;
+        }
+    }
+}
+</code></pre>
+
+<p>Both of these JSON files are contained in the 
+<code>goodies/</code> directory of the repo.</p>
+<p>The <code>read_patterns</code> parameter is optional and the
+default value is shown here. This pattern is used
+to create the download wildcard rule, so the files 
+that make up the <code>read_files</code> keys must match that 
+pattern or they will not be downloadable.</p>
+<p>To run the workflow defined by this workflow,
+config file, and parameters file, run taco as follows:</p>
+<p>Dry run first with the <code>-n</code> flag:</p>
+<pre><code class="text">$ ./taco -n read_filtering \
+    goodies/readfilt1config.json \
+    goodies/readfilt1params.json
+</code></pre>
+
+<p>Then the real deal:</p>
+<pre><code class="text">$ ./taco -n read_filtering \
+    goodies/readfilt1config.json \
+    goodies/readfilt1params.json
+</code></pre>
+
+<h3 id="part-2-perform-pre-trim-quality-assessment">Part 2: Perform Pre-Trim Quality Assessment</h3>
+<p>In Part 2 we'll perform a pre-trimming quality assessment
+by specifying filename targets.</p>
+<p>The <code>fastqc</code> utility is used to assess the quality
+of the sequencer reads before any trimming occurs.</p>
+<p>The file suffix for files whose quality has been
+assessed by fastqc is specified in the config file,
+or can be left as the default <code>_fastqc</code>.</p>
+<p>Here is the config file for the second step,
+which is the pre-trim quality assessment.</p>
+<pre><code class="text">$ cat goodies/readfilt2config.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 1 - Fetching Reads - Configuration&quot;,
+    &quot;workflow_targets&quot; : [&quot;data/SRR606249_1.fq.gz&quot;,
+                          &quot;data/SRR606249_2.fq.gz&quot;]
+}
+</code></pre>
+
+<p>While the second step of the workflow should use a 
+second config file, the parameters file should 
+include all the parameters from the prior step,
+since Snakemake will still be running those workflow steps.</p>
+<p>Here is the parameters file:</p>
+<pre><code class="text">$ cat goodies/readfilt2params.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 2 - Pre-Trim Quality Assessment - Parameters&quot;,
+    &quot;biocontainers&quot; : {
+        &quot;fastqc&quot; : {
+            &quot;use_local&quot; : false,
+            &quot;quayurl&quot; : &quot;quay.io/biocontainers/fastqc&quot;,
+            &quot;version&quot; : &quot;0.11.7--pl5.22.0_2&quot;
+        }
+    },
+    &quot;read_filtering&quot; : {
+        &quot;read_patterns&quot; : {
+            &quot;pre_trimming_pattern&quot;  : &quot;{sample}_{direction}_reads.fq.gz&quot;
+        },
+        &quot;quality_assessment&quot; : { 
+            &quot;fastqc_suffix&quot; : &quot;fastqc&quot;
+        },
+        &quot;read_files&quot; : {
+            ...
+        }
+    }
+}
+</code></pre>
+
+<p>This uses the pre-trimming pattern to match filenames
+containing read files to assess.</p>
+<p>To run the workflow defined by this workflow name,
+config file, and parameters file, run taco as follows:</p>
+<p>Dry run first with the <code>-n</code> flag:</p>
+<pre><code class="text">$ ./taco -n read_filtering \
+    goodies/readfilt2config.json \
+    goodies/readfilt2params.json
+</code></pre>
+
+<p>Then the real deal:</p>
+<pre><code class="text">$ ./taco read_filtering \
+    goodies/readfilt2config.json \
+    goodies/readfilt2params.json
+</code></pre>
+
+<h2 id="part-3-trim-reads">Part 3: Trim Reads</h2>
+<p>In Part 3 we will use trimmomatic to trim reads based on quality.
+(This will require us to re-run the prior steps.)</p>
+<p>In Part 3, we will output the trimmed reads to a new file.
+To do this, we must change the pre-trimming filename pattern,
+which is too general: <code>{sample}_{direction}.fq.gz</code>
+will match nearly every <code>post_trimming_pattern</code> we choose.</p>
+<p>We should change the pattern parameters to include 
+either a prefix or a suffix:</p>
+<pre><code class="text">    &quot;pre_trimming_pattern&quot;  :  &quot;{sample}_{direction}_reads.fq.gz&quot;
+    &quot;post_trimming_pattern&quot;  : &quot;{sample}_{direction}_trim{qual}.fq.gz&quot;
+</code></pre>
+
+<p>Because we changed the target filenames for steps 1 and 2,
+this will cause steps 1 and 2 to re-run.</p>
+<p>This step also requires us to add an adapter file for 
+trimmomatic to use. This works like the read files: 
+we specify a target filename and a URL for the data.</p>
+<p>The following step 3 config file explicitly specifies
+targets for steps 1 and 2, in addition to step 3:</p>
+<pre><code class="text">$ cat goodies/readfilt3config.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 3 - Trimming - Configuration&quot;,
+    &quot;workflow_targets&quot;:  [&quot;data/TruSeq2-PE.fa&quot;,
+                          &quot;data/SRR606249_1_reads.fq.gz&quot;,
+                          &quot;data/SRR606249_2_reads.fq.gz&quot;,
+                          &quot;data/SRR606249_1_reads_fastqc.zip&quot;,
+                          &quot;data/SRR606249_2_reads_fastqc.zip&quot;,
+                          &quot;data/SRR606249_1_trim2.fq.gz&quot;,
+                          &quot;data/SRR606249_2_trim2.fq.gz&quot;]
+}
+</code></pre>
+
+<p>The parameters file contains updated parameters
+(most options are not required, but this illustrates
+what controls the user has over file names):</p>
+<pre><code class="text">$ cat goodies/readfilt3params.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 3 - Trimming - Parameters&quot;,
+    &quot;biocontainers&quot; : {
+        &quot;trimmomatic&quot; : {
+            &quot;use_local&quot; : false,
+            &quot;quayurl&quot; : &quot;quay.io/biocontainers/trimmomatic&quot;,
+            &quot;version&quot; : &quot;0.36--5&quot;
+        },
+        &quot;fastqc&quot; : {
+            &quot;use_local&quot; : false,
+            &quot;quayurl&quot; : &quot;quay.io/biocontainers/fastqc&quot;,
+            &quot;version&quot; : &quot;0.11.7--pl5.22.0_2&quot;
+        }
+    },
+    &quot;read_filtering&quot; : {
+        &quot;read_patterns&quot; : {
+            &quot;pre_trimming_pattern&quot;  : &quot;{sample}_{direction}_reads.fq.gz&quot;,
+            &quot;post_trimming_pattern&quot; : &quot;{sample}_{direction}_trim{qual}.fq.gz&quot;
+        },
+        &quot;quality_assessment&quot; : { 
+            &quot;fastqc_suffix&quot; : &quot;fastqc&quot;
+        },
+        &quot;quality_trimming&quot; : {
+            &quot;trim_suffix&quot; : &quot;se&quot;
+        },
+        &quot;adapter_file&quot; : {
+            &quot;name&quot; : &quot;TruSeq2-PE.fa&quot;,
+            &quot;url&quot;  : &quot;http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa&quot;
+        },
+        &quot;read_files&quot; : {
+            ...
+        }
+    }
+}
+</code></pre>
+
+<p>Note the <code>read_files</code> file names have been adjusted to match
+the <code>pre_trimming_pattern</code>.</p>
+<p>Dry run first with the <code>-n</code> flag:</p>
+<pre><code class="text">$ ./taco -n read_filtering \
+    goodies/readfilt3config.json \
+    goodies/readfilt3params.json
+</code></pre>
+
+<p>Then the real deal:</p>
+<pre><code class="text">$ ./taco read_filtering \
+    goodies/readfilt3config.json \
+    goodies/readfilt3params.json
+</code></pre>
+
+<h2 id="part-3-modified-trim-reads-with-custom-docker-container">Part 3 (Modified): Trim Reads with Custom Docker Container</h2>
+<p>Each step that utilizes a biocontainer from quay.io 
+can also be configured to use a local Docker image
+as well. </p>
+<p><strong>CAVEATS:</strong> </p>
+<ul>
+<li>This feature does not currently work for workflows
+    involving multiple machines (the container image
+    is not built and must already be available).</li>
+<li>This workflow (use of local, customized docker files)
+    is intended as a last resort, or for development 
+    purposes only.</li>
+</ul>
+<p>Start by building a <code>fastqc</code> docker container to use in lieu
+of the quay.io docker container defined in the default 
+config dictionary. From the taco repository:</p>
+<pre><code class="text">cd docker_kludge/fastqc/
+docker -t dahak_conda .
+cd ../../
+</code></pre>
+
+<p>This builds a container image called <code>dahak_conda</code>
+using the Dockerfile in the given directory.</p>
+<p>Now add a <code>biocontainers</code> section to the parameters 
+dictionary. In the fastqc section, specify the name of the 
+local container and specify that taco should use a 
+local container.</p>
+<p>We use the same config file as before, so that we run the 
+same workflow steps, but now the workflow is run using a 
+local docker container.</p>
+<p>Here is the new file <code>readfilt3params_localdocker.json</code>:</p>
+<pre><code class="text">$ cat readfilt3params_localdocker.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 3 Modified - Trimming - Parameters&quot;,
+    &quot;biocontainers&quot; : {
+        &quot;trimmomatic&quot; : {
+            &quot;use_local&quot; : false,
+            &quot;quayurl&quot; : &quot;quay.io/biocontainers/trimmomatic&quot;,
+            &quot;version&quot; : &quot;0.36--5&quot;
+        },
+        &quot;fastqc&quot; : {
+            &quot;local&quot; : &quot;dahak_fastqc&quot;,
+            &quot;use_local&quot; : true
+        }
+    },
+    &quot;read_filtering&quot; : {
+        ...
+    }
+}
+</code></pre>
+
+<p>And here is the command to run the workflow:</p>
+<pre><code class="text">
+$ # Dry run
+
+$ ./taco -n read_filtering \
+    goodies/readfilt3config.json \
+    goodies/readfilt3params_localdocker.json
+
+$ # Real thing:
+
+$ ./taco -n read_filtering \
+    goodies/readfilt3config.json \
+    goodies/readfilt3params_localdocker.json
+</code></pre>
+
+<h3 id="steps-4-and-5-rule-post-trim-quality-assessment">Steps 4 and 5: Rule: Post-Trim Quality Assessment</h3>
+<p>In steps 4 and 5 we request the output file from the quality 
+assessment pipeline. </p>
+<p>In step 4, the first quality trimming, we'll use a quality value of 2.</p>
+<p>In step 5, the second quality trimming, we'll use a quality value of 30.</p>
+<p>The config file requests trimmed reads with a quality value of 2,
+done using trimmomatic, and a fastqc quality-assessed output 
+file (fastqc.zip files).</p>
+<pre><code class="text">$ cat goodies/readfilt4config.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 4 - Quality Filtering at 2 - Configuration&quot;,
+    &quot;workflow_targets&quot; : [&quot;data/SRR606249_1_trim2.fq.gz&quot;,
+                          &quot;data/SRR606249_2_trim2.fq.gz&quot;,
+                          &quot;data/SRR606249_1_trim2_fastqc.zip&quot;,
+                          &quot;data/SRR606249_2_trim2_fastqc.zip&quot;]
+}
+
+
+$ cat goodies/readfilt5config.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 5 - Quality Filtering at 30 - Configuration&quot;,
+    &quot;workflow_targets&quot; : [&quot;data/SRR606249_1_trim30.fq.gz&quot;,
+                          &quot;data/SRR606249_2_trim30.fq.gz&quot;,
+                          &quot;data/SRR606249_1_trim30_fastqc.zip&quot;,
+                          &quot;data/SRR606249_2_trim30_fastqc.zip&quot;]
+}
+</code></pre>
+
+<p>Next, the parameters file requires the user to 
+specify a few additional parameters </p>
+<pre><code class="text">$ cat goodies/readfilt4params.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 4 - Quality Filtering - Parameters&quot;,
+    &quot;biocontainers&quot; : {
+        ...
+    },
+    &quot;read_filtering&quot; : {
+        &quot;read_patterns&quot; : {
+            &quot;pre_trimming_pattern&quot;  : &quot;{sample}_{direction}_reads.fq.gz&quot;,
+            &quot;post_trimming_pattern&quot; : &quot;{sample}_{direction}_trim{qual}.fq.gz&quot;
+        },
+        &quot;quality_assessment&quot; : { 
+            &quot;fastqc_suffix&quot; : &quot;fastqc&quot;
+        },
+        &quot;quality_trimming&quot; : {
+            &quot;trim_suffix&quot; : &quot;se&quot;
+        },
+        &quot;adapter_file&quot; : {
+            &quot;name&quot; : &quot;TruSeq2-PE.fa&quot;,
+            &quot;url&quot;  : &quot;http://dib-training.ucdavis.edu.s3.amazonaws.com/mRNAseq-semi-2015-03-04/TruSeq2-PE.fa&quot;
+        },
+        &quot;read_files&quot; : {
+            ...
+        }
+    }
+}
+</code></pre>
+
+<p>Note that the parameters file for steps 4 and 5 will look identical, 
+since both run the same workflow and the only change is in the quality
+value (which is only specified by the filename).</p>
+<p>Now execute the commands that will run the workflow:</p>
+<pre><code class="text">
+$ # Dry run
+
+$ ./taco -n read_filtering \
+    goodies/readfilt4config.json \
+    goodies/readfilt4params.json
+
+$ ./taco -n read_filtering \
+    goodies/readfilt5config.json \
+    goodies/readfilt5params.json
+
+
+
+$ # Real thing:
+
+$ ./taco -n read_filtering \
+    goodies/readfilt4config.json \
+    goodies/readfilt4params.json
+
+$ ./taco -n read_filtering \
+    goodies/readfilt5config.json \
+    goodies/readfilt5params.json
+</code></pre>
+
+<h3 id="step-6-interleaving-trimmed-reads">Step 6: Interleaving Trimmed Reads</h3>
+<p>The last step is to use khmer to interleave
+trimmed reads after running trimmomatic and
+the <code>quality_trimming</code> rule.</p>
+<p>The interleaving step takes two input files,
+the trimmed reads we want to use, 
+requires one additional parameter,
+which is the filename suffix we want 
+paired-end reads to have 
+(for example, <code>pe</code>).</p>
+<p>The config file uses this when specifying the target file:</p>
+<pre><code class="text">$ cat goodies/readfilt6config.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 6 - Interleaving Trimmed Reads - Configuration&quot;,
+    &quot;workflow_targets&quot; : [&quot;data/SRR606249_pe_trim2.fq.gz&quot;,
+                          &quot;data/SRR606249_pe_trim2.fq.gz&quot;,
+                          &quot;data/SRR606249_pe_trim30.fq.gz&quot;,
+                          &quot;data/SRR606249_pe_trim30.fq.gz&quot;]
+}
+</code></pre>
+
+<p>and the params file:</p>
+<pre><code class="text">$ cat goodies/readfilt6params.json
+{
+    &quot;short_description&quot;: &quot;Read Filtering Walkthrough 6 - Interleaving Trimmed Reads - Parameters&quot;,
+    &quot;biocontainers&quot; : {
+        &quot;trimmomatic&quot; : {
+            ...
+        },
+        &quot;fastqc&quot; : {
+            ...
+        },
+        &quot;khmer&quot; : {
+            &quot;use_local&quot; : false,
+            &quot;quayurl&quot; : &quot;quay.io/biocontainers/khmer&quot;,
+            &quot;version&quot; : &quot;2.1.2--py35_0&quot;
+        }
+    },
+    &quot;read_filtering&quot; : {
+        ...
+        &quot;interleaving&quot; : {
+            &quot;interleave_suffix&quot; : &quot;pe&quot;
+        },
+        ...
+    }
+}
+</code></pre>
+
+<pre><code class="text">$ # Dry run
+
+$ ./taco -n read_filtering \
+    goodies/readfilt6config.json \
+    goodies/readfilt6params.json
+
+
+
+$ # Real thing:
+
+$ ./taco -n read_filtering \
+    goodies/readfilt6config.json \
+    goodies/readfilt6params.json
+</code></pre>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../AWS_Setup/" title="AWS Setup" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                AWS Setup
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../ReadFiltering/" title="Read Filtering Workflow Parameters" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Read Filtering Workflow Parameters
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.0cf9b500.js"></script>
+      
+      <script>app.initialize({version:"0.17.3",url:{base:"../.."}})</script>
+      
+        <script src="../../search/require.js"></script>
+      
+        <script src="../../search/search.js"></script>
+      
+    
+    
+      
+    
+  </body>
+</html>
