@@ -42,9 +42,6 @@ except KeyError:
 interleave_input = [fq_fwd_trimmed, fq_rev_trimmed]
 
 interleave_output = fq_interleave
-print("="*40)
-print(fq_interleave)
-print("="*40)
 
 khmer_image = container_image_name(biocontainers,'khmer')
 
