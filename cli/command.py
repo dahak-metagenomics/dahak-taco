@@ -46,6 +46,14 @@ def get_argument_parser(sysargs):
                        help = "Specify a workflow parameters file in YAML format",
                        nargs=1)
 
+
+    parser.add_argument('-n', '--dry-run', action='store_true', 
+            help="""Do a dry run with Snakemake: assemble but do not run the task graph.""")
+
+    parser.add_argument('-c', '--clean', action='store_true', 
+            help="""Use a clean, empty default Snakemake parameters dictionary. Used for testing and debugging.""")
+
+
     args = parser.parse_args(sysargs)
 
     return parser, args
@@ -90,8 +98,8 @@ def main(sysargs = sys.argv[1:]):
             snakefile = os.path.join('rules',workflow,'Snakefile')
             if os.path.isfile(snakefile):
                 print("Found a Snakefile in rules/%s/"%(workflow))
-                config = dict(message="OHAIIIII",
-                              name='sally')
+                config = dict(data_dir='data/',
+                              clean=args.clean)
                 status = snakemake.snakemake(snakefile, 
                                              config=config,
                                              listrules=True)
