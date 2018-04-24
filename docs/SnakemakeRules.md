@@ -40,21 +40,3 @@ we either silently use the default value
 an empty string (using `--clean` or `-c`
 flag).
 
-## Documentation of Snakemake Rules
-
-Snakemake rules are documented
-in the docstring of the Snakemake rule. 
-For example:
-
-```
-rule do_stuff:
-    """
-    Useful information about the .settings files
-    that do_stuff imports, or parameter values
-    that are important for the do_stuff rule,
-    can be added here.
-    """
-
-    ...
-```
-

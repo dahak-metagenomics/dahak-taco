@@ -1,39 +1,150 @@
-# Quick Start
+# Installation
+
+The taco utility is a command-line utility
+that runs Snakemake workflows.
+
+taco is installed using `setup.py` and is installed
+as a command-line utility on the system:
+
+```
+python setup.py build
+
+python setup.py install
+```
+
+
+# Usage
+
+The basic idea behind taco is to 
+pass it an action and modify basic
+behavior with command line flags.
+
+The user will defines their Snakemake workflows
+in a way that keeps them general. Then taco can
+run those workflows from the command line, and
+use command line flags and external files to change
+workflow targets and parameter sets. 
+
+
+## Actions
 
 Run the taco command line tool like this:
 
 ```
-$ ./taco <arguments>
+$ ./taco <action> --arguments
 ```
 
-dahak-taco requires three inputs from the user:
+taco has two main actions:
 
-* **Workflow name:** specifies which workflow to run 
-    (and which set of Snakemake rules will be defined).
+**`taco ls [<worfklow>]`** - lists the available workflows and rules in workflows
 
-* **Workflow configuration file:** specifies the workflow rules
-    to run and the names of the target input and output files.
-    These rules are defined in `rules/dahak/*.rules`.
+**`taco <worfklow>`** - runs the specified workflow
 
-* **Workflow parameters file (optional):** specifies values for 
-    workflow parameters. Parameters set in this
-    parameters file will override parameters set
-    in the `rules/dahak/*.settings` files.
+Each workflow must specify a set of 
+workflow configuration variables 
+(names of files or Snakemake rules to run)
+and workflow parameters (parameters used 
+by the workflows themselves). These control
+the details of the workflow.
 
-Types: 
+## Flags
 
-**Workflow name** is a string given on the command line.
+The principal way to modify taco workflows 
+is to use external YAML or JSON files.
 
-**Workflow configuration file** and **Workflow parameters file** are both JSON files.
+To specify the configuration file, which 
+tells taco which files to create or which
+rules to run, use:
 
-The form is:
+* **`(--config-json | --config-yaml)`** - flags specifying 
+    the path to the JSON or YAML file to use for the 
+    workflow configuration.
+
+To specify the parameters file, which 
+controls the settings and details of 
+each workflow step, use:
+
+* **`(--params-json | --params-yaml)`** - flags specifying 
+    the path to the JSON or YAML file to use for the 
+    workflow parameters.
+
+## Rules
+
+Workflows are defined in a folder called `rules/`.
+
+The `rules/` directory contains one folder per workflow.
+
+Each workflow directory contains rules in `*.rule` files
+and default parameters in `*.settings` files, as well as 
+a Snakefile that is imported by taco and that should 
+in turn include each rule and settings file used by 
+that workflow.
+
+
+## Docker and Singularity
+
+Most taco workflows utilize singularity to run docker containers
+as part of the workflows. Docker containers are usually specified
+by URL, but if a biocontainer or Dockerhub image is broken, a local
+image must be used. 
+
+For this reason, some workflows will include their own
+Dockerfiles. This is not recommended and should serve 
+only as a temporary fix.
+
+
+## Workflow Repository
+
+To create a new set of workflows, create a new repository.
+
+You will need a `rules/` folder, as well as a folder for
+configuration files and parameter files.
+
+The taco tool is then run from that directory, and runs
+the workflows defined in that directory.
+
+Here is an example repository layout for 
+a repository containing two related workflows:
 
 ```
-$ ./taco <workflow-name> <workflow-config-file> <workflow-params-file>
+taco-my-cool-workflow/
+        
+        rules/
+            workflow_A/
+                Snakefile
+                purple.rule
+                blue.rule
+                green.rule
+                workflow_A.settings
+
+            workflow_B/
+                Snakefile
+                apple.rule
+                orange.rule
+                banana.rule
+                workflow_B.settings
+
+        workflow-config/
+            config_make_apples.json
+            config_make_blue_apples.json
+            config_make_bananas.json
+            config_make_green_bananas.json
+
+        workflow-params/
+            params_lite.json
+            params_medium.json
+            params_heavy.json
+
+        docker/
+            utility_one/
+                Dockerfile
+            utility_two/
+                Dockerfile
+            utility_three/
+                Dockerfile
 ```
 
-Check the [`goodies/`](https://github.com/dahak-metagenomics/dahak-taco/tree/master/goodies) 
-directory for examples.
+
 
 ## Workflow Name
 
@@ -234,4 +345,5 @@ For example:
 ```text
 $ ./taco ls read_filtering
 ```
+
 

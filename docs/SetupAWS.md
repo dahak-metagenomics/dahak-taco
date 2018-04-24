@@ -1,3 +1,4 @@
+
 # AWS Worker Node Setup Walkthrough
 
 This workflow covers getting set up with 
@@ -11,14 +12,12 @@ In this document we will:
     from the dahak-yeti repository.
 
 We will cover AWS in this document, although 
-dahak-taco can be used with various HPC and 
-cloud platforms.
+taco can be used with various HPC and cloud 
+platforms.
 
 ## Console
 
-Log into the AWS console and select EC2.
-
-Select a region (`us-west-2` Oregon is good for spot instances).
+Log into the AWS console and select EC2.  Select a region (`us-west-2` Oregon is good for spot instances).
 
 ### Create Instance
 
@@ -26,8 +25,7 @@ Use the big blue button to create a new EC2 instance.
 
 ### Amazon Machine Image
 
-Select the stock Ubuntu 16.04 LTS image 
-from the list of AMIs.
+Select the stock Ubuntu 16.04 LTS image from the list of AMIs.
 This has the AMI ID:
 
 ```
@@ -42,8 +40,6 @@ but for all walkthroughs we utilize one of the following:
 
 * `m5.2xlarge` (8 vCPUs, 32 GB RAM) 
 * `m5.4xlarge` (16 vCPUs, 64 GB RAM)
-
-Select `m5.2xlarge` for the read filtering walkthrough.
 
 ### Configuring Instance Details
 
@@ -89,5 +85,6 @@ worker node, and you will have the following installed:
 * opinionated dotfiles (`.bashrc`, `.bash_profile`, `.vimrc`, etc.)
 * a colorful pink prompt
 
-![dahak-yeti promp after user login.](yeti-screenshot.png)
+![dahak-yeti promp after user login](yeti-screenshot.png)
+
 
