@@ -1,0 +1,49 @@
+site_name: your-cool-site
+site_url: https://dahak-metagenomics.github.io/dahak-taco
+repo_name: dahak-metagenomics/dahak-taco
+repo_url: https://github.com/dahak-metagenomics/dahak-taco
+
+# change diirectory names here
+docs_dir: docs
+site_dir: site
+
+theme:
+
+  # the next 2 lines are required to use the DIB version
+  name: null
+  custom_dir: 'mkdocs-material-dib/material'
+
+  # pretty colors! see https://squidfunk.github.io/mkdocs-material/getting-started/#primary-colors
+  palette:
+    primary: 'blue'
+    accent: 'blue'
+  
+  # fun logos! see https://material.io/icons/
+  logo:
+    icon: 'dns'
+
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+
+# this will add docs/css/custom.css to all your docs
+extra_css:
+  - css/custom.css
+
+# give a title for each page
+pages:
+  - 'Index' : 'index.md'
+  - Introduction:
+    - 'Overview of Taco' : 'intro/Intro.md'
+    - 'Quickstart' : 'intro/Quickstart.md'
+  - Walkthroughs:
+    - 'AWS Setup' : 'walkthrus/AWSSetup.md'
+    - 'Read Filtering Walkthrough' : 'walkthrus/ReadFiltWalkthru.md'
+  - API:
+    - 'Read Filtering Workflow Parameters' : 'ReadFiltering.md'
+  - For Developers:
+    - 'How It Works' : 'dev/HowItWorks.md'
+    - 'Snakemake Rules' : 'dev/SnakemakeRules.md'
+    - 'Workflows' : 'dev/Workflows.md'
+    - 'Documentation' : 'dev/Documentation.md'
+
