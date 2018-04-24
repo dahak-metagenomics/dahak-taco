@@ -39,8 +39,6 @@ first taco workflow.
 
 ## Workflow Walkthroughs
 
-(in progress)
-
 taco is a lightweight wrapper around Snakemake tasks.
 Kind of like a corn tortilla.
 
@@ -48,41 +46,40 @@ In the quickstart, we showed how to create a repository
 for a set of workflows. Below, we link to repositories
 with useful workflows and walkthroughs.
 
-[AWS Setup](AWSSetup.md)
+[Before You Begin: Setting Up AWS](WalkthruPreAWS.md)
 
-[Read Filtering Walkthrough](https://dahak-metagenomics.github.io/taco-read-filtering)
+[Read Filtering Walkthrough](walkthrus/ReadFiltWalkthru.md)
 
 
-## Configuration and Parameter Sets
+## Workflow Parameters
 
-(in progress)
+Each workflow takes a parameters dictionary.
+This section details the structure and keys
+that are defined and used in the parameter 
+dictionary.
 
-Individual configuration files or parameter sets
-are workflow-dependent, and are defined or included
-in the repository that defines that workflow.
-
-The following are some example taco workflows
-with configuration and parameter sets included:
-
-* [taco-simple](https://github.com/dahak-metagenomics/taco-simple) - illustrates
-    a simple workflow that prints messages
-* [taco-read-filtering](https://github.com/dahak-metagenomics/taco-read-filtering) - illustrates
-    a read filtering workflow.
-* [taco-taxonomic-classification](https://github.com/dahak-metagenomics/taco-taxonomic-classification) - illustrates
-    a taxonomic classification workflow.
+[Read Filtering Workflow Parameters](/ReadFiltering.md)
 
 
 ## For Developers
 
-(in progress)
+The sections below explain how taco works,
+so you know how to modify taco to suit your needs.
 
-Documentation on these pages describe how taco works
-so that you can modify it to suit your needs. 
+There are also sections for adding or modifying
+Snakemake rules, and for adding new workflows.
 
-Currently covered are snakemake rules and defining 
-new workflows.
+taco provides a set of workflows with default 
+parameters that should work for many use cases.
 
-[Snakemake Rules](SnakemakeRules.md)
+However, to extend taco, or just understand
+what it is doing, take a look at the innards of taco:
 
-[Workflows](Workflows.md)
+[How It Works](/dev/HowItWorks.md)
+
+[Snakemake Rules](/dev/SnakemakeRules.md)
+
+[Workflows](/dev/Workflows.md)
+
+[Documentation](/dev/Docs.md)
 

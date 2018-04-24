@@ -63,6 +63,8 @@ def main(sysargs = sys.argv[1:]):
 
     parser, args = get_argument_parser(sysargs)
 
+
+
     # Process the action/verb specified by the user.
     if len(args.action)==0:
 
@@ -70,11 +72,15 @@ def main(sysargs = sys.argv[1:]):
         sys.exit(-1)
 
 
+
     elif(args.action[0]=='ls'):
+        ###############
+        # ls action
+        ###############
 
         if len(args.action)==1:
+            # taco ls just prints available workflows
 
-            # Just print the available workflows
             if os.path.isdir('rules'):
                 available_workflows = next(os.walk('rules/'))[1]
 
@@ -86,20 +92,30 @@ def main(sysargs = sys.argv[1:]):
                 sys.exit(0)
 
             else:
+                # no rules folder
                 parser.print_help()
                 sys.stderr.write('\n\nERROR: Could not find a rules/ directory.\n\n')
                 sys.exit(-1)
 
         elif len(args.action)==2:
+            # taco ls <workflow> lists rules in that workflow
 
             workflow = args.action[1]
 
-            # print just the workflows
             snakefile = os.path.join('rules',workflow,'Snakefile')
             if os.path.isfile(snakefile):
-                print("Found a Snakefile in rules/%s/"%(workflow))
+
+                print('--------')
+                print('taco workflow details:')
+                print('\tsnakefile: {}'.format(snakefile))
+                print('\tconfig: {}'.format(workflowfile))
+                print('\tparams: {}'.format(paramsfile))
+                print('\ttargets: {}'.format(targets))
+                print('--------')
+
                 config = dict(data_dir='data/',
                               clean=args.clean)
+
                 status = snakemake.snakemake(snakefile, 
                                              config=config,
                                              listrules=True)
@@ -110,8 +126,50 @@ def main(sysargs = sys.argv[1:]):
 
         else:
 
+            # Too many arguments
+            sys.stderr.write('\n\nERROR: Could not understand arguments to taco ls.')
             parser.print_help()
             sys.exit(-1)
+
+
+
+
+    else:
+        ###############
+        # <workflow> action
+        ###############
+
+        workflow_action = args.action[0]
+
+        if os.path.isdir('rules'):
+
+            available_workflows = next(os.walk('rules/'))[1]
+            if workflow_action not in available_workflows:
+
+                # rules dir exists but workflow not found
+                parser.print_help()
+                sys.stderr.write('\n\nERROR: Could not find workflow {} in list of available workflows.\n\n'.format(workflow_action))
+                sys.exit(-1)
+
+        else:
+
+            # no rules folder
+            parser.print_help()
+            sys.stderr.write('\n\nERROR: Could not find a rules/ directory.\n\n')
+            sys.exit(-1)
+
+
+        if params_file is None:
+            pass
+        elif not os.path.exists(params_file):
+            # no parameters file
+            parser.print_help()
+            sys.stderr.write('\n\nERROR: Could not find parameters file {}\n\n'.format())
+            sys.exit(-1)
+
+
+
+
 
 
 if __name__ == '__main__':

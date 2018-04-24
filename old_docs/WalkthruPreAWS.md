@@ -87,4 +87,3 @@ worker node, and you will have the following installed:
 
 ![dahak-yeti promp after user login](yeti-screenshot.png)
 
-
