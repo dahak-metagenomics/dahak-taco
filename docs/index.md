@@ -79,7 +79,6 @@ parameters that should work for many use cases.
 However, to extend taco, or just understand
 what it is doing, take a look at the innards of taco:
 
-
 [How It Works](/dev/HowItWorks.md)
 
 [Snakemake Rules](/dev/SnakemakeRules.md)
