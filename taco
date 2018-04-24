@@ -104,6 +104,7 @@ def main(args):
                                  configfile=paramsfile,
                                  targets=targets, 
                                  printshellcmds=True,
+                                 lock=False,
                                  dryrun=args.dry_run, 
                                  config=config)
 
