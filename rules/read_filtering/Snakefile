@@ -1,8 +1,0 @@
-from utils import container_image_is_external, container_image_name
-
-include: "biocontainers.rule"
-include: "read_filtering.settings"
-include: "fetch_reads.rule"
-include: "pre_post_assessment.rule"
-include: "quality_trimming.rule"
-include: "interleave.rule"

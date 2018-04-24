@@ -48,32 +48,39 @@ def get_argument_parser(sysargs):
 
     args = parser.parse_args(sysargs)
 
-    return args
+    return parser, args
 
 
 def main(sysargs = sys.argv[1:]):
 
-    args = get_argument_parser(sysargs)
+    parser, args = get_argument_parser(sysargs)
 
     # Process the action/verb specified by the user.
     if len(args.action)==0:
 
-        print("You need to get some help, man.")
-        exit(1)
+        parser.print_help()
+        sys.exit(-1)
+
 
     elif(args.action[0]=='ls'):
 
         if len(args.action)==1:
 
-            print("checking for rules")
-
-            # print just the workflows
+            # Just print the available workflows
             if os.path.isdir('rules'):
-                print("walking rules")
-                print(next(os.walk('rules/'))[1])
+                available_workflows = next(os.walk('rules/'))[1]
+
+                print("Available workflows:\n")
+                print("\n".join(["\t{}\n".format(z) for z in available_workflows]))
+                print("To list available rules, run:\n")
+                print("\t{} ls <workflow>\n".format(_program))
+
+                sys.exit(0)
+
             else:
-                print("no rules, gonna quit now")
-                exit(1)
+                parser.print_help()
+                sys.stderr.write('\n\nERROR: Could not find a rules/ directory.\n\n')
+                sys.exit(-1)
 
         elif len(args.action)==2:
 
@@ -83,35 +90,20 @@ def main(sysargs = sys.argv[1:]):
             snakefile = os.path.join('rules',workflow,'Snakefile')
             if os.path.isfile(snakefile):
                 print("Found a Snakefile in rules/%s/"%(workflow))
-                config = dict(message="OHAIIIII")
+                config = dict(message="OHAIIIII",
+                              name='sally')
                 status = snakemake.snakemake(snakefile, 
                                              config=config,
                                              listrules=True)
 
             else:
-                print("No Snakefile in rules/%s/"%(workflow))
+                sys.stderr.write('\n\nERROR: Could not find a Snakefile in workflow dir rules/{}\n\n'.format(workflow))
+                sys.exit(-1)
 
         else:
 
-            print("You need to get some help, man.")
-            exit(1)
-
-
-
-    # Note: args.action is a list because we specified nargs=1
-
-
-    my_data = pkg_resources.resource_string(__name__, "data.txt")
-    print(args.action)
-    if(args.action[0]=='hello'):
-        if(os.path.isfile('custom.txt')):
-            with open('custom.txt') as f:
-                print("\n".join(f.readlines()))
-        else:
-            print("NO CUSTOM FILE")
-
-
-
+            parser.print_help()
+            sys.exit(-1)
 
 
 if __name__ == '__main__':
