@@ -429,27 +429,27 @@
               
                 
                 
-                <h1 id="snakemake-rules">Snakemake Rules</h1>
+                <h1 id="snakemake-rules">Snakemake Rules<a class="headerlink" href="#snakemake-rules" title="Permanent link">&para;</a></h1>
 <p>A brief summary of how Snakemake rules are implemented and organized.</p>
 <p>We follow the conventions set in the <a href="https://github.com/percyfal/snakemake-rules">snakemake-rules</a>
 repository, and groups all rules into <code>.rule</code> files and all parameters into
 <code>.settings</code> files.</p>
-<h2 id="workflows">Workflows</h2>
+<h2 id="workflows">Workflows<a class="headerlink" href="#workflows" title="Permanent link">&para;</a></h2>
 <p>The workflows define a set of tasks.
 Each workflow is a sub-directory in the <code>rules/</code> 
 directory.</p>
-<h2 id="rule-files">Rule Files</h2>
+<h2 id="rule-files">Rule Files<a class="headerlink" href="#rule-files" title="Permanent link">&para;</a></h2>
 <p>Rule files define how steps in the workflow proceed.
 They preprocess configuration variables.
 Rules are defined in <code>.rule</code> files
 in the workflow directory.</p>
-<h2 id="default-parameter-files">Default Parameter Files</h2>
+<h2 id="default-parameter-files">Default Parameter Files<a class="headerlink" href="#default-parameter-files" title="Permanent link">&para;</a></h2>
 <p>The default parameter dictionary is contained
 in a <code>.settings</code> file in the workflow directory.
 These will <em>NOT</em> overwrite any parameters
 that have already been set by the user in their
 JSON parameter file.</p>
-<h2 id="validation-of-parameters">Validation of Parameters</h2>
+<h2 id="validation-of-parameters">Validation of Parameters<a class="headerlink" href="#validation-of-parameters" title="Permanent link">&para;</a></h2>
 <p>Because we don't know what workflow is being run
 when we process the parameters, we can't do much
 parameter validation.</p>

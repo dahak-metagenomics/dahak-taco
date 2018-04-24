@@ -589,22 +589,23 @@
               
                 
                 
-                <h1 id="quick-start">Quick Start</h1>
+                <h1 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h1>
 <p>The basic idea behind taco is to 
 pass it an action and modify basic
 behavior with command line flags.</p>
-<pre><code>$ ./taco &lt;action&gt; --arguments
-</code></pre>
+<div class="codehilite"><pre><span></span>$ ./taco &lt;action&gt; --arguments
+</pre></div>
+
 
 <p>In this section we'll get started
 with a simple workflow to illustrate
 how to use taco.</p>
-<h2 id="workflow-repository">Workflow Repository</h2>
+<h2 id="workflow-repository">Workflow Repository<a class="headerlink" href="#workflow-repository" title="Permanent link">&para;</a></h2>
 <p>To create a new set of workflows, create a new repository.
 To illustrate how to run taco, we will use a single workflow 
 with two steps.</p>
 <p>Here is the repository layout for our simple example:</p>
-<pre><code>taco-simple/
+<div class="codehilite"><pre><span></span>taco-simple/
 
         rules/
             my_simple_workflow/
@@ -619,9 +620,10 @@ with two steps.</p>
         workflow-params/
             paramsA.json
             paramsB.json
-</code></pre>
+</pre></div>
 
-<h2 id="workflow-name">Workflow Name</h2>
+
+<h2 id="workflow-name">Workflow Name<a class="headerlink" href="#workflow-name" title="Permanent link">&para;</a></h2>
 <p>Each workflow is defined by a Snakefile that includes
 a set of rules for each step of the workflow
 and a dictionary of parameter values. </p>
@@ -631,12 +633,13 @@ directory of this repository and must have
 a Snakefile.</p>
 <p>The user should specify the workflow name as the first
 verb on the command line. For example:</p>
-<pre><code>$ taco read_filtering &lt;workflow-config-file&gt; &lt;workflow-params-file&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span>$ taco read_filtering &lt;workflow-config-file&gt; &lt;workflow-params-file&gt;
+</pre></div>
+
 
 <p>will load the Snakefile in <code>rules/read_filtering/</code> 
 and will make avaiable all read filtering rules.</p>
-<h2 id="workflow-configuration-file">Workflow Configuration File</h2>
+<h2 id="workflow-configuration-file">Workflow Configuration File<a class="headerlink" href="#workflow-configuration-file" title="Permanent link">&para;</a></h2>
 <p>The workflow configuration file 
 contains a dictionary of configuration values.</p>
 <p>The workflow configuration file
@@ -647,40 +650,44 @@ defined in one of the rule files at <code>rules/&lt;workflow-name&gt;/*.rules</c
 <p>The form of the workflow configuration file 
 for running rules that have no file targets is
 to specify the name of the rule:</p>
-<pre><code class="text">{
+<div class="codehilite"><pre><span></span>{
     &quot;workflow_targets&quot; : &lt;list of Snakemake rules&gt;
 }
-</code></pre>
+</pre></div>
+
 
 <p>or,</p>
-<pre><code class="text">{
+<div class="codehilite"><pre><span></span>{
     &quot;workflow_targets&quot; : &lt;list of output file targets&gt;
 }
-</code></pre>
+</pre></div>
 
-<h3 id="example-rule-based-workflow-configuration-file">Example Rule-Based Workflow Configuration File</h3>
+
+<h3 id="example-rule-based-workflow-configuration-file">Example Rule-Based Workflow Configuration File<a class="headerlink" href="#example-rule-based-workflow-configuration-file" title="Permanent link">&para;</a></h3>
 <p>Here is a simple example of a workflow configuration file
 for running a rule that has no file targets (pulling containers).
 This rule specifies the workflow target by specifying the 
 rule name:</p>
 <p><strong><code>goodies/test-conf.json</code>:</strong></p>
-<pre><code class="text">{
+<div class="codehilite"><pre><span></span>{
     &quot;workflow_targets&quot; : [&quot;pull_biocontainers&quot;]
 }
-</code></pre>
+</pre></div>
 
-<h3 id="example-file-based-workflow-configuration-file">Example File-Based Workflow Configuration File</h3>
+
+<h3 id="example-file-based-workflow-configuration-file">Example File-Based Workflow Configuration File<a class="headerlink" href="#example-file-based-workflow-configuration-file" title="Permanent link">&para;</a></h3>
 <p>Here is a simple example of a workflow configuration file
 that runs rules based on filename targets (in this example,
 the output of a trimming process):</p>
 <p><strong><code>goodies/test-conf.json</code>:</strong></p>
-<pre><code class="text">{
+<div class="codehilite"><pre><span></span>{
     &quot;workflow_targets&quot; : [&quot;XXXXXX_trim5_1.fq.gz&quot;,
                           &quot;XXXXXX_trim5_2.fq.gz&quot;]
 }
-</code></pre>
+</pre></div>
 
-<h2 id="workflow-parameters-file">Workflow Parameters File</h2>
+
+<h2 id="workflow-parameters-file">Workflow Parameters File<a class="headerlink" href="#workflow-parameters-file" title="Permanent link">&para;</a></h2>
 <p>The workflow parameters control various parameters
 that are used by the programs and containers run
 by the Snakemake rules.</p>
@@ -693,20 +700,21 @@ will override the default values.</p>
 <p>The workflow parameters control how the workflow proceeds.</p>
 <p>The workflow configuration controls the starting and ending points.</p>
 <p>The form of the workflow parameters JSON file is:</p>
-<pre><code class="text">{
-    '&lt;workflow-name&gt;' : {
-        '&lt;rule-name&gt;' : {
-            '&lt;param-name&gt;' : &lt;param-value&gt;,
+<div class="codehilite"><pre><span></span>{
+    &#39;&lt;workflow-name&gt;&#39; : {
+        &#39;&lt;rule-name&gt;&#39; : {
+            &#39;&lt;param-name&gt;&#39; : &lt;param-value&gt;,
             ...
         }
     }
 }
-</code></pre>
+</pre></div>
+
 
 <p>Most parameters are listed under the name of the application
 that uses it, but some parameters have more generic names because
 they are common to multiple tasks.</p>
-<h3 id="example-workflow-parameters-file">Example Workflow Parameters File</h3>
+<h3 id="example-workflow-parameters-file">Example Workflow Parameters File<a class="headerlink" href="#example-workflow-parameters-file" title="Permanent link">&para;</a></h3>
 <p>The following example parameters file adjusts the parameters for 
 the rule to update biocontainers.</p>
 <p>This is a simple parameter file overriding a single parameter,
@@ -715,7 +723,7 @@ the version of sourmash being utilized.</p>
 sourmash version <code>2.0.0a3--py36_0</code>, set in 
 <code>rules/dahak/biocontainers.settings</code>.</p>
 <p><strong><code>goodies/test-params.json</code>:</strong></p>
-<pre><code class="text">{
+<div class="codehilite"><pre><span></span>{
     &quot;biocontainers&quot; : {
         &quot;trimmomatic&quot; : {
             &quot;use_local&quot; : false,
@@ -724,9 +732,10 @@ sourmash version <code>2.0.0a3--py36_0</code>, set in
         }
     }
 }
-</code></pre>
+</pre></div>
 
-<h2 id="running-taco">Running Taco</h2>
+
+<h2 id="running-taco">Running Taco<a class="headerlink" href="#running-taco" title="Permanent link">&para;</a></h2>
 <p>To run taco, pass it three arguments on the command line:</p>
 <ul>
 <li>Name of the workflow</li>
@@ -735,35 +744,38 @@ sourmash version <code>2.0.0a3--py36_0</code>, set in
 </ul>
 <p>Both arguments should be the path to a JSON file
 (absolute or relative) and exclude the JSON suffix.</p>
-<h3 id="running-an-example">Running an Example</h3>
+<h3 id="running-an-example">Running an Example<a class="headerlink" href="#running-an-example" title="Permanent link">&para;</a></h3>
 <p>To run the two JSON files in the example above,
 which are contained in the <code>goodies/</code> directory 
 and which are the first steps in the taxonomic classification 
 workflow, we would run:</p>
-<pre><code class="text">$ ./taco taxonomic_classification goodies/test-conf.json goodies/test-params.json
-</code></pre>
+<div class="codehilite"><pre><span></span>$ ./taco taxonomic_classification goodies/test-conf.json goodies/test-params.json
+</pre></div>
+
 
 <p>(The <code>.json</code> extension can be included or excluded.)</p>
 <p>To do a dry run only, add the <code>-n</code> or <code>--dry-run</code> flag:</p>
-<pre><code class="text">$ ./taco -n taxonomic_classification goodies/test-conf goodies/test-params
-</code></pre>
+<div class="codehilite"><pre><span></span>$ ./taco -n taxonomic_classification goodies/test-conf goodies/test-params
+</pre></div>
+
 
 <p>This will run the <code>pull_biocontainers</code> rule.</p>
-<h2 id="listing-available-actions">Listing Available Actions</h2>
-<h3 id="listing-workflows">Listing Workflows</h3>
+<h2 id="listing-available-actions">Listing Available Actions<a class="headerlink" href="#listing-available-actions" title="Permanent link">&para;</a></h2>
+<h3 id="listing-workflows">Listing Workflows<a class="headerlink" href="#listing-workflows" title="Permanent link">&para;</a></h3>
 <p>You can list available taco workflows
 using the <code>taco ls</code> command with no 
 additional arguments:</p>
-<pre><code class="text">$ ./taco ls
-</code></pre>
+<div class="codehilite"><pre><span></span>$ ./taco ls
+</pre></div>
 
-<h3 id="listing-workflow-rules">Listing Workflow Rules</h3>
+
+<h3 id="listing-workflow-rules">Listing Workflow Rules<a class="headerlink" href="#listing-workflow-rules" title="Permanent link">&para;</a></h3>
 <p>(Not available)</p>
 <p>You can list all of the rules available 
 for a given workflow by running <code>taco ls &lt;workflow-name&gt;</code>.
 For example:</p>
-<pre><code class="text">$ ./taco ls read_filtering
-</code></pre>
+<div class="codehilite"><pre><span></span>$ ./taco ls read_filtering
+</pre></div>
                 
                   
                 

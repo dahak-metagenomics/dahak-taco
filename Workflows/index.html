@@ -342,7 +342,7 @@
               
                 
                 
-                <h1 id="adding-new-taco-workflows">Adding New Taco Workflows</h1>
+                <h1 id="adding-new-taco-workflows">Adding New Taco Workflows<a class="headerlink" href="#adding-new-taco-workflows" title="Permanent link">&para;</a></h1>
 <p>If you wish to extend or modify taco by 
 adding a new workflow, you can do so,
 but it's important to plan it out first!</p>
@@ -354,13 +354,14 @@ of the whole workflow.</p>
 in <code>rules</code> that is named after the 
 workflow. For example, to add a new
 workflow called <code>foobar</code>:</p>
-<pre><code>rules/
+<div class="codehilite"><pre><span></span>rules/
     foobar/
     taxonomic_classification/
     read_filtering/
     functional_annotation/
     ...
-</code></pre>
+</pre></div>
+
 
 <p>Each rule or group of rules lives in a 
 .rule file. All rule files have access
@@ -371,13 +372,14 @@ three distinct steps: <code>buz</code>, <code>fuz</code>, and <code>wuz</code>.
 Then we would create a rule file for each,
 and the <code>foobar/</code> rules directory structure
 would be:</p>
-<pre><code>rules/
+<div class="codehilite"><pre><span></span>rules/
     foobar/
         buz.rule
         fuz.rule
         wuz.rule
         foobar.settings
-</code></pre>
+</pre></div>
+
 
 <p>Additionally, we need to set parameters for the workflow.</p>
 <p>Each workflow has access to the "master" Snakemake
@@ -389,48 +391,49 @@ of the workflow.</p>
 <p>For example, if each of our three workflow steps took 
 parameters, here is how we would organize the 
 workflow's default parameters dictionary:</p>
-<pre><code>{
+<div class="codehilite"><pre><span></span>{
     ...
 
-    'foobar' : {
+    &#39;foobar&#39; : {
 
-        'buz' : {
-            'buz_param_1' : 1,
-            'buz_param_2' : 'alpha'
+        &#39;buz&#39; : {
+            &#39;buz_param_1&#39; : 1,
+            &#39;buz_param_2&#39; : &#39;alpha&#39;
         },
 
-        'fuz' : {
-            'fuz_param_1' : 50,
-            'fuz_param_2' : 51,
-            'fuz_param_3' : False
+        &#39;fuz&#39; : {
+            &#39;fuz_param_1&#39; : 50,
+            &#39;fuz_param_2&#39; : 51,
+            &#39;fuz_param_3&#39; : False
         },
 
-        'wuz' : {
-            'wuz_param_1' : 9.99,
-            'wuz_param_2' : 9.98,
-            'wuz_param_3' : 9.97,
-            'wuz_param_4' : 9.96
+        &#39;wuz&#39; : {
+            &#39;wuz_param_1&#39; : 9.99,
+            &#39;wuz_param_2&#39; : 9.98,
+            &#39;wuz_param_3&#39; : 9.97,
+            &#39;wuz_param_4&#39; : 9.96
         }
     }
     ...
 }
-</code></pre>
+</pre></div>
+
 
 <p>The <code>foobar.settings</code> file must set this 
 in a way that will not overwrite defaults;
 hence this business:</p>
-<pre><code>from snakemake.utils import update_config
+<div class="codehilite"><pre><span></span>from snakemake.utils import update_config
 
-if(not config['clean']):
+if(not config[&#39;clean&#39;]):
 
-    # Note: don't include http:// or https://
+    # Note: don&#39;t include http:// or https://
     config_default = { 
                         ... 
                      }
 
     update_config(config_default, config)
     config = config_default
-</code></pre>
+</pre></div>
                 
                   
                 
