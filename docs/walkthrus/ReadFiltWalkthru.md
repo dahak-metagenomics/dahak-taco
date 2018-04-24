@@ -28,10 +28,10 @@ This node assumes you have the following software:
 * Snakemake
 * Singularity
 
-See [INSTALLING](/INSTALLING.md) for more info.
+See [Installing](/intro/Installing.md) for more info.
 
 If you do not have an environment set up, the 
-[Worker Node Setup Walkthrough](setup.md)
+[Worker Node Setup Walkthrough](AWS_Setup.md)
 covers setting up a worker node on AWS.
 
 ## Clone The Repo
@@ -43,7 +43,7 @@ $ git clone https://github.com/dahak-metagenomics/dahak-taco.git
 $ cd dahak-taco/
 ```
 
-As mentioned in [INSTALLING](/INSTALLING.md),
+As mentioned in [Installing](/intro/Installing.md),
 there is nothing to install for taco itself.
 
 ## Start the Workflow
