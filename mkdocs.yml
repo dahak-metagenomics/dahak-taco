@@ -2,6 +2,7 @@ site_name: your-cool-site
 site_url: https://dahak-metagenomics.github.io/dahak-taco
 repo_name: dahak-metagenomics/dahak-taco
 repo_url: https://github.com/dahak-metagenomics/dahak-taco
+edit_uri: ""
 
 # change diirectory names here
 docs_dir: docs
@@ -15,8 +16,8 @@ theme:
 
   # pretty colors! see https://squidfunk.github.io/mkdocs-material/getting-started/#primary-colors
   palette:
-    primary: 'blue'
-    accent: 'blue'
+    primary: 'orange'
+    accent: 'orange'
   
   # fun logos! see https://material.io/icons/
   logo:
