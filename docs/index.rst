@@ -73,38 +73,19 @@ of how to run each workflow.
 
 .. _detailed-api-label:
 
-Detailed Workflow API
+Workflow Parameters
 ==========================
 
-Each workflow takes a set of parameters.
-The pages listed below give information 
-about default parameters for each workflow,
-and show short examples of how to customize
-each rule.
+Each workflow takes a parameters dictionary.
+This section details the structure and keys
+that are defined and used in the parameter 
+dictionary.
 
 .. toctree::
    :maxdepth: 1
    :caption: Read Filtering Workflow API:
 
-   read_filtering/read_filtering
-   read_filtering/fetch_reads
-   read_filtering/pre_post_assessment
-   read_filtering/quality_trimming
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Taxonomic Classification Workflow API:
-
-   taxonomic_classification/taxonomic_classification
-   taxonomic_classification/biocontainers
-   taxonomic_classification/calculate_signatures
-   taxonomic_classification/filter_taxa
-   taxonomic_classification/kaiju
-   taxonomic_classification/kaiju2krona
-   taxonomic_classification/krona_visualization
-   taxonomic_classification/sourmash_sbt
-   taxonomic_classification/trimmed_data
-
+   read_filtering
 
 .. _for-developers-label:
 

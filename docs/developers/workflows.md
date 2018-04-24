@@ -40,6 +40,7 @@ rules/
         buz.rule
         fuz.rule
         wuz.rule
+        foobar.settings
 ```
 
 Additionally, we need to set parameters for the workflow.
@@ -83,6 +84,24 @@ workflow's default parameters dictionary:
     }
     ...
 }
+```
+
+The `foobar.settings` file must set this 
+in a way that will not overwrite defaults;
+hence this business:
+
+```
+from snakemake.utils import update_config
+
+if(not config['clean']):
+
+    # Note: don't include http:// or https://
+    config_default = { 
+                        ... 
+                     }
+
+    update_config(config_default, config)
+    config = config_default
 ```
 
 
