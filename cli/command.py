@@ -3,6 +3,8 @@ import pkg_resources
 import snakemake
 from . import _program
 from clint.textui import puts, indent, colored
+import yaml, json
+
 
 logo = """
  _______  _______  _______  _______
@@ -16,6 +18,24 @@ logo = """
 experimental CL interface for dahak workflows
 """
 
+
+def main(sysargs = sys.argv[1:]):
+
+    parser, args = get_argument_parser(sysargs)
+
+    # Process the verb specified by the user.
+    if len(args.verb)==0:
+        die('No verb specified',parser)
+
+    elif(args.verb=='ls'):
+        ls_verb(parser, args)
+
+    else:
+        workflow_verb(parser, args)
+
+
+
+
 def get_argument_parser(sysargs):
     """
     Construct an ArgumentParser object to parse
@@ -24,9 +44,9 @@ def get_argument_parser(sysargs):
 
     parser = argparse.ArgumentParser(prog = _program)
 
-    parser.add_argument("action",
-                        help="The action to perform or the name of the workflow to run",
-                        nargs='*')
+    # to enable multiple verbs, add nargs='*'
+    parser.add_argument("verb",
+                        help="The verb to perform or the name of the workflow to run")
 
 
     cfggroup = parser.add_mutually_exclusive_group()
@@ -39,10 +59,10 @@ def get_argument_parser(sysargs):
 
 
     prmgroup = parser.add_mutually_exclusive_group()
-    prmgroup.add_argument("--param-json",
+    prmgroup.add_argument("--params-json",
                        help = "Specify a workflow parameters file in JSON format",
                        nargs=1)
-    prmgroup.add_argument("--param-yaml",
+    prmgroup.add_argument("--params-yaml",
                        help = "Specify a workflow parameters file in YAML format",
                        nargs=1)
 
@@ -59,117 +79,181 @@ def get_argument_parser(sysargs):
     return parser, args
 
 
-def main(sysargs = sys.argv[1:]):
 
-    parser, args = get_argument_parser(sysargs)
+def ls_verb(parser, args):
+    """
+    List verb.
 
+    With no arguments, list all valid workflows.
+    With one argument, use argument as workflow name.
+    Check if workflow name is valid, and print all the 
+    rules that workflow defines.
+    """
+    if len(args.verb)==1:
 
+        # taco ls just prints available workflows
 
-    # Process the action/verb specified by the user.
-    if len(args.action)==0:
+        if not os.path.isdir('rules'):
 
-        parser.print_help()
-        sys.exit(-1)
-
-
-
-    elif(args.action[0]=='ls'):
-        ###############
-        # ls action
-        ###############
-
-        if len(args.action)==1:
-            # taco ls just prints available workflows
-
-            if os.path.isdir('rules'):
-                available_workflows = next(os.walk('rules/'))[1]
-
-                print("Available workflows:\n")
-                print("\n".join(["\t{}\n".format(z) for z in available_workflows]))
-                print("To list available rules, run:\n")
-                print("\t{} ls <workflow>\n".format(_program))
-
-                sys.exit(0)
-
-            else:
-                # no rules folder
-                parser.print_help()
-                sys.stderr.write('\n\nERROR: Could not find a rules/ directory.\n\n')
-                sys.exit(-1)
-
-        elif len(args.action)==2:
-            # taco ls <workflow> lists rules in that workflow
-
-            workflow = args.action[1]
-
-            snakefile = os.path.join('rules',workflow,'Snakefile')
-            if os.path.isfile(snakefile):
-
-                print('--------')
-                print('taco workflow details:')
-                print('\tsnakefile: {}'.format(snakefile))
-                print('\tconfig: {}'.format(workflowfile))
-                print('\tparams: {}'.format(paramsfile))
-                print('\ttargets: {}'.format(targets))
-                print('--------')
-
-                config = dict(data_dir='data/',
-                              clean=args.clean)
-
-                status = snakemake.snakemake(snakefile, 
-                                             config=config,
-                                             listrules=True)
-
-            else:
-                sys.stderr.write('\n\nERROR: Could not find a Snakefile in workflow dir rules/{}\n\n'.format(workflow))
-                sys.exit(-1)
+            die('Could not find rules directory',parser)
 
         else:
-
-            # Too many arguments
-            sys.stderr.write('\n\nERROR: Could not understand arguments to taco ls.')
-            parser.print_help()
-            sys.exit(-1)
-
-
-
-
-    else:
-        ###############
-        # <workflow> action
-        ###############
-
-        workflow_action = args.action[0]
-
-        if os.path.isdir('rules'):
 
             available_workflows = next(os.walk('rules/'))[1]
-            if workflow_action not in available_workflows:
 
-                # rules dir exists but workflow not found
-                parser.print_help()
-                sys.stderr.write('\n\nERROR: Could not find workflow {} in list of available workflows.\n\n'.format(workflow_action))
-                sys.exit(-1)
+            print("Available workflows:\n")
+            print("\n".join(["\t{}\n".format(z) for z in available_workflows]))
+            print("To list available rules, run:\n")
+            print("\t{} ls <workflow>\n".format(_program))
+
+            sys.exit(0)
+
+    elif len(args.verb)==2:
+        # taco ls <workflow> lists rules in that workflow
+
+        workflow = args.verb[1]
+
+        snakefile = os.path.join('rules',workflow,'Snakefile')
+        if os.path.isfile(snakefile):
+
+            config = dict(data_dir='data/',
+                          clean=args.clean)
+
+            status = snakemake.snakemake(snakefile, 
+                                         config=config,
+                                         listrules=True)
 
         else:
+            die('Could not find Snakefile in workflow directory rules/{}'.format(workflow),parser)
 
-            # no rules folder
-            parser.print_help()
-            sys.stderr.write('\n\nERROR: Could not find a rules/ directory.\n\n')
-            sys.exit(-1)
-
-
-        if params_file is None:
-            pass
-        elif not os.path.exists(params_file):
-            # no parameters file
-            parser.print_help()
-            sys.stderr.write('\n\nERROR: Could not find parameters file {}\n\n'.format())
-            sys.exit(-1)
+    else:
+        die('Too many arguments',parser)
 
 
 
 
+def workflow_verb(parser, args):
+    """
+    Workflow verb.
+
+    This looks in the rules/ directory to find
+    all valid workflows, checks the workflow exists,
+    and runs the workflow.
+    """
+    workflow_verb = args.verb
+
+    if not os.path.isdir('rules'):
+        die('Could not find a rules/ directory.',parser)
+
+    available_workflows = next(os.walk('rules/'))[1]
+
+    if workflow_verb not in available_workflows:
+        # rules dir exists but workflow not found
+        die('Could not find workflow {} in list of available workflows.'.format(workflow_verb),parser)
+
+    snakefile = os.path.join('rules',workflow_verb,'Snakefile')
+
+    if not os.path.isfile(snakefile):
+        die('Could not find Snakekfile {} in directory'.format(snakefile))
+
+
+
+
+
+    # Load Workfow Parameters.
+    # 
+    # Load the JSON/YAML file with workflow parameters,
+    # and populate the Snakemake configuration dict.
+
+    paramsfile = None
+    smk_config = {}
+
+    if args.params_json is not None:
+        # load it 
+        paramsfile = args.params_json[0]
+        #smk_config = json.load(open(paramsfile,'r'))
+
+    elif args.params_yaml is not None:
+        # load it
+        paramsfile = args.params_yaml[0]
+        #smk_config = yaml.load(open(paramsfile,'r'))
+
+    else:
+        # no parameters file
+        die('Could not find parameters file',parser)
+
+
+    # Load Workflow Configuration.
+    # 
+    # The workflow configuration file 
+    # sets the workflow target to make.
+
+    workflowfile = None
+    targets = []
+
+    if args.config_json is not None:
+        workflowfile = args.config_json[0]
+        flowinfo = json.load(open(workflowfile,'r'))
+
+    elif args.config_yaml is not None:
+        workflowfile = args.config_yaml[0]
+        flowinfo = yaml.load(open(workflowfile,'r'))
+
+    else:
+        # no config file
+        die('Could not find workflow configuration file',parser)
+
+    try:
+        targets = flowinfo['workflow_targets']
+        if(type(targets)!=type([])):
+            targets = [targets]
+
+    except KeyError:
+        die('Could not find key "workflow_targets" in workflow configuration',parser)
+
+
+
+    print('--------')
+    print('taco workflow details:')
+    print('\tsnakefile: {}'.format(snakefile))
+    print('\tconfig: {}'.format(workflowfile))
+    print('\tparams: {}'.format(paramsfile))
+    print('\ttargets: {}'.format(targets))
+    print('--------')
+
+
+    config = dict(data_dir='data/',
+                  clean=args.clean)
+
+    status = snakemake.snakemake(snakefile, 
+                                 configfile=paramsfile,
+                                 targets=targets, 
+                                 printshellcmds=True,
+                                 lock=False,
+                                 dryrun=args.dry_run, 
+                                 config=config)
+
+
+
+
+    if status: # translate "success" into shell exit code of 0
+        return 0
+    else:
+        print("")
+        print("Error: Failed to call Snakemake API")
+        print("You might have requested an output file or rule that does not exist.")
+        print("Try adding the data directory location as a prefix to your file names.")
+        print("")
+        print("config['data_dir'] = %s"%(config['data_dir']))
+        print("")
+        return 1
+
+
+
+def die(err,parser):
+    parser.print_help()
+    sys.stderr.write('\n\nERROR: %s\n\n'%(err))
+    sys.exit(-1)
 
 
 if __name__ == '__main__':
