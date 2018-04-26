@@ -34,7 +34,7 @@ first taco workflow.
 
 [Installation and Usage](InstallationUsage.md)
 
-[Quickstart](Quickstart.md)
+[Quick Start](Quickstart.md)
 
 
 ## Workflow Walkthroughs
@@ -72,17 +72,18 @@ with configuration and parameter sets included:
     a taxonomic classification workflow.
 
 
-## For Developers
+## Advanced Topics
 
 (in progress)
 
-Documentation on these pages describe how taco works
-so that you can modify it to suit your needs. 
+For instructions on building, modifying, and improving
+the documentation for dahak-taco, see 
+[Documentation](Documentation.md).
 
-Currently covered are snakemake rules and defining 
-new workflows.
+If you are interested in creating a new workflow,
+start with the [taco-simple](https://github.com/dahak-metagenomics/taco-simple) 
+repository, which illustrates how to create
+rule files to define new taco workflows.
 
-[Snakemake Rules](SnakemakeRules.md)
-
-[Workflows](Workflows.md)
-
+For more information about the development workflow,
+branches, tags, and the release process, see [Development](Development.md).

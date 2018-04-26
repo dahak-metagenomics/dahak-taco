@@ -61,19 +61,19 @@ depending on your Python environment, but should be in
 $PYTHONHOME/bin
 ```
 
+This should be on your `$PATH` for you to be able to 
+call `taco` from the command line.
 
 ## Usage
 
-The basic idea behind taco is to 
-pass it an action and modify basic
-behavior with command line flags.
+The basic idea behind `taco` is to pass it a verb, and 
+modify the interpretation of the verb using command line flags.
 
-The user will defines their Snakemake workflows
-in a way that keeps them general. Then taco can
-run those workflows from the command line, and
-use command line flags and external files to change
-workflow targets and parameter sets. 
-
+The user will defines their Snakemake workflows in a way that 
+keeps them general and utilizes user-provided parameters. 
+`taco` then reads these workflows, determines what rules exist
+and what rules were specified by the user, and runs the workflows
+using the user-provided parameters.
 
 ### Verbs
 
@@ -85,7 +85,7 @@ $ ./taco <verb> --arguments
 
 taco has two main actions:
 
-* `taco ls [<worfklow>]` - lists the available workflows and rules in workflows
+* `taco ls [<worfklow>]` - lists the available workflows, or the available rules in a given workflow
 
 * `taco <worfklow>` - runs the specified workflow
 
@@ -159,19 +159,19 @@ a repository containing two related workflows:
 taco-my-cool-workflow/
         
         rules/
-            workflow_A/
+            workflowA/
                 Snakefile
                 purple.rule
                 blue.rule
                 green.rule
-                workflow_A.settings
+                workflowA.settings
 
-            workflow_B/
+            workflowB/
                 Snakefile
                 apple.rule
                 orange.rule
                 banana.rule
-                workflow_B.settings
+                workflowB.settings
 
         workflow-config/
             config_make_apples.json
@@ -207,14 +207,17 @@ directory of this repository and must have
 a Snakefile.
 
 The user should specify the workflow name as the first
-verb on the command line. For example:
+verb on the command line, then pass any flags that modify
+the workflow behavior. For example:
 
 ```
-$ taco read_filtering <workflow-config-file> <workflow-params-file>
+$ taco read_filtering (--config-json|--config-yaml) (--params-json|--params-yaml)
 ```
 
-will load the Snakefile in `rules/read_filtering/` 
-and will make avaiable all read filtering rules.
+This command will run the Snakemake API with the Snakefile found in `rules/read_filtering` 
+(relative to the current directory where `taco` was run). It uses the target specified by 
+the user's workflow configuration file to figure out what rules to run, and runs them using
+the parameters in the user's parameters file.
 
 
 ## Workflow Configuration File
@@ -233,19 +236,35 @@ The form of the workflow configuration file
 for running rules that have no file targets is
 to specify the name of the rule:
 
+**JSON:**
+
 ```text
 {
     "workflow_targets" : <list of Snakemake rules>
 }
-```
-
-or,
 
 
-```text
 {
     "workflow_targets" : <list of output file targets>
 }
+```
+
+**YAML:**
+
+```text
+workflow_targets:
+  - list
+  - of 
+  - target
+  - files
+
+-----------
+
+workflow_targets:
+  - list
+  - of
+  - target
+  - rules
 ```
 
 ### Example Rule-Based Workflow Configuration File
@@ -255,7 +274,7 @@ for running a rule that has no file targets (pulling containers).
 This rule specifies the workflow target by specifying the 
 rule name:
 
-**`goodies/test-conf.json`:**
+**JSON:**
 
 ```text
 {
@@ -263,19 +282,34 @@ rule name:
 }
 ``` 
 
+**YAML:**
+
+```text
+workflow_targets:
+  - pull_biocontainers
+```
+
 ### Example File-Based Workflow Configuration File
 
 Here is a simple example of a workflow configuration file
 that runs rules based on filename targets (in this example,
 the output of a trimming process):
 
-**`goodies/test-conf.json`:**
+**JSON:**
 
 ```text
 {
     "workflow_targets" : ["XXXXXX_trim5_1.fq.gz",
                           "XXXXXX_trim5_2.fq.gz"]
 }
+``` 
+
+**YAML:**
+
+```text
+workflow_targets: 
+  - XXXXXX_trim5_1.fq.gz
+  - XXXXXX_trim5_2.fq.gz
 ``` 
 
 ## Workflow Parameters File
@@ -298,15 +332,33 @@ The workflow configuration controls the starting and ending points.
 
 The form of the workflow parameters JSON file is:
 
+**JSON:**
+
 ```text
 {
     '<workflow-name>' : {
         '<rule-name>' : {
             '<param-name>' : <param-value>,
+            '<param-list>' : [<value1>, ...],
             ...
         }
     }
 }
+```
+
+
+**YAML:**
+
+```text
+my_workflow_name:
+
+  my_rule_name_1:
+    my_param_name_1: "my_param_value"
+    my_param_name_2: 10
+
+  my_rule_name_2:
+    my_param_name_3: "another_param_value"
+    my_param_name_4: 100
 ```
 
 Most parameters are listed under the name of the application
@@ -325,7 +377,7 @@ This overrides the default biocontainers setting of
 sourmash version `2.0.0a3--py36_0`, set in 
 `rules/dahak/biocontainers.settings`.
 
-**`goodies/test-params.json`:**
+**JSON:**
 
 ```text
 {
@@ -337,6 +389,16 @@ sourmash version `2.0.0a3--py36_0`, set in
         }
     }
 }
+```
+
+**YAML:**
+
+```text
+biocontainers:
+  trimmomatic:
+    quayurl: "quay.io/biocontainers/trimmomatic"
+    version: '0.36--5"
+    use_local: false
 ```
 
 ## Running Taco
@@ -394,5 +456,4 @@ For example:
 ```text
 $ ./taco ls read_filtering
 ```
-
 
