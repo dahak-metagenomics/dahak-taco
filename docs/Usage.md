@@ -20,7 +20,7 @@ $ taco --help
 Run the taco command line tool like this:
 
 ```
-$ ./taco <verb> --arguments
+$ ./taco <verb> [--FLAGS]
 ```
 
 taco has two main actions:
