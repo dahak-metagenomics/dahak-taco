@@ -273,8 +273,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#workflow-walkthroughs" title="Workflow Walkthroughs" class="md-nav__link">
-    Workflow Walkthroughs
+  <a href="#workflows" title="Workflows" class="md-nav__link">
+    Workflows
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-platforms" title="Cloud Platforms" class="md-nav__link">
+    Cloud Platforms
   </a>
   
 </li>
@@ -416,8 +423,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#workflow-walkthroughs" title="Workflow Walkthroughs" class="md-nav__link">
-    Workflow Walkthroughs
+  <a href="#workflows" title="Workflows" class="md-nav__link">
+    Workflows
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-platforms" title="Cloud Platforms" class="md-nav__link">
+    Cloud Platforms
   </a>
   
 </li>
@@ -478,39 +492,56 @@ and get you up and running with your
 first taco workflow.</p>
 <p><a href="InstallationUsage/">Installation and Usage</a></p>
 <p><a href="Quickstart/">Quick Start</a></p>
-<h2 id="workflow-walkthroughs">Workflow Walkthroughs<a class="headerlink" href="#workflow-walkthroughs" title="Permanent link">&para;</a></h2>
-<p>(in progress)</p>
-<p>taco is a lightweight wrapper around Snakemake tasks.
+<h2 id="workflows">Workflows<a class="headerlink" href="#workflows" title="Permanent link">&para;</a></h2>
+<p><code>taco</code> is a lightweight wrapper around Snakemake tasks.
 Kind of like a corn tortilla.</p>
-<p>In the quickstart, we showed how to create a repository
-for a set of workflows. Below, we link to repositories
-with useful workflows and walkthroughs.</p>
+<p>The actual taco workflow is defined using Snakemake rules,
+and these files should live in their own repository seaprate
+from dahak-taco.</p>
+<p>Each repository can define a single workflow, or multiple workflows.</p>
+<p>Several example <code>taco</code> workflow repositories are available:</p>
+<ul>
+<li><a href="https://github.com/dahak-metagenomics/taco-simple">taco-simple</a> - 
+    illustrates the implementation of several "hello world" style taco workflows</li>
+<li><a href="https://github.com/dahak-metagenomics/taco-read-filtering">taco-read-filtering</a> - 
+    implements a read filtering taco workflow.</li>
+<li><a href="https://github.com/dahak-metagenomics/taco-taxonomic-classification">taco-taxonomic-classification</a> - 
+    implements a taxonomic classification taco workflow.</li>
+</ul>
+<h2 id="cloud-platforms">Cloud Platforms<a class="headerlink" href="#cloud-platforms" title="Permanent link">&para;</a></h2>
+<p>We include instructions for running workflows using <code>taco</code> 
+on various cloud platforms.</p>
+<ul>
+<li>
 <p><a href="AWSSetup/">AWS Setup</a></p>
-<p><a href="https://dahak-metagenomics.github.io/taco-read-filtering">Read Filtering Walkthrough</a></p>
+</li>
+<li>
+<p>HPC - TBA</p>
+</li>
+</ul>
 <h2 id="configuration-and-parameter-sets">Configuration and Parameter Sets<a class="headerlink" href="#configuration-and-parameter-sets" title="Permanent link">&para;</a></h2>
-<p>(in progress)</p>
+<p><code>taco</code> takes two input files: a workflow configuration file,
+which specifies the workflow targets, and a workflow
+parameters file, which specifies parameters to control
+the workflow.</p>
+<p>Workflow configuration and parameter files are workflow-dependent
+and live in workflow repositories.</p>
 <p>Individual configuration files or parameter sets
 are workflow-dependent, and are defined or included
 in the repository that defines that workflow.</p>
-<p>The following are some example taco workflows
-with configuration and parameter sets included:</p>
-<ul>
-<li><a href="https://github.com/dahak-metagenomics/taco-simple">taco-simple</a> - illustrates
-    a simple workflow that prints messages</li>
-<li><a href="https://github.com/dahak-metagenomics/taco-read-filtering">taco-read-filtering</a> - illustrates
-    a read filtering workflow.</li>
-<li><a href="https://github.com/dahak-metagenomics/taco-taxonomic-classification">taco-taxonomic-classification</a> - illustrates
-    a taxonomic classification workflow.</li>
-</ul>
+<p>For a simple example of how configuration and parameter 
+files are used, see the <a href="https://github.com/dahak-metagenomics/taco-simple">taco-simple</a>
+repository, which contains several "hello world" style
+<code>taco</code> workflows.</p>
 <h2 id="advanced-topics">Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permanent link">&para;</a></h2>
-<p>(in progress)</p>
 <p>For instructions on building, modifying, and improving
 the documentation for dahak-taco, see 
 <a href="Documentation/">Documentation</a>.</p>
 <p>If you are interested in creating a new workflow,
 start with the <a href="https://github.com/dahak-metagenomics/taco-simple">taco-simple</a> 
 repository, which illustrates how to create
-rule files to define new taco workflows.</p>
+rule files to define multiple workflows 
+and how to utilize user-provided parameters.</p>
 <p>For more information about the development workflow,
 branches, tags, and the release process, see <a href="Development/">Development</a>.</p>
                 
