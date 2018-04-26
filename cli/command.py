@@ -27,7 +27,7 @@ def main(sysargs = sys.argv[1:]):
     if len(args.verb)==0:
         die('No verb specified',parser)
 
-    elif(args.verb=='ls'):
+    elif(args.verb[0]=='ls'):
         ls_verb(parser, args)
 
     else:
@@ -44,9 +44,9 @@ def get_argument_parser(sysargs):
 
     parser = argparse.ArgumentParser(prog = _program)
 
-    # to enable multiple verbs, add nargs='*'
     parser.add_argument("verb",
-                        help="The verb to perform or the name of the workflow to run")
+                        help="The verb to perform or the name of the workflow to run",
+                        nargs="*")
 
 
     cfggroup = parser.add_mutually_exclusive_group()
