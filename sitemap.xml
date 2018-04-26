@@ -11,7 +11,23 @@
 
     
     <url>
-     <loc>https://dahak-metagenomics.github.io/dahak-taco/InstallationUsage/</loc>
+     <loc>https://dahak-metagenomics.github.io/dahak-taco/Installation/</loc>
+     <lastmod>2018-04-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://dahak-metagenomics.github.io/dahak-taco/Usage/</loc>
+     <lastmod>2018-04-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://dahak-metagenomics.github.io/dahak-taco/Workflows/</loc>
      <lastmod>2018-04-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -43,7 +59,7 @@
 
     
     <url>
-     <loc>https://dahak-metagenomics.github.io/dahak-taco/Workflows/</loc>
+     <loc>https://dahak-metagenomics.github.io/dahak-taco/DevWorkflows/</loc>
      <lastmod>2018-04-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
