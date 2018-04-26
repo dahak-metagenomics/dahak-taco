@@ -1,2 +1,2 @@
-_program = "wooflebog-plinkendorf"
+_program = "taco"
 __version__ = "0.0.1"
