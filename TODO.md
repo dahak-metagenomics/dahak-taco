@@ -1,62 +1,14 @@
 ## priorities
 
+### installation
 
-### parameter validation
+* check to make sure snakemake installed
 
-more enormous headaches.
-* we are trying to validate parameters
-* but how do we do that, if we're forced to validate everything?
-* we're forced to go through validation for parameters we don't even use
-* the flip side is we don't validate anything, and then the user 
-    is forced to puzzle through what went wrong or why a rule failed.
+### tests
 
-validation solution:
-* validate everything. 
-* the problem with validating everything is the user may be asked to provide
-    parameters for steps they are not interested in carrying out.
-    that's where two other features step in.
-* the first feature is the `taco validation` verb
-    * make sure your config file isn't out of sorts,
-    * print out all possible keys and what keys you have specified
-    * (ideally) what keys a given default setting would define
-    * this is starting to get complicated.
-* the second feature is parameter presets
-    * you can specify a preset on the command line
-    * this will nail down all those extra params you didn't care about
+tests -- taco tests, workflow tests
 
-
-### documentation
-
-developers guide:
-* making new rules
-* creating a default parameter set
-
-
-### yaml
-
-switch input from json to yaml
-
-important:
-* create an input config validator
-* this adds yet another action to dahak...
-* which one is easier?
-    * yaml validator?
-    * yaml -> json, json validator?
-
-What else?
-* get the read filtering workflow back up an running
-* tag the next release 
-* add a changelog
-* add a test suite with goodies 
-* the idiotic problem of not being able to import things...
-
-prefix:
-* clear up ambiguity about data/ prefix.
-* does the user specify it in filenames, or not? clear this up.
-    * right now:
-    * in the params dictionary, the user does not specify `data/` prefix.
-    * config and rule targets, yes, the user must specify `data/` prefix.
-
+### workflow caboose
 
 notifications
 * email at the end
@@ -240,6 +192,34 @@ Snakemake separately evalutes non-rule Python code, then evaluates rules.
 If you validate inside a rule, you can't validate inputs, outputs, singularity containers,
 or anything else but the `run` block.
 
+### documentation
+
+<s>developers guide:
+* making new rules
+* creating a default parameter set</s>
+
+
+### yaml
+
+<s>switch input from json to yaml</s>
+
+<s>important:
+* create an input config validator
+* this adds yet another action to dahak...
+* which one is easier?</s>
+
+<s>What else?
+* get the read filtering workflow back up an running
+* tag the next release 
+* add a changelog
+* the idiotic problem of not being able to import things...</s>
+
+<s>prefix:
+* clear up ambiguity about data/ prefix.
+* does the user specify it in filenames, or not? clear this up.
+    * right now:
+    * in the params dictionary, the user does not specify `data/` prefix.
+    * config and rule targets, yes, the user must specify `data/` prefix.</s>
 
 
 
