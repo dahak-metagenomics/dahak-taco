@@ -181,7 +181,9 @@ def workflow_verb(parser, args):
 
     else:
         # no parameters file
-        die('Could not find parameters file',parser)
+        die(err='Could not find parameters file',
+            hint='Did you leave off a --params-* flag?',
+            parser=parser)
 
     if not os.path.isfile(paramsfile):
         die('The parameter file {} is not a valid file'.format(paramsfile),parser)
@@ -205,7 +207,9 @@ def workflow_verb(parser, args):
 
     else:
         # no config file
-        die('Could not find workflow configuration file',parser)
+        die(err='Could not find workflow configuration file',
+            hint='Did you leave off a --config-* flag?',
+            parser=parser)
 
     try:
         targets = flowinfo['workflow_targets']
