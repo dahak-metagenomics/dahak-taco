@@ -73,6 +73,10 @@ def get_argument_parser(sysargs):
     parser.add_argument('-c', '--clean', action='store_true', 
             help="""Use a clean, empty default Snakemake parameters dictionary. Used for testing and debugging.""")
 
+    parser.add_argument('--prefix', action='store', 
+            default='data/',
+            help="""Set the working directory where all files are generated.""")
+
 
     args = parser.parse_args(sysargs)
 
@@ -116,7 +120,7 @@ def ls_verb(parser, args):
         snakefile = os.path.join('rules',workflow,'Snakefile')
         if os.path.isfile(snakefile):
 
-            config = dict(data_dir='data/',
+            config = dict(data_dir=args.prefix,
                           clean=args.clean)
 
             status = snakemake.snakemake(snakefile, 
@@ -154,10 +158,7 @@ def workflow_verb(parser, args):
     snakefile = os.path.join('rules',workflow_verb,'Snakefile')
 
     if not os.path.isfile(snakefile):
-        die('Could not find Snakekfile {} in directory'.format(snakefile))
-
-
-
+        die('Could not find Snakekfile {} in directory'.format(snakefile),parser)
 
 
     # Load Workfow Parameters.
@@ -181,6 +182,9 @@ def workflow_verb(parser, args):
     else:
         # no parameters file
         die('Could not find parameters file',parser)
+
+    if not os.path.isfile(paramsfile):
+        die('The parameter file {} is not a valid file'.format(paramsfile),parser)
 
 
     # Load Workflow Configuration.
@@ -209,9 +213,12 @@ def workflow_verb(parser, args):
             targets = [targets]
 
     except KeyError:
-        die('Could not find key "workflow_targets" in workflow configuration',parser)
+        die(err='Could not find key "workflow_targets" in workflow configuration.',
+            hint='Make sure the parser and config files are not swapped.',
+            parser=parser)
 
-
+    config = dict(data_dir='data/',
+                  clean=args.clean)
 
     print('--------')
     print('taco workflow details:')
@@ -219,11 +226,8 @@ def workflow_verb(parser, args):
     print('\tconfig: {}'.format(workflowfile))
     print('\tparams: {}'.format(paramsfile))
     print('\ttargets: {}'.format(targets))
+    print('\tbootstrap configuration: {}'.format(config))
     print('--------')
-
-
-    config = dict(data_dir='data/',
-                  clean=args.clean)
 
     status = snakemake.snakemake(snakefile, 
                                  configfile=paramsfile,
@@ -232,8 +236,6 @@ def workflow_verb(parser, args):
                                  lock=False,
                                  dryrun=args.dry_run, 
                                  config=config)
-
-
 
 
     if status: # translate "success" into shell exit code of 0
@@ -250,11 +252,14 @@ def workflow_verb(parser, args):
 
 
 
-def die(err,parser):
+def die(err,parser,hint=None):
     parser.print_help()
     sys.stderr.write('\n\nERROR: %s\n\n'%(err))
+    if(hint is not None):
+        sys.stderr.write('\n\nHINT: %s\n\n'%(err))
     sys.exit(-1)
 
 
 if __name__ == '__main__':
     main()
+
