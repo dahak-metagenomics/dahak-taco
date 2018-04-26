@@ -37,44 +37,57 @@ first taco workflow.
 [Quick Start](Quickstart.md)
 
 
-## Workflow Walkthroughs
+## Workflows
 
-(in progress)
-
-taco is a lightweight wrapper around Snakemake tasks.
+`taco` is a lightweight wrapper around Snakemake tasks.
 Kind of like a corn tortilla.
 
-In the quickstart, we showed how to create a repository
-for a set of workflows. Below, we link to repositories
-with useful workflows and walkthroughs.
+The actual taco workflow is defined using Snakemake rules,
+and these files should live in their own repository seaprate
+from dahak-taco.
 
-[AWS Setup](AWSSetup.md)
+Each repository can define a single workflow, or multiple workflows.
 
-[Read Filtering Walkthrough](https://dahak-metagenomics.github.io/taco-read-filtering)
+Several example `taco` workflow repositories are available:
+
+* [taco-simple](https://github.com/dahak-metagenomics/taco-simple) - 
+    illustrates the implementation of several "hello world" style taco workflows
+* [taco-read-filtering](https://github.com/dahak-metagenomics/taco-read-filtering) - 
+    implements a read filtering taco workflow.
+* [taco-taxonomic-classification](https://github.com/dahak-metagenomics/taco-taxonomic-classification) - 
+    implements a taxonomic classification taco workflow.
+
+## Cloud Platforms
+
+We include instructions for running workflows using `taco` 
+on various cloud platforms.
+
+* [AWS Setup](AWSSetup.md)
+
+* HPC - TBA
 
 
 ## Configuration and Parameter Sets
 
-(in progress)
+`taco` takes two input files: a workflow configuration file,
+which specifies the workflow targets, and a workflow
+parameters file, which specifies parameters to control
+the workflow.
+
+Workflow configuration and parameter files are workflow-dependent
+and live in workflow repositories.
 
 Individual configuration files or parameter sets
 are workflow-dependent, and are defined or included
 in the repository that defines that workflow.
 
-The following are some example taco workflows
-with configuration and parameter sets included:
-
-* [taco-simple](https://github.com/dahak-metagenomics/taco-simple) - illustrates
-    a simple workflow that prints messages
-* [taco-read-filtering](https://github.com/dahak-metagenomics/taco-read-filtering) - illustrates
-    a read filtering workflow.
-* [taco-taxonomic-classification](https://github.com/dahak-metagenomics/taco-taxonomic-classification) - illustrates
-    a taxonomic classification workflow.
+For a simple example of how configuration and parameter 
+files are used, see the [taco-simple](https://github.com/dahak-metagenomics/taco-simple)
+repository, which contains several "hello world" style
+`taco` workflows.
 
 
 ## Advanced Topics
-
-(in progress)
 
 For instructions on building, modifying, and improving
 the documentation for dahak-taco, see 
@@ -83,7 +96,9 @@ the documentation for dahak-taco, see
 If you are interested in creating a new workflow,
 start with the [taco-simple](https://github.com/dahak-metagenomics/taco-simple) 
 repository, which illustrates how to create
-rule files to define new taco workflows.
+rule files to define multiple workflows 
+and how to utilize user-provided parameters.
 
 For more information about the development workflow,
 branches, tags, and the release process, see [Development](Development.md).
+
