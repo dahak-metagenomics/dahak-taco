@@ -144,7 +144,7 @@ def workflow_verb(parser, args):
     all valid workflows, checks the workflow exists,
     and runs the workflow.
     """
-    workflow_verb = args.verb
+    workflow_verb = args.verb[0]
 
     if not os.path.isdir('rules'):
         die('Could not find a rules/ directory.',parser)
