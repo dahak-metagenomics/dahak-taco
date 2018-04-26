@@ -1,19 +1,68 @@
-# Installation
+# Installation and Usage 
 
-The taco utility is a command-line utility
-that runs Snakemake workflows.
+`taco` is a command-line utility that runs Snakemake workflows. 
+This document covers how to install and use taco.
 
-taco is installed using `setup.py` and is installed
-as a command-line utility on the system:
+
+## Installation Instructions
+
+`taco` is installed using `setup.py`, and will be 
+installed as a command-line utility on the system.
+When we are finished you will be able to run the 
+command 
 
 ```
-python setup.py build
+$ taco --help
+```
 
-python setup.py install
+and see a `taco` help message.
+
+### Clone 
+
+Start by cloning a local copy of the repository:
+
+```
+git clone https://github.com/dahak-metagenomics/dahak-taco
+```
+
+You can specify a particular tag or branch with the 
+clone command, or use the default `stable` branch.
+
+
+### Build and Install
+
+The next step is to build and install the `taco` source code
+using `setup.py`:
+
+```
+$ python setup.py build
+```
+
+If you want to install taco as a system level module, run:
+
+```
+$ python setup.py install
+```
+
+If you want to install it as a user (recommended):
+
+```
+$ python setup.py install --user
+
+$ python setup.py install --user --prefix=    # <-- this is required on mac
+```
+
+This will install the taco command line utility as an 
+executable program in the Python `bin` location. This 
+location may or may not be on your path, and varies
+depending on your Python environment, but should be in
+
+```
+$PYTHONHOME/bin
 ```
 
 
-# Usage
+## Usage
 
 The basic idea behind taco is to 
 pass it an action and modify basic
@@ -26,19 +75,19 @@ use command line flags and external files to change
 workflow targets and parameter sets. 
 
 
-## Actions
+### Verbs
 
 Run the taco command line tool like this:
 
 ```
-$ ./taco <action> --arguments
+$ ./taco <verb> --arguments
 ```
 
 taco has two main actions:
 
-**`taco ls [<worfklow>]`** - lists the available workflows and rules in workflows
+* `taco ls [<worfklow>]` - lists the available workflows and rules in workflows
 
-**`taco <worfklow>`** - runs the specified workflow
+* `taco <worfklow>` - runs the specified workflow
 
 Each workflow must specify a set of 
 workflow configuration variables 
