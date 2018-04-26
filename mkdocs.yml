@@ -36,11 +36,13 @@ extra_css:
 # give a title for each page
 pages:
   - 'Index' : 'index.md'
-  - 'Installation and Usage' : 'InstallationUsage.md'
+  - 'Installation' : 'Installation.md'
+  - 'Usage' : 'Usage.md'
+  - 'Workflows' : 'Workflows.md'
   - 'Quick Start' : 'Quickstart.md'
   - 'AWS Setup for Walkthroughs' : 'AWSSetup.md'
   - 'Snakemake Rules' : 'SnakemakeRules.md'
-  - 'Creating Workflows' : 'Workflows.md'
+  - 'Developing Workflows' : 'DevWorkflows.md'
   - 'Documentation' : 'Documentation.md'
   - 'Snakemake Development' : 'Development.md'
 
