@@ -1,50 +1,32 @@
 # dahak-taco documentation
 
-dahak-taco is an experimental command-line interface
-for running dahak workflows using Snakemake.
+`taco` is an experimental command-line interface
+for running [dahak](https://github.com/dahak-metagenomics/dahak)
+workflows using Snakemake.
 
 (insert icholy/ttygif here.)
-
-To get started with taco,
-and run your first workflow task,
-see the **Getting Started** Section below.
-
-If you're hungry for more dahak workflows,
-skip to the **Walkthroughs Section** below.
-
-If you are already up and running 
-with taco and are looking for 
-information about the rules and their 
-parameters, check out the 
-**API Section** below.
-
-If you are extending taco by adding new
-rules, workflows, or documentation, see 
-the **Developers Section**.
 
 
 ## Getting Started
 
-taco is a command line utility that wraps
-Snakemake rules to run complex workflows.
+`taco` is a lightweight wrapper around Snakemake tasks.
+Kind of like a corn tortilla.
 
-These sections will cover what taco is
-and get you up and running with your 
-first taco workflow.
+These sections will cover how to get up and running with `taco`.
 
-[Installation and Usage](InstallationUsage.md)
+[Installation](Installation.md) - how to install `taco`
 
-[Quick Start](Quickstart.md)
+[Usage](Usage.md) - basic usage of `taco`
+
+[Workflows](Workflows.md) - what are `taco` workflows, 
+how do you run them, and what do they include?
 
 
 ## Workflows
 
-`taco` is a lightweight wrapper around Snakemake tasks.
-Kind of like a corn tortilla.
-
 The actual taco workflow is defined using Snakemake rules,
 and these files should live in their own repository seaprate
-from dahak-taco.
+from `taco`.
 
 Each repository can define a single workflow, or multiple workflows.
 
@@ -57,13 +39,14 @@ Several example `taco` workflow repositories are available:
 * [taco-taxonomic-classification](https://github.com/dahak-metagenomics/taco-taxonomic-classification) - 
     implements a taxonomic classification taco workflow.
 
+Each repository provides documentation and a Quick Start guide.
+
 ## Cloud Platforms
 
-We include instructions for running workflows using `taco` 
-on various cloud platforms.
+We include instructions for getting up and running with `taco` on various cloud platforms.
+This is a great application of the `taco-simple` workflow.
 
 * [AWS Setup](AWSSetup.md)
-
 * HPC - TBA
 
 
@@ -90,15 +73,16 @@ repository, which contains several "hello world" style
 ## Advanced Topics
 
 For instructions on building, modifying, and improving
-the documentation for dahak-taco, see 
+the documentation for `taco`, see 
 [Documentation](Documentation.md).
 
 If you are interested in creating a new workflow,
-start with the [taco-simple](https://github.com/dahak-metagenomics/taco-simple) 
-repository, which illustrates how to create
-rule files to define multiple workflows 
-and how to utilize user-provided parameters.
+see [DevWorkflows.md](DevWorkflows.md). Also see 
+the [taco-simple](https://github.com/dahak-metagenomics/taco-simple) 
+repository, which illustrates simple "hello world" style 
+workflows using `taco` best practices.
 
 For more information about the development workflow,
-branches, tags, and the release process, see [Development](Development.md).
+branches, tags, and the release process, 
+see [Development](Development.md).
 
