@@ -4,7 +4,7 @@
     
     <url>
      <loc>https://dahak-metagenomics.github.io/dahak-taco/</loc>
-     <lastmod>2018-04-24</lastmod>
+     <lastmod>2018-04-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,7 +12,7 @@
     
     <url>
      <loc>https://dahak-metagenomics.github.io/dahak-taco/InstallationUsage/</loc>
-     <lastmod>2018-04-24</lastmod>
+     <lastmod>2018-04-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -20,15 +20,15 @@
     
     <url>
      <loc>https://dahak-metagenomics.github.io/dahak-taco/Quickstart/</loc>
-     <lastmod>2018-04-24</lastmod>
+     <lastmod>2018-04-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
-     <loc>https://dahak-metagenomics.github.io/dahak-taco/SetupAWS/</loc>
-     <lastmod>2018-04-24</lastmod>
+     <loc>https://dahak-metagenomics.github.io/dahak-taco/AWSSetup/</loc>
+     <lastmod>2018-04-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -36,7 +36,7 @@
     
     <url>
      <loc>https://dahak-metagenomics.github.io/dahak-taco/SnakemakeRules/</loc>
-     <lastmod>2018-04-24</lastmod>
+     <lastmod>2018-04-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -44,7 +44,23 @@
     
     <url>
      <loc>https://dahak-metagenomics.github.io/dahak-taco/Workflows/</loc>
-     <lastmod>2018-04-24</lastmod>
+     <lastmod>2018-04-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://dahak-metagenomics.github.io/dahak-taco/Documentation/</loc>
+     <lastmod>2018-04-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://dahak-metagenomics.github.io/dahak-taco/Development/</loc>
+     <lastmod>2018-04-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
     

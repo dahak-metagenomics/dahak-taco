@@ -11,7 +11,7 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
-        <link rel="canonical" href="https://dahak-metagenomics.github.io/dahak-taco/SetupAWS/">
+        <link rel="canonical" href="https://dahak-metagenomics.github.io/dahak-taco/Development/">
       
       
       
@@ -38,7 +38,7 @@
     
     
       
-        <title>AWS Setup for Walkthroughs - dahak-taco</title>
+        <title>Snakemake Development - dahak-taco</title>
       
     
     
@@ -97,7 +97,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#aws-worker-node-setup-walkthrough" tabindex="1" class="md-skip">
+      <a href="#development" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -123,7 +123,7 @@
                 dahak-taco
               </span>
               <span class="md-header-nav__topic">
-                AWS Setup for Walkthroughs
+                Snakemake Development
               </span>
             
           
@@ -263,8 +263,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../Quickstart/" title="Quickstart" class="md-nav__link">
-      Quickstart
+    <a href="../Quickstart/" title="Quick Start" class="md-nav__link">
+      Quick Start
     </a>
   </li>
 
@@ -273,97 +273,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        AWS Setup for Walkthroughs
-      </label>
-    
-    <a href="./" title="AWS Setup for Walkthroughs" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../AWSSetup/" title="AWS Setup for Walkthroughs" class="md-nav__link">
       AWS Setup for Walkthroughs
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#console" title="Console" class="md-nav__link">
-    Console
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create-instance" title="Create Instance" class="md-nav__link">
-    Create Instance
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amazon-machine-image" title="Amazon Machine Image" class="md-nav__link">
-    Amazon Machine Image
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#node-type" title="Node Type" class="md-nav__link">
-    Node Type
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuring-instance-details" title="Configuring Instance Details" class="md-nav__link">
-    Configuring Instance Details
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#volumes" title="Volumes" class="md-nav__link">
-    Volumes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#logging-into-instance" title="Logging Into Instance" class="md-nav__link">
-    Logging Into Instance
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -391,6 +305,95 @@
   </li>
 
     
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Documentation/" title="Documentation" class="md-nav__link">
+      Documentation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Snakemake Development
+      </label>
+    
+    <a href="./" title="Snakemake Development" class="md-nav__link md-nav__link--active">
+      Snakemake Development
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#branches-and-tags" title="Branches and Tags" class="md-nav__link">
+    Branches and Tags
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" title="Workflow" class="md-nav__link">
+    Workflow
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-new-features" title="Adding New Features" class="md-nav__link">
+    Adding New Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-new-version" title="Creating New Version" class="md-nav__link">
+    Creating New Version
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
   </ul>
 </nav>
                   </div>
@@ -412,51 +415,30 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#console" title="Console" class="md-nav__link">
-    Console
+  <a href="#branches-and-tags" title="Branches and Tags" class="md-nav__link">
+    Branches and Tags
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" title="Workflow" class="md-nav__link">
+    Workflow
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#create-instance" title="Create Instance" class="md-nav__link">
-    Create Instance
+  <a href="#adding-new-features" title="Adding New Features" class="md-nav__link">
+    Adding New Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#amazon-machine-image" title="Amazon Machine Image" class="md-nav__link">
-    Amazon Machine Image
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#node-type" title="Node Type" class="md-nav__link">
-    Node Type
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuring-instance-details" title="Configuring Instance Details" class="md-nav__link">
-    Configuring Instance Details
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#volumes" title="Volumes" class="md-nav__link">
-    Volumes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#logging-into-instance" title="Logging Into Instance" class="md-nav__link">
-    Logging Into Instance
+  <a href="#creating-new-version" title="Creating New Version" class="md-nav__link">
+    Creating New Version
   </a>
   
 </li>
@@ -483,84 +465,74 @@
               
                 
                 
-                <h1 id="aws-worker-node-setup-walkthrough">AWS Worker Node Setup Walkthrough<a class="headerlink" href="#aws-worker-node-setup-walkthrough" title="Permanent link">&para;</a></h1>
-<p>This workflow covers getting set up with 
-worker nodes, if you don't already have a
-cluster ready to go. </p>
-<p>In this document we will:</p>
-<ul>
-<li>Prepare a beefy worker node to run a 
-    dahak workflow by installing required software 
-    from the dahak-yeti repository.</li>
-</ul>
-<p>We will cover AWS in this document, although 
-taco can be used with various HPC and cloud 
-platforms.</p>
-<h2 id="console">Console<a class="headerlink" href="#console" title="Permanent link">&para;</a></h2>
-<p>Log into the AWS console and select EC2.  Select a region (<code>us-west-2</code> Oregon is good for spot instances).</p>
-<h3 id="create-instance">Create Instance<a class="headerlink" href="#create-instance" title="Permanent link">&para;</a></h3>
-<p>Use the big blue button to create a new EC2 instance.</p>
-<h3 id="amazon-machine-image">Amazon Machine Image<a class="headerlink" href="#amazon-machine-image" title="Permanent link">&para;</a></h3>
-<p>Select the stock Ubuntu 16.04 LTS image from the list of AMIs.
-This has the AMI ID:</p>
-<div class="codehilite"><pre><span></span>ami-4e79ed36
-</pre></div>
-
-
-<h3 id="node-type">Node Type<a class="headerlink" href="#node-type" title="Permanent link">&para;</a></h3>
-<p>The hardware depends highly on the worfklow
-(more results soon from benchmarking of workflows),
-but for all walkthroughs we utilize one of the following:</p>
-<ul>
-<li><code>m5.2xlarge</code> (8 vCPUs, 32 GB RAM) </li>
-<li><code>m5.4xlarge</code> (16 vCPUs, 64 GB RAM)</li>
-</ul>
-<h3 id="configuring-instance-details">Configuring Instance Details<a class="headerlink" href="#configuring-instance-details" title="Permanent link">&para;</a></h3>
-<p>On the configure instance details:</p>
+                <h1 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h1>
+<h2 id="branches-and-tags">Branches and Tags<a class="headerlink" href="#branches-and-tags" title="Permanent link">&para;</a></h2>
+<p>There are two main branches for development in taco:
+an active development branch that may break,
+and an infrequently updated stable branch that 
+points to the latest tested and verified version
+of taco.</p>
+<p>We utilize a two-track convention with branches - 
+one development branch and one stable branch: </p>
 <ul>
 <li>
-<p>Check "Request Spot Instances" box and set your desired price</p>
-<ul>
-<li>Typical price for 2xlarge is 14 cents per hour</li>
-<li>Typical price for 4xlarge is 28 cents per hour</li>
-</ul>
+<p><code>master</code> (unstable) - this points to the latest commit on the 
+    development branch of taco</p>
 </li>
 <li>
-<p>Click the Advanced Details bar at the bottom</p>
+<p><code>stable</code> (stable) - this points to the latest commit on the 
+    stable branch of taco</p>
+</li>
+</ul>
+<p>Branches for each release version also exist.
+We create a branch for each version release 
+to enable version-specific maintenance commits.
+Release branches also follow the two-track method.
+Release branches are named:</p>
+<ul>
+<li>
+<p><code>release/v0.0</code> (stable) - this contains all commits specific to
+    release version 0.0 of taco</p>
 </li>
 <li>
-<p>Copy the following into the user data text box:</p>
+<p><code>release/v0.0beta</code> (unstable) - this contains unstable development code
+    for <em>preparing</em> for release version 0.0 of taco (beta version)</p>
 </li>
 </ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
-bash &lt;<span class="o">(</span> curl https://raw.githubusercontent.com/charlesreid1/dahak-yeti/master/cloud_init/cloud_init.sh <span class="o">)</span>
-</pre></div>
-</td></tr></table>
-
-<p><img alt="dahak-yeti user data setup screenshot." src="../user-data-screenshot.png" /></p>
-<ul>
-<li>The pipe-to-bash one-liner will run the cloud init script 
-    in the <a href="https://github.com/dahak-metagenomics/dahak-yeti">dahak-yeti</a> repo</li>
-</ul>
-<h3 id="volumes">Volumes<a class="headerlink" href="#volumes" title="Permanent link">&para;</a></h3>
-<p>A 256 GB hard disk (EBS, the default) should be sufficient.</p>
-<h3 id="logging-into-instance">Logging Into Instance<a class="headerlink" href="#logging-into-instance" title="Permanent link">&para;</a></h3>
-<p>When you create the node it should set up a private key
-to use to SSH into the worker node.</p>
-<p>The init script will add a few minutes to the worker node's 
-startup time. It will run scripts, install files, set configurations,
-and run a lot of magic.</p>
-<p>Once the startup step has completed, you can SSH to the
-worker node, and you will have the following installed:</p>
-<ul>
-<li>pyenv</li>
-<li>miniconda3-4.30 installed with pyenv</li>
-<li>snakemake installed with conda</li>
-<li>opinionated dotfiles (<code>.bashrc</code>, <code>.bash_profile</code>, <code>.vimrc</code>, etc.)</li>
-<li>a colorful pink prompt</li>
-</ul>
-<p><img alt="dahak-yeti promp after user login" src="../yeti-screenshot.png" /></p>
+<p>The release branches use only the major and minor numbers,
+but tags are used for each major, minor, and patch number.
+The convention for naming tags in taco is the letter <code>v</code> 
+followed by the version (major, minor, and patch) <code>v0.0.0</code>.</p>
+<p>All tags for a major and minor version X.Y will point to 
+commits on the <code>release/vX.Y</code> branch.</p>
+<h2 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h2>
+<p>The normal workflow is to create a new branch 
+to add features or fix features, and merge commits 
+from that branch into <code>master</code>, then into 
+<code>stable</code>, and eventually on into a versioned release.</p>
+<h3 id="adding-new-features">Adding New Features<a class="headerlink" href="#adding-new-features" title="Permanent link">&para;</a></h3>
+<p>To add new features, create a new branch using the <code>master</code> 
+branch as a source, and make your commits on this branch.
+When you're ready, run tests on the branch to ensure the 
+modified code works as expected. Merge this code into
+the <code>master</code> branch.</p>
+<p>Once the code has been tested, checked for backwards 
+compatibility, linted, minted, stamped, licensed, etc., 
+it can be merged into the <code>stable</code> branch.</p>
+<h3 id="creating-new-version">Creating New Version<a class="headerlink" href="#creating-new-version" title="Permanent link">&para;</a></h3>
+<p>When you have commits in <code>stable</code> and are ready to
+release them as a new version, create a new 
+pre-release branch <code>release/v0.0beta</code> from the 
+appropriate <code>stable</code> commit.</p>
+<p>(If the features you want to add to a new version of taco 
+are not in the <code>stable</code> branch yet, start by getting them 
+into <code>stable</code>.)</p>
+<p>You should <em>not</em> be doing regular development on the 
+beta branches, but some hot-fix or workaround commits 
+may be required, hence the unstable label. </p>
+<p>Once <code>release/v0.0beta</code> has been tested and is ready
+for release, create a new branch <code>release/v0.0</code> 
+for the stable release of version 0.0 of taco.</p>
                 
                   
                 
@@ -581,7 +553,7 @@ worker node, and you will have the following installed:</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../Quickstart/" title="Quickstart" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../Documentation/" title="Documentation" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -590,25 +562,11 @@ worker node, and you will have the following installed:</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Quickstart
+                Documentation
               </span>
             </div>
           </a>
         
-        
-          <a href="../SnakemakeRules/" title="Snakemake Rules" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Snakemake Rules
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
         
       </nav>
     </div>
