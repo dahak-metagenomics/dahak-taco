@@ -39,6 +39,7 @@ pages:
   - 'Installation' : 'Installation.md'
   - 'Usage' : 'Usage.md'
   - 'Workflows' : 'Workflows.md'
+  - 'Tests' : 'Tests.md'
   - 'AWS Setup for Walkthroughs' : 'AWSSetup.md'
   - 'Snakemake Rules' : 'SnakemakeRules.md'
   - 'Developing Workflows' : 'DevWorkflows.md'
