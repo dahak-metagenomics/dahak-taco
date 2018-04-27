@@ -2,7 +2,6 @@ import sys, os, glob, argparse
 import pkg_resources
 import snakemake
 from . import _program
-from clint.textui import puts, indent, colored
 import yaml, json
 
 
