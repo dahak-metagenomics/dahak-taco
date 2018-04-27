@@ -84,8 +84,8 @@ class TestTacoSuccess(TestCase):
         so we should "freeze" taco-simple (use a tag)
         to keep taco tests from failing.
         """
-        command = ['taco','ls','workflow1']
-        p = Popen(command, cwd=self.tmp, stdout=PIPE, stderr=PIPE).communicate()
+        cmd = ['taco','ls','workflow1']
+        p = Popen(cmd, cwd=self.tmp, stdout=PIPE, stderr=PIPE).communicate()
 
         p_err = p[0].decode('utf-8').strip()
         p_out = p[1].decode('utf-8').strip()
@@ -93,6 +93,66 @@ class TestTacoSuccess(TestCase):
         self.assertIn('hello_target',   p_err)
         self.assertIn('goodbye_target', p_err)
         self.assertIn('master',         p_err)
+
+
+
+    def test_taco_workflow1(self):
+        """
+        In the temporary directory containing the taco-simple 
+        workflow, run taco workflow1 and specify config/params files.
+        
+        We also pass workflow config and params files.
+
+        Note that this will link taco-simple to taco, 
+        so we should "freeze" taco-simple (use a tag)
+        to keep taco tests from failing.
+        """
+        config_flagname = 'config-yaml'
+        config_dirname  = 'workflow-config'
+        config_filename = 'workflow1_config_simple.yaml'
+
+        params_flagname = 'params-yaml'
+        params_dirname  = 'workflow-params'
+        params_filename = 'workflow1_params_simple.yaml'
+
+        cmd = ['taco','workflow1']
+        cmd += ['--{}={}/{}'.format(config_flagname,config_dirname,config_filename)]
+        cmd += ['--{}={}/{}'.format(params_flagname,params_dirname,params_filename)]
+
+        p = Popen(cmd, cwd=self.tmp, stdout=PIPE, stderr=PIPE).communicate()
+
+        p_err = p[0].decode('utf-8').strip()
+        p_out = p[1].decode('utf-8').strip()
+
+        self.assertIn('Finished job', p_out)
+
+
+
+    def test_taco_workflow1_fail(self):
+        """
+        In the temporary directory containing the taco-simple 
+        workflow, run taco workflow1 without arguments.
+        This should fail.
+        """
+        config_flagname = 'config-yaml'
+        config_dirname  = 'workflow-config'
+        config_filename = 'workflow1_config_simple.yaml'
+
+        params_flagname = 'params-yaml'
+        params_dirname  = 'workflow-params'
+        params_filename = 'workflow1_params_simple.yaml'
+
+        cmd = ['taco','workflow1']
+
+        p = Popen(cmd, cwd=self.tmp, stdout=PIPE, stderr=PIPE).communicate()
+
+        p_err = p[0].decode('utf-8').strip()
+        p_out = p[1].decode('utf-8').strip()
+
+        # don't know why, but errors are printed to p_out...???
+        # and help is printed to p_err
+        self.assertIn('ERROR', p_out)
+
 
 
     @classmethod

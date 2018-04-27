@@ -9,21 +9,15 @@ with open('requirements.txt') as f:
 # in __init__.py and determines the name
 # of the installed python package, 
 # and the name of the final cli tool.
-# 
-# Personally, I like wooflebog_plinkendorf
 from cli import __version__, _program
-
 
 setup(name=_program,
       version=__version__,
       packages=['cli'],
-      package_data={
-          '':'*.txt'
-      },
       test_suite='nose.collector',
       tests_require=['nose'],
       description='dahak taco, the command line interface for running dahak workflows',
-      url='https://dahak-metagenomics.github.com/dahak-taco',
+      url='https://dahak-metagenomics.github.io/dahak-taco',
       author='DIB Lab',
       author_email='cmreid@ucdavis.edu',
       license='BSD-3-Clause',
@@ -31,6 +25,7 @@ setup(name=_program,
       [console_scripts]
       {program} = cli.command:main
       """.format(program = _program),
+      install_requires=required,
       keywords=[],
       zip_safe=False)
 

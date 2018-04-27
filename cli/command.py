@@ -66,11 +66,14 @@ def get_argument_parser(sysargs):
                        nargs=1)
 
 
-    parser.add_argument('-n', '--dry-run', action='store_true', 
-            help="""Do a dry run with Snakemake: assemble but do not run the task graph.""")
-
     parser.add_argument('-c', '--clean', action='store_true', 
             help="""Use a clean, empty default Snakemake parameters dictionary. Used for testing and debugging.""")
+
+    parser.add_argument('-f', '--force', action='store_true', 
+            help="""Force Snakemake to run all rules in the workflow, even if target files already exist.""")
+
+    parser.add_argument('-n', '--dry-run', action='store_true', 
+            help="""Do a dry run with Snakemake: assemble but do not run the task graph.""")
 
     parser.add_argument('--prefix', action='store', 
             default='data/',
@@ -223,6 +226,7 @@ def workflow_verb(parser, args):
     config = dict(data_dir='data/',
                   clean=args.clean)
 
+
     print('--------')
     print('taco workflow details:')
     print('\tsnakefile: {}'.format(snakefile))
@@ -238,6 +242,7 @@ def workflow_verb(parser, args):
                                  printshellcmds=True,
                                  lock=False,
                                  dryrun=args.dry_run, 
+                                 forceall=args.force,
                                  config=config)
 
 
