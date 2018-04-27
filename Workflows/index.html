@@ -426,6 +426,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Tests/" title="Tests" class="md-nav__link">
+      Tests
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../AWSSetup/" title="AWS Setup for Walkthroughs" class="md-nav__link">
       AWS Setup for Walkthroughs
     </a>
@@ -693,7 +705,7 @@ workflow to the <code>ls</code> verb:</p>
 </pre></div>
 
 
-<p>To run the workfow, use the workflow name as the verb:</p>
+<p>To run the workflow, use the workflow name as the verb:</p>
 <div class="codehilite"><pre><span></span>taco &lt;workflow-name&gt; [OPTIONS]
 </pre></div>
 
@@ -702,7 +714,7 @@ workflow to the <code>ls</code> verb:</p>
 <code>Snakefile</code> (and subsequently all workflow rules)
 in the <code>rules/&lt;workflow-name&gt;/</code> directory.
 The Snakefile will first load the user-provided
-workflow parameters, then fill in any parmeters
+workflow parameters, then fill in any parameters
 the user did not provide with the default values.</p>
 <p><code>taco</code> then uses the configuration file provided in 
 the options to determine what targets to make,
@@ -917,7 +929,7 @@ This is largely workflow dependent, but
 a good pattern to implement this is to include
 a configuration dictionary for each application
 (such as <code>acme_widget</code>) that specifies whether 
-to use a dockerhub/quay.io contianer image 
+to use a dockerhub/quay.io container image 
 or a local container image:</p>
 <div class="codehilite"><pre><span></span>acme_widget:
   use_local: true
@@ -968,13 +980,13 @@ or a local container image:</p>
           </a>
         
         
-          <a href="../AWSSetup/" title="AWS Setup for Walkthroughs" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../Tests/" title="Tests" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                AWS Setup for Walkthroughs
+                Tests
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

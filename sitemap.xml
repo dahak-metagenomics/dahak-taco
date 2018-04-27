@@ -35,6 +35,14 @@
 
     
     <url>
+     <loc>https://dahak-metagenomics.github.io/dahak-taco/Tests/</loc>
+     <lastmod>2018-04-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
      <loc>https://dahak-metagenomics.github.io/dahak-taco/AWSSetup/</loc>
      <lastmod>2018-04-26</lastmod>
      <changefreq>daily</changefreq>

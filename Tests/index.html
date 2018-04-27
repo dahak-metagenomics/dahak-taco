@@ -11,7 +11,7 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
-        <link rel="canonical" href="https://dahak-metagenomics.github.io/dahak-taco/DevWorkflows/">
+        <link rel="canonical" href="https://dahak-metagenomics.github.io/dahak-taco/Tests/">
       
       
       
@@ -38,7 +38,7 @@
     
     
       
-        <title>Developing Workflows - dahak-taco</title>
+        <title>Tests - dahak-taco</title>
       
     
     
@@ -97,7 +97,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#adding-new-taco-workflows" tabindex="1" class="md-skip">
+      <a href="#tests" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -123,7 +123,7 @@
                 dahak-taco
               </span>
               <span class="md-header-nav__topic">
-                Developing Workflows
+                Tests
               </span>
             
           
@@ -285,11 +285,20 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../Tests/" title="Tests" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+    <a href="./" title="Tests" class="md-nav__link md-nav__link--active">
       Tests
     </a>
+    
   </li>
 
     
@@ -321,20 +330,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-    <a href="./" title="Developing Workflows" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../DevWorkflows/" title="Developing Workflows" class="md-nav__link">
       Developing Workflows
     </a>
-    
   </li>
 
     
@@ -390,117 +390,19 @@
               
                 
                 
-                <h1 id="adding-new-taco-workflows">Adding New Taco Workflows<a class="headerlink" href="#adding-new-taco-workflows" title="Permanent link">&para;</a></h1>
-<p>If you wish to extend or modify taco by 
-adding a new workflow, you can do so,
-but it's important to plan it out first!</p>
-<p>Each Snakemake workflow is composed of 
-a set of loosely-interconnected rules 
-sharing parameters and handling pieces 
-of the whole workflow.</p>
-<p>The workflow lives in a directory 
-in <code>rules</code> that is named after the 
-workflow. For example, to add a new
-workflow called <code>foobar</code>:</p>
-<div class="codehilite"><pre><span></span>rules/
-    foobar/
-    taxonomic_classification/
-    read_filtering/
-    functional_annotation/
-    ...
+                <h1 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h1>
+<p><code>taco</code> tests use the <code>unittest</code> module
+(same underlying test framework that nose uses,
+but without the nose wrapper).</p>
+<p>All tests are located in the <code>tests/</code> directory
+of the repository. They can be run through <code>setup.py</code>:</p>
+<div class="codehilite"><pre><span></span>python setup.py test
 </pre></div>
 
 
-<p>Each rule or group of rules lives in a 
-.rule file. All rule files have access
-to the entire configuration dictionary,
-which stores all workflow parameters.</p>
-<p>Suppose our new workflow <code>foobar</code> had 
-three distinct steps: <code>buz</code>, <code>fuz</code>, and <code>wuz</code>.
-Then we would create a rule file for each,
-and the <code>foobar/</code> rules directory structure
-would be:</p>
-<div class="codehilite"><pre><span></span>rules/
-    foobar/
-        buz.rule
-        fuz.rule
-        wuz.rule
-        foobar.settings
-</pre></div>
-
-
-<p>Additionally, we need to set parameters for the workflow.</p>
-<p>Each workflow has access to the "master" Snakemake
-parameters dictionary. </p>
-<p>In addition, each workflow defines its own parameters dictionary
-to store parameters specific to that workflow.</p>
-<p>This parameters dictionary is stored under a key that is the name 
-of the workflow.</p>
-<p>For example, if each of our three workflow steps took 
-parameters, here is how we would organize the 
-workflow's default parameters dictionary:</p>
-<p><strong>JSON:</strong></p>
-<div class="codehilite"><pre><span></span>{
-    ...
-
-    &#39;foobar&#39; : {
-
-        &#39;buz&#39; : {
-            &#39;buz_param_1&#39; : 1,
-            &#39;buz_param_2&#39; : &#39;alpha&#39;
-        },
-
-        &#39;fuz&#39; : {
-            &#39;fuz_param_1&#39; : 50,
-            &#39;fuz_param_2&#39; : 51,
-            &#39;fuz_param_3&#39; : False
-        },
-
-        &#39;wuz&#39; : {
-            &#39;wuz_param_1&#39; : 9.99,
-            &#39;wuz_param_2&#39; : 9.98,
-            &#39;wuz_param_3&#39; : 9.97,
-            &#39;wuz_param_4&#39; : 9.96
-        }
-    }
-    ...
-}
-</pre></div>
-
-
-<p><strong>YAML:</strong></p>
-<div class="codehilite"><pre><span></span>foobar:
-  buz:
-    - buz_param_1: 1
-    - buz_param_2: &quot;alpha&quot;
-  fuz:
-    - fuz_param_1: 50
-    - fuz_param_2: 51
-    - fuz_param_3: false
-
-  wuz:
-    - wuz_param_1: 9.99
-    - wuz_param_2: 9.98
-    - wuz_param_3: 9.97
-    - wuz_param_4: 9.96
-</pre></div>
-
-
-<p>The <code>foobar.settings</code> file must set this 
-in a way that will not overwrite defaults;
-hence this business:</p>
-<div class="codehilite"><pre><span></span>from snakemake.utils import update_config
-
-if(not config[&#39;clean&#39;]):
-
-    # Note: don&#39;t include http:// or https://
-    config_default = { 
-                        ... 
-                     }
-
-    update_config(config_default, config)
-    config = config_default
-</pre></div>
+<p>The scope of the <code>taco</code> unit tests is to focus on 
+testing basic functionality in taco - mainly checking
+the use of different verbs and command line flags.</p>
                 
                   
                 
@@ -521,7 +423,7 @@ if(not config[&#39;clean&#39;]):
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../SnakemakeRules/" title="Snakemake Rules" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../Workflows/" title="Workflows" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -530,19 +432,19 @@ if(not config[&#39;clean&#39;]):
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Snakemake Rules
+                Workflows
               </span>
             </div>
           </a>
         
         
-          <a href="../Documentation/" title="Documentation" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../AWSSetup/" title="AWS Setup for Walkthroughs" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Documentation
+                AWS Setup for Walkthroughs
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
