@@ -17,7 +17,7 @@ setup(name=_program,
       description='dahak taco, a command line interface for running dahak workflows',
       url='https://dahak-metagenomics.github.io/dahak-taco',
       author='DIB Lab',
-      author_email='cmreid@ucdavis.edu',
+      author_email='charles@charlesreid1.com',
       license='BSD-3-Clause',
       entry_points="""
       [console_scripts]
