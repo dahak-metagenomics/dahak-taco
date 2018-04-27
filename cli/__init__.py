@@ -1,2 +1,2 @@
 _program = "taco"
-__version__ = "1.0.0beta"
+__version__ = "1.0.1beta"
