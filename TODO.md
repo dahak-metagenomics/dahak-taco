@@ -13,21 +13,16 @@ notifications
     run a php mail script from the command line)
 * https://www.abeautifulsite.net/configuring-sendmail-on-ubuntu-1404
 
-### `taco validate`
+### less verbose
 
-This takes an optional config and/or params argument and validates it.
+Some of the examples are a little too wordy and redundant, e.g.,
 
 ```
-taco validate --help
-
-taco validate --config=goodies/w1config.json
-
-taco validate --params=goodies/w1config.json
-
-taco validate \
-    --config=goodies/w1config.json \
-    --params=goodies/w1params.json
+--config-yaml=workflow-config/workflow1_config_simple.yaml
+  ^^^^^^      ^^^^^^^^ ^^^^^^ ^^^^^^^^^ ^^^^^^
 ```
+
+Cut it out!
 
 ### parameter presets
 
@@ -54,6 +49,22 @@ taco workflow1 --config=goodies/w1config.json \
 taco workflow1 --config=goodies/w1config.json \
                --params=goodies/w1config.json \
                --preset=nitro
+```
+
+### `taco validate`
+
+This takes an optional config and/or params argument and validates it.
+
+```
+taco validate --help
+
+taco validate --config=goodies/w1config.json
+
+taco validate --params=goodies/w1config.json
+
+taco validate \
+    --config=goodies/w1config.json \
+    --params=goodies/w1params.json
 ```
 
 ## rules
