@@ -1,8 +1,121 @@
 from unittest import TestCase
 from .test_utility import captured_output
 from cli.command import main
+from subprocess import call, Popen, PIPE
+import os
+import shutil, tempfile
 
-class TestTaco(TestCase):
+
+"""
+Tests for the Taco Command Line Utility
+
+
+
+Two kinds of tests:
+    - tests where we expect success (e.g., using a real taco workflow)
+    - tests where we expect failure (e.g., checking exit code is -1 for invalid input options)
+
+We create a unittest TestCase for each kind of test.
+Nose will automatically find these tests and run them
+when we run python setup.py test.
+"""
+
+
+class TestTacoSuccess(TestCase):
+    """
+    Class of test cases intended to test
+    that taco works.
+
+    This uses the subprocess PIPE var
+    to capture system input and output,
+    since we are running taco from the 
+    command line directly using subprocess.
+    """
+    @classmethod
+    def setUpClass(self):
+        """
+        Set up a genuine taco workflow test.
+        Create a temporary directory, and clone the 
+        taco-simple workflow repo there.
+        """
+        # make temp dir
+        #self.tmp = tempfile.mkdtemp()
+        self.tmp = '/tmp/likewhateverman'
+        call(['mkdir',self.tmp])
+
+        # clone git dir
+        clonecmd = ['git','clone','https://github.com/dahak-metagenomics/taco-simple', self.tmp]
+        call(clonecmd)
+
+        # now we're ready to run taco commands
+        # make sure to set cwd=tmp
+
+
+    def test_git_clone_worked(self):
+        """
+        Make sure the setup went smoothly
+        """
+        b = os.path.isdir( os.path.join(self.tmp,'rules') )
+        self.assertTrue(b)
+
+
+    def test_taco_ls(self):
+        """
+        In the temporary directory containing the taco-simple 
+        workflow, run taco ls. We should see a few workflows
+        """
+        command = ['taco','ls']
+        p = Popen(command, cwd=self.tmp, stdout=PIPE, stderr=PIPE).communicate()
+
+        p_err = p[0].decode('utf-8').strip()
+        p_out = p[1].decode('utf-8').strip()
+
+        self.assertIn('workflow1',p_err)
+        self.assertIn('workflow2',p_err)
+        self.assertIn('workflow3',p_err)
+
+
+    def test_taco_ls_workflow1(self):
+        """
+        In the temporary directory containing the taco-simple 
+        workflow, run taco ls workflow1.
+
+        Note that this will link taco-simple to taco, 
+        so we should "freeze" taco-simple (use a tag)
+        to keep taco tests from failing.
+        """
+        command = ['taco','ls','workflow1']
+        p = Popen(command, cwd=self.tmp, stdout=PIPE, stderr=PIPE).communicate()
+
+        p_err = p[0].decode('utf-8').strip()
+        p_out = p[1].decode('utf-8').strip()
+
+        self.assertIn('hello_target',   p_err)
+        self.assertIn('goodbye_target', p_err)
+        self.assertIn('master',         p_err)
+
+
+    @classmethod
+    def tearDownClass(self):
+        """
+        Clean up after the genuine taco workflow test.
+        """
+        # remove temp dir
+        shutil.rmtree(self.tmp)
+
+
+
+
+class TestTacoFail(TestCase):
+    """
+    Class of test cases intended to test that 
+    taco will fail as expected.
+
+    This uses the captured_output() function
+    to catpure system input and output, 
+    because we are calling the command line utility
+    from Python and not the command line itself.
+    """
 
     def test_tests(self):
         """
@@ -15,10 +128,9 @@ class TestTaco(TestCase):
         output = out.getvalue().strip()
         self.assertEqual(output, 'hello world')
 
-    def test_ls(self):
+    def test_ls_exit_code(self):
         """
-        Assert that calling taco ls 
-        without arguments or rules
+        Assert that calling taco ls without arguments or rules
         will result in an exit code -1
         """
         with self.assertRaises(SystemExit) as cm:
@@ -32,4 +144,5 @@ class TestTaco(TestCase):
         # https://stackoverflow.com/a/15672165
         the_exception = cm.exception
         self.assertEqual(the_exception.code, -1)
+
 
