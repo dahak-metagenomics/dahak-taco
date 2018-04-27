@@ -58,3 +58,31 @@ each workflow step, use:
     workflow parameters.
 
 
+## Paths
+
+By default, `taco` will create a working directory 
+called `data/` in your current working directory,
+and it will put all generated files in that directory.
+
+You can change this location using the `--prefix` 
+command line option. For example, to make a big mess
+in the current directory, you could leave prefix empty
+and run taco like this:
+
+```
+taco --prefix= <rest of args>
+```
+
+You can specify relative paths:
+
+```
+taco --prefix=scratch/ <rest of args>
+```
+
+or absolute paths:
+
+```
+taco --prefix=/tmp <rest of args>
+```
+
+
