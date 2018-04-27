@@ -261,10 +261,10 @@ The form of the workflow parameters JSON file is:
 
 ```text
 {
-    '<workflow-name>' : {
-        '<rule-name>' : {
-            '<param-name>' : <param-value>,
-            '<param-list>' : [<value1>, ...],
+    "<workflow-name>" : {
+        "<rule-name>" : {
+            "<param-name>" : <param-value>,
+            "<param-list>" : [<value1>, ...],
             ...
         }
     }
