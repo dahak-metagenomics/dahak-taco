@@ -4,7 +4,7 @@ taco is an experimental command line interface for dahak workflows.
 
 ## Installing 
 
-See [INSTALLING](/INSTALLING.md) for installation instructions.
+See [docs/Installation](docs/Installation.md) for installation instructions.
 
 ## Using
 

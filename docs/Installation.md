@@ -11,6 +11,37 @@ $ taco --help
 
 and see a `taco` help message.
 
+## Requirements
+
+`taco` requires the following software be installed:
+
+* Python 3
+* Conda
+* Snakemake
+* Singularity or Docker
+
+To check that you are using Python 3, run:
+
+```text
+$ /usr/bin/env python --version
+```
+
+To test that Snakemake can be imported from Python, run:
+
+```text
+$ /usr/bin/env python -c 'import snakemake'
+```
+
+To check your version of singularity, run:
+
+```text
+$ which singularity
+```
+
+Scripts to install the above packages can be found
+in the [`scripts/`](https://github.com/dahak-metagenomics/dahak-taco/tree/master/scripts) 
+directory of dahak-taco.
+
 ## Clone 
 
 Start by cloning a local copy of the repository:
