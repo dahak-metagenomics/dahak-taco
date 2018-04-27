@@ -278,6 +278,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#requirements" title="Requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#clone" title="Clone" class="md-nav__link">
     Clone
   </a>
@@ -426,6 +433,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#requirements" title="Requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#clone" title="Clone" class="md-nav__link">
     Clone
   </a>
@@ -473,6 +487,32 @@ command </p>
 
 
 <p>and see a <code>taco</code> help message.</p>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<p><code>taco</code> requires the following software be installed:</p>
+<ul>
+<li>Python 3</li>
+<li>Conda</li>
+<li>Snakemake</li>
+<li>Singularity or Docker</li>
+</ul>
+<p>To check that you are using Python 3, run:</p>
+<div class="codehilite"><pre><span></span>$ /usr/bin/env python --version
+</pre></div>
+
+
+<p>To test that Snakemake can be imported from Python, run:</p>
+<div class="codehilite"><pre><span></span>$ /usr/bin/env python -c &#39;import snakemake&#39;
+</pre></div>
+
+
+<p>To check your version of singularity, run:</p>
+<div class="codehilite"><pre><span></span>$ which singularity
+</pre></div>
+
+
+<p>Scripts to install the above packages can be found
+in the <a href="https://github.com/dahak-metagenomics/dahak-taco/tree/master/scripts"><code>scripts/</code></a> 
+directory of dahak-taco.</p>
 <h2 id="clone">Clone<a class="headerlink" href="#clone" title="Permanent link">&para;</a></h2>
 <p>Start by cloning a local copy of the repository:</p>
 <div class="codehilite"><pre><span></span>git clone https://github.com/dahak-metagenomics/dahak-taco
