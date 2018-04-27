@@ -1,3 +1,2 @@
-# Add required modules here.
 recommonmark==0.4.0
 -e git://github.com/dib-lab/mkdocs-material-dib.git@8ba70606bfc841fb2ac6aa279256f523efb106da#egg=material
