@@ -10,6 +10,19 @@ copyright: 'Copyright &copy; 2018 <a href="http://ivory.idyll.org/lab/">Lab for 
 docs_dir: docs
 site_dir: site
 
+# give a title for each page
+pages:
+  - 'Index' : 'index.md'
+  - 'Installation' : 'Installation.md'
+  - 'Usage' : 'Usage.md'
+  - 'Workflows' : 'Workflows.md'
+  - 'Tests' : 'Tests.md'
+  - 'AWS Setup for Walkthroughs' : 'AWSSetup.md'
+  - 'Snakemake Rules' : 'SnakemakeRules.md'
+  - 'Developing Workflows' : 'DevWorkflows.md'
+  - 'Documentation' : 'Documentation.md'
+  - 'Snakemake Development' : 'Development.md'
+
 theme:
 
   # the next 2 lines are required to use the DIB version
@@ -32,19 +45,6 @@ theme:
 # this will add docs/css/custom.css to all your docs
 extra_css:
   - css/custom.css
-
-# give a title for each page
-pages:
-  - 'Index' : 'index.md'
-  - 'Installation' : 'Installation.md'
-  - 'Usage' : 'Usage.md'
-  - 'Workflows' : 'Workflows.md'
-  - 'Tests' : 'Tests.md'
-  - 'AWS Setup for Walkthroughs' : 'AWSSetup.md'
-  - 'Snakemake Rules' : 'SnakemakeRules.md'
-  - 'Developing Workflows' : 'DevWorkflows.md'
-  - 'Documentation' : 'Documentation.md'
-  - 'Snakemake Development' : 'Development.md'
 
 # Extensions
 markdown_extensions:
