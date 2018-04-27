@@ -1,9 +1,0 @@
-{
-    "short_description": "Taxonomic Classification Walkthrough 1 - Fetching SBTs - Parameters",
-    "sourmash" : { 
-        "sbturl"  : "s3-us-west-1.amazonaws.com/spacegraphcats.ucdavis.edu",
-        "sbttar"  : "microbe-{databaase}-sbt-k{ksize}-2017.05.09.tar.gz"
-    },
-    "calculate" : {
-    }
-}

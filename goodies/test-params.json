@@ -1,7 +1,0 @@
-{
-    "biocontainers" : {
-        "sourmash" : {
-            "version" : "2.0.0a2--py36_0"
-        }
-    }
-}

@@ -1,7 +1,0 @@
-{
-    "short_description": "Read Filtering Walkthrough 4 - Quality Filtering at 2 - Configuration",
-    "workflow_targets" : ["data/SRR606249_1_trim2.fq.gz",
-                          "data/SRR606249_2_trim2.fq.gz",
-                          "data/SRR606249_1_trim2_fastqc.zip",
-                          "data/SRR606249_2_trim2_fastqc.zip"]
-}
