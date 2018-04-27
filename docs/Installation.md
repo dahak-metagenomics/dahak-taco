@@ -58,3 +58,11 @@ $PYTHONHOME/bin
 This should be on your `$PATH` for you to be able to 
 call `taco` from the command line.
 
+## Run Tests
+
+To run tests:
+
+```
+python setup.py test
+```
+

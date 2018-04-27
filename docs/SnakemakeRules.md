@@ -6,6 +6,13 @@ We follow the conventions set in the [snakemake-rules](https://github.com/percyf
 repository, and groups all rules into `.rule` files and all parameters into
 `.settings` files.
 
+For a couple of simple workflows illustrating
+how to assemble Snakemake rules that `taco` 
+can utilize (i.e., that uses information 
+from the user's config and params file),
+see the [simple-taco](https://github.com/dahak-metagenomics/simple-taco)
+taco workflow repository.
+
 ## Workflows 
 
 The workflows define a set of tasks.

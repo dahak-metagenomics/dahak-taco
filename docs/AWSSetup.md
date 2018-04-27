@@ -33,7 +33,7 @@ ami-4e79ed36
 
 ### Node Type
 
-The hardware depends highly on the worfklow
+The hardware depends highly on the workflow
 (more results soon from benchmarking of workflows),
 but for all walkthroughs we utilize one of the following:
 

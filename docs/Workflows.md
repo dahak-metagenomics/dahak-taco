@@ -1,6 +1,5 @@
 # Workflows
 
-
 ## Workflow Repositories
 
 To create a new workflow or set of workflows, 
@@ -78,7 +77,7 @@ workflow to the `ls` verb:
 taco ls <workflow-name>
 ```
 
-To run the workfow, use the workflow name as the verb:
+To run the workflow, use the workflow name as the verb:
 
 ```
 taco <workflow-name> [OPTIONS]
@@ -88,7 +87,7 @@ When this command is executed, `taco` loads the
 `Snakefile` (and subsequently all workflow rules)
 in the `rules/<workflow-name>/` directory.
 The Snakefile will first load the user-provided
-workflow parameters, then fill in any parmeters
+workflow parameters, then fill in any parameters
 the user did not provide with the default values.
 
 `taco` then uses the configuration file provided in 
@@ -352,7 +351,7 @@ This is largely workflow dependent, but
 a good pattern to implement this is to include
 a configuration dictionary for each application
 (such as `acme_widget`) that specifies whether 
-to use a dockerhub/quay.io contianer image 
+to use a dockerhub/quay.io container image 
 or a local container image:
 
 ```
@@ -372,7 +371,4 @@ in the `docker/acme_widget/Dockerfile` directory.
 ## Singularity
 
 (Notes on singularity?)
-
-
-
 

@@ -49,5 +49,3 @@ See the [Setting Up Push-to-Deploy on Github Pages](https://github.com/dib-lab/m
 section of the [mkdocs-material-dib](https://github.com/dib-lab/mkdocs-material-dib)
 documentation for instructions.
 
-
-

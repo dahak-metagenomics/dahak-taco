@@ -36,6 +36,7 @@ and workflow parameters (parameters used
 by the workflows themselves). These control
 the details of the workflow.
 
+
 ## Flags
 
 The principal way to modify taco workflows 
@@ -84,5 +85,4 @@ or absolute paths:
 ```
 taco --prefix=/tmp <rest of args>
 ```
-
 

@@ -21,11 +21,13 @@ These sections will cover how to get up and running with `taco`.
 [Workflows](Workflows.md) - what are `taco` workflows, 
 how do you run them, and what do they include?
 
+[Tests](Tests.md) - how to run `taco` unit tests 
+
 
 ## Workflows
 
 The actual taco workflow is defined using Snakemake rules,
-and these files should live in their own repository seaprate
+and these files should live in their own repository, separate
 from `taco`.
 
 Each repository can define a single workflow, or multiple workflows.
