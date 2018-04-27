@@ -3,6 +3,16 @@ import getpass
 import os, sys
 import subprocess
 
+
+"""
+Install Docker
+
+
+This installs docker for the "ubuntu" user.
+This script requires sudo access to install docker.
+"""
+
+
 FNULL = open(os.devnull, 'w')
 
 def install_docker():

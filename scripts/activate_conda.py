@@ -6,10 +6,13 @@ import subprocess
 """
 Activate Conda
 
+
 Run the commands to install a version of conda
 that is acceptable to us, using pyenv.
 Make this the global pyenv version.
 Make sure dotfiles always update $PATH.
+
+This assumes that pyenv is already on your $PATH.
 
 pyenv install <version>
 pyenv global <version>

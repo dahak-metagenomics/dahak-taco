@@ -3,6 +3,17 @@ import getpass
 import os, sys
 import subprocess
 
+
+"""
+Install Singularity
+
+
+This installs Singularity for the "ubuntu" user.
+This script requires sudo access to use aptitude
+to install singularity. 
+"""
+
+
 FNULL = open(os.devnull, 'w')
 
 def install_singularity():
