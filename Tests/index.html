@@ -391,18 +391,15 @@
                 
                 
                 <h1 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h1>
-<p><code>taco</code> tests use the <code>unittest</code> module
-(same underlying test framework that nose uses,
-but without the nose wrapper).</p>
-<p>All tests are located in the <code>tests/</code> directory
-of the repository. They can be run through <code>setup.py</code>:</p>
+<p><code>taco</code> tests use the <code>nose</code> test module.</p>
+<p>All tests are located in the <code>cli/tests/</code> directory.</p>
+<p>Tests can be run through <code>setup.py</code>:</p>
 <div class="codehilite"><pre><span></span>python setup.py test
 </pre></div>
 
 
-<p>The scope of the <code>taco</code> unit tests is to focus on 
-testing basic functionality in taco - mainly checking
-the use of different verbs and command line flags.</p>
+<p>The <code>taco</code> unit tests check the usage of different verbs 
+and command line flags. </p>
                 
                   
                 
