@@ -2,6 +2,8 @@
 
 ## Branches and Tags
 
+![Release branching diagram](taco-branches.png)
+
 There are two main branches for development in taco:
 an active development branch that may break,
 and an infrequently updated stable branch that 

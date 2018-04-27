@@ -23,3 +23,6 @@ of `taco` workflow repos:
 * [taco-taxonomic-classification](https://github.com/dahak-metagenomics/taco-taxonomic-classification) - 
     implements a taxonomic classification taco workflow.
 
+## Branches
+
+![Release branches for taco](docs/taco-branches.png)
