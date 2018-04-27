@@ -20,7 +20,8 @@ setup(name=_program,
       package_data={
           '':'*.txt'
       },
-      test_suite='tests.taco_test_suite',
+      test_suite='nose.collector',
+      tests_require=['nose'],
       description='dahak taco, the command line interface for running dahak workflows',
       url='https://dahak-metagenomics.github.com/dahak-taco',
       author='DIB Lab',
@@ -31,7 +32,5 @@ setup(name=_program,
       {program} = cli.command:main
       """.format(program = _program),
       keywords=[],
-      #tests_require=['pytest', 'coveralls'],
-      tests_require=[],
       zip_safe=False)
 
