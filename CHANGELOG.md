@@ -6,30 +6,46 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0).
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# [Unreleased Changes]
+## [0.4] - 2018-04-27
 
-# [0.3] - 2018-04-24
+### Added
 
-### Added 
+- Revamped documentation
+
+- Added unit tests (run with nose, or nose collector via setup.py)
+    - tests for success (uses taco-simple workflow repository)
+    - tests for failure (incorrect usage)
+
+- Tests can be run with `python setup.py test`
+
+### Removed
+
+- `goodies/` - not used, see [taco-simple](https://github.com/dahak-metagenomics/taco-simple)
+
+## [0.3] - 2018-04-24
 
 ### Changed
 
 - Abstraction for taco has been updated to facilitate testing.
     We are now separating the workflow details from taco itself.
-    The taco utility is a wrapper that's imported and run from the
-    Python package namespace; it uses local folders and files
-    to determine what workflow to run.
+
+- taco utility is now a command line tool, installed with setup.py 
+
+- Workflows should now exist locally, taco anticipates a particular
+    directory structure and will raise exceptions if things aren't
+    in place
 
 - This structure becomes more logical when we think about the
-    alternative: bundling Snakefiles, storing them in memory,
-    dumping the contents of each varible to a temporary file 
-    structure, running Snakemake from the temporary file struture,
-    moving data files, DEAR GOD PLEASE DONT MAKE ME DO THIS.
+    alternative: bundling everything together requries dealing with
+    in-memory Snakefiles, creating a temporary folder on disk to 
+    extract and run, etc. Yikes.
 
 ### Removed
 
 - Standalone taco script
+
 - Docker files (moved to workflow repositories)
+
 - Rule files (moved to workflow repositories)
 
 ### Fixed
@@ -40,7 +56,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Update the command line interface syntax to handle 
     verbs and command line options in a more logical fashion.
 
-# [0.2] - 2018-04-19
+## [0.2] - 2018-04-19
 
 ### Added
 
@@ -49,7 +65,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Fixed
 
-# [0.1] - 2018-04-18
+## [0.1] - 2018-04-18
 
 ### Added 
 
@@ -63,7 +79,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Added `use_local` parameter (boolean: use a local docker image?)
 - Added `local` parameter (name of local docker image to use)
 
-# [List of Change Categories]
+## [List of Change Categories]
 
 ### Added 
 
