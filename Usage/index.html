@@ -303,6 +303,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#paths" title="Paths" class="md-nav__link">
+    Paths
+  </a>
+  
+</li>
+      
       
       
       
@@ -322,18 +329,6 @@
   <li class="md-nav__item">
     <a href="../Workflows/" title="Workflows" class="md-nav__link">
       Workflows
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../Quickstart/" title="Quick Start" class="md-nav__link">
-      Quick Start
     </a>
   </li>
 
@@ -432,6 +427,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#paths" title="Paths" class="md-nav__link">
+    Paths
+  </a>
+  
+</li>
+      
       
       
       
@@ -502,6 +504,26 @@ each workflow step, use:</p>
     the path to the JSON or YAML file to use for the 
     workflow parameters.</li>
 </ul>
+<h2 id="paths">Paths<a class="headerlink" href="#paths" title="Permanent link">&para;</a></h2>
+<p>By default, <code>taco</code> will create a working directory 
+called <code>data/</code> in your current working directory,
+and it will put all generated files in that directory.</p>
+<p>You can change this location using the <code>--prefix</code> 
+command line option. For example, to make a big mess
+in the current directory, you could leave prefix empty
+and run taco like this:</p>
+<div class="codehilite"><pre><span></span>taco --prefix= &lt;rest of args&gt;
+</pre></div>
+
+
+<p>You can specify relative paths:</p>
+<div class="codehilite"><pre><span></span>taco --prefix=scratch/ &lt;rest of args&gt;
+</pre></div>
+
+
+<p>or absolute paths:</p>
+<div class="codehilite"><pre><span></span>taco --prefix=/tmp &lt;rest of args&gt;
+</pre></div>
                 
                   
                 

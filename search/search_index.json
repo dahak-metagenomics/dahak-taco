@@ -57,7 +57,7 @@
         },
         {
             "location": "/Usage/",
-            "text": "Usage\n\u00b6\n\n\nThe basic idea behind \ntaco\n is to pass it a verb, and \nmodify the interpretation of the verb using command line flags.\n\n\nThe user will defines their Snakemake workflows in a way that \nkeeps them general and utilizes user-provided parameters. \n\ntaco\n then reads these workflows, determines what rules exist\nand what rules were specified by the user, and runs the workflows\nusing the user-provided parameters.\n\n\nRemember, you can always get help by running:\n\n\n$ taco --help\n\n\n\n\n\nVerbs\n\u00b6\n\n\nRun the taco command line tool like this:\n\n\n$ ./taco <verb> [--FLAGS]\n\n\n\n\n\ntaco has two main actions:\n\n\n\n\n\n\ntaco ls [<worfklow>]\n - lists the available workflows, or the available rules in a given workflow\n\n\n\n\n\n\ntaco <worfklow>\n - runs the specified workflow\n\n\n\n\n\n\nEach workflow must specify a set of \nworkflow configuration variables \n(names of files or Snakemake rules to run)\nand workflow parameters (parameters used \nby the workflows themselves). These control\nthe details of the workflow.\n\n\nFlags\n\u00b6\n\n\nThe principal way to modify taco workflows \nis to use external YAML or JSON files.\n\n\nTo specify the configuration file, which \ntells taco which files to create or which\nrules to run, use:\n\n\n\n\n(--config-json | --config-yaml)\n - flags specifying \n    the path to the JSON or YAML file to use for the \n    workflow configuration.\n\n\n\n\nTo specify the parameters file, which \ncontrols the settings and details of \neach workflow step, use:\n\n\n\n\n(--params-json | --params-yaml)\n - flags specifying \n    the path to the JSON or YAML file to use for the \n    workflow parameters.",
+            "text": "Usage\n\u00b6\n\n\nThe basic idea behind \ntaco\n is to pass it a verb, and \nmodify the interpretation of the verb using command line flags.\n\n\nThe user will defines their Snakemake workflows in a way that \nkeeps them general and utilizes user-provided parameters. \n\ntaco\n then reads these workflows, determines what rules exist\nand what rules were specified by the user, and runs the workflows\nusing the user-provided parameters.\n\n\nRemember, you can always get help by running:\n\n\n$ taco --help\n\n\n\n\n\nVerbs\n\u00b6\n\n\nRun the taco command line tool like this:\n\n\n$ ./taco <verb> [--FLAGS]\n\n\n\n\n\ntaco has two main actions:\n\n\n\n\n\n\ntaco ls [<worfklow>]\n - lists the available workflows, or the available rules in a given workflow\n\n\n\n\n\n\ntaco <worfklow>\n - runs the specified workflow\n\n\n\n\n\n\nEach workflow must specify a set of \nworkflow configuration variables \n(names of files or Snakemake rules to run)\nand workflow parameters (parameters used \nby the workflows themselves). These control\nthe details of the workflow.\n\n\nFlags\n\u00b6\n\n\nThe principal way to modify taco workflows \nis to use external YAML or JSON files.\n\n\nTo specify the configuration file, which \ntells taco which files to create or which\nrules to run, use:\n\n\n\n\n(--config-json | --config-yaml)\n - flags specifying \n    the path to the JSON or YAML file to use for the \n    workflow configuration.\n\n\n\n\nTo specify the parameters file, which \ncontrols the settings and details of \neach workflow step, use:\n\n\n\n\n(--params-json | --params-yaml)\n - flags specifying \n    the path to the JSON or YAML file to use for the \n    workflow parameters.\n\n\n\n\nPaths\n\u00b6\n\n\nBy default, \ntaco\n will create a working directory \ncalled \ndata/\n in your current working directory,\nand it will put all generated files in that directory.\n\n\nYou can change this location using the \n--prefix\n \ncommand line option. For example, to make a big mess\nin the current directory, you could leave prefix empty\nand run taco like this:\n\n\ntaco --prefix= <rest of args>\n\n\n\n\n\nYou can specify relative paths:\n\n\ntaco --prefix=scratch/ <rest of args>\n\n\n\n\n\nor absolute paths:\n\n\ntaco --prefix=/tmp <rest of args>",
             "title": "Usage"
         },
         {
@@ -74,6 +74,11 @@
             "location": "/Usage/#flags",
             "text": "The principal way to modify taco workflows \nis to use external YAML or JSON files.  To specify the configuration file, which \ntells taco which files to create or which\nrules to run, use:   (--config-json | --config-yaml)  - flags specifying \n    the path to the JSON or YAML file to use for the \n    workflow configuration.   To specify the parameters file, which \ncontrols the settings and details of \neach workflow step, use:   (--params-json | --params-yaml)  - flags specifying \n    the path to the JSON or YAML file to use for the \n    workflow parameters.",
             "title": "Flags"
+        },
+        {
+            "location": "/Usage/#paths",
+            "text": "By default,  taco  will create a working directory \ncalled  data/  in your current working directory,\nand it will put all generated files in that directory.  You can change this location using the  --prefix  \ncommand line option. For example, to make a big mess\nin the current directory, you could leave prefix empty\nand run taco like this:  taco --prefix= <rest of args>  You can specify relative paths:  taco --prefix=scratch/ <rest of args>  or absolute paths:  taco --prefix=/tmp <rest of args>",
+            "title": "Paths"
         },
         {
             "location": "/Workflows/",
@@ -144,76 +149,6 @@
             "location": "/Workflows/#singularity",
             "text": "(Notes on singularity?)",
             "title": "Singularity"
-        },
-        {
-            "location": "/Quickstart/",
-            "text": "Quick Start\n\u00b6\n\n\nThe basic idea behind taco is to \npass it an action and modify basic\nbehavior with command line flags.\n\n\n$ ./taco <action> --arguments\n\n\n\n\n\nIn this section we'll get started\nwith a simple workflow to illustrate\nhow to use taco.\n\n\nWorkflow Repository\n\u00b6\n\n\nTo create a new set of workflows, create a new repository.\nTo illustrate how to run taco, we will use a single workflow \nwith two steps.\n\n\nHere is the repository layout for our simple example:\n\n\ntaco-simple/\n\n        rules/\n            my_simple_workflow/\n                Snakefile\n                step1.rule\n                workflow_A.settings\n\n        workflow-config/\n            configA.json\n            configB.json\n\n        workflow-params/\n            paramsA.json\n            paramsB.json\n\n\n\n\n\nWorkflow Name\n\u00b6\n\n\nEach workflow is defined by a Snakefile that includes\na set of rules for each step of the workflow\nand a dictionary of parameter values. \n\n\nEach workflow is in its own directory in the \n\nrules/\n\ndirectory of this repository and must have \na Snakefile.\n\n\nThe user should specify the workflow name as the first\nverb on the command line. For example:\n\n\n$ taco read_filtering <workflow-config-file> <workflow-params-file>\n\n\n\n\n\nwill load the Snakefile in \nrules/read_filtering/\n \nand will make avaiable all read filtering rules.\n\n\nWorkflow Configuration File\n\u00b6\n\n\nThe workflow configuration file \ncontains a dictionary of configuration values.\n\n\nThe workflow configuration file\nmust specify a list of workflow targets\nassigned to the key \nworkflow_targets\n.\n\n\nThe value must be a valid Snakemake rule\ndefined in one of the rule files at \nrules/<workflow-name>/*.rules\n.\n\n\nThe form of the workflow configuration file \nfor running rules that have no file targets is\nto specify the name of the rule:\n\n\n{\n    \"workflow_targets\" : <list of Snakemake rules>\n}\n\n\n\n\n\nor,\n\n\n{\n    \"workflow_targets\" : <list of output file targets>\n}\n\n\n\n\n\nExample Rule-Based Workflow Configuration File\n\u00b6\n\n\nHere is a simple example of a workflow configuration file\nfor running a rule that has no file targets (pulling containers).\nThis rule specifies the workflow target by specifying the \nrule name:\n\n\ngoodies/test-conf.json\n:\n\n\n{\n    \"workflow_targets\" : [\"pull_biocontainers\"]\n}\n\n\n\n\n\nExample File-Based Workflow Configuration File\n\u00b6\n\n\nHere is a simple example of a workflow configuration file\nthat runs rules based on filename targets (in this example,\nthe output of a trimming process):\n\n\ngoodies/test-conf.json\n:\n\n\n{\n    \"workflow_targets\" : [\"XXXXXX_trim5_1.fq.gz\",\n                          \"XXXXXX_trim5_2.fq.gz\"]\n}\n\n\n\n\n\nWorkflow Parameters File\n\u00b6\n\n\nThe workflow parameters control various parameters\nthat are used by the programs and containers run\nby the Snakemake rules.\n\n\nEach workflow defines a set of default parameter values\nin a \n.settings\n file that lives next to the \nSnakefile\n\nand \n*.rule\n files.\n\n\nHowever, the user can set these parameter values in the \nworkflow parameters file, and these values set by the user \nwill override the default values.\n\n\nThe workflow parameters control how the workflow proceeds.\n\n\nThe workflow configuration controls the starting and ending points.\n\n\nThe form of the workflow parameters JSON file is:\n\n\n{\n    '<workflow-name>' : {\n        '<rule-name>' : {\n            '<param-name>' : <param-value>,\n            ...\n        }\n    }\n}\n\n\n\n\n\nMost parameters are listed under the name of the application\nthat uses it, but some parameters have more generic names because\nthey are common to multiple tasks.\n\n\nExample Workflow Parameters File\n\u00b6\n\n\nThe following example parameters file adjusts the parameters for \nthe rule to update biocontainers.\n\n\nThis is a simple parameter file overriding a single parameter,\nthe version of sourmash being utilized.\n\n\nThis overrides the default biocontainers setting of \nsourmash version \n2.0.0a3--py36_0\n, set in \n\nrules/dahak/biocontainers.settings\n.\n\n\ngoodies/test-params.json\n:\n\n\n{\n    \"biocontainers\" : {\n        \"trimmomatic\" : {\n            \"use_local\" : false,\n            \"quayurl\" : \"quay.io/biocontainers/trimmomatic\",\n            \"version\" : \"0.36--5\"\n        }\n    }\n}\n\n\n\n\n\nRunning Taco\n\u00b6\n\n\nTo run taco, pass it three arguments on the command line:\n\n\n\n\nName of the workflow\n\n\nRelative path to workflow configuration file\n\n\nRelative path to workflow parameters file\n\n\n\n\nBoth arguments should be the path to a JSON file\n(absolute or relative) and exclude the JSON suffix.\n\n\nRunning an Example\n\u00b6\n\n\nTo run the two JSON files in the example above,\nwhich are contained in the \ngoodies/\n directory \nand which are the first steps in the taxonomic classification \nworkflow, we would run:\n\n\n$ ./taco taxonomic_classification goodies/test-conf.json goodies/test-params.json\n\n\n\n\n\n(The \n.json\n extension can be included or excluded.)\n\n\nTo do a dry run only, add the \n-n\n or \n--dry-run\n flag:\n\n\n$ ./taco -n taxonomic_classification goodies/test-conf goodies/test-params\n\n\n\n\n\nThis will run the \npull_biocontainers\n rule.\n\n\nListing Available Actions\n\u00b6\n\n\nListing Workflows\n\u00b6\n\n\nYou can list available taco workflows\nusing the \ntaco ls\n command with no \nadditional arguments:\n\n\n$ ./taco ls\n\n\n\n\n\nListing Workflow Rules\n\u00b6\n\n\n(Not available)\n\n\nYou can list all of the rules available \nfor a given workflow by running \ntaco ls <workflow-name>\n.\nFor example:\n\n\n$ ./taco ls read_filtering",
-            "title": "Quick Start"
-        },
-        {
-            "location": "/Quickstart/#quick-start",
-            "text": "The basic idea behind taco is to \npass it an action and modify basic\nbehavior with command line flags.  $ ./taco <action> --arguments  In this section we'll get started\nwith a simple workflow to illustrate\nhow to use taco.",
-            "title": "Quick Start"
-        },
-        {
-            "location": "/Quickstart/#workflow-repository",
-            "text": "To create a new set of workflows, create a new repository.\nTo illustrate how to run taco, we will use a single workflow \nwith two steps.  Here is the repository layout for our simple example:  taco-simple/\n\n        rules/\n            my_simple_workflow/\n                Snakefile\n                step1.rule\n                workflow_A.settings\n\n        workflow-config/\n            configA.json\n            configB.json\n\n        workflow-params/\n            paramsA.json\n            paramsB.json",
-            "title": "Workflow Repository"
-        },
-        {
-            "location": "/Quickstart/#workflow-name",
-            "text": "Each workflow is defined by a Snakefile that includes\na set of rules for each step of the workflow\nand a dictionary of parameter values.   Each workflow is in its own directory in the  rules/ \ndirectory of this repository and must have \na Snakefile.  The user should specify the workflow name as the first\nverb on the command line. For example:  $ taco read_filtering <workflow-config-file> <workflow-params-file>  will load the Snakefile in  rules/read_filtering/  \nand will make avaiable all read filtering rules.",
-            "title": "Workflow Name"
-        },
-        {
-            "location": "/Quickstart/#workflow-configuration-file",
-            "text": "The workflow configuration file \ncontains a dictionary of configuration values.  The workflow configuration file\nmust specify a list of workflow targets\nassigned to the key  workflow_targets .  The value must be a valid Snakemake rule\ndefined in one of the rule files at  rules/<workflow-name>/*.rules .  The form of the workflow configuration file \nfor running rules that have no file targets is\nto specify the name of the rule:  {\n    \"workflow_targets\" : <list of Snakemake rules>\n}  or,  {\n    \"workflow_targets\" : <list of output file targets>\n}",
-            "title": "Workflow Configuration File"
-        },
-        {
-            "location": "/Quickstart/#example-rule-based-workflow-configuration-file",
-            "text": "Here is a simple example of a workflow configuration file\nfor running a rule that has no file targets (pulling containers).\nThis rule specifies the workflow target by specifying the \nrule name:  goodies/test-conf.json :  {\n    \"workflow_targets\" : [\"pull_biocontainers\"]\n}",
-            "title": "Example Rule-Based Workflow Configuration File"
-        },
-        {
-            "location": "/Quickstart/#example-file-based-workflow-configuration-file",
-            "text": "Here is a simple example of a workflow configuration file\nthat runs rules based on filename targets (in this example,\nthe output of a trimming process):  goodies/test-conf.json :  {\n    \"workflow_targets\" : [\"XXXXXX_trim5_1.fq.gz\",\n                          \"XXXXXX_trim5_2.fq.gz\"]\n}",
-            "title": "Example File-Based Workflow Configuration File"
-        },
-        {
-            "location": "/Quickstart/#workflow-parameters-file",
-            "text": "The workflow parameters control various parameters\nthat are used by the programs and containers run\nby the Snakemake rules.  Each workflow defines a set of default parameter values\nin a  .settings  file that lives next to the  Snakefile \nand  *.rule  files.  However, the user can set these parameter values in the \nworkflow parameters file, and these values set by the user \nwill override the default values.  The workflow parameters control how the workflow proceeds.  The workflow configuration controls the starting and ending points.  The form of the workflow parameters JSON file is:  {\n    '<workflow-name>' : {\n        '<rule-name>' : {\n            '<param-name>' : <param-value>,\n            ...\n        }\n    }\n}  Most parameters are listed under the name of the application\nthat uses it, but some parameters have more generic names because\nthey are common to multiple tasks.",
-            "title": "Workflow Parameters File"
-        },
-        {
-            "location": "/Quickstart/#example-workflow-parameters-file",
-            "text": "The following example parameters file adjusts the parameters for \nthe rule to update biocontainers.  This is a simple parameter file overriding a single parameter,\nthe version of sourmash being utilized.  This overrides the default biocontainers setting of \nsourmash version  2.0.0a3--py36_0 , set in  rules/dahak/biocontainers.settings .  goodies/test-params.json :  {\n    \"biocontainers\" : {\n        \"trimmomatic\" : {\n            \"use_local\" : false,\n            \"quayurl\" : \"quay.io/biocontainers/trimmomatic\",\n            \"version\" : \"0.36--5\"\n        }\n    }\n}",
-            "title": "Example Workflow Parameters File"
-        },
-        {
-            "location": "/Quickstart/#running-taco",
-            "text": "To run taco, pass it three arguments on the command line:   Name of the workflow  Relative path to workflow configuration file  Relative path to workflow parameters file   Both arguments should be the path to a JSON file\n(absolute or relative) and exclude the JSON suffix.",
-            "title": "Running Taco"
-        },
-        {
-            "location": "/Quickstart/#running-an-example",
-            "text": "To run the two JSON files in the example above,\nwhich are contained in the  goodies/  directory \nand which are the first steps in the taxonomic classification \nworkflow, we would run:  $ ./taco taxonomic_classification goodies/test-conf.json goodies/test-params.json  (The  .json  extension can be included or excluded.)  To do a dry run only, add the  -n  or  --dry-run  flag:  $ ./taco -n taxonomic_classification goodies/test-conf goodies/test-params  This will run the  pull_biocontainers  rule.",
-            "title": "Running an Example"
-        },
-        {
-            "location": "/Quickstart/#listing-available-actions",
-            "text": "",
-            "title": "Listing Available Actions"
-        },
-        {
-            "location": "/Quickstart/#listing-workflows",
-            "text": "You can list available taco workflows\nusing the  taco ls  command with no \nadditional arguments:  $ ./taco ls",
-            "title": "Listing Workflows"
-        },
-        {
-            "location": "/Quickstart/#listing-workflow-rules",
-            "text": "(Not available)  You can list all of the rules available \nfor a given workflow by running  taco ls <workflow-name> .\nFor example:  $ ./taco ls read_filtering",
-            "title": "Listing Workflow Rules"
         },
         {
             "location": "/AWSSetup/",
