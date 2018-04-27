@@ -1,6 +1,5 @@
 from unittest import TestCase
 from .test_utility import captured_output
-from .test_utility2 import hello
 from cli.command import main
 
 class TestTaco(TestCase):
