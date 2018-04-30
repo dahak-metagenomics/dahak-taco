@@ -1,5 +1,7 @@
 # dahak-taco
 
+[![Documentation Status](https://readthedocs.org/projects/dahak-taco/badge/?version=latest)](http://dahak-taco.readthedocs.io/en/latest/?badge=latest)
+
 taco is an experimental command line interface for dahak workflows. 
 
 ## Installing 
