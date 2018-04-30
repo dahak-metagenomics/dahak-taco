@@ -12,7 +12,7 @@ See the [dahak-taco documentation](https://dahak-metagenomics.github.io/dahak-ta
 
 ## Taco Workflows
 
-Groups of `taco` workflows are bundled into inddividual 
+Groups of `taco` workflows are bundled into individual 
 repositories separate from `taco` itself. Here is a list
 of `taco` workflow repos:
 
@@ -25,4 +25,8 @@ of `taco` workflow repos:
 
 ## Branches
 
+We use the [git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
+described by Vincent Driessen.
+
 ![Release branches for taco](docs/taco-branches.png)
+
