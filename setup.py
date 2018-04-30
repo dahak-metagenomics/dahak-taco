@@ -9,7 +9,7 @@ with open('requirements.txt') as f:
 # it determines the name of the package/final command line tool.
 from cli import __version__, _program
 
-setup(name=_program,
+setup(name='dahak_taco',
       version=__version__,
       packages=['cli'],
       test_suite='nose.collector',
