@@ -4,6 +4,7 @@ from cli.command import main
 from subprocess import call, Popen, PIPE
 import os
 import shutil, tempfile
+from os.path import isdir, join
 
 
 """
@@ -11,13 +12,12 @@ Tests for the Taco Command Line Utility
 
 
 
-Two kinds of tests:
+This file contains two kinds of tests:
     - tests where we expect success (e.g., using a real taco workflow)
     - tests where we expect failure (e.g., checking exit code is -1 for invalid input options)
 
 We create a unittest TestCase for each kind of test.
-Nose will automatically find these tests and run them
-when we run python setup.py test.
+Nose will automatically find these tests and run them.
 """
 
 
@@ -55,24 +55,32 @@ class TestTacoSuccess(TestCase):
         """
         Make sure the setup went smoothly
         """
-        b = os.path.isdir( os.path.join(self.tmp,'rules') )
-        self.assertTrue(b)
+        # is it there?
+        self.assertTrue( isdir( join(self.tmp,'rules') ) )
+
+        # does it have anything in it?
+        self.assertTrue( isdir( join(self.tmp,'rules') ) )
+
+        # does it have all 3 workflows?
+        self.assertTrue( isdir( join(self.tmp,'rules','workflow1') ) )
+        self.assertTrue( isdir( join(self.tmp,'rules','workflow2') ) )
+        self.assertTrue( isdir( join(self.tmp,'rules','workflow3') ) )
 
 
     def test_taco_ls(self):
         """
         In the temporary directory containing the taco-simple 
-        workflow, run taco ls. We should see a few workflows
+        workflow, run taco ls. We should see a few workflows listed.
         """
         command = ['taco','ls']
         p = Popen(command, cwd=self.tmp, stdout=PIPE, stderr=PIPE).communicate()
 
-        p_err = p[0].decode('utf-8').strip()
-        p_out = p[1].decode('utf-8').strip()
+        p_out = p[0].decode('utf-8').strip()
+        p_err = p[1].decode('utf-8').strip()
 
-        self.assertIn('workflow1',p_err)
-        self.assertIn('workflow2',p_err)
-        self.assertIn('workflow3',p_err)
+        self.assertIn('workflow1',p_out)
+        self.assertIn('workflow2',p_out)
+        self.assertIn('workflow3',p_out)
 
 
     def test_taco_ls_workflow1(self):
@@ -87,12 +95,12 @@ class TestTacoSuccess(TestCase):
         cmd = ['taco','ls','workflow1']
         p = Popen(cmd, cwd=self.tmp, stdout=PIPE, stderr=PIPE).communicate()
 
-        p_err = p[0].decode('utf-8').strip()
-        p_out = p[1].decode('utf-8').strip()
+        p_out = p[0].decode('utf-8').strip()
+        p_err = p[1].decode('utf-8').strip()
 
-        self.assertIn('hello_target',   p_err)
-        self.assertIn('goodbye_target', p_err)
-        self.assertIn('master',         p_err)
+        self.assertIn('hello_target',   p_out)
+        self.assertIn('goodbye_target', p_out)
+        self.assertIn('master',         p_out)
 
 
 
@@ -121,10 +129,10 @@ class TestTacoSuccess(TestCase):
 
         p = Popen(cmd, cwd=self.tmp, stdout=PIPE, stderr=PIPE).communicate()
 
-        p_err = p[0].decode('utf-8').strip()
-        p_out = p[1].decode('utf-8').strip()
+        p_out = p[0].decode('utf-8').strip()
+        p_err = p[1].decode('utf-8').strip()
 
-        self.assertIn('Finished job', p_out)
+        self.assertIn('Finished job', p_err)
 
 
 
@@ -146,12 +154,10 @@ class TestTacoSuccess(TestCase):
 
         p = Popen(cmd, cwd=self.tmp, stdout=PIPE, stderr=PIPE).communicate()
 
-        p_err = p[0].decode('utf-8').strip()
-        p_out = p[1].decode('utf-8').strip()
+        p_out = p[0].decode('utf-8').strip()
+        p_err = p[1].decode('utf-8').strip()
 
-        # don't know why, but errors are printed to p_out...???
-        # and help is printed to p_err
-        self.assertIn('ERROR', p_out)
+        self.assertIn('ERROR', p_err)
 
 
 
@@ -165,7 +171,6 @@ class TestTacoSuccess(TestCase):
 
 
 
-
 class TestTacoFail(TestCase):
     """
     Class of test cases intended to test that 
@@ -176,7 +181,6 @@ class TestTacoFail(TestCase):
     because we are calling the command line utility
     from Python and not the command line itself.
     """
-
     def test_tests(self):
         """
         Sanity check
@@ -187,6 +191,8 @@ class TestTacoFail(TestCase):
             hello()
         output = out.getvalue().strip()
         self.assertEqual(output, 'hello world')
+
+
 
     def test_ls_exit_code(self):
         """
@@ -200,9 +206,8 @@ class TestTacoFail(TestCase):
             #self.assertIn('ERROR',output)
 
         # Exception objects have .error_code attribute
-        # SystemExit objects have .code
+        # SystemExit objects have .code attribute
         # https://stackoverflow.com/a/15672165
         the_exception = cm.exception
         self.assertEqual(the_exception.code, -1)
-
 
