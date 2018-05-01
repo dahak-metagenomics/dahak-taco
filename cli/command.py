@@ -22,6 +22,12 @@ def main(sysargs = sys.argv[1:]):
 
     parser, args = get_argument_parser(sysargs)
 
+    # Make sure the user provided SOME arguments
+    if(len(sys.argv)==1):
+        sys.stderr.write(logo)
+        parser.print_help(sys.stderr)
+        sys.exit(1)
+
     # Process the verb specified by the user.
     if len(args.verb)==0:
         die('No verb specified',parser)
