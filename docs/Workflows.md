@@ -33,11 +33,17 @@ taco-my-awesome-workflow/
                 banana.rule
                 workflowB.settings
 
-        workflow-config/
-            config_make_apples.json
-            config_make_blue_apples.json
-            config_make_bananas.json
-            config_make_green_bananas.json
+        apples-workflow/
+            apples_config.json
+            apples_params.json
+
+        bananas-workflow/
+            banana_config.json
+            banana_params.json
+
+        green-bananas-workflow/
+            green_banana_config.json
+            green_banana_params.json
 
         workflow-params/
             params_lite.json
