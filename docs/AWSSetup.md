@@ -54,7 +54,7 @@ On the configure instance details:
 
 ```
 #!/bin/bash
-bash <( curl https://raw.githubusercontent.com/charlesreid1/dahak-yeti/master/cloud_init/cloud_init.sh )
+bash <( curl https://raw.githubusercontent.com/dahak-metagenomics/dahak-yeti/master/cloud_init/cloud_init.sh )
 ```
 
 ![dahak-yeti user data setup screenshot.](user-data-screenshot.png)

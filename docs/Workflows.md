@@ -33,19 +33,19 @@ taco-my-awesome-workflow/
                 banana.rule
                 workflowB.settings
 
-        apples-workflow/
+        my-apples-workflow/
             apples_config.json
             apples_params.json
 
-        bananas-workflow/
+        my-bananas-workflow/
             banana_config.json
             banana_params.json
 
-        green-bananas-workflow/
+        my-green-bananas-workflow/
             green_banana_config.json
             green_banana_params.json
 
-        workflow-params/
+        param-sets/
             params_lite.json
             params_medium.json
             params_heavy.json
@@ -376,5 +376,5 @@ in the `docker/acme_widget/Dockerfile` directory.
 
 ## Singularity
 
-(Notes on singularity?)
+TODO
 
