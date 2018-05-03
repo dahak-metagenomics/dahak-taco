@@ -257,7 +257,7 @@
         },
         {
             "location": "/Documentation/",
-            "text": "Documentation\n\u00b6\n\n\nThis document covers the \ntaco\n documentation,\nhow to improve it, how to build it, and how to \nupdate the Github Pages/ReadTheDocs pages for\n\ntaco\n documentation.\n\n\nBuilding\n\u00b6\n\n\nTo build the documentation, you will need \nmkdocs\n.\n\n\npip install mkdocs\n\n\n\n\n\nYou will also need to check out the \nmkdocs-material-dib\n submodule\nfor the mkdocs documentation theme. \n\n\nTo include submodules when running the clone command:\n\n\ngit clone --recursive <url>\n\n\n\n\n\nTo clone submodules in an existing repository, run:\n\n\ngit submodule update --init\n\n\n\n\n\nOnce that's finished, you can run the following command\nfrom the current directory to build the documentation:\n\n\nmkdocs build\n\n\n\n\n\nThis generates all static content in the \nsite/\n directory.\nTo serve the documentation using a simple local HTTP server,\nrun:\n\n\nmkdocs serve\n\n\n\n\n\nUpdating Github Pages\n\u00b6\n\n\nSee the \nSetting Up Push-to-Deploy on Github Pages\n\nsection of the \nmkdocs-material-dib\n\ndocumentation for instructions.",
+            "text": "Documentation\n\u00b6\n\n\nThis document covers the \ntaco\n documentation,\nhow to improve it, how to build it, and how to \nupdate the Github Pages/ReadTheDocs pages for\n\ntaco\n documentation.\n\n\nWhat You Need\n\u00b6\n\n\nThis documentation uses \nmkdocs\n and a variation\non the \nmkdocs-material\n theme\ncalled \nmkdocs-material-dib\n.\n\n\nBuilding\n\u00b6\n\n\nTo build the documentation, you will need to install mkdocs: \n\n\npip install mkdocs\n\n\n\n\n\nThe \nmkdocs-material-dib\n theme is in this repository as a submodule,\nso you will need to clone a copy of the submodule.\n\n\nTo include submodules when cloning the taco repository:\n\n\ngit clone --recursive <url>\n\n\n\n\n\nTo clone the submodule in an already-cloned repository, run:\n\n\ngit submodule update --init\n\n\n\n\n\nOnce that's finished, you can run the following command\nfrom the current directory to build the documentation:\n\n\nmkdocs build\n\n\n\n\n\nThis generates all static content in the \nsite/\n directory.\nTo serve the documentation using a simple local HTTP server, run:\n\n\nmkdocs serve\n\n\n\n\n\nUpdating Github Pages\n\u00b6\n\n\nSee the \nSetting Up Push-to-Deploy on Github Pages\n\nsection of the \nmkdocs-material-dib\n\ndocumentation for instructions.",
             "title": "Documentation"
         },
         {
@@ -266,8 +266,13 @@
             "title": "Documentation"
         },
         {
+            "location": "/Documentation/#what-you-need",
+            "text": "This documentation uses  mkdocs  and a variation\non the  mkdocs-material  theme\ncalled  mkdocs-material-dib .",
+            "title": "What You Need"
+        },
+        {
             "location": "/Documentation/#building",
-            "text": "To build the documentation, you will need  mkdocs .  pip install mkdocs  You will also need to check out the  mkdocs-material-dib  submodule\nfor the mkdocs documentation theme.   To include submodules when running the clone command:  git clone --recursive <url>  To clone submodules in an existing repository, run:  git submodule update --init  Once that's finished, you can run the following command\nfrom the current directory to build the documentation:  mkdocs build  This generates all static content in the  site/  directory.\nTo serve the documentation using a simple local HTTP server,\nrun:  mkdocs serve",
+            "text": "To build the documentation, you will need to install mkdocs:   pip install mkdocs  The  mkdocs-material-dib  theme is in this repository as a submodule,\nso you will need to clone a copy of the submodule.  To include submodules when cloning the taco repository:  git clone --recursive <url>  To clone the submodule in an already-cloned repository, run:  git submodule update --init  Once that's finished, you can run the following command\nfrom the current directory to build the documentation:  mkdocs build  This generates all static content in the  site/  directory.\nTo serve the documentation using a simple local HTTP server, run:  mkdocs serve",
             "title": "Building"
         },
         {

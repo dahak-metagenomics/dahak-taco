@@ -362,6 +362,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-you-need" title="What You Need" class="md-nav__link">
+    What You Need
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#building" title="Building" class="md-nav__link">
     Building
   </a>
@@ -419,6 +426,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-you-need" title="What You Need" class="md-nav__link">
+    What You Need
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#building" title="Building" class="md-nav__link">
     Building
   </a>
@@ -454,20 +468,24 @@
 how to improve it, how to build it, and how to 
 update the Github Pages/ReadTheDocs pages for
 <code>taco</code> documentation.</p>
+<h2 id="what-you-need">What You Need<a class="headerlink" href="#what-you-need" title="Permanent link">&para;</a></h2>
+<p>This documentation uses <a href="http://www.mkdocs.org/">mkdocs</a> and a variation
+on the <a href="https://squidfunk.github.io/mkdocs-material/">mkdocs-material</a> theme
+called <a href="https://github.com/dib-lab/mkdocs-material-dib">mkdocs-material-dib</a>.</p>
 <h2 id="building">Building<a class="headerlink" href="#building" title="Permanent link">&para;</a></h2>
-<p>To build the documentation, you will need <a href="http://www.mkdocs.org/">mkdocs</a>.</p>
+<p>To build the documentation, you will need to install mkdocs: </p>
 <div class="codehilite"><pre><span></span>pip install mkdocs
 </pre></div>
 
 
-<p>You will also need to check out the <code>mkdocs-material-dib</code> submodule
-for the mkdocs documentation theme. </p>
-<p>To include submodules when running the clone command:</p>
+<p>The <code>mkdocs-material-dib</code> theme is in this repository as a submodule,
+so you will need to clone a copy of the submodule.</p>
+<p>To include submodules when cloning the taco repository:</p>
 <div class="codehilite"><pre><span></span>git clone --recursive &lt;url&gt;
 </pre></div>
 
 
-<p>To clone submodules in an existing repository, run:</p>
+<p>To clone the submodule in an already-cloned repository, run:</p>
 <div class="codehilite"><pre><span></span>git submodule update --init
 </pre></div>
 
@@ -479,8 +497,7 @@ from the current directory to build the documentation:</p>
 
 
 <p>This generates all static content in the <code>site/</code> directory.
-To serve the documentation using a simple local HTTP server,
-run:</p>
+To serve the documentation using a simple local HTTP server, run:</p>
 <div class="codehilite"><pre><span></span>mkdocs serve
 </pre></div>
 
