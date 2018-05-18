@@ -34,12 +34,12 @@ Each repository can define a single workflow, or multiple workflows.
 
 Several example `taco` workflow repositories are available:
 
-* [taco-simple](https://github.com/dahak-metagenomics/taco-simple) - 
-    illustrates the implementation of several "hello world" style taco workflows
-* [taco-read-filtering](https://github.com/dahak-metagenomics/taco-read-filtering) - 
-    implements a read filtering taco workflow.
-* [taco-taxonomic-classification](https://github.com/dahak-metagenomics/taco-taxonomic-classification) - 
-    implements a taxonomic classification taco workflow.
+* [taco-simple](https://dahak-metagenomics.github.io/taco-simple) - 
+    illustrates the implementation of several "hello world" style taco workflows.
+* [taco-read-filtering](https://dahak-metagenomics.github.io/taco-read-filtering) - 
+    implements a read filtering taco workflow. 
+* [taco-taxonomic-classification](https://dahak-metagenomics.github.io/taco-taxonomic-classification) - 
+    implements a taxonomic classification taco workflow. 
 
 Each repository provides documentation and a Quick Start guide.
 
