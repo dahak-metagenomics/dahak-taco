@@ -4,7 +4,7 @@ repo_name: dahak-taco
 repo_url: https://github.com/dahak-metagenomics/dahak-taco
 edit_uri: ""
 
-copyright: 'Copyright &copy; 2018 <a href="http://ivory.idyll.org/lab/">Lab for Data Intensive Biology</a> at UC Davis'
+copyright: 'Copyright &copy; 2018 <a href="http://ivory.idyll.org/lab/">Lab for Data Intensive Biology</a> at UC Davis, released under the <a href="https://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause License</a>'
 
 # change directory names here
 docs_dir: docs
