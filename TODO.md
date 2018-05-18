@@ -1,57 +1,59 @@
 ## priorities
 
+(note: this will be transitioning into [dahak-taco issues](https://github.com/dahak-metagenomics/dahak-taco/issues))
+
 ### installation
 
-* check to make sure snakemake installed
+Checking to ensure Snakemake/singularity/conda installed
+
+(See issues)
+
+
+### improving output/input file specification
+
+Example of a ghost "make all" style rule:
+
+* [here](https://github.com/spacegraphcats/spacegraphcats/blob/extract_reads_contigs_rules/conf/Snakefile#L218)
+* requests outputs as inputs, requests no outputs, defines no rule
+* apply it to hello/time/goodbye rules
+
 
 ### workflow caboose
 
-notifications
-* email at the end
+add a notifications caboose:
+
+* print notifications of where stuff is 
+* send notifications via mail() calls, API calls, webhooks, etc.
+
+email specifically?
+
 * ubuntu sendmail container
-* php + mail() (apache not necesary, should be able to 
-    run a php mail script from the command line)
+* php + mail() (apache not necesary - php script from command line)
 * https://www.abeautifulsite.net/configuring-sendmail-on-ubuntu-1404
 
-### less verbose
 
-Some of the examples are a little too wordy and redundant, e.g.,
+### imporovements to cli
 
-```
---config-yaml=workflow-config/workflow1_config_simple.yaml
-  ^^^^^^      ^^^^^^^^ ^^^^^^ ^^^^^^^^^ ^^^^^^
-```
+many issues open on these topics. mainly:
 
-Cut it out!
+* improving logic and simplifying
+* restructure to take advantage of ghost all rule
+* yaml and json extensions can be automatically detected
+
+
+### prefix location
+
+Prefix location with `--prefix`
+
 
 ### parameter presets
 
-We also want to provide the user with some 
-command line arguments to change some common
-options or use a preconfigured set of parameters.
+issue opened detailing various options
 
-Preconfigured parameters would be flags that 
-activate a particular default configuration/parameters
-dictionary. In the corresponding `.settings` file of the 
-workflow, each preset should be defined, and the 
-appropriate default selected when the Snakemake API
-is run.
-
-Presets can't define every parameter, though, 
-so the user must provide a config and params file
-regardless of the preset.
-
-```
-taco workflow1 --config=goodies/w1config.json \
-               --params=goodies/w1config.json \
-               --preset=turbo
-
-taco workflow1 --config=goodies/w1config.json \
-               --params=goodies/w1config.json \
-               --preset=nitro
-```
 
 ### `taco validate`
+
+among the many improvements planned.
 
 This takes an optional config and/or params argument and validates it.
 
@@ -66,6 +68,7 @@ taco validate \
     --config=goodies/w1config.json \
     --params=goodies/w1params.json
 ```
+
 
 ## rules
 
@@ -84,7 +87,7 @@ Read filtering walkthrough:
 
 ## done
 
-done:
+Done:
 
 * <s>finish read trim workflow</s>
 * <s>finish read trim walkthru</s>
@@ -98,13 +101,13 @@ done:
 * add a --clean option so we don't use any default parameters
 * only useful for testing.</s>
 
-more:
+More Done:
 
 * <s>make the program more robust to errors or misconfiguration</s> (see --clean)
 
-<s>requirements (see scripts/ folder, or [dahak-yeti](https://github.com/charlesreid1/dahak-yeti)):
+<s>requirements (see scripts/ folder, or [dahak-yeti](https://github.com/charlesreid1/dahak-yeti)):</s>
     
-* fix pyenv installation script
+* <s>fix pyenv installation script
 * fix conda installation script 
 * fix snakemake installation script
 * fix singularity installation script</s>
@@ -245,3 +248,5 @@ Dev:
 * docker singularity biocontainers bioconda</s>
 
 Note: some of these todos are not finished but have been moved to other repositories (taco-simple, taco-read-filtering, etc.)
+
+
