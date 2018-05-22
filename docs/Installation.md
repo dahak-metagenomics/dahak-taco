@@ -70,19 +70,14 @@ git checkout v1.0.0beta
 
 ## Build and Install
 
-The next step is to build and install the `taco` source code using `setup.py`:
+The next step is to build and install the `taco` source code using `setup.py`.
+To install `taco` as a system-level executable, run:
 
 ```
-$ python setup.py build
+$ python setup.py build install
 ```
 
-If you want to install taco as a system level module, run:
-
-```
-$ python setup.py install
-```
-
-If you want to install it as a user (recommended):
+To install `taco` as a user (recommended):
 
 ```
 $ python setup.py install --user
@@ -94,7 +89,14 @@ setup.py or pip method:
 ```
 $ virtualenv vp
 $ source vp/bin/activate
+
+# either:
+
 $ vp/bin/pip install dahak_taco
+
+# or:
+
+$ vp/bin/python setup.py build install
 ```
 
 This will install the taco command line utility as an 
