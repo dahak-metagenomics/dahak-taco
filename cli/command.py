@@ -54,36 +54,26 @@ def get_argument_parser(sysargs):
                         nargs="*")
 
 
-    cfggroup = parser.add_mutually_exclusive_group()
-    cfggroup.add_argument("--config-json",
-                       help = "Specify a workflow configuration file in JSON format",
+    parser.add_argument("--config",
+                       help = "Specify a workflow configuration file in JSON or YAML format (configuration controls what process is run)",
                        nargs=1)
-    cfggroup.add_argument("--config-yaml",
-                       help = "Specify a workflow configuration file in YAML format",
-                       nargs=1)
-
-
-    prmgroup = parser.add_mutually_exclusive_group()
-    prmgroup.add_argument("--params-json",
-                       help = "Specify a workflow parameters file in JSON format",
-                       nargs=1)
-    prmgroup.add_argument("--params-yaml",
-                       help = "Specify a workflow parameters file in YAML format",
+    parser.add_argument("--params",
+                       help = "Specify a workflow parameters file in JSON or YAML format (parameters control how a process is run)",
                        nargs=1)
 
 
     parser.add_argument('-c', '--clean', action='store_true', 
-            help="""Use a clean, empty default Snakemake parameters dictionary. Used for testing and debugging.""")
+            help="""Use a (clean) empty, default Snakemake parameters dictionary. Used for testing and debugging.""")
 
     parser.add_argument('-f', '--force', action='store_true', 
-            help="""Force Snakemake to run all rules in the workflow, even if target files already exist.""")
+            help="""Force Snakemake to run all rules in the workflow, even if the files the rule outputs already exist.""")
 
     parser.add_argument('-n', '--dry-run', action='store_true', 
             help="""Do a dry run with Snakemake: assemble but do not run the task graph.""")
 
     parser.add_argument('--prefix', action='store', 
             default='data/',
-            help="""Set the working directory where all files are generated.""")
+            help="""Set the working directory where all workflow files will be generated.""")
 
 
     args = parser.parse_args(sysargs)
@@ -95,9 +85,9 @@ def get_argument_parser(sysargs):
 def ls_verb(parser, args):
     """
     List verb.
-
     With no arguments, list all valid workflows.
     With one argument, use argument as workflow name.
+
     Check if workflow name is valid, and print all the 
     rules that workflow defines.
     """
@@ -143,7 +133,6 @@ def ls_verb(parser, args):
 
 
 
-
 def workflow_verb(parser, args):
     """
     Workflow verb.
@@ -177,50 +166,80 @@ def workflow_verb(parser, args):
     paramsfile = None
     smk_config = {}
 
-    if args.params_json is not None:
-        # load it 
-        paramsfile = args.params_json[0]
-        #smk_config = json.load(open(paramsfile,'r'))
 
-    elif args.params_yaml is not None:
-        # load it
-        paramsfile = args.params_yaml[0]
-        #smk_config = yaml.load(open(paramsfile,'r'))
+    # Option 1:
+    # Taco infers directory structure
+    # Requires one *config*{json,yaml} and one *param*{json,yaml}
 
+    def infer_file(shortname,longname):
+        """Use this to infer workflow config/param files"""
+
+        # Look for *params*{json,yaml,yml}
+        # or *config*{json,yaml,yml}
+        files =  glob.glob("*%s*json"%(shortname))
+        files += glob.glob("*%s*yaml"%(shortname))
+        files += glob.glob("*%s*yml"%(shortname))
+
+        raise_err = len(files)!=1
+        if len(files)>1:
+            howmany = 'more than one file'
+        else:
+            howmany = 'no files'
+        if raise_err:
+            err = 'Tried to infer workflow %s file '%(longname)
+            err += 'but found %s matching pattern: '%(howmany)
+            err += '*%s*{json,yaml,yml}'%(shortname)
+            die(err,parser)
+
+        if len(files)>1:
+            return files[0]
+
+
+    # Parameters file is passed on directly to Snakemake
+
+    if args.params is None:
+        paramsfile = infer_file('params','parameters')
     else:
-        # no parameters file
-        die(err='Could not find parameters file',
-            hint='Did you leave off a --params-* flag?',
-            parser=parser)
+        paramsfile = args.params[0]
+        _, ext = os.path.splitext(paramsfile)
+        valid_extensions = ['json','yaml','yml']
+        if ext.lower() not in valid_extensions:
+            err = 'Unrecognized file format for params file: %s'%(ext)
+            hint = 'Expected one of these: '%(", ".join(valid_extensions))
+            die(err=err,
+                hint=hint,
+                parser=parser)
 
     if not os.path.isfile(paramsfile):
-        die('The parameter file {} is not a valid file'.format(paramsfile),parser)
+        die('The workflow parameters file {} is not a valid file'.format(paramsfile),parser)
 
 
-    # Load Workflow Configuration.
-    # 
-    # The workflow configuration file 
-    # sets the workflow target to make.
+    # Config file is used to figure out how to call Snakemake
 
-    workflowfile = None
-    targets = []
-
-    if args.config_json is not None:
-        workflowfile = args.config_json[0]
-        flowinfo = json.load(open(workflowfile,'r'))
-
-    elif args.config_yaml is not None:
-        workflowfile = args.config_yaml[0]
-        flowinfo = yaml.load(open(workflowfile,'r'))
-
+    if args.config is None:
+        configfile = infer_file('config','configuration')
     else:
-        # no config file
-        die(err='Could not find workflow configuration file',
-            hint='Did you leave off a --config-* flag?',
-            parser=parser)
+        configfile = args.config[0]
+        _, ext = os.path.splitext(configfile)
+        valid_extensions = ['json','yaml','yml']
+        if ext.lower() not in valid_extensions:
+            err = 'Unrecognized file format for config file: %s'%(ext)
+            hint = 'Expected one of these: '%(", ".join(valid_extensions))
+            die(err=err,
+                hint=hint,
+                parser=parser)
+
+    if not os.path.isfile(configfile):
+        die('The workflow configuration file {} is not a valid file'.format(configfile),parser)
+    else:
+        _, ext = os.path.splitext(configfile)
+        if ext in ['yaml','yml']:
+            config_dictionary = yaml.load(open(workflowfile,'r'))
+        elif ext in ['json']:
+            config_dictionary = json.load(open(workflowfile,'r'))
 
     try:
-        targets = flowinfo['workflow_targets']
+        targets = config_dictionary['workflow_targets']
         if(type(targets)!=type([])):
             targets = [targets]
 
