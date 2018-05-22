@@ -50,14 +50,27 @@ Start by cloning a local copy of the repository:
 git clone https://github.com/dahak-metagenomics/dahak-taco
 ```
 
-You can specify a particular tag or branch with the 
-clone command, or use the default `stable` branch.
+By default, this will clone the `stable` branch.
+
+To specify a particular branch, use the `-b` flag:
+
+```
+git clone -b master https://github.com/dahak-metagenomics/dahak-taco
+```
+
+To go to a particular tag, clone the repository first, then
+check out the tag:
+
+```
+git clone https://github.com/dahak-metagenomics/dahak-taco
+cd dahak-taco/
+git checkout v1.0.0beta
+```
 
 
 ## Build and Install
 
-The next step is to build and install the `taco` source code
-using `setup.py`:
+The next step is to build and install the `taco` source code using `setup.py`:
 
 ```
 $ python setup.py build
@@ -73,12 +86,19 @@ If you want to install it as a user (recommended):
 
 ```
 $ python setup.py install --user
+```
 
-$ python setup.py install --user --prefix=    # <-- this is required on mac
+Or install it into a virtual environment using either the 
+setup.py or pip method:
+
+```
+$ virtualenv vp
+$ source vp/bin/activate
+$ vp/bin/pip install dahak_taco
 ```
 
 This will install the taco command line utility as an 
-executable program in the Python `bin` location. This 
+executable program in Python's `bin` location. This 
 location may or may not be on your path, and varies
 depending on your Python environment, but should be in
 
@@ -86,7 +106,7 @@ depending on your Python environment, but should be in
 $PYTHONHOME/bin
 ```
 
-This should be on your `$PATH` for you to be able to 
+This path should be on your `$PATH` for you to be able to 
 call `taco` from the command line.
 
 ## Run Tests
@@ -97,3 +117,12 @@ To run tests:
 python setup.py test
 ```
 
+## Full Circle
+
+Now you can run the help command:
+
+```
+$ taco --help
+```
+
+Now let's move on to usage.
